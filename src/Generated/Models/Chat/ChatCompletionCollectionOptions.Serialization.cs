@@ -67,8 +67,8 @@ namespace OpenAI.Chat
             {
                 return null;
             }
-            string afterId = default;
-            int? pageSizeLimit = default;
+            string after = default;
+            int? limit = default;
             ChatCompletionCollectionOrder? order = default;
             IDictionary<string, string> metadata = default;
             string model = default;
@@ -79,8 +79,8 @@ namespace OpenAI.Chat
                 additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
             }
             return new ChatCompletionCollectionOptions(
-                afterId,
-                pageSizeLimit,
+                after,
+                limit,
                 order,
                 metadata ?? new ChangeTrackingDictionary<string, string>(),
                 model,

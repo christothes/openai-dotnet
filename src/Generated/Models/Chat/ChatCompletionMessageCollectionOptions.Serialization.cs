@@ -67,8 +67,8 @@ namespace OpenAI.Chat
             {
                 return null;
             }
-            string afterId = default;
-            int? pageSizeLimit = default;
+            string after = default;
+            int? limit = default;
             ChatCompletionMessageCollectionOrder? order = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -76,7 +76,7 @@ namespace OpenAI.Chat
                 // Plugin customization: remove options.Format != "W" check
                 additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
             }
-            return new ChatCompletionMessageCollectionOptions(afterId, pageSizeLimit, order, additionalBinaryDataProperties);
+            return new ChatCompletionMessageCollectionOptions(after, limit, order, additionalBinaryDataProperties);
         }
 
         BinaryData IPersistableModel<ChatCompletionMessageCollectionOptions>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);

@@ -2,7 +2,6 @@
 
 #nullable disable
 
-using System;
 using System.ClientModel;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
@@ -35,35 +34,12 @@ namespace OpenAI.Chat
         public override async IAsyncEnumerable<ClientResult> GetRawPagesAsync()
         {
             PipelineMessage message = _client.CreateGetChatCompletionMessagesRequest(_completionId, _after, _limit, _order, _options);
-            string nextToken = null;
-            while (true)
-            {
-                ClientResult result = ClientResult.FromResponse(await _client.Pipeline.ProcessMessageAsync(message, _options).ConfigureAwait(false));
-                yield return result;
-
-                // Plugin customization: add hasMore assignment
-                bool hasMore = ((InternalChatCompletionMessageList)result).HasMore;
-                nextToken = ((InternalChatCompletionMessageList)result).LastId;
-                // Plugin customization: add hasMore == false check to pagination condition
-                if (nextToken == null || !hasMore)
-                {
-                    yield break;
-                }
-                message = _client.CreateGetChatCompletionMessagesRequest(_completionId, nextToken, _limit, _order, _options);
-            }
+            yield return ClientResult.FromResponse(await _client.Pipeline.ProcessMessageAsync(message, _options).ConfigureAwait(false));
         }
 
         public override ContinuationToken GetContinuationToken(ClientResult page)
         {
-            string nextPage = ((InternalChatCompletionMessageList)page).LastId;
-            if (nextPage != null)
-            {
-                return ContinuationToken.FromBytes(BinaryData.FromString(nextPage));
-            }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         protected override async IAsyncEnumerable<ChatCompletionMessageListDatum> GetValuesFromPageAsync(ClientResult page)

@@ -18,20 +18,20 @@ namespace OpenAI.Chat
         {
         }
 
-        internal ChatCompletionCollectionOptions(string afterId, int? pageSizeLimit, ChatCompletionCollectionOrder? order, IDictionary<string, string> metadata, string model, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ChatCompletionCollectionOptions(string after, int? limit, ChatCompletionCollectionOrder? order, IDictionary<string, string> metadata, string model, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
-            AfterId = afterId;
-            PageSizeLimit = pageSizeLimit;
+            After = after;
+            Limit = limit;
             Order = order;
             Metadata = metadata ?? new ChangeTrackingDictionary<string, string>();
             Model = model;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public string AfterId { get; set; }
+        public string After { get; set; }
 
-        public int? PageSizeLimit { get; set; }
+        public int? Limit { get; set; }
 
         public ChatCompletionCollectionOrder? Order { get; set; }
 
