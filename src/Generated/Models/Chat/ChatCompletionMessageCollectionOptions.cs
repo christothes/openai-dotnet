@@ -17,17 +17,17 @@ namespace OpenAI.Chat
         {
         }
 
-        internal ChatCompletionMessageCollectionOptions(string after, int? limit, ChatCompletionMessageCollectionOrder? order, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ChatCompletionMessageCollectionOptions(string afterId, int? pageSizeLimit, ChatCompletionMessageCollectionOrder? order, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
-            After = after;
-            Limit = limit;
+            AfterId = afterId;
+            PageSizeLimit = pageSizeLimit;
             Order = order;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public string After { get; set; }
+        public string AfterId { get; set; }
 
-        public int? Limit { get; set; }
+        public int? PageSizeLimit { get; set; }
 
         public ChatCompletionMessageCollectionOrder? Order { get; set; }
 

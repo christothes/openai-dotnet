@@ -300,9 +300,9 @@ namespace OpenAI
             return new ChatCompletionDeletionResult(deleted, @object, chatCompletionId, additionalBinaryDataProperties: null);
         }
 
-        public static ChatCompletionMessageCollectionOptions ChatCompletionMessageCollectionOptions(string after = default, int? limit = default, ChatCompletionMessageCollectionOrder? order = default)
+        public static ChatCompletionMessageCollectionOptions ChatCompletionMessageCollectionOptions(string afterId = default, int? pageSizeLimit = default, ChatCompletionMessageCollectionOrder? order = default)
         {
-            return new ChatCompletionMessageCollectionOptions(after, limit, order, additionalBinaryDataProperties: null);
+            return new ChatCompletionMessageCollectionOptions(afterId, pageSizeLimit, order, additionalBinaryDataProperties: null);
         }
 
         public static OpenAIEmbeddingCollection OpenAIEmbeddingCollection(IEnumerable<OpenAIEmbedding> data = default, string model = default, string @object = default, EmbeddingTokenUsage usage = default)
@@ -1075,13 +1075,13 @@ namespace OpenAI
                 additionalBinaryDataProperties: null);
         }
 
-        public static ChatCompletionCollectionOptions ChatCompletionCollectionOptions(string after = default, int? limit = default, ChatCompletionCollectionOrder? order = default, IDictionary<string, string> metadata = default, string model = default)
+        public static ChatCompletionCollectionOptions ChatCompletionCollectionOptions(string afterId = default, int? pageSizeLimit = default, ChatCompletionCollectionOrder? order = default, IDictionary<string, string> metadata = default, string model = default)
         {
             metadata ??= new ChangeTrackingDictionary<string, string>();
 
             return new ChatCompletionCollectionOptions(
-                after,
-                limit,
+                afterId,
+                pageSizeLimit,
                 order,
                 metadata,
                 model,
