@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 
 namespace OpenAI.Evals;
 
-[CodeGenSuppress("GetEvals", typeof(string), typeof(int?), typeof(string), typeof(string), typeof(RequestOptions))]
-[CodeGenSuppress("GetEvalsAsync", typeof(string), typeof(int?), typeof(string), typeof(string), typeof(RequestOptions))]
 [CodeGenSuppress("CreateEval", typeof(BinaryContent), typeof(RequestOptions))]
 [CodeGenSuppress("CreateEvalAsync", typeof(BinaryContent), typeof(RequestOptions))]
 [CodeGenSuppress("GetEval", typeof(string), typeof(RequestOptions))]

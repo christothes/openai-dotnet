@@ -24,5 +24,27 @@ namespace OpenAI.Evals
         }
 
         public ClientPipeline Pipeline { get; }
+
+        public virtual CollectionResult GetEvals(string after, int? limit, string order, string orderBy, RequestOptions options)
+        {
+            return new EvaluationClientGetEvalsCollectionResult(
+                this,
+                after,
+                limit,
+                order,
+                orderBy,
+                options);
+        }
+
+        public virtual AsyncCollectionResult GetEvalsAsync(string after, int? limit, string order, string orderBy, RequestOptions options)
+        {
+            return new EvaluationClientGetEvalsAsyncCollectionResult(
+                this,
+                after,
+                limit,
+                order,
+                orderBy,
+                options);
+        }
     }
 }
