@@ -119,6 +119,7 @@ interface FineTuning {
   @get
   @operationId("listFineTuningJobCheckpoints")
   @summary("List the checkpoints for a fine-tuning job.")
+  @list
   listFineTuningJobCheckpoints(
     @header accept: "application/json",
 
@@ -126,7 +127,7 @@ interface FineTuning {
     @path fine_tuning_job_id: string,
 
     /** Identifier for the last checkpoint ID from the previous pagination request. */
-    @query after?: string,
+    @continuationToken @query after?: string,
 
     /** Number of checkpoints to retrieve. */
     @query limit?: int32 = 10,

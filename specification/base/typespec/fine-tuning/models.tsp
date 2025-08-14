@@ -117,10 +117,10 @@ model ListFineTuningJobEventsResponse {
 }
 
 model ListFineTuningJobCheckpointsResponse {
-  data: FineTuningJobCheckpoint[];
+  @pageItems data: FineTuningJobCheckpoint[];
   object: "list";
-  first_id?: string | null;
-  last_id?: string | null;
+  first_id: string;
+  @continuationToken last_id: string;
   has_more: boolean;
 }
 

@@ -31,8 +31,6 @@ namespace OpenAI.FineTuning;
 [CodeGenSuppress("CancelFineTuningJob", typeof(string), typeof(CancellationToken))]
 [CodeGenSuppress("GetFineTuningEventsAsync", typeof(string), typeof(string), typeof(int?), typeof(CancellationToken))]
 [CodeGenSuppress("GetFineTuningEvents", typeof(string), typeof(string), typeof(int?), typeof(CancellationToken))]
-[CodeGenSuppress("GetFineTuningJobCheckpointsAsync", typeof(string), typeof(string), typeof(int?), typeof(CancellationToken))]
-[CodeGenSuppress("GetFineTuningJobCheckpoints", typeof(string), typeof(string), typeof(int?), typeof(CancellationToken))]
 [CodeGenSuppress("DeleteFineTuningCheckpointPermission", typeof(string), typeof(string), typeof(CancellationToken))]
 [CodeGenSuppress("DeleteFineTuningCheckpointPermissionAsync", typeof(string), typeof(string), typeof(CancellationToken))]
 [CodeGenSuppress("FineTuningClient", typeof(ClientPipeline), typeof(Uri))]

@@ -46,12 +46,12 @@ namespace OpenAI.FineTuning
                 writer.WritePropertyName("object"u8);
                 writer.WriteStringValue(Object);
             }
-            if (Optional.IsDefined(FirstId) && _additionalBinaryDataProperties?.ContainsKey("first_id") != true)
+            if (_additionalBinaryDataProperties?.ContainsKey("first_id") != true)
             {
                 writer.WritePropertyName("first_id"u8);
                 writer.WriteStringValue(FirstId);
             }
-            if (Optional.IsDefined(LastId) && _additionalBinaryDataProperties?.ContainsKey("last_id") != true)
+            if (_additionalBinaryDataProperties?.ContainsKey("last_id") != true)
             {
                 writer.WritePropertyName("last_id"u8);
                 writer.WriteStringValue(LastId);
@@ -127,21 +127,11 @@ namespace OpenAI.FineTuning
                 }
                 if (prop.NameEquals("first_id"u8))
                 {
-                    if (prop.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        firstId = null;
-                        continue;
-                    }
                     firstId = prop.Value.GetString();
                     continue;
                 }
                 if (prop.NameEquals("last_id"u8))
                 {
-                    if (prop.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        lastId = null;
-                        continue;
-                    }
                     lastId = prop.Value.GetString();
                     continue;
                 }

@@ -45,6 +45,14 @@ public class PaginationVisitor : ScmLibraryVisitor
         {
             "GetChatCompletionMessagesAsync",
             ("ChatCompletionMessageListDatum", "ChatCompletionMessageCollectionOptions", _chatParamsToReplace)
+        },
+        {
+            "GetFineTuningJobCheckpoints",
+            ("FineTuningCheckpoint", "CheckpointCollectionOptions", _chatParamsToReplace)
+        },
+        {
+            "GetFineTuningJobCheckpointsAsync",
+            ("FineTuningCheckpoint", "CheckpointCollectionOptions", _chatParamsToReplace)
         }
     };
 

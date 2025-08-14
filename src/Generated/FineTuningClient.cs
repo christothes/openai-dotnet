@@ -6,6 +6,7 @@ using System;
 using System.ClientModel;
 using System.ClientModel.Primitives;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Threading.Tasks;
 using OpenAI;
 
@@ -72,6 +73,34 @@ namespace OpenAI.FineTuning
 
             using PipelineMessage message = CreateDeleteFineTuningCheckpointPermissionRequest(fineTunedModelCheckpoint, permissionId, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
+        }
+
+        public virtual CollectionResult GetFineTuningJobCheckpoints(string fineTuningJobId, string after, int? limit, RequestOptions options)
+        {
+            Argument.AssertNotNullOrEmpty(fineTuningJobId, nameof(fineTuningJobId));
+
+            return new FineTuningClientGetFineTuningJobCheckpointsCollectionResult(this, fineTuningJobId, after, limit, options);
+        }
+
+        public virtual AsyncCollectionResult GetFineTuningJobCheckpointsAsync(string fineTuningJobId, string after, int? limit, RequestOptions options)
+        {
+            Argument.AssertNotNullOrEmpty(fineTuningJobId, nameof(fineTuningJobId));
+
+            return new FineTuningClientGetFineTuningJobCheckpointsAsyncCollectionResult(this, fineTuningJobId, after, limit, options);
+        }
+
+        public virtual CollectionResult<FineTuningCheckpoint> GetFineTuningJobCheckpoints(string fineTuningJobId, CheckpointCollectionOptions options = default, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(fineTuningJobId, nameof(fineTuningJobId));
+
+            return new FineTuningClientGetFineTuningJobCheckpointsCollectionResultOfT(this, fineTuningJobId, options?.AfterId, options?.PageSizeLimit, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
+        }
+
+        public virtual AsyncCollectionResult<FineTuningCheckpoint> GetFineTuningJobCheckpointsAsync(string fineTuningJobId, CheckpointCollectionOptions options = default, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNullOrEmpty(fineTuningJobId, nameof(fineTuningJobId));
+
+            return new FineTuningClientGetFineTuningJobCheckpointsAsyncCollectionResultOfT(this, fineTuningJobId, options?.AfterId, options?.PageSizeLimit, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
         }
 
         public virtual ClientResult PauseFineTuningJob(string fineTuningJobId, RequestOptions options)

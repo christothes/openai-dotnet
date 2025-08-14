@@ -13,9 +13,11 @@ namespace OpenAI.FineTuning
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalListFineTuningJobCheckpointsResponse(IEnumerable<FineTuningCheckpoint> data, bool hasMore)
+        internal InternalListFineTuningJobCheckpointsResponse(IEnumerable<FineTuningCheckpoint> data, string firstId, string lastId, bool hasMore)
         {
             Data = data.ToList();
+            FirstId = firstId;
+            LastId = lastId;
             HasMore = hasMore;
         }
 
