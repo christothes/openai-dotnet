@@ -52,5 +52,3 @@ model ChatCompletionMessageCollectionOptions {
   ...CollectionLimitQueryParameter,
   ...ChatCompletionMessageCollectionOrderQueryParameter,
 }
-
-

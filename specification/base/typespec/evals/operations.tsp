@@ -15,11 +15,12 @@ interface Evals {
   @operationId("listEvals")
   @tag("Evals")
   @summary("List evaluations for a project.")
+  @list
   listEvals(
     /**
      * Identifier for the last eval from the previous pagination request.
      */
-    @query after?: string,
+    @continuationToken @query after?: string,
 
     /**
      * A limit on the number of evals to be returned in a single pagination response.

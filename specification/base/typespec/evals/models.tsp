@@ -459,13 +459,13 @@ model EvalList {
   object: "list" = "list";
 
   /** An array of eval objects. */
-  data: Eval[];
+  @pageItems data: Eval[];
 
   /** The identifier of the first eval in the data array. */
   first_id: string;
 
   /** The identifier of the last eval in the data array. */
-  last_id: string;
+  @continuationToken last_id: string;
 
   /** Indicates whether there are more evals available. */
   has_more: boolean;
