@@ -7,7 +7,7 @@ union CreateFineTuningJobRequestHyperparametersBatchSizeChoiceEnum {
 }
 union CreateFineTuningJobRequestHyperparametersBatchSizeOption {
   CreateFineTuningJobRequestHyperparametersBatchSizeChoiceEnum,
-  int32,
+  integer,
 }
 
 union CreateFineTuningJobRequestHyperparametersLearningRateMultiplierChoiceEnum {
@@ -23,7 +23,7 @@ union CreateFineTuningJobRequestHyperparametersNEpochsChoiceEnum {
 }
 union CreateFineTuningJobRequestHyperparametersNEpochsOption {
   CreateFineTuningJobRequestHyperparametersNEpochsChoiceEnum,
-  int32,
+  integer,
 }
 
 union CreateFineTuningJobRequestHyperparametersBetaChoiceEnum {
@@ -31,7 +31,7 @@ union CreateFineTuningJobRequestHyperparametersBetaChoiceEnum {
 }
 union CreateFineTuningJobRequestHyperparametersBetaOption {
   CreateFineTuningJobRequestHyperparametersLearningRateMultiplierChoiceEnum,
-  int32,
+  integer,
 }
 
 @discriminator("type")
@@ -56,6 +56,6 @@ model FineTuningIntegration {
 }
 
 model FineTuningJobsPageToken {
-  limit?: int32;
+  limit?: integer;
   after?: string;
 }

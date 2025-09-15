@@ -11,7 +11,7 @@ namespace OpenAI.Responses;
 
 internal class ResponseItemCollectionPageToken : ContinuationToken
 {
-    protected ResponseItemCollectionPageToken(int? limit, string? order, string? after, string? before)
+    protected ResponseItemCollectionPageToken(long? limit, string? order, string? after, string? before)
     {
         Limit = limit;
         Order = order;
@@ -19,7 +19,7 @@ internal class ResponseItemCollectionPageToken : ContinuationToken
         Before = before;
     }
 
-    public int? Limit { get; }
+    public long? Limit { get; }
 
     public string? Order { get; }
 
@@ -131,7 +131,7 @@ internal class ResponseItemCollectionPageToken : ContinuationToken
     public static ResponseItemCollectionPageToken FromOptions(int? limit, string? order, string? after, string? before)
         => new ResponseItemCollectionPageToken(limit, order, after, before);
 
-    public static ResponseItemCollectionPageToken? FromResponse(ClientResult result, int? limit, string? order, string? before)
+    public static ResponseItemCollectionPageToken? FromResponse(ClientResult result, long? limit, string? order, string? before)
     {
         PipelineResponse response = result.GetRawResponse();
         using JsonDocument doc = JsonDocument.Parse(response.Content);

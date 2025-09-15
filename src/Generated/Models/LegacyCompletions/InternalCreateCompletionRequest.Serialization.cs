@@ -191,13 +191,13 @@ namespace OpenAI.LegacyCompletions
             }
             InternalCreateCompletionRequestModel model = default;
             BinaryData prompt = default;
-            int? bestOf = default;
+            long? bestOf = default;
             bool? echo = default;
             float? frequencyPenalty = default;
-            IDictionary<string, int> logitBias = default;
-            int? logprobs = default;
-            int? maxTokens = default;
-            int? n = default;
+            IDictionary<string, long> logitBias = default;
+            long? logprobs = default;
+            long? maxTokens = default;
+            long? n = default;
             float? presencePenalty = default;
             long? seed = default;
             BinaryData stop = default;
@@ -232,7 +232,7 @@ namespace OpenAI.LegacyCompletions
                         bestOf = null;
                         continue;
                     }
-                    bestOf = prop.Value.GetInt32();
+                    bestOf = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("echo"u8))
@@ -261,10 +261,10 @@ namespace OpenAI.LegacyCompletions
                     {
                         continue;
                     }
-                    Dictionary<string, int> dictionary = new Dictionary<string, int>();
+                    Dictionary<string, long> dictionary = new Dictionary<string, long>();
                     foreach (var prop0 in prop.Value.EnumerateObject())
                     {
-                        dictionary.Add(prop0.Name, prop0.Value.GetInt32());
+                        dictionary.Add(prop0.Name, prop0.Value.GetInt64());
                     }
                     logitBias = dictionary;
                     continue;
@@ -276,7 +276,7 @@ namespace OpenAI.LegacyCompletions
                         logprobs = null;
                         continue;
                     }
-                    logprobs = prop.Value.GetInt32();
+                    logprobs = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("max_tokens"u8))
@@ -286,7 +286,7 @@ namespace OpenAI.LegacyCompletions
                         maxTokens = null;
                         continue;
                     }
-                    maxTokens = prop.Value.GetInt32();
+                    maxTokens = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("n"u8))
@@ -296,7 +296,7 @@ namespace OpenAI.LegacyCompletions
                         n = null;
                         continue;
                     }
-                    n = prop.Value.GetInt32();
+                    n = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("presence_penalty"u8))
@@ -393,7 +393,7 @@ namespace OpenAI.LegacyCompletions
                 bestOf,
                 echo,
                 frequencyPenalty,
-                logitBias ?? new ChangeTrackingDictionary<string, int>(),
+                logitBias ?? new ChangeTrackingDictionary<string, long>(),
                 logprobs,
                 maxTokens,
                 n,

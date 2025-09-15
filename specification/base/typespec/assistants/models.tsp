@@ -188,7 +188,7 @@ model AssistantToolsFileSearch extends AssistantToolDefinition {
       """)
     @minValue(1)
     @maxValue(50)
-    max_num_results?: int32;
+    max_num_results?: integer;
 
     ranking_options?: FileSearchRankingOptions;
   };
@@ -239,7 +239,7 @@ model AssistantObject {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the assistant was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** The name of the assistant. The maximum length is 256 characters. */
@@ -308,7 +308,7 @@ model TruncationObject {
 
   /** The number of most recent messages from the thread when constructing the context for the run. */
   @minValue(1)
-  last_messages?: int32 | null;
+  last_messages?: integer | null;
 }
 
 @doc("""

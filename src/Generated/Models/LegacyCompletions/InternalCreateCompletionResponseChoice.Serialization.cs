@@ -99,7 +99,7 @@ namespace OpenAI.LegacyCompletions
                 return null;
             }
             InternalCreateCompletionResponseChoiceFinishReason finishReason = default;
-            int index = default;
+            long index = default;
             InternalCreateCompletionResponseChoiceLogprobs logprobs = default;
             string text = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -112,7 +112,7 @@ namespace OpenAI.LegacyCompletions
                 }
                 if (prop.NameEquals("index"u8))
                 {
-                    index = prop.Value.GetInt32();
+                    index = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("logprobs"u8))

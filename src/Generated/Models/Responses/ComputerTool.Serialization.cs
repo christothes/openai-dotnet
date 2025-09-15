@@ -70,8 +70,8 @@ namespace OpenAI.Responses
             InternalToolType kind = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             ComputerToolEnvironment environment = default;
-            int displayWidth = default;
-            int displayHeight = default;
+            long displayWidth = default;
+            long displayHeight = default;
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
@@ -86,12 +86,12 @@ namespace OpenAI.Responses
                 }
                 if (prop.NameEquals("display_width"u8))
                 {
-                    displayWidth = prop.Value.GetInt32();
+                    displayWidth = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("display_height"u8))
                 {
-                    displayHeight = prop.Value.GetInt32();
+                    displayHeight = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

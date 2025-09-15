@@ -13,7 +13,7 @@ namespace OpenAI.Graders
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal RunGraderResponseMetadata(string name, string kind, RunGraderResponseMetadataErrors errors, float executionTime, BinaryData scores, int? tokenUsage, string sampledModelName)
+        internal RunGraderResponseMetadata(string name, string kind, RunGraderResponseMetadataErrors errors, float executionTime, BinaryData scores, long? tokenUsage, string sampledModelName)
         {
             Name = name;
             Kind = kind;
@@ -24,7 +24,7 @@ namespace OpenAI.Graders
             SampledModelName = sampledModelName;
         }
 
-        internal RunGraderResponseMetadata(string name, string kind, RunGraderResponseMetadataErrors errors, float executionTime, BinaryData scores, int? tokenUsage, string sampledModelName, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal RunGraderResponseMetadata(string name, string kind, RunGraderResponseMetadataErrors errors, float executionTime, BinaryData scores, long? tokenUsage, string sampledModelName, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Name = name;
             Kind = kind;
@@ -46,7 +46,7 @@ namespace OpenAI.Graders
 
         public BinaryData Scores { get; }
 
-        public int? TokenUsage { get; }
+        public long? TokenUsage { get; }
 
         public string SampledModelName { get; }
 

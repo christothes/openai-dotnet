@@ -68,7 +68,7 @@ namespace OpenAI.Chat
                 return null;
             }
             string afterId = default;
-            int? pageSizeLimit = default;
+            long? pageSizeLimit = default;
             ChatCompletionCollectionOrder? order = default;
             IDictionary<string, string> metadata = default;
             string model = default;

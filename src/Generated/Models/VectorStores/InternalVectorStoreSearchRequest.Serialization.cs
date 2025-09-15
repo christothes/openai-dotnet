@@ -112,7 +112,7 @@ namespace OpenAI.VectorStores
             }
             BinaryData query = default;
             bool? rewriteQuery = default;
-            int? maxNumResults = default;
+            long? maxNumResults = default;
             BinaryData filters = default;
             InternalVectorStoreSearchRequestRankingOptions rankingOptions = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -138,7 +138,7 @@ namespace OpenAI.VectorStores
                     {
                         continue;
                     }
-                    maxNumResults = prop.Value.GetInt32();
+                    maxNumResults = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("filters"u8))

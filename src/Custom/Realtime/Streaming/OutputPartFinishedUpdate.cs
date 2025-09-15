@@ -24,12 +24,12 @@ public partial class OutputPartFinishedUpdate : RealtimeUpdate
         => _contentPartDone?.ItemId
         ?? _functionCallArgumentsDone?.ItemId;
 
-    public int ItemIndex
+    public long ItemIndex
         => _contentPartDone?.OutputIndex
         ?? _functionCallArgumentsDone?.OutputIndex
         ?? 0;
 
-    public int ContentPartIndex
+    public long ContentPartIndex
         => _contentPartDone?.ContentIndex
         ?? 0;
 

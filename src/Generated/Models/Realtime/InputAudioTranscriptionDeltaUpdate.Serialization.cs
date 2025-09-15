@@ -81,7 +81,7 @@ namespace OpenAI.Realtime
             string eventId = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             string itemId = default;
-            int? contentIndex = default;
+            long? contentIndex = default;
             string delta = default;
             IList<InternalDotNetRealtimeLogProbProperties> logprobs = default;
             foreach (var prop in element.EnumerateObject())
@@ -107,7 +107,7 @@ namespace OpenAI.Realtime
                     {
                         continue;
                     }
-                    contentIndex = prop.Value.GetInt32();
+                    contentIndex = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("delta"u8))

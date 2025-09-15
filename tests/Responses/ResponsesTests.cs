@@ -835,7 +835,7 @@ public partial class ResponsesTests : SyncAsyncTestBase
         AsyncCollectionResult<StreamingResponseUpdate> updates = client.CreateResponseStreamingAsync("Hello, model!", options);
 
         string queuedResponseId = null;
-        int lastSequenceNumber = 0;
+        long lastSequenceNumber = 0;
 
         await foreach (StreamingResponseUpdate update in updates)
         {
@@ -863,7 +863,7 @@ public partial class ResponsesTests : SyncAsyncTestBase
         AsyncCollectionResult<StreamingResponseUpdate> continuedUpdates = client.GetResponseStreamingAsync(queuedResponseId, startingAfter: lastSequenceNumber);
 
         OpenAIResponse completedResponse = null;
-        int? firstContinuedSequenceNumber = null;
+        long? firstContinuedSequenceNumber = null;
 
         await foreach (StreamingResponseUpdate update in continuedUpdates)
         {

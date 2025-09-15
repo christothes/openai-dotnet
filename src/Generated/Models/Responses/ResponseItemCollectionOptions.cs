@@ -17,7 +17,7 @@ namespace OpenAI.Responses
         {
         }
 
-        internal ResponseItemCollectionOptions(string afterId, string beforeId, int? pageSizeLimit, ResponseItemCollectionOrder? order, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ResponseItemCollectionOptions(string afterId, string beforeId, long? pageSizeLimit, ResponseItemCollectionOrder? order, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             AfterId = afterId;
             BeforeId = beforeId;
@@ -30,7 +30,7 @@ namespace OpenAI.Responses
 
         public string BeforeId { get; set; }
 
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
 
         public ResponseItemCollectionOrder? Order { get; set; }
 

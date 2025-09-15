@@ -82,7 +82,7 @@ namespace OpenAI.VectorStores
                 return null;
             }
             VectorStoreExpirationAnchor anchor = default;
-            int days = default;
+            long days = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -93,7 +93,7 @@ namespace OpenAI.VectorStores
                 }
                 if (prop.NameEquals("days"u8))
                 {
-                    days = prop.Value.GetInt32();
+                    days = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

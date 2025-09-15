@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace OpenAI.Batch;
 
-[CodeGenSuppress("GetBatches", typeof(string), typeof(int?), typeof(RequestOptions))]
-[CodeGenSuppress("GetBatchesAsync", typeof(string), typeof(int?), typeof(RequestOptions))]
+[CodeGenSuppress("GetBatches", typeof(string), typeof(long?), typeof(RequestOptions))]
+[CodeGenSuppress("GetBatchesAsync", typeof(string), typeof(long?), typeof(RequestOptions))]
 public partial class BatchClient
 {
     /// <summary>

@@ -17,7 +17,7 @@ namespace OpenAI.Containers
         {
         }
 
-        internal ContainerFileCollectionOptions(string afterId, int? pageSizeLimit, ContainerCollectionOrder? order, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ContainerFileCollectionOptions(string afterId, long? pageSizeLimit, ContainerCollectionOrder? order, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             AfterId = afterId;
             PageSizeLimit = pageSizeLimit;
@@ -27,7 +27,7 @@ namespace OpenAI.Containers
 
         public string AfterId { get; set; }
 
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
 
         public ContainerCollectionOrder? Order { get; set; }
 

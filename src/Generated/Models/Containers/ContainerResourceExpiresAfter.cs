@@ -17,7 +17,7 @@ namespace OpenAI.Containers
         {
         }
 
-        internal ContainerResourceExpiresAfter(string anchor, int? minutes, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ContainerResourceExpiresAfter(string anchor, long? minutes, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Anchor = anchor;
             Minutes = minutes;
@@ -26,7 +26,7 @@ namespace OpenAI.Containers
 
         public string Anchor { get; }
 
-        public int? Minutes { get; }
+        public long? Minutes { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

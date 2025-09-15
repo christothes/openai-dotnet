@@ -15,7 +15,7 @@ namespace OpenAI.Realtime
         {
         }
 
-        internal InternalRealtimeTranscriptionSessionCreateRequestTurnDetection(InternalRealtimeTranscriptionSessionCreateRequestTurnDetectionType? kind, InternalRealtimeTranscriptionSessionCreateRequestTurnDetectionEagerness? eagerness, float? threshold, int? prefixPaddingMs, int? silenceDurationMs, bool? createResponse, bool? interruptResponse, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalRealtimeTranscriptionSessionCreateRequestTurnDetection(InternalRealtimeTranscriptionSessionCreateRequestTurnDetectionType? kind, InternalRealtimeTranscriptionSessionCreateRequestTurnDetectionEagerness? eagerness, float? threshold, long? prefixPaddingMs, long? silenceDurationMs, bool? createResponse, bool? interruptResponse, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Kind = kind;
             Eagerness = eagerness;
@@ -33,9 +33,9 @@ namespace OpenAI.Realtime
 
         public float? Threshold { get; set; }
 
-        public int? PrefixPaddingMs { get; set; }
+        public long? PrefixPaddingMs { get; set; }
 
-        public int? SilenceDurationMs { get; set; }
+        public long? SilenceDurationMs { get; set; }
 
         public bool? CreateResponse { get; set; }
 

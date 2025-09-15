@@ -124,7 +124,7 @@ namespace OpenAI.Responses
             }
             string kind = default;
             IList<string> command = default;
-            int? timeoutMs = default;
+            long? timeoutMs = default;
             string workingDirectory = default;
             IDictionary<string, string> env = default;
             string user = default;
@@ -160,7 +160,7 @@ namespace OpenAI.Responses
                         timeoutMs = null;
                         continue;
                     }
-                    timeoutMs = prop.Value.GetInt32();
+                    timeoutMs = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("working_directory"u8))

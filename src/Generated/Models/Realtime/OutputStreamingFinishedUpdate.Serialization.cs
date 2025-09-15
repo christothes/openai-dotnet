@@ -71,7 +71,7 @@ namespace OpenAI.Realtime
             string eventId = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             string responseId = default;
-            int outputIndex = default;
+            long outputIndex = default;
             InternalRealtimeResponseItem internalItem = default;
             foreach (var prop in element.EnumerateObject())
             {
@@ -92,7 +92,7 @@ namespace OpenAI.Realtime
                 }
                 if (prop.NameEquals("output_index"u8))
                 {
-                    outputIndex = prop.Value.GetInt32();
+                    outputIndex = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("item"u8))

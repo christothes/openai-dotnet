@@ -12,7 +12,7 @@ namespace OpenAI.Responses
     [Experimental("OPENAI001")]
     public partial class FileCitationMessageAnnotation : ResponseMessageAnnotation
     {
-        public FileCitationMessageAnnotation(string fileId, int index) : base(ResponseMessageAnnotationKind.FileCitation)
+        public FileCitationMessageAnnotation(string fileId, long index) : base(ResponseMessageAnnotationKind.FileCitation)
         {
             Argument.AssertNotNull(fileId, nameof(fileId));
 
@@ -20,7 +20,7 @@ namespace OpenAI.Responses
             Index = index;
         }
 
-        internal FileCitationMessageAnnotation(ResponseMessageAnnotationKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, string fileId, int index) : base(kind, additionalBinaryDataProperties)
+        internal FileCitationMessageAnnotation(ResponseMessageAnnotationKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, string fileId, long index) : base(kind, additionalBinaryDataProperties)
         {
             FileId = fileId;
             Index = index;
@@ -28,6 +28,6 @@ namespace OpenAI.Responses
 
         public string FileId { get; set; }
 
-        public int Index { get; set; }
+        public long Index { get; set; }
     }
 }

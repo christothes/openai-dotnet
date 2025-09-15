@@ -23,7 +23,7 @@ namespace OpenAI.VectorStores
 
         public ClientPipeline Pipeline { get; }
 
-        public virtual CollectionResult GetVectorStores(int? limit, string order, string after, string before, RequestOptions options)
+        public virtual CollectionResult GetVectorStores(long? limit, string order, string after, string before, RequestOptions options)
         {
             return new VectorStoreClientGetVectorStoresCollectionResult(
                 this,
@@ -34,7 +34,7 @@ namespace OpenAI.VectorStores
                 options);
         }
 
-        public virtual AsyncCollectionResult GetVectorStoresAsync(int? limit, string order, string after, string before, RequestOptions options)
+        public virtual AsyncCollectionResult GetVectorStoresAsync(long? limit, string order, string after, string before, RequestOptions options)
         {
             return new VectorStoreClientGetVectorStoresAsyncCollectionResult(
                 this,
@@ -187,7 +187,7 @@ namespace OpenAI.VectorStores
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
-        public virtual CollectionResult GetVectorStoreFilesInBatch(string vectorStoreId, string batchId, int? limit, string order, string after, string before, string filter, RequestOptions options)
+        public virtual CollectionResult GetVectorStoreFilesInBatch(string vectorStoreId, string batchId, long? limit, string order, string after, string before, string filter, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(batchId, nameof(batchId));
@@ -204,7 +204,7 @@ namespace OpenAI.VectorStores
                 options);
         }
 
-        public virtual AsyncCollectionResult GetVectorStoreFilesInBatchAsync(string vectorStoreId, string batchId, int? limit, string order, string after, string before, string filter, RequestOptions options)
+        public virtual AsyncCollectionResult GetVectorStoreFilesInBatchAsync(string vectorStoreId, string batchId, long? limit, string order, string after, string before, string filter, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(batchId, nameof(batchId));
@@ -255,7 +255,7 @@ namespace OpenAI.VectorStores
                 cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
         }
 
-        public virtual CollectionResult GetVectorStoreFiles(string vectorStoreId, int? limit, string order, string after, string before, string filter, RequestOptions options)
+        public virtual CollectionResult GetVectorStoreFiles(string vectorStoreId, long? limit, string order, string after, string before, string filter, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
 
@@ -270,7 +270,7 @@ namespace OpenAI.VectorStores
                 options);
         }
 
-        public virtual AsyncCollectionResult GetVectorStoreFilesAsync(string vectorStoreId, int? limit, string order, string after, string before, string filter, RequestOptions options)
+        public virtual AsyncCollectionResult GetVectorStoreFilesAsync(string vectorStoreId, long? limit, string order, string after, string before, string filter, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
 

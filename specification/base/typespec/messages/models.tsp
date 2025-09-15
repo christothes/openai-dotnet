@@ -79,7 +79,7 @@ model MessageObject {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the message was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** The [thread](/docs/api-reference/threads) ID that this message belongs to. */
@@ -103,12 +103,12 @@ model MessageObject {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the message was completed. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   completed_at: utcDateTime | null;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the message was marked as incomplete. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   incomplete_at: utcDateTime | null;
 
   @doc("""
@@ -201,10 +201,10 @@ model MessageContentTextAnnotationsFileCitationObject
   };
 
   @minValue(0)
-  start_index: int32;
+  start_index: integer;
 
   @minValue(0)
-  end_index: int32;
+  end_index: integer;
 }
 
 // Tool customization (apply_discriminator): apply custom, common base type to union items
@@ -227,17 +227,17 @@ model MessageContentTextAnnotationsFilePathObject
   };
 
   @minValue(0)
-  start_index: int32;
+  start_index: integer;
 
   @minValue(0)
-  end_index: int32;
+  end_index: integer;
 }
 
 // Tool customization (apply_discriminator): apply custom, common base type to union items
 /** References an image [File](/docs/api-reference/files) in the content of a message. */
 model MessageDeltaContentImageFileObject extends MessageDeltaContent {
   /** The index of the content part in the message. */
-  index: int32;
+  index: integer;
 
   @doc("""
     Always `image_file`.
@@ -279,7 +279,7 @@ model MessageContentImageUrlObject extends MessageContent {
 /** References an image URL in the content of a message. */
 model MessageDeltaContentImageUrlObject extends MessageDeltaContent {
   /** The index of the content part in the message. */
-  index: int32;
+  index: integer;
 
   @doc("""
     Always `image_url`.
@@ -325,7 +325,7 @@ model MessageDeltaObject {
 /** The text content that is part of a message. */
 model MessageDeltaContentTextObject extends MessageDeltaContent {
   /** The index of the content part in the message. */
-  index: int32;
+  index: integer;
 
   @doc("""
     Always `text`.
@@ -349,7 +349,7 @@ alias MessageRequestContentTextObject = MessageContentTextObject;
 model MessageDeltaContentTextAnnotationsFileCitationObject
   extends MessageDeltaTextContentAnnotation {
   /** The index of the annotation in the text content part. */
-  index: int32;
+  index: integer;
 
   @doc("""
     Always `file_citation`.
@@ -368,10 +368,10 @@ model MessageDeltaContentTextAnnotationsFileCitationObject
   };
 
   @minValue(0)
-  start_index?: int32;
+  start_index?: integer;
 
   @minValue(0)
-  end_index?: int32;
+  end_index?: integer;
 }
 
 // Tool customization (apply_discriminator): apply custom, common base type to union items
@@ -381,7 +381,7 @@ model MessageDeltaContentTextAnnotationsFileCitationObject
 model MessageDeltaContentTextAnnotationsFilePathObject
   extends MessageDeltaTextContentAnnotation {
   /** The index of the annotation in the text content part. */
-  index: int32;
+  index: integer;
 
   @doc("""
     Always `file_path`.
@@ -397,17 +397,17 @@ model MessageDeltaContentTextAnnotationsFilePathObject
   };
 
   @minValue(0)
-  start_index?: int32;
+  start_index?: integer;
 
   @minValue(0)
-  end_index?: int32;
+  end_index?: integer;
 }
 
 // Tool customization (apply_discriminator): apply custom, common base type to union items
 /** The refusal content that is part of a message. */
 model MessageDeltaContentRefusalObject extends MessageDeltaContent {
   /** The index of the refusal part in the message. */
-  index: int32;
+  index: integer;
 
   @doc("""
     Always `refusal`.

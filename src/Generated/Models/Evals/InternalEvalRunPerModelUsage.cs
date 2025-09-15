@@ -11,7 +11,7 @@ namespace OpenAI.Evals
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalEvalRunPerModelUsage(string modelName, int invocationCount, int promptTokens, int completionTokens, int totalTokens, int cachedTokens)
+        internal InternalEvalRunPerModelUsage(string modelName, long invocationCount, long promptTokens, long completionTokens, long totalTokens, long cachedTokens)
         {
             ModelName = modelName;
             InvocationCount = invocationCount;
@@ -21,7 +21,7 @@ namespace OpenAI.Evals
             CachedTokens = cachedTokens;
         }
 
-        internal InternalEvalRunPerModelUsage(string modelName, int invocationCount, int promptTokens, int completionTokens, int totalTokens, int cachedTokens, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalEvalRunPerModelUsage(string modelName, long invocationCount, long promptTokens, long completionTokens, long totalTokens, long cachedTokens, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             ModelName = modelName;
             InvocationCount = invocationCount;
@@ -34,15 +34,15 @@ namespace OpenAI.Evals
 
         public string ModelName { get; }
 
-        public int InvocationCount { get; }
+        public long InvocationCount { get; }
 
-        public int PromptTokens { get; }
+        public long PromptTokens { get; }
 
-        public int CompletionTokens { get; }
+        public long CompletionTokens { get; }
 
-        public int TotalTokens { get; }
+        public long TotalTokens { get; }
 
-        public int CachedTokens { get; }
+        public long CachedTokens { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

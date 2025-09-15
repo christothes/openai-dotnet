@@ -11,7 +11,7 @@ namespace OpenAI.Responses
     [Experimental("OPENAI001")]
     public partial class StreamingResponseTextAnnotationAddedUpdate : StreamingResponseUpdate
     {
-        internal StreamingResponseTextAnnotationAddedUpdate(int sequenceNumber, string itemId, int outputIndex, int contentIndex, int annotationIndex, BinaryData annotation) : base(InternalResponseStreamEventType.ResponseOutputTextAnnotationAdded, sequenceNumber)
+        internal StreamingResponseTextAnnotationAddedUpdate(long sequenceNumber, string itemId, long outputIndex, long contentIndex, long annotationIndex, BinaryData annotation) : base(InternalResponseStreamEventType.ResponseOutputTextAnnotationAdded, sequenceNumber)
         {
             ItemId = itemId;
             OutputIndex = outputIndex;
@@ -20,7 +20,7 @@ namespace OpenAI.Responses
             Annotation = annotation;
         }
 
-        internal StreamingResponseTextAnnotationAddedUpdate(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, int outputIndex, int contentIndex, int annotationIndex, BinaryData annotation) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal StreamingResponseTextAnnotationAddedUpdate(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, long outputIndex, long contentIndex, long annotationIndex, BinaryData annotation) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
             ItemId = itemId;
             OutputIndex = outputIndex;
@@ -31,11 +31,11 @@ namespace OpenAI.Responses
 
         public string ItemId { get; }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
 
-        public int AnnotationIndex { get; }
+        public long AnnotationIndex { get; }
 
         public BinaryData Annotation { get; }
     }

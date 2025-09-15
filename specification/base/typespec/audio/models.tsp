@@ -32,7 +32,7 @@ alias TranscriptTextDeltaEventLogprob = {
   logprob?: float32;
 
   /** The bytes that were used to generate the log probability. */
-  bytes?: int32[];
+  bytes?: integer[];
 };
 
 // Tool generated type. Extracts from TranscriptTextDoneEvent.logprobs
@@ -44,7 +44,7 @@ alias TranscriptTextDoneEventLogprob = {
   logprob?: float32;
 
   /** The bytes that were used to generate the log probability. */
-  bytes?: int32[];
+  bytes?: integer[];
 };
 
 @doc("""
@@ -264,10 +264,10 @@ model CreateTranscriptionResponseStreamEvent {
 
 model TranscriptionSegment {
   /** Unique identifier of the segment. */
-  id: int32;
+  id: integer;
 
   /** Seek offset of the segment. */
-  seek: int32;
+  seek: integer;
 
   // Tool customization: numeric timespans are encoded durations
   /** Start time of the segment in seconds. */
@@ -283,7 +283,7 @@ model TranscriptionSegment {
   text: string;
 
   /** Array of token IDs for the text content. */
-  tokens: int32[];
+  tokens: integer[];
 
   /** Temperature parameter used for generating the segment. */
   temperature: float32;
@@ -378,14 +378,14 @@ model VadConfig {
    * Amount of audio to include before the VAD detected speech (in
    * milliseconds).
    */
-  prefix_padding_ms?: int32 = 300;
+  prefix_padding_ms?: integer = 300;
 
   /**
    * Duration of silence to detect speech stop (in milliseconds).
    * With shorter values the model will respond more quickly,
    * but may jump in on short pauses from the user.
    */
-  silence_duration_ms?: int32 = 200;
+  silence_duration_ms?: integer = 200;
 
   /**
    * Sensitivity threshold (0.0 to 1.0) for voice activity detection. A

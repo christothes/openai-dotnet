@@ -22,7 +22,7 @@ alias BatchErrorsData = {
   param?: string | null;
 
   /** The line number of the input file where the error occurred, if applicable. */
-  line?: int32 | null;
+  line?: integer | null;
 };
 
 model Batch {
@@ -71,59 +71,59 @@ model Batch {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the batch was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the batch started processing. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   in_progress_at?: utcDateTime;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the batch will expire. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   expires_at?: utcDateTime;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the batch started finalizing. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   finalizing_at?: utcDateTime;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the batch was completed. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   completed_at?: utcDateTime;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the batch failed. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   failed_at?: utcDateTime;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the batch expired. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   expired_at?: utcDateTime;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the batch started cancelling. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   cancelling_at?: utcDateTime;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the batch was cancelled. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   cancelled_at?: utcDateTime;
 
   /** The request counts for different statuses within the batch. */
   request_counts?: {
     /** Total number of requests in the batch. */
-    total: int32;
+    total: integer;
 
     /** Number of requests that have been completed successfully. */
-    completed: int32;
+    completed: integer;
 
     /** Number of requests that have failed. */
-    failed: int32;
+    failed: integer;
   };
 
   ...MetadataPropertyForResponse;
@@ -155,7 +155,7 @@ model BatchRequestOutput {
 
   response?: {
     /** The HTTP status code of the response */
-    status_code?: int32;
+    status_code?: integer;
 
     /** An unique identifier for the OpenAI API request. Please include this request ID when contacting support. */
     request_id?: string;

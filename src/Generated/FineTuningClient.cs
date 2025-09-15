@@ -22,7 +22,7 @@ namespace OpenAI.FineTuning
 
         public ClientPipeline Pipeline { get; }
 
-        public virtual ClientResult GetFineTuningCheckpointPermissions(string fineTunedModelCheckpoint, string after, int? limit, string order, string projectId, RequestOptions options)
+        public virtual ClientResult GetFineTuningCheckpointPermissions(string fineTunedModelCheckpoint, string after, long? limit, string order, string projectId, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(fineTunedModelCheckpoint, nameof(fineTunedModelCheckpoint));
 
@@ -30,7 +30,7 @@ namespace OpenAI.FineTuning
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
-        public virtual async Task<ClientResult> GetFineTuningCheckpointPermissionsAsync(string fineTunedModelCheckpoint, string after, int? limit, string order, string projectId, RequestOptions options)
+        public virtual async Task<ClientResult> GetFineTuningCheckpointPermissionsAsync(string fineTunedModelCheckpoint, string after, long? limit, string order, string projectId, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(fineTunedModelCheckpoint, nameof(fineTunedModelCheckpoint));
 

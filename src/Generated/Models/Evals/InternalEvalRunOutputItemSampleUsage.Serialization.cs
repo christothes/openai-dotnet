@@ -91,31 +91,31 @@ namespace OpenAI.Evals
             {
                 return null;
             }
-            int totalTokens = default;
-            int completionTokens = default;
-            int promptTokens = default;
-            int cachedTokens = default;
+            long totalTokens = default;
+            long completionTokens = default;
+            long promptTokens = default;
+            long cachedTokens = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("total_tokens"u8))
                 {
-                    totalTokens = prop.Value.GetInt32();
+                    totalTokens = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("completion_tokens"u8))
                 {
-                    completionTokens = prop.Value.GetInt32();
+                    completionTokens = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("prompt_tokens"u8))
                 {
-                    promptTokens = prop.Value.GetInt32();
+                    promptTokens = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("cached_tokens"u8))
                 {
-                    cachedTokens = prop.Value.GetInt32();
+                    cachedTokens = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

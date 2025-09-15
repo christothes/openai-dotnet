@@ -138,9 +138,9 @@ namespace OpenAI.Evals
             InternalEvalRunOutputItemSampleUsage usage = default;
             InternalEvalApiError error = default;
             float temperature = default;
-            int maxCompletionTokens = default;
+            long maxCompletionTokens = default;
             float topP = default;
-            int seed = default;
+            long seed = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -191,7 +191,7 @@ namespace OpenAI.Evals
                 }
                 if (prop.NameEquals("max_completion_tokens"u8))
                 {
-                    maxCompletionTokens = prop.Value.GetInt32();
+                    maxCompletionTokens = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("top_p"u8))
@@ -201,7 +201,7 @@ namespace OpenAI.Evals
                 }
                 if (prop.NameEquals("seed"u8))
                 {
-                    seed = prop.Value.GetInt32();
+                    seed = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

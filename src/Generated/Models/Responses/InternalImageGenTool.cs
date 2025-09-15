@@ -13,7 +13,7 @@ namespace OpenAI.Responses
         {
         }
 
-        internal InternalImageGenTool(InternalToolType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, string model, InternalImageGenToolQuality? quality, InternalImageGenToolSize? size, InternalImageGenToolOutputFormat? outputFormat, int? outputCompression, InternalImageGenToolModeration? moderation, InternalImageGenToolBackground? background, InternalImageGenToolInputImageMask inputImageMask, int? partialImages) : base(kind, additionalBinaryDataProperties)
+        internal InternalImageGenTool(InternalToolType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, string model, InternalImageGenToolQuality? quality, InternalImageGenToolSize? size, InternalImageGenToolOutputFormat? outputFormat, long? outputCompression, InternalImageGenToolModeration? moderation, InternalImageGenToolBackground? background, InternalImageGenToolInputImageMask inputImageMask, long? partialImages) : base(kind, additionalBinaryDataProperties)
         {
             Model = model;
             Quality = quality;
@@ -34,7 +34,7 @@ namespace OpenAI.Responses
 
         internal InternalImageGenToolOutputFormat? OutputFormat { get; set; }
 
-        public int? OutputCompression { get; set; }
+        public long? OutputCompression { get; set; }
 
         internal InternalImageGenToolModeration? Moderation { get; set; }
 
@@ -42,6 +42,6 @@ namespace OpenAI.Responses
 
         internal InternalImageGenToolInputImageMask InputImageMask { get; set; }
 
-        public int? PartialImages { get; set; }
+        public long? PartialImages { get; set; }
     }
 }

@@ -9,19 +9,19 @@ namespace OpenAI.Assistants
 {
     internal partial class InternalRunStepDeltaStepDetailsToolCallsCodeObject : InternalRunStepDeltaStepDetailsToolCallsObjectToolCallsObject
     {
-        internal InternalRunStepDeltaStepDetailsToolCallsCodeObject(int index) : base(RunStepToolCallKind.CodeInterpreter)
+        internal InternalRunStepDeltaStepDetailsToolCallsCodeObject(long index) : base(RunStepToolCallKind.CodeInterpreter)
         {
             Index = index;
         }
 
-        internal InternalRunStepDeltaStepDetailsToolCallsCodeObject(RunStepToolCallKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, int index, string id, InternalRunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreter codeInterpreter) : base(kind, additionalBinaryDataProperties)
+        internal InternalRunStepDeltaStepDetailsToolCallsCodeObject(RunStepToolCallKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, long index, string id, InternalRunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreter codeInterpreter) : base(kind, additionalBinaryDataProperties)
         {
             Index = index;
             Id = id;
             CodeInterpreter = codeInterpreter;
         }
 
-        public int Index { get; }
+        public long Index { get; }
 
         public string Id { get; }
 

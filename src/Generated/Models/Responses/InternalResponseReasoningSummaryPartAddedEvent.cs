@@ -9,7 +9,7 @@ namespace OpenAI.Responses
 {
     internal partial class InternalResponseReasoningSummaryPartAddedEvent : StreamingResponseUpdate
     {
-        internal InternalResponseReasoningSummaryPartAddedEvent(int sequenceNumber, string itemId, int outputIndex, int summaryIndex, ReasoningSummaryPart part) : base(InternalResponseStreamEventType.ResponseReasoningSummaryPartAdded, sequenceNumber)
+        internal InternalResponseReasoningSummaryPartAddedEvent(long sequenceNumber, string itemId, long outputIndex, long summaryIndex, ReasoningSummaryPart part) : base(InternalResponseStreamEventType.ResponseReasoningSummaryPartAdded, sequenceNumber)
         {
             ItemId = itemId;
             OutputIndex = outputIndex;
@@ -17,7 +17,7 @@ namespace OpenAI.Responses
             Part = part;
         }
 
-        internal InternalResponseReasoningSummaryPartAddedEvent(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, int outputIndex, int summaryIndex, ReasoningSummaryPart part) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal InternalResponseReasoningSummaryPartAddedEvent(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, long outputIndex, long summaryIndex, ReasoningSummaryPart part) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
             ItemId = itemId;
             OutputIndex = outputIndex;
@@ -27,9 +27,9 @@ namespace OpenAI.Responses
 
         public string ItemId { get; }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
-        public int SummaryIndex { get; }
+        public long SummaryIndex { get; }
 
         public ReasoningSummaryPart Part { get; }
     }

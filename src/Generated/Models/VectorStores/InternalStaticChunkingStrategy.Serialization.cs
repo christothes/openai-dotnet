@@ -81,19 +81,19 @@ namespace OpenAI.VectorStores
             {
                 return null;
             }
-            int maxChunkSizeTokens = default;
-            int chunkOverlapTokens = default;
+            long maxChunkSizeTokens = default;
+            long chunkOverlapTokens = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("max_chunk_size_tokens"u8))
                 {
-                    maxChunkSizeTokens = prop.Value.GetInt32();
+                    maxChunkSizeTokens = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("chunk_overlap_tokens"u8))
                 {
-                    chunkOverlapTokens = prop.Value.GetInt32();
+                    chunkOverlapTokens = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

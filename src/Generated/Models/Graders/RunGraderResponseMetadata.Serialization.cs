@@ -132,7 +132,7 @@ namespace OpenAI.Graders
             RunGraderResponseMetadataErrors errors = default;
             float executionTime = default;
             BinaryData scores = default;
-            int? tokenUsage = default;
+            long? tokenUsage = default;
             string sampledModelName = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -169,7 +169,7 @@ namespace OpenAI.Graders
                         tokenUsage = null;
                         continue;
                     }
-                    tokenUsage = prop.Value.GetInt32();
+                    tokenUsage = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("sampled_model_name"u8))

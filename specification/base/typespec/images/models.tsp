@@ -32,7 +32,7 @@ model CreateImageRequest {
     """)
   @minValue(1)
   @maxValue(10)
-  n?: int32 | null = 1;
+  n?: integer | null = 1;
 
   @doc("""
     The quality of the image that will be generated.
@@ -64,7 +64,7 @@ model CreateImageRequest {
   @doc("""
     The compression level (0-100%) for the generated images. This parameter is only supported for `gpt-image-1` with the `webp` or `jpeg` output formats, and defaults to 100.
     """)
-  output_compression?: int32 | null = 100;
+  output_compression?: integer | null = 100;
 
   @doc("""
     The size of the generated images. Must be one of `1024x1024`, `1536x1024` (landscape), `1024x1536` (portrait), or `auto` (default value) for `gpt-image-1`, one of `256x256`, `512x512`, or `1024x1024` for `dall-e-2`, and one of `1024x1024`, `1792x1024`, or `1024x1792` for `dall-e-3`.
@@ -220,7 +220,7 @@ model CreateImageVariationRequest {
 model ImagesResponse {
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of when the image was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created: utcDateTime;
 
   /** The list of generated images. */
@@ -231,21 +231,21 @@ model ImagesResponse {
     """)
   usage?: {
     /** The total number of tokens (images and text) used for the image generation. */
-    total_tokens: int32;
+    total_tokens: integer;
 
     /** The number of tokens (images and text) in the input prompt. */
-    input_tokens: int32;
+    input_tokens: integer;
 
     /** The number of image tokens in the output image. */
-    output_tokens: int32;
+    output_tokens: integer;
 
     /** The input tokens detailed information for the image generation. */
     input_tokens_details: {
       /** The number of text tokens in the input prompt. */
-      text_tokens: int32;
+      text_tokens: integer;
 
       /** The number of image tokens in the input prompt. */
-      image_tokens: int32;
+      image_tokens: integer;
     };
   };
 }

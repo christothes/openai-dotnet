@@ -19,9 +19,9 @@ alias CreateCompletionResponseChoice = {
     """)
   finish_reason: "stop" | "length" | "content_filter";
 
-  index: int32;
+  index: integer;
   logprobs: {
-    text_offset?: int32[];
+    text_offset?: integer[];
     token_logprobs?: float32[];
     tokens?: string[];
     top_logprobs?: Record<float32>[];
@@ -39,7 +39,7 @@ model CreateCompletionRequest {
    *
    * Note that <|endoftext|> is the document separator that the model sees during training, so if a prompt is not specified the model will generate as if from the beginning of a new document.
    */
-  prompt: string | string[] | int32[] | int32[][] | null = "<|endoftext|>";
+  prompt: string | string[] | integer[] | integer[][] | null = "<|endoftext|>";
 
   @doc("""
     Generates `best_of` completions server-side and returns the "best" (the one with the highest log probability per token). Results cannot be streamed.
@@ -50,7 +50,7 @@ model CreateCompletionRequest {
     """)
   @minValue(0)
   @maxValue(20)
-  best_of?: int32 | null = 1;
+  best_of?: integer | null = 1;
 
   /** Echo back the prompt in addition to the completion */
   echo?: boolean | null = false;
@@ -72,7 +72,7 @@ model CreateCompletionRequest {
     As an example, you can pass `{"50256": -100}` to prevent the <|endoftext|> token from being generated.
     """)
   @extension("x-oaiTypeLabel", "map")
-  logit_bias?: Record<int32> | null = null;
+  logit_bias?: Record<integer> | null = null;
 
   @doc("""
     Include the log probabilities on the `logprobs` most likely output tokens, as well the chosen tokens. For example, if `logprobs` is 5, the API will return a list of the 5 most likely tokens. The API will always return the `logprob` of the sampled token, so there may be up to `logprobs+1` elements in the response.
@@ -81,7 +81,7 @@ model CreateCompletionRequest {
     """)
   @minValue(0)
   @maxValue(5)
-  logprobs?: int32 | null = null;
+  logprobs?: integer | null = null;
 
   @doc("""
     The maximum number of [tokens](/tokenizer) that can be generated in the completion.
@@ -89,7 +89,7 @@ model CreateCompletionRequest {
     The token count of your prompt plus `max_tokens` cannot exceed the model's context length. [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken) for counting tokens.
     """)
   @minValue(0)
-  max_tokens?: int32 | null = 16;
+  max_tokens?: integer | null = 16;
 
   @doc("""
     How many completions to generate for each prompt.
@@ -98,7 +98,7 @@ model CreateCompletionRequest {
     """)
   @minValue(1)
   @maxValue(128)
-  n?: int32 | null = 1;
+  n?: integer | null = 1;
 
   /**
    * Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
@@ -164,7 +164,7 @@ model CreateCompletionResponse {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of when the completion was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created: utcDateTime;
 
   /** The model used for completion. */

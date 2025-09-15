@@ -111,7 +111,7 @@ namespace OpenAI.Containers
             string @object = default;
             string containerId = default;
             DateTimeOffset createdAt = default;
-            int bytes = default;
+            long bytes = default;
             string path = default;
             string source = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -139,7 +139,7 @@ namespace OpenAI.Containers
                 }
                 if (prop.NameEquals("bytes"u8))
                 {
-                    bytes = prop.Value.GetInt32();
+                    bytes = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("path"u8))

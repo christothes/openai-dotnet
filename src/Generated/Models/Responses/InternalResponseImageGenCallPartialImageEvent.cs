@@ -9,7 +9,7 @@ namespace OpenAI.Responses
 {
     internal partial class InternalResponseImageGenCallPartialImageEvent : StreamingResponseUpdate
     {
-        internal InternalResponseImageGenCallPartialImageEvent(int sequenceNumber, int outputIndex, string itemId, int partialImageIndex, string partialImageB64) : base(InternalResponseStreamEventType.ResponseImageGenerationCallPartialImage, sequenceNumber)
+        internal InternalResponseImageGenCallPartialImageEvent(long sequenceNumber, long outputIndex, string itemId, long partialImageIndex, string partialImageB64) : base(InternalResponseStreamEventType.ResponseImageGenerationCallPartialImage, sequenceNumber)
         {
             OutputIndex = outputIndex;
             ItemId = itemId;
@@ -17,7 +17,7 @@ namespace OpenAI.Responses
             PartialImageB64 = partialImageB64;
         }
 
-        internal InternalResponseImageGenCallPartialImageEvent(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, int outputIndex, string itemId, int partialImageIndex, string partialImageB64) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal InternalResponseImageGenCallPartialImageEvent(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, long outputIndex, string itemId, long partialImageIndex, string partialImageB64) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
             OutputIndex = outputIndex;
             ItemId = itemId;
@@ -25,11 +25,11 @@ namespace OpenAI.Responses
             PartialImageB64 = partialImageB64;
         }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
         public string ItemId { get; }
 
-        public int PartialImageIndex { get; }
+        public long PartialImageIndex { get; }
 
         public string PartialImageB64 { get; }
     }

@@ -20,7 +20,7 @@ namespace OpenAI.Responses
             VectorStoreIds = vectorStoreIds.ToList();
         }
 
-        internal FileSearchTool(InternalToolType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, IList<string> vectorStoreIds, int? maxResultCount, FileSearchToolRankingOptions rankingOptions, BinaryData filters) : base(kind, additionalBinaryDataProperties)
+        internal FileSearchTool(InternalToolType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, IList<string> vectorStoreIds, long? maxResultCount, FileSearchToolRankingOptions rankingOptions, BinaryData filters) : base(kind, additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             VectorStoreIds = vectorStoreIds ?? new ChangeTrackingList<string>();
@@ -31,7 +31,7 @@ namespace OpenAI.Responses
 
         public IList<string> VectorStoreIds { get; }
 
-        public int? MaxResultCount { get; set; }
+        public long? MaxResultCount { get; set; }
 
         public FileSearchToolRankingOptions RankingOptions { get; set; }
 

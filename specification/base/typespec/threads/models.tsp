@@ -77,7 +77,7 @@ model ThreadObject {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the thread was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   @doc("""

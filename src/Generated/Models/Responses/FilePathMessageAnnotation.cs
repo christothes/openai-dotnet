@@ -12,7 +12,7 @@ namespace OpenAI.Responses
     [Experimental("OPENAI001")]
     public partial class FilePathMessageAnnotation : ResponseMessageAnnotation
     {
-        public FilePathMessageAnnotation(string fileId, int index) : base(ResponseMessageAnnotationKind.FilePath)
+        public FilePathMessageAnnotation(string fileId, long index) : base(ResponseMessageAnnotationKind.FilePath)
         {
             Argument.AssertNotNull(fileId, nameof(fileId));
 
@@ -20,7 +20,7 @@ namespace OpenAI.Responses
             Index = index;
         }
 
-        internal FilePathMessageAnnotation(ResponseMessageAnnotationKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, string fileId, int index) : base(kind, additionalBinaryDataProperties)
+        internal FilePathMessageAnnotation(ResponseMessageAnnotationKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, string fileId, long index) : base(kind, additionalBinaryDataProperties)
         {
             FileId = fileId;
             Index = index;
@@ -28,6 +28,6 @@ namespace OpenAI.Responses
 
         public string FileId { get; set; }
 
-        public int Index { get; set; }
+        public long Index { get; set; }
     }
 }

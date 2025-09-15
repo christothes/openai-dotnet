@@ -13,13 +13,13 @@ namespace OpenAI.Chat
     {
         private readonly ChatClient _client;
         private readonly string _after;
-        private readonly int? _limit;
+        private readonly long? _limit;
         private readonly string _order;
         private readonly IDictionary<string, string> _metadata;
         private readonly string _model;
         private readonly RequestOptions _options;
 
-        public ChatClientGetChatCompletionsCollectionResultOfT(ChatClient client, string after, int? limit, string order, IDictionary<string, string> metadata, string model, RequestOptions options)
+        public ChatClientGetChatCompletionsCollectionResultOfT(ChatClient client, string after, long? limit, string order, IDictionary<string, string> metadata, string model, RequestOptions options)
         {
             _client = client;
             _after = after;

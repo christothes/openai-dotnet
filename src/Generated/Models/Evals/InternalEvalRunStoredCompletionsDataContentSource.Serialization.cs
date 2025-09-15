@@ -99,9 +99,9 @@ namespace OpenAI.Evals
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             IDictionary<string, string> metadata = default;
             string model = default;
-            int? createdAfter = default;
-            int? createdBefore = default;
-            int? limit = default;
+            long? createdAfter = default;
+            long? createdBefore = default;
+            long? limit = default;
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
@@ -148,7 +148,7 @@ namespace OpenAI.Evals
                         createdAfter = null;
                         continue;
                     }
-                    createdAfter = prop.Value.GetInt32();
+                    createdAfter = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("created_before"u8))
@@ -158,7 +158,7 @@ namespace OpenAI.Evals
                         createdBefore = null;
                         continue;
                     }
-                    createdBefore = prop.Value.GetInt32();
+                    createdBefore = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("limit"u8))
@@ -168,7 +168,7 @@ namespace OpenAI.Evals
                         limit = null;
                         continue;
                     }
-                    limit = prop.Value.GetInt32();
+                    limit = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

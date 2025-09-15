@@ -9,7 +9,7 @@ namespace OpenAI.Realtime
 {
     internal partial class InternalRealtimeServerEventResponseFunctionCallArgumentsDelta : RealtimeUpdate
     {
-        internal InternalRealtimeServerEventResponseFunctionCallArgumentsDelta(string responseId, string itemId, int outputIndex, string callId, string delta) : base(RealtimeUpdateKind.ItemStreamingFunctionCallArgumentsDelta)
+        internal InternalRealtimeServerEventResponseFunctionCallArgumentsDelta(string responseId, string itemId, long outputIndex, string callId, string delta) : base(RealtimeUpdateKind.ItemStreamingFunctionCallArgumentsDelta)
         {
             ResponseId = responseId;
             ItemId = itemId;
@@ -18,7 +18,7 @@ namespace OpenAI.Realtime
             Delta = delta;
         }
 
-        internal InternalRealtimeServerEventResponseFunctionCallArgumentsDelta(RealtimeUpdateKind kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string responseId, string itemId, int outputIndex, string callId, string delta) : base(kind, eventId, additionalBinaryDataProperties)
+        internal InternalRealtimeServerEventResponseFunctionCallArgumentsDelta(RealtimeUpdateKind kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string responseId, string itemId, long outputIndex, string callId, string delta) : base(kind, eventId, additionalBinaryDataProperties)
         {
             ResponseId = responseId;
             ItemId = itemId;
@@ -31,7 +31,7 @@ namespace OpenAI.Realtime
 
         public string ItemId { get; }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
         public string CallId { get; }
 

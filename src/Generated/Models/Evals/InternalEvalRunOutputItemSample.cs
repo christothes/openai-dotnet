@@ -13,7 +13,7 @@ namespace OpenAI.Evals
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalEvalRunOutputItemSample(IEnumerable<InternalEvalRunOutputItemSampleInput> input, IEnumerable<InternalEvalRunOutputItemSampleOutput> output, string finishReason, string model, InternalEvalRunOutputItemSampleUsage usage, InternalEvalApiError error, float temperature, int maxCompletionTokens, float topP, int seed)
+        internal InternalEvalRunOutputItemSample(IEnumerable<InternalEvalRunOutputItemSampleInput> input, IEnumerable<InternalEvalRunOutputItemSampleOutput> output, string finishReason, string model, InternalEvalRunOutputItemSampleUsage usage, InternalEvalApiError error, float temperature, long maxCompletionTokens, float topP, long seed)
         {
             Input = input.ToList();
             Output = output.ToList();
@@ -27,7 +27,7 @@ namespace OpenAI.Evals
             Seed = seed;
         }
 
-        internal InternalEvalRunOutputItemSample(IList<InternalEvalRunOutputItemSampleInput> input, IList<InternalEvalRunOutputItemSampleOutput> output, string finishReason, string model, InternalEvalRunOutputItemSampleUsage usage, InternalEvalApiError error, float temperature, int maxCompletionTokens, float topP, int seed, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalEvalRunOutputItemSample(IList<InternalEvalRunOutputItemSampleInput> input, IList<InternalEvalRunOutputItemSampleOutput> output, string finishReason, string model, InternalEvalRunOutputItemSampleUsage usage, InternalEvalApiError error, float temperature, long maxCompletionTokens, float topP, long seed, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Input = input ?? new ChangeTrackingList<InternalEvalRunOutputItemSampleInput>();
@@ -57,11 +57,11 @@ namespace OpenAI.Evals
 
         public float Temperature { get; }
 
-        public int MaxCompletionTokens { get; }
+        public long MaxCompletionTokens { get; }
 
         public float TopP { get; }
 
-        public int Seed { get; }
+        public long Seed { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

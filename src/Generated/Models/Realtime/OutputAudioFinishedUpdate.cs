@@ -11,7 +11,7 @@ namespace OpenAI.Realtime
     [Experimental("OPENAI002")]
     public partial class OutputAudioFinishedUpdate : RealtimeUpdate
     {
-        internal OutputAudioFinishedUpdate(string responseId, string itemId, int outputIndex, int contentIndex) : base(RealtimeUpdateKind.ItemStreamingPartAudioFinished)
+        internal OutputAudioFinishedUpdate(string responseId, string itemId, long outputIndex, long contentIndex) : base(RealtimeUpdateKind.ItemStreamingPartAudioFinished)
         {
             ResponseId = responseId;
             ItemId = itemId;
@@ -19,7 +19,7 @@ namespace OpenAI.Realtime
             ContentIndex = contentIndex;
         }
 
-        internal OutputAudioFinishedUpdate(RealtimeUpdateKind kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string responseId, string itemId, int outputIndex, int contentIndex) : base(kind, eventId, additionalBinaryDataProperties)
+        internal OutputAudioFinishedUpdate(RealtimeUpdateKind kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string responseId, string itemId, long outputIndex, long contentIndex) : base(kind, eventId, additionalBinaryDataProperties)
         {
             ResponseId = responseId;
             ItemId = itemId;
@@ -31,8 +31,8 @@ namespace OpenAI.Realtime
 
         public string ItemId { get; }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
     }
 }

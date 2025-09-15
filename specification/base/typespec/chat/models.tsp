@@ -27,7 +27,7 @@ alias CreateChatCompletionResponseChoice = {
     | "function_call";
 
   /** The index of the choice in the list of choices. */
-  index: int32;
+  index: integer;
 
   message: ChatCompletionResponseMessage;
 
@@ -55,10 +55,10 @@ alias ChatCompletionResponseMessageAnnotation = {
   /** A URL citation when using web search. */
   url_citation: {
     /** The index of the last character of the URL citation in the message. */
-    end_index: int32;
+    end_index: integer;
 
     /** The index of the first character of the URL citation in the message. */
-    start_index: int32;
+    start_index: integer;
 
     // Tool customization: url uses the url type
     /** The URL of the web resource. */
@@ -82,7 +82,7 @@ alias ChatCompletionTokenLogprobTopLogprob = {
   @doc("""
     A list of integers representing the UTF-8 bytes representation of the token. Useful in instances where characters are represented by multiple tokens and their byte representations must be combined to generate the correct text representation. Can be `null` if there is no bytes representation for the token.
     """)
-  bytes: int32[] | null;
+  bytes: integer[] | null;
 };
 
 // Tool generated type. Extracts from CreateChatCompletionStreamResponse.choices
@@ -117,7 +117,7 @@ alias CreateChatCompletionStreamResponseChoice = {
     | null;
 
   /** The index of the choice in the list of choices. */
-  index: int32;
+  index: integer;
 };
 
 // Tool generated type. Extracts from ChatCompletionMessageList.data
@@ -152,7 +152,7 @@ model CreateChatCompletionRequest {
   reasoning_effort?: ReasoningEffort | null = "medium";
 
   /** An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and [reasoning tokens](/docs/guides/reasoning). */
-  max_completion_tokens?: int32 | null;
+  max_completion_tokens?: integer | null;
 
   /**
    * Number between -2.0 and 2.0. Positive values penalize new tokens based on
@@ -197,7 +197,7 @@ model CreateChatCompletionRequest {
     """)
   @minValue(0)
   @maxValue(20)
-  top_logprobs?: int32 | null;
+  top_logprobs?: integer | null;
 
   // Tool customization: apply a named union type
   @doc("""
@@ -261,7 +261,7 @@ model CreateChatCompletionRequest {
    * should result in a ban or exclusive selection of the relevant token.
    */
   @extension("x-oaiTypeLabel", "map")
-  logit_bias?: Record<int32> | null = null;
+  logit_bias?: Record<integer> | null = null;
 
   @doc("""
     Whether to return log probabilities of the output tokens or not. If true,
@@ -280,14 +280,14 @@ model CreateChatCompletionRequest {
     This value is now deprecated in favor of `max_completion_tokens`, and is
     not compatible with [o-series models](/docs/guides/reasoning).
     """)
-  max_tokens?: int32 | null;
+  max_tokens?: integer | null;
 
   @doc("""
     How many chat completion choices to generate for each input message. Note that you will be charged based on the number of generated tokens across all of the choices. Keep `n` as `1` to minimize costs.
     """)
   @minValue(1)
   @maxValue(128)
-  n?: int32 | null = 1;
+  n?: integer | null = 1;
 
   // Tool customization: Apply an implied base discriminated type to 'prediction'
   /**
@@ -360,7 +360,7 @@ model CreateChatCompletionResponse {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of when the chat completion was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created: utcDateTime;
 
   /** The model used for the chat completion. */
@@ -759,7 +759,7 @@ model ChatCompletionResponseMessage {
      * no longer be accessible on the server for use in multi-turn
      * conversations.
      */
-    @encode("unixTimestamp", int32)
+    @encode("unixTimestamp", integer)
     expires_at: utcDateTime;
 
     // Tool customization: use encoded type for audio data
@@ -787,7 +787,7 @@ model ChatCompletionTokenLogprob {
   @doc("""
     A list of integers representing the UTF-8 bytes representation of the token. Useful in instances where characters are represented by multiple tokens and their byte representations must be combined to generate the correct text representation. Can be `null` if there is no bytes representation for the token.
     """)
-  bytes: int32[] | null;
+  bytes: integer[] | null;
 
   @doc("""
     List of the most likely tokens and their log probability, at this token position. In rare cases, there may be fewer than the number of requested `top_logprobs` returned.
@@ -846,7 +846,7 @@ model ChatCompletionStreamResponseDelta {
 }
 
 model ChatCompletionMessageToolCallChunk {
-  index: int32;
+  index: integer;
 
   /** The ID of the tool call. */
   id?: string;
@@ -882,7 +882,7 @@ model CreateChatCompletionStreamResponse {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of when the chat completion was created. Each chunk has the same timestamp. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created: utcDateTime;
 
   /** The model to generate the completion. */

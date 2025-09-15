@@ -29,7 +29,7 @@ namespace OpenAI.Responses
             return message;
         }
 
-        internal virtual PipelineMessage CreateGetResponseRequest(string responseId, IEnumerable<InternalIncludable> includables, bool? stream, int? startingAfter, RequestOptions options)
+        internal virtual PipelineMessage CreateGetResponseRequest(string responseId, IEnumerable<InternalIncludable> includables, bool? stream, long? startingAfter, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -84,7 +84,7 @@ namespace OpenAI.Responses
             return message;
         }
 
-        internal virtual PipelineMessage CreateGetInputItemsRequest(string responseId, int? limit, string order, string after, string before, RequestOptions options)
+        internal virtual PipelineMessage CreateGetInputItemsRequest(string responseId, long? limit, string order, string after, string before, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);

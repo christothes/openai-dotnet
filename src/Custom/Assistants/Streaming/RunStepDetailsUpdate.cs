@@ -51,7 +51,7 @@ public class RunStepDetailsUpdate : StreamingUpdate
             : null);
 
     /// <inheritdoc cref="InternalRunStepDeltaStepDetailsToolCallsCodeObject.Index"/>
-    public int? ToolCallIndex
+    public long? ToolCallIndex
         => _asCodeInterpreterCall?.Index
         ?? _asFileSearchCall?.Index
         ?? _asFunctionCall?.Index;

@@ -69,7 +69,7 @@ namespace OpenAI.Assistants
             }
             RunStepToolCallKind kind = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
-            int index = default;
+            long index = default;
             string id = default;
             InternalRunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreter codeInterpreter = default;
             foreach (var prop in element.EnumerateObject())
@@ -81,7 +81,7 @@ namespace OpenAI.Assistants
                 }
                 if (prop.NameEquals("index"u8))
                 {
-                    index = prop.Value.GetInt32();
+                    index = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("id"u8))

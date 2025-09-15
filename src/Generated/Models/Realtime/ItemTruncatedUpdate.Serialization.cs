@@ -71,8 +71,8 @@ namespace OpenAI.Realtime
             string eventId = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             string itemId = default;
-            int contentIndex = default;
-            int audioEndMs = default;
+            long contentIndex = default;
+            long audioEndMs = default;
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
@@ -92,12 +92,12 @@ namespace OpenAI.Realtime
                 }
                 if (prop.NameEquals("content_index"u8))
                 {
-                    contentIndex = prop.Value.GetInt32();
+                    contentIndex = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("audio_end_ms"u8))
                 {
-                    audioEndMs = prop.Value.GetInt32();
+                    audioEndMs = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

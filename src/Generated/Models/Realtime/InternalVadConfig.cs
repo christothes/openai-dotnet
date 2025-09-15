@@ -15,7 +15,7 @@ namespace OpenAI.Realtime
         {
         }
 
-        internal InternalVadConfig(string kind, int? prefixPaddingMs, int? silenceDurationMs, float? threshold, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalVadConfig(string kind, long? prefixPaddingMs, long? silenceDurationMs, float? threshold, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Kind = kind;
             PrefixPaddingMs = prefixPaddingMs;
@@ -26,9 +26,9 @@ namespace OpenAI.Realtime
 
         public string Kind { get; } = "server_vad";
 
-        public int? PrefixPaddingMs { get; set; }
+        public long? PrefixPaddingMs { get; set; }
 
-        public int? SilenceDurationMs { get; set; }
+        public long? SilenceDurationMs { get; set; }
 
         public float? Threshold { get; set; }
 

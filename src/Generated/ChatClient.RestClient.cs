@@ -15,7 +15,7 @@ namespace OpenAI.Chat
 
         private static PipelineMessageClassifier PipelineMessageClassifier200 => _pipelineMessageClassifier200 = PipelineMessageClassifier.Create(stackalloc ushort[] { 200 });
 
-        internal virtual PipelineMessage CreateGetChatCompletionsRequest(string after, int? limit, string order, IDictionary<string, string> metadata, string model, RequestOptions options)
+        internal virtual PipelineMessage CreateGetChatCompletionsRequest(string after, long? limit, string order, IDictionary<string, string> metadata, string model, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -108,7 +108,7 @@ namespace OpenAI.Chat
             return message;
         }
 
-        internal virtual PipelineMessage CreateGetChatCompletionMessagesRequest(string completionId, string after, int? limit, string order, RequestOptions options)
+        internal virtual PipelineMessage CreateGetChatCompletionMessagesRequest(string completionId, string after, long? limit, string order, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);

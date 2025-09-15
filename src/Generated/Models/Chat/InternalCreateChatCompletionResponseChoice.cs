@@ -11,7 +11,7 @@ namespace OpenAI.Chat
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalCreateChatCompletionResponseChoice(ChatFinishReason finishReason, int index, InternalChatCompletionResponseMessage message, InternalCreateChatCompletionResponseChoiceLogprobs logprobs)
+        internal InternalCreateChatCompletionResponseChoice(ChatFinishReason finishReason, long index, InternalChatCompletionResponseMessage message, InternalCreateChatCompletionResponseChoiceLogprobs logprobs)
         {
             FinishReason = finishReason;
             Index = index;
@@ -19,7 +19,7 @@ namespace OpenAI.Chat
             Logprobs = logprobs;
         }
 
-        internal InternalCreateChatCompletionResponseChoice(ChatFinishReason finishReason, int index, InternalChatCompletionResponseMessage message, InternalCreateChatCompletionResponseChoiceLogprobs logprobs, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalCreateChatCompletionResponseChoice(ChatFinishReason finishReason, long index, InternalChatCompletionResponseMessage message, InternalCreateChatCompletionResponseChoiceLogprobs logprobs, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             FinishReason = finishReason;
             Index = index;
@@ -30,7 +30,7 @@ namespace OpenAI.Chat
 
         public ChatFinishReason FinishReason { get; }
 
-        public int Index { get; }
+        public long Index { get; }
 
         internal InternalChatCompletionResponseMessage Message { get; }
 

@@ -28,7 +28,7 @@ namespace OpenAI.Assistants
 
         public ClientPipeline Pipeline { get; }
 
-        public virtual CollectionResult GetRuns(string threadId, int? limit, string order, string after, string before, RequestOptions options)
+        public virtual CollectionResult GetRuns(string threadId, long? limit, string order, string after, string before, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
@@ -42,7 +42,7 @@ namespace OpenAI.Assistants
                 options);
         }
 
-        public virtual AsyncCollectionResult GetRunsAsync(string threadId, int? limit, string order, string after, string before, RequestOptions options)
+        public virtual AsyncCollectionResult GetRunsAsync(string threadId, long? limit, string order, string after, string before, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
@@ -120,7 +120,7 @@ namespace OpenAI.Assistants
             return ClientResult.FromValue((ThreadRun)result, result.GetRawResponse());
         }
 
-        public virtual CollectionResult GetRunSteps(string threadId, string runId, int? limit, string order, string after, string before, IEnumerable<InternalIncludedRunStepProperty> include, RequestOptions options)
+        public virtual CollectionResult GetRunSteps(string threadId, string runId, long? limit, string order, string after, string before, IEnumerable<InternalIncludedRunStepProperty> include, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));
@@ -137,7 +137,7 @@ namespace OpenAI.Assistants
                 options);
         }
 
-        public virtual AsyncCollectionResult GetRunStepsAsync(string threadId, string runId, int? limit, string order, string after, string before, IEnumerable<InternalIncludedRunStepProperty> include, RequestOptions options)
+        public virtual AsyncCollectionResult GetRunStepsAsync(string threadId, string runId, long? limit, string order, string after, string before, IEnumerable<InternalIncludedRunStepProperty> include, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));

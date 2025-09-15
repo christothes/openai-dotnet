@@ -102,11 +102,11 @@ namespace OpenAI.Evals
                 return null;
             }
             string modelName = default;
-            int invocationCount = default;
-            int promptTokens = default;
-            int completionTokens = default;
-            int totalTokens = default;
-            int cachedTokens = default;
+            long invocationCount = default;
+            long promptTokens = default;
+            long completionTokens = default;
+            long totalTokens = default;
+            long cachedTokens = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -117,27 +117,27 @@ namespace OpenAI.Evals
                 }
                 if (prop.NameEquals("invocation_count"u8))
                 {
-                    invocationCount = prop.Value.GetInt32();
+                    invocationCount = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("prompt_tokens"u8))
                 {
-                    promptTokens = prop.Value.GetInt32();
+                    promptTokens = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("completion_tokens"u8))
                 {
-                    completionTokens = prop.Value.GetInt32();
+                    completionTokens = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("total_tokens"u8))
                 {
-                    totalTokens = prop.Value.GetInt32();
+                    totalTokens = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("cached_tokens"u8))
                 {
-                    cachedTokens = prop.Value.GetInt32();
+                    cachedTokens = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

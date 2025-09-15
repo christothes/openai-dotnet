@@ -58,7 +58,7 @@ namespace OpenAI.Responses
                 return null;
             }
             InternalResponseStreamEventType kind = default;
-            int sequenceNumber = default;
+            long sequenceNumber = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             OpenAIResponse response = default;
             foreach (var prop in element.EnumerateObject())
@@ -70,7 +70,7 @@ namespace OpenAI.Responses
                 }
                 if (prop.NameEquals("sequence_number"u8))
                 {
-                    sequenceNumber = prop.Value.GetInt32();
+                    sequenceNumber = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("response"u8))

@@ -87,8 +87,8 @@ namespace OpenAI.Evals
                 return null;
             }
             string testingCriteria = default;
-            int passed = default;
-            int failed = default;
+            long passed = default;
+            long failed = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -99,12 +99,12 @@ namespace OpenAI.Evals
                 }
                 if (prop.NameEquals("passed"u8))
                 {
-                    passed = prop.Value.GetInt32();
+                    passed = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("failed"u8))
                 {
-                    failed = prop.Value.GetInt32();
+                    failed = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

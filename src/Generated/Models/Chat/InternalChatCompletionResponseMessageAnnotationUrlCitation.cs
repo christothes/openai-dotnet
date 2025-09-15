@@ -11,7 +11,7 @@ namespace OpenAI.Chat
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalChatCompletionResponseMessageAnnotationUrlCitation(int endIndex, int startIndex, Uri url, string title)
+        internal InternalChatCompletionResponseMessageAnnotationUrlCitation(long endIndex, long startIndex, Uri url, string title)
         {
             EndIndex = endIndex;
             StartIndex = startIndex;
@@ -19,7 +19,7 @@ namespace OpenAI.Chat
             Title = title;
         }
 
-        internal InternalChatCompletionResponseMessageAnnotationUrlCitation(int endIndex, int startIndex, Uri url, string title, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalChatCompletionResponseMessageAnnotationUrlCitation(long endIndex, long startIndex, Uri url, string title, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             EndIndex = endIndex;
             StartIndex = startIndex;
@@ -28,9 +28,9 @@ namespace OpenAI.Chat
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public int EndIndex { get; }
+        public long EndIndex { get; }
 
-        public int StartIndex { get; }
+        public long StartIndex { get; }
 
         public Uri Url { get; }
 

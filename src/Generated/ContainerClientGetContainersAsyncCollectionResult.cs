@@ -12,12 +12,12 @@ namespace OpenAI.Containers
     internal partial class ContainerClientGetContainersAsyncCollectionResult : AsyncCollectionResult
     {
         private readonly ContainerClient _client;
-        private readonly int? _limit;
+        private readonly long? _limit;
         private readonly string _order;
         private readonly string _after;
         private readonly RequestOptions _options;
 
-        public ContainerClientGetContainersAsyncCollectionResult(ContainerClient client, int? limit, string order, string after, RequestOptions options)
+        public ContainerClientGetContainersAsyncCollectionResult(ContainerClient client, long? limit, string order, string after, RequestOptions options)
         {
             _client = client;
             _limit = limit;

@@ -174,7 +174,7 @@ namespace OpenAI.Evals
             string evalId = default;
             DateTimeOffset createdAt = default;
             string status = default;
-            int datasourceItemId = default;
+            long datasourceItemId = default;
             IDictionary<string, BinaryData> datasourceItem = default;
             IList<IDictionary<string, BinaryData>> results = default;
             InternalEvalRunOutputItemSample sample = default;
@@ -213,7 +213,7 @@ namespace OpenAI.Evals
                 }
                 if (prop.NameEquals("datasource_item_id"u8))
                 {
-                    datasourceItemId = prop.Value.GetInt32();
+                    datasourceItemId = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("datasource_item"u8))

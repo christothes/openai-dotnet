@@ -115,7 +115,7 @@ model Response {
 
   // Tool customization: Fully qualify as an integer-based unix timestamp
   /** Unix timestamp (in seconds) of when this Response was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   error: ResponseError | null;
@@ -176,7 +176,7 @@ model ResponseProperties {
   background?: boolean | null = false;
 
   /** An upper bound for the number of tokens that can be generated for a response, including visible output tokens and [reasoning tokens](/docs/guides/reasoning). */
-  max_output_tokens?: int32 | null;
+  max_output_tokens?: integer | null;
 
   @doc("""
     Inserts a system (or developer) message as the first item in the model's context.
@@ -571,7 +571,7 @@ model FileSearchTool extends Tool {
   vector_store_ids: string[];
 
   /** The maximum number of results to return. This number should be between 1 and 50 inclusive. */
-  max_num_results?: int32;
+  max_num_results?: integer;
 
   /** Ranking options for search. */
   ranking_options?: RankingOptions;
@@ -592,10 +592,10 @@ model ComputerUsePreviewTool extends Tool {
   environment: "windows" | "mac" | "linux" | "ubuntu" | "browser";
 
   /** The width of the computer display. */
-  display_width: int32;
+  display_width: integer;
 
   /** The height of the computer display. */
-  display_height: int32;
+  display_height: integer;
 }
 
 // Tool customization (apply_discriminator): Apply discriminated type base for tools
@@ -672,10 +672,10 @@ model ComputerActionClick extends ComputerAction {
   button: "left" | "right" | "wheel" | "back" | "forward";
 
   /** The x-coordinate where the click occurred. */
-  x: int32;
+  x: integer;
 
   /** The y-coordinate where the click occurred. */
-  y: int32;
+  y: integer;
 }
 
 // Tool customization: Establish discriminated type base
@@ -722,10 +722,10 @@ model ComputerActionDoubleClick extends ComputerAction {
   type: ComputerActionType.double_click;
 
   /** The x-coordinate where the double click occurred. */
-  x: int32;
+  x: integer;
 
   /** The y-coordinate where the double click occurred. */
-  y: int32;
+  y: integer;
 }
 
 // Tool customization (apply_discriminator): Apply base discriminator type for ComputerAction and align naming
@@ -760,10 +760,10 @@ model ComputerActionMove extends ComputerAction {
   type: ComputerActionType.move;
 
   /** The x-coordinate to move to. */
-  x: int32;
+  x: integer;
 
   /** The y-coordinate to move to. */
-  y: int32;
+  y: integer;
 }
 
 // Tool customization (apply_discriminator): Apply base discriminator type for ComputerAction and align naming
@@ -786,16 +786,16 @@ model ComputerActionScroll extends ComputerAction {
   type: ComputerActionType.scroll;
 
   /** The x-coordinate where the scroll occurred. */
-  x: int32;
+  x: integer;
 
   /** The y-coordinate where the scroll occurred. */
-  y: int32;
+  y: integer;
 
   /** The horizontal scroll distance. */
-  scroll_x: int32;
+  scroll_x: integer;
 
   /** The vertical scroll distance. */
-  scroll_y: int32;
+  scroll_y: integer;
 }
 
 // Tool customization (apply_discriminator): Apply base discriminator type for ComputerAction and align naming
@@ -842,10 +842,10 @@ model ComputerActionKeyPress extends ComputerAction {
   """)
 model Coordinate {
   /** The x-coordinate. */
-  x: int32;
+  x: integer;
 
   /** The y-coordinate. */
-  y: int32;
+  y: integer;
 }
 
 /**
@@ -1063,7 +1063,7 @@ model AnnotationFileCitation extends Annotation {
   file_id: string;
 
   /** The index of the file in the list of files. */
-  index: int32;
+  index: integer;
 }
 
 // Tool customization (apply_discriminator): Apply discriminated base type, rename for consistency and clarity
@@ -1079,10 +1079,10 @@ model AnnotationUrlCitation extends Annotation {
   url: url;
 
   /** The index of the first character of the URL citation in the message. */
-  start_index: int32;
+  start_index: integer;
 
   /** The index of the last character of the URL citation in the message. */
-  end_index: int32;
+  end_index: integer;
 
   /** The title of the web resource. */
   title: string;
@@ -1102,10 +1102,10 @@ model ContainerFileCitationBody {
   file_id: string;
 
   /** The index of the first character of the container file citation in the message. */
-  start_index: int32;
+  start_index: integer;
 
   /** The index of the last character of the container file citation in the message. */
-  end_index: int32;
+  end_index: integer;
 }
 
 // Tool customization (apply_discriminator): Apply discriminated base type, rename for consistency and clarity
@@ -1120,7 +1120,7 @@ model AnnotationFilePath extends Annotation {
   file_id: string;
 
   /** The index of the file in the list of files. */
-  index: int32;
+  index: integer;
 }
 
 // Tool customization (apply_discriminator): Apply discriminated type base, rename for clarity
@@ -1210,7 +1210,7 @@ model ItemContentOutputText extends ItemContent {
  */
 model ResponseUsage {
   /** The number of input tokens. */
-  input_tokens: int32;
+  input_tokens: integer;
 
   /** A detailed breakdown of the input tokens. */
   input_tokens_details: {
@@ -1218,20 +1218,20 @@ model ResponseUsage {
      * The number of tokens that were retrieved from the cache.
      * [More on prompt caching](/docs/guides/prompt-caching).
      */
-    cached_tokens: int32;
+    cached_tokens: integer;
   };
 
   /** The number of output tokens. */
-  output_tokens: int32;
+  output_tokens: integer;
 
   /** A detailed breakdown of the output tokens. */
   output_tokens_details: {
     /** The number of reasoning tokens. */
-    reasoning_tokens: int32;
+    reasoning_tokens: integer;
   };
 
   /** The total number of tokens used. */
-  total_tokens: int32;
+  total_tokens: integer;
 }
 
 /** An error object returned when the model fails to generate a Response. */
@@ -1346,7 +1346,7 @@ model ResponseStreamEvent {
   type: ResponseStreamEventType;
 
   /** The sequence number for this event. */
-  sequence_number: int32;
+  sequence_number: integer;
 }
 
 // Tool customization: Remove shared sequence_number property that was moved to the common parent
@@ -1373,10 +1373,10 @@ model ResponseContentPartAddedEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item that the content part was added to. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part that was added. */
-  content_index: int32;
+  content_index: integer;
 
   /** The content part that was added. */
   part: OutputContent;
@@ -1394,10 +1394,10 @@ model ResponseContentPartDoneEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item that the content part was added to. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part that is done. */
-  content_index: int32;
+  content_index: integer;
 
   /** The content part that is done. */
   part: OutputContent;
@@ -1442,7 +1442,7 @@ model ResponseFileSearchCallCompletedEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_file_search_call_completed;
 
   /** The index of the output item that the file search call is initiated. */
-  output_index: int32;
+  output_index: integer;
 
   /** The ID of the output item that the file search call is initiated. */
   item_id: string;
@@ -1457,7 +1457,7 @@ model ResponseFileSearchCallInProgressEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_file_search_call_in_progress;
 
   /** The index of the output item that the file search call is initiated. */
-  output_index: int32;
+  output_index: integer;
 
   /** The ID of the output item that the file search call is initiated. */
   item_id: string;
@@ -1472,7 +1472,7 @@ model ResponseFileSearchCallSearchingEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_file_search_call_searching;
 
   /** The index of the output item that the file search call is searching. */
-  output_index: int32;
+  output_index: integer;
 
   /** The ID of the output item that the file search call is initiated. */
   item_id: string;
@@ -1490,7 +1490,7 @@ model ResponseFunctionCallArgumentsDeltaEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item that the function-call arguments delta is added to. */
-  output_index: int32;
+  output_index: integer;
 
   /** The function-call arguments delta that is added. */
   delta: string;
@@ -1505,7 +1505,7 @@ model ResponseFunctionCallArgumentsDoneEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item. */
-  output_index: int32;
+  output_index: integer;
 
   /** The function-call arguments. */
   arguments: string;
@@ -1556,7 +1556,7 @@ model ResponseOutputItemAddedEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_output_item_added;
 
   /** The index of the output item that was added. */
-  output_index: int32;
+  output_index: integer;
 
   /** The output item that was added. */
   item: OutputItem;
@@ -1571,7 +1571,7 @@ model ResponseOutputItemDoneEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_output_item_done;
 
   /** The index of the output item that was marked done. */
-  output_index: int32;
+  output_index: integer;
 
   /** The output item that was marked done. */
   item: OutputItem;
@@ -1589,10 +1589,10 @@ model ResponseRefusalDeltaEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item that the refusal text is added to. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part that the refusal text is added to. */
-  content_index: int32;
+  content_index: integer;
 
   /** The refusal text that is added. */
   delta: string;
@@ -1610,10 +1610,10 @@ model ResponseRefusalDoneEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item that the refusal text is finalized. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part that the refusal text is finalized. */
-  content_index: int32;
+  content_index: integer;
 
   /** The refusal text that is finalized. */
   refusal: string;
@@ -1631,10 +1631,10 @@ model ResponseTextDeltaEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item that the text delta was added to. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part that the text delta was added to. */
-  content_index: int32;
+  content_index: integer;
 
   /** The text delta that was added. */
   delta: string;
@@ -1652,10 +1652,10 @@ model ResponseTextDoneEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item that the text content is finalized. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part that the text content is finalized. */
-  content_index: int32;
+  content_index: integer;
 
   /** The text content that is finalized. */
   text: string;
@@ -1673,10 +1673,10 @@ model ResponseReasoningSummaryPartAddedEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item this summary part is associated with. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the summary part within the reasoning summary. */
-  summary_index: int32;
+  summary_index: integer;
 
   // Tool customization: Use customized discriminated type for summary parts
   /** The summary part that was added. */
@@ -1695,10 +1695,10 @@ model ResponseReasoningSummaryPartDoneEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item this summary part is associated with. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the summary part within the reasoning summary. */
-  summary_index: int32;
+  summary_index: integer;
 
   // Tool customization: Use customized discriminated type for summary parts
   /** The completed summary part. */
@@ -1717,10 +1717,10 @@ model ResponseReasoningSummaryTextDeltaEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item this summary text delta is associated with. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the summary part within the reasoning summary. */
-  summary_index: int32;
+  summary_index: integer;
 
   /** The text delta that was added to the summary. */
   delta: string;
@@ -1738,10 +1738,10 @@ model ResponseReasoningSummaryTextDoneEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item this summary text is associated with. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the summary part within the reasoning summary. */
-  summary_index: int32;
+  summary_index: integer;
 
   /** The full text of the completed reasoning summary. */
   text: string;
@@ -1756,7 +1756,7 @@ model ResponseWebSearchCallCompletedEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_web_search_call_completed;
 
   /** The index of the output item that the web search call is associated with. */
-  output_index: int32;
+  output_index: integer;
 
   /** Unique ID for the output item associated with the web search call. */
   item_id: string;
@@ -1771,7 +1771,7 @@ model ResponseWebSearchCallInProgressEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_web_search_call_in_progress;
 
   /** The index of the output item that the web search call is associated with. */
-  output_index: int32;
+  output_index: integer;
 
   /** Unique ID for the output item associated with the web search call. */
   item_id: string;
@@ -1786,7 +1786,7 @@ model ResponseWebSearchCallSearchingEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_web_search_call_searching;
 
   /** The index of the output item that the web search call is associated with. */
-  output_index: int32;
+  output_index: integer;
 
   /** Unique ID for the output item associated with the web search call. */
   item_id: string;
@@ -1904,7 +1904,7 @@ model ImageGenTool extends Tool {
   /** Compression level for the output image. Default: 100. */
   @minValue(0)
   @maxValue(100)
-  output_compression?: int32 = 100;
+  output_compression?: integer = 100;
 
   @doc("""
     Moderation level for the generated image. Default: `auto`.
@@ -1932,7 +1932,7 @@ model ImageGenTool extends Tool {
   /** Number of partial images to generate in streaming mode, from 0 (default value) to 3. */
   @minValue(0)
   @maxValue(3)
-  partial_images?: int32 = 0;
+  partial_images?: integer = 0;
 }
 
 // Tool customization: Rename to supply base for split input/output models
@@ -1965,7 +1965,7 @@ model LocalShellExecAction {
   command: string[];
 
   /** Optional timeout in milliseconds for the command. */
-  timeout_ms?: int32 | null;
+  timeout_ms?: integer | null;
 
   /** Optional working directory to run the command in. */
   working_directory?: string | null;
@@ -2206,7 +2206,7 @@ model ResponseImageGenCallCompletedEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_image_generation_call_completed;
 
   /** The index of the output item in the response's output array. */
-  output_index: int32;
+  output_index: integer;
 
   /** The unique identifier of the image generation item being processed. */
   item_id: string;
@@ -2219,7 +2219,7 @@ model ResponseImageGenCallGeneratingEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_image_generation_call_generating;
 
   /** The index of the output item in the response's output array. */
-  output_index: int32;
+  output_index: integer;
 
   /** The unique identifier of the image generation item being processed. */
   item_id: string;
@@ -2232,7 +2232,7 @@ model ResponseImageGenCallInProgressEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_image_generation_call_in_progress;
 
   /** The index of the output item in the response's output array. */
-  output_index: int32;
+  output_index: integer;
 
   /** The unique identifier of the image generation item being processed. */
   item_id: string;
@@ -2245,13 +2245,13 @@ model ResponseImageGenCallPartialImageEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_image_generation_call_partial_image;
 
   /** The index of the output item in the response's output array. */
-  output_index: int32;
+  output_index: integer;
 
   /** The unique identifier of the image generation item being processed. */
   item_id: string;
 
   /** 0-based index for the partial image (backend is 1-based, but this is 0-based for the user). */
-  partial_image_index: int32;
+  partial_image_index: integer;
 
   /** Base64-encoded partial image data, suitable for rendering as an image. */
   partial_image_b64: string;
@@ -2264,7 +2264,7 @@ model ResponseMCPCallArgumentsDeltaEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_mcp_call_arguments_delta;
 
   /** The index of the output item in the response's output array. */
-  output_index: int32;
+  output_index: integer;
 
   /** The unique identifier of the MCP tool call item being processed. */
   item_id: string;
@@ -2280,7 +2280,7 @@ model ResponseMCPCallArgumentsDoneEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_mcp_call_arguments_done;
 
   /** The index of the output item in the response's output array. */
-  output_index: int32;
+  output_index: integer;
 
   /** The unique identifier of the MCP tool call item being processed. */
   item_id: string;
@@ -2310,7 +2310,7 @@ model ResponseMCPCallInProgressEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_mcp_call_in_progress;
 
   /** The index of the output item in the response's output array. */
-  output_index: int32;
+  output_index: integer;
 
   /** The unique identifier of the MCP tool call item being processed. */
   item_id: string;
@@ -2347,13 +2347,13 @@ model ResponseOutputTextAnnotationAddedEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item in the response's output array. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part within the output item. */
-  content_index: int32;
+  content_index: integer;
 
   /** The index of the annotation within the content part. */
-  annotation_index: int32;
+  annotation_index: integer;
 
   /** The annotation object being added. (See annotation schema for details.) */
   annotation: unknown;
@@ -2379,10 +2379,10 @@ model ResponseReasoningDeltaEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item in the response's output array. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the reasoning content part within the output item. */
-  content_index: int32;
+  content_index: integer;
 
   /** The partial update to the reasoning content. */
   delta: unknown;
@@ -2398,10 +2398,10 @@ model ResponseReasoningDoneEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item in the response's output array. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the reasoning content part within the output item. */
-  content_index: int32;
+  content_index: integer;
 
   /** The finalized reasoning text. */
   text: string;
@@ -2417,10 +2417,10 @@ model ResponseReasoningSummaryDeltaEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item in the response's output array. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the summary part within the output item. */
-  summary_index: int32;
+  summary_index: integer;
 
   /** The partial update to the reasoning summary content. */
   delta: unknown;
@@ -2436,10 +2436,10 @@ model ResponseReasoningSummaryDoneEvent extends ResponseStreamEvent {
   item_id: string;
 
   /** The index of the output item in the response's output array. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the summary part within the output item. */
-  summary_index: int32;
+  summary_index: integer;
 
   /** The finalized reasoning summary text. */
   text: string;
@@ -2548,7 +2548,7 @@ model ResponseCodeInterpreterCallCodeDeltaEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_code_interpreter_call_code_delta;
 
   /** The index of the output item that the code interpreter call is in progress. */
-  output_index: int32;
+  output_index: integer;
 
   /** The partial code snippet added by the code interpreter. */
   delta: string;
@@ -2563,7 +2563,7 @@ model ResponseCodeInterpreterCallCodeDoneEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_code_interpreter_call_code_done;
 
   /** The index of the output item that the code interpreter call is in progress. */
-  output_index: int32;
+  output_index: integer;
 
   /** The final code snippet output by the code interpreter. */
   code: string;
@@ -2578,7 +2578,7 @@ model ResponseCodeInterpreterCallCompletedEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_code_interpreter_call_completed;
 
   /** The index of the output item that the code interpreter call is in progress. */
-  output_index: int32;
+  output_index: integer;
 
   // Tool customization: Use split resource type
   code_interpreter_call: CodeInterpreterToolCallItemResource;
@@ -2593,7 +2593,7 @@ model ResponseCodeInterpreterCallInProgressEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_code_interpreter_call_in_progress;
 
   /** The index of the output item that the code interpreter call is in progress. */
-  output_index: int32;
+  output_index: integer;
 
   // Tool customization: Use split resource type
   code_interpreter_call: CodeInterpreterToolCallItemResource;
@@ -2608,7 +2608,7 @@ model ResponseCodeInterpreterCallInterpretingEvent extends ResponseStreamEvent {
   type: ResponseStreamEventType.response_code_interpreter_call_interpreting;
 
   /** The index of the output item that the code interpreter call is in progress. */
-  output_index: int32;
+  output_index: integer;
 
   // Tool customization: Use split resource type
   code_interpreter_call: CodeInterpreterToolCallItemResource;
@@ -2618,13 +2618,13 @@ model ResponseCodeInterpreterCallInterpretingEvent extends ResponseStreamEvent {
 model TopLogProb {
   token: string;
   logprob: float32;
-  bytes: int32[];
+  bytes: integer[];
 }
 
 /** The log probability of a token. */
 model LogProb {
   token: string;
   logprob: float32;
-  bytes: int32[];
+  bytes: integer[];
   top_logprobs: TopLogProb[];
 }

@@ -104,9 +104,9 @@ namespace OpenAI.Evals
                 return null;
             }
             float? temperature = default;
-            int? maxCompletionTokens = default;
+            long? maxCompletionTokens = default;
             float? topP = default;
-            int? seed = default;
+            long? seed = default;
             IList<ResponseTool> tools = default;
             InternalEvalResponsesRunDataSourceParamsSamplingParamsText text = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -127,7 +127,7 @@ namespace OpenAI.Evals
                     {
                         continue;
                     }
-                    maxCompletionTokens = prop.Value.GetInt32();
+                    maxCompletionTokens = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("top_p"u8))
@@ -145,7 +145,7 @@ namespace OpenAI.Evals
                     {
                         continue;
                     }
-                    seed = prop.Value.GetInt32();
+                    seed = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("tools"u8))

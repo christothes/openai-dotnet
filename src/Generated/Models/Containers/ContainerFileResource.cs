@@ -13,7 +13,7 @@ namespace OpenAI.Containers
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal ContainerFileResource(string id, string @object, string containerId, DateTimeOffset createdAt, int bytes, string path, string source)
+        internal ContainerFileResource(string id, string @object, string containerId, DateTimeOffset createdAt, long bytes, string path, string source)
         {
             Id = id;
             Object = @object;
@@ -24,7 +24,7 @@ namespace OpenAI.Containers
             Source = source;
         }
 
-        internal ContainerFileResource(string id, string @object, string containerId, DateTimeOffset createdAt, int bytes, string path, string source, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ContainerFileResource(string id, string @object, string containerId, DateTimeOffset createdAt, long bytes, string path, string source, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Id = id;
             Object = @object;
@@ -44,7 +44,7 @@ namespace OpenAI.Containers
 
         public DateTimeOffset CreatedAt { get; }
 
-        public int Bytes { get; }
+        public long Bytes { get; }
 
         public string Path { get; }
 

@@ -13,13 +13,13 @@ namespace OpenAI.Assistants
     internal partial class AssistantClientGetAssistantsAsyncCollectionResultOfT : AsyncCollectionResult<Assistant>
     {
         private readonly AssistantClient _client;
-        private readonly int? _limit;
+        private readonly long? _limit;
         private readonly string _order;
         private readonly string _after;
         private readonly string _before;
         private readonly RequestOptions _options;
 
-        public AssistantClientGetAssistantsAsyncCollectionResultOfT(AssistantClient client, int? limit, string order, string after, string before, RequestOptions options)
+        public AssistantClientGetAssistantsAsyncCollectionResultOfT(AssistantClient client, long? limit, string order, string after, string before, RequestOptions options)
         {
             _client = client;
             _limit = limit;

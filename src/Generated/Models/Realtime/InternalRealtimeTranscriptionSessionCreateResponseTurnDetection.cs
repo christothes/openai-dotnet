@@ -15,7 +15,7 @@ namespace OpenAI.Realtime
         {
         }
 
-        internal InternalRealtimeTranscriptionSessionCreateResponseTurnDetection(string kind, float? threshold, int? prefixPaddingMs, int? silenceDurationMs, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalRealtimeTranscriptionSessionCreateResponseTurnDetection(string kind, float? threshold, long? prefixPaddingMs, long? silenceDurationMs, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Kind = kind;
             Threshold = threshold;
@@ -28,9 +28,9 @@ namespace OpenAI.Realtime
 
         public float? Threshold { get; }
 
-        public int? PrefixPaddingMs { get; }
+        public long? PrefixPaddingMs { get; }
 
-        public int? SilenceDurationMs { get; }
+        public long? SilenceDurationMs { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

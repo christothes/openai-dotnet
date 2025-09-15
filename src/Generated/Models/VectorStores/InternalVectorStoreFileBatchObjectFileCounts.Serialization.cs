@@ -96,37 +96,37 @@ namespace OpenAI.VectorStores
             {
                 return null;
             }
-            int inProgress = default;
-            int completed = default;
-            int failed = default;
-            int cancelled = default;
-            int total = default;
+            long inProgress = default;
+            long completed = default;
+            long failed = default;
+            long cancelled = default;
+            long total = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("in_progress"u8))
                 {
-                    inProgress = prop.Value.GetInt32();
+                    inProgress = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("completed"u8))
                 {
-                    completed = prop.Value.GetInt32();
+                    completed = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("failed"u8))
                 {
-                    failed = prop.Value.GetInt32();
+                    failed = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("cancelled"u8))
                 {
-                    cancelled = prop.Value.GetInt32();
+                    cancelled = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("total"u8))
                 {
-                    total = prop.Value.GetInt32();
+                    total = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

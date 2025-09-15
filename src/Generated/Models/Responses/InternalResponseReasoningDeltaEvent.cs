@@ -9,7 +9,7 @@ namespace OpenAI.Responses
 {
     internal partial class InternalResponseReasoningDeltaEvent : StreamingResponseUpdate
     {
-        internal InternalResponseReasoningDeltaEvent(int sequenceNumber, string itemId, int outputIndex, int contentIndex, BinaryData delta) : base(InternalResponseStreamEventType.ResponseReasoningDelta, sequenceNumber)
+        internal InternalResponseReasoningDeltaEvent(long sequenceNumber, string itemId, long outputIndex, long contentIndex, BinaryData delta) : base(InternalResponseStreamEventType.ResponseReasoningDelta, sequenceNumber)
         {
             ItemId = itemId;
             OutputIndex = outputIndex;
@@ -17,7 +17,7 @@ namespace OpenAI.Responses
             Delta = delta;
         }
 
-        internal InternalResponseReasoningDeltaEvent(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, int outputIndex, int contentIndex, BinaryData delta) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal InternalResponseReasoningDeltaEvent(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, long outputIndex, long contentIndex, BinaryData delta) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
             ItemId = itemId;
             OutputIndex = outputIndex;
@@ -27,9 +27,9 @@ namespace OpenAI.Responses
 
         public string ItemId { get; }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
 
         public BinaryData Delta { get; }
     }

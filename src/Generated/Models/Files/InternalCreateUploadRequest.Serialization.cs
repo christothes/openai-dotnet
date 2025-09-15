@@ -93,7 +93,7 @@ namespace OpenAI.Files
             }
             string filename = default;
             InternalCreateUploadRequestPurpose purpose = default;
-            int bytes = default;
+            long bytes = default;
             string mimeType = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -110,7 +110,7 @@ namespace OpenAI.Files
                 }
                 if (prop.NameEquals("bytes"u8))
                 {
-                    bytes = prop.Value.GetInt32();
+                    bytes = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("mime_type"u8))

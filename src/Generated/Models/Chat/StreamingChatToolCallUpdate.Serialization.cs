@@ -94,7 +94,7 @@ namespace OpenAI.Chat
             {
                 return null;
             }
-            int index = default;
+            long index = default;
             string toolCallId = default;
             ChatToolCallKind kind = default;
             InternalChatCompletionMessageToolCallChunkFunction function = default;
@@ -103,7 +103,7 @@ namespace OpenAI.Chat
             {
                 if (prop.NameEquals("index"u8))
                 {
-                    index = prop.Value.GetInt32();
+                    index = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("id"u8))

@@ -17,10 +17,10 @@ namespace OpenAI.LegacyCompletions
         {
             Model = model;
             Prompt = prompt;
-            LogitBias = new ChangeTrackingDictionary<string, int>();
+            LogitBias = new ChangeTrackingDictionary<string, long>();
         }
 
-        internal InternalCreateCompletionRequest(InternalCreateCompletionRequestModel model, BinaryData prompt, int? bestOf, bool? echo, float? frequencyPenalty, IDictionary<string, int> logitBias, int? logprobs, int? maxTokens, int? n, float? presencePenalty, long? seed, BinaryData stop, bool? stream, InternalChatCompletionStreamOptions streamOptions, string suffix, float? temperature, float? topP, string user, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalCreateCompletionRequest(InternalCreateCompletionRequestModel model, BinaryData prompt, long? bestOf, bool? echo, float? frequencyPenalty, IDictionary<string, long> logitBias, long? logprobs, long? maxTokens, long? n, float? presencePenalty, long? seed, BinaryData stop, bool? stream, InternalChatCompletionStreamOptions streamOptions, string suffix, float? temperature, float? topP, string user, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Model = model;
@@ -28,7 +28,7 @@ namespace OpenAI.LegacyCompletions
             BestOf = bestOf;
             Echo = echo;
             FrequencyPenalty = frequencyPenalty;
-            LogitBias = logitBias ?? new ChangeTrackingDictionary<string, int>();
+            LogitBias = logitBias ?? new ChangeTrackingDictionary<string, long>();
             Logprobs = logprobs;
             MaxTokens = maxTokens;
             N = n;
@@ -48,19 +48,19 @@ namespace OpenAI.LegacyCompletions
 
         public BinaryData Prompt { get; }
 
-        public int? BestOf { get; set; }
+        public long? BestOf { get; set; }
 
         public bool? Echo { get; set; }
 
         public float? FrequencyPenalty { get; set; }
 
-        public IDictionary<string, int> LogitBias { get; set; }
+        public IDictionary<string, long> LogitBias { get; set; }
 
-        public int? Logprobs { get; set; }
+        public long? Logprobs { get; set; }
 
-        public int? MaxTokens { get; set; }
+        public long? MaxTokens { get; set; }
 
-        public int? N { get; set; }
+        public long? N { get; set; }
 
         public float? PresencePenalty { get; set; }
 

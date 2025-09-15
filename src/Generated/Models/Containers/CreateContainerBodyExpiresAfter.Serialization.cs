@@ -82,7 +82,7 @@ namespace OpenAI.Containers
                 return null;
             }
             string anchor = default;
-            int minutes = default;
+            long minutes = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -93,7 +93,7 @@ namespace OpenAI.Containers
                 }
                 if (prop.NameEquals("minutes"u8))
                 {
-                    minutes = prop.Value.GetInt32();
+                    minutes = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

@@ -13,12 +13,12 @@ namespace OpenAI.Containers
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        public CreateContainerBodyExpiresAfter(int minutes)
+        public CreateContainerBodyExpiresAfter(long minutes)
         {
             Minutes = minutes;
         }
 
-        internal CreateContainerBodyExpiresAfter(string anchor, int minutes, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal CreateContainerBodyExpiresAfter(string anchor, long minutes, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Anchor = anchor;
             Minutes = minutes;
@@ -27,7 +27,7 @@ namespace OpenAI.Containers
 
         public string Anchor { get; } = "last_active_at";
 
-        public int Minutes { get; }
+        public long Minutes { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

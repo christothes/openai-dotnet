@@ -128,9 +128,9 @@ namespace OpenAI.Assistants {
         public virtual Task<ClientResult> GetAssistantAsync(string assistantId, RequestOptions options);
         public virtual Task<ClientResult<Assistant>> GetAssistantAsync(string assistantId, CancellationToken cancellationToken = default);
         public virtual CollectionResult<Assistant> GetAssistants(AssistantCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual CollectionResult GetAssistants(int? limit, string order, string after, string before, RequestOptions options);
+        public virtual CollectionResult GetAssistants(long? limit, string order, string after, string before, RequestOptions options);
         public virtual AsyncCollectionResult<Assistant> GetAssistantsAsync(AssistantCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual AsyncCollectionResult GetAssistantsAsync(int? limit, string order, string after, string before, RequestOptions options);
+        public virtual AsyncCollectionResult GetAssistantsAsync(long? limit, string order, string after, string before, RequestOptions options);
         public virtual ClientResult GetMessage(string threadId, string messageId, RequestOptions options);
         public virtual ClientResult<ThreadMessage> GetMessage(string threadId, string messageId, CancellationToken cancellationToken = default);
         public virtual Task<ClientResult> GetMessageAsync(string threadId, string messageId, RequestOptions options);
@@ -185,7 +185,7 @@ namespace OpenAI.Assistants {
         public string AfterId { get; set; }
         public string BeforeId { get; set; }
         public AssistantCollectionOrder? Order { get; set; }
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
         protected virtual AssistantCollectionOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual AssistantCollectionOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -370,7 +370,7 @@ namespace OpenAI.Assistants {
         public string AfterId { get; set; }
         public string BeforeId { get; set; }
         public MessageCollectionOrder? Order { get; set; }
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
         protected virtual MessageCollectionOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual MessageCollectionOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -414,7 +414,7 @@ namespace OpenAI.Assistants {
         public MessageImageDetail? ImageDetail { get; }
         public string ImageFileId { get; }
         public string MessageId { get; }
-        public int MessageIndex { get; }
+        public long MessageIndex { get; }
         public string RefusalUpdate { get; }
         public MessageRole? Role { get; }
         public string Text { get; }
@@ -533,7 +533,7 @@ namespace OpenAI.Assistants {
         public string AfterId { get; set; }
         public string BeforeId { get; set; }
         public RunCollectionOrder? Order { get; set; }
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
         protected virtual RunCollectionOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual RunCollectionOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -695,7 +695,7 @@ namespace OpenAI.Assistants {
         public string AfterId { get; set; }
         public string BeforeId { get; set; }
         public RunStepCollectionOrder? Order { get; set; }
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
         protected virtual RunStepCollectionOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual RunStepCollectionOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -738,7 +738,7 @@ namespace OpenAI.Assistants {
         public string FunctionOutput { get; }
         public string StepId { get; }
         public string ToolCallId { get; }
-        public int? ToolCallIndex { get; }
+        public long? ToolCallIndex { get; }
     }
     [Experimental("OPENAI001")]
     public class RunStepError : IJsonModel<RunStepError>, IPersistableModel<RunStepError> {
@@ -852,7 +852,7 @@ namespace OpenAI.Assistants {
     public class RunStepUpdateCodeInterpreterOutput : IJsonModel<RunStepUpdateCodeInterpreterOutput>, IPersistableModel<RunStepUpdateCodeInterpreterOutput> {
         public string ImageFileId { get; }
         public string Logs { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected virtual RunStepUpdateCodeInterpreterOutput JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual RunStepUpdateCodeInterpreterOutput PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -921,19 +921,19 @@ namespace OpenAI.Assistants {
     }
     [Experimental("OPENAI001")]
     public class TextAnnotation {
-        public int EndIndex { get; }
+        public long EndIndex { get; }
         public string InputFileId { get; }
         public string OutputFileId { get; }
-        public int StartIndex { get; }
+        public long StartIndex { get; }
         public string TextToReplace { get; }
     }
     [Experimental("OPENAI001")]
     public class TextAnnotationUpdate {
-        public int ContentIndex { get; }
-        public int? EndIndex { get; }
+        public long ContentIndex { get; }
+        public long? EndIndex { get; }
         public string InputFileId { get; }
         public string OutputFileId { get; }
-        public int? StartIndex { get; }
+        public long? StartIndex { get; }
         public string TextToReplace { get; }
     }
     [Experimental("OPENAI001")]
@@ -1365,7 +1365,7 @@ namespace OpenAI.Audio {
         public float AverageLogProbability { get; }
         public float CompressionRatio { get; }
         public TimeSpan EndTime { get; }
-        public int Id { get; }
+        public long Id { get; }
         public float NoSpeechProbability { get; }
         public int SeekOffset { get; }
         public TimeSpan StartTime { get; }
@@ -1496,19 +1496,19 @@ namespace OpenAI.Chat {
         [Experimental("OPENAI001")]
         public virtual CollectionResult<ChatCompletionMessageListDatum> GetChatCompletionMessages(string completionId, ChatCompletionMessageCollectionOptions options = null, CancellationToken cancellationToken = default);
         [Experimental("OPENAI001")]
-        public virtual CollectionResult GetChatCompletionMessages(string completionId, string after, int? limit, string order, RequestOptions options);
+        public virtual CollectionResult GetChatCompletionMessages(string completionId, string after, long? limit, string order, RequestOptions options);
         [Experimental("OPENAI001")]
         public virtual AsyncCollectionResult<ChatCompletionMessageListDatum> GetChatCompletionMessagesAsync(string completionId, ChatCompletionMessageCollectionOptions options = null, CancellationToken cancellationToken = default);
         [Experimental("OPENAI001")]
-        public virtual AsyncCollectionResult GetChatCompletionMessagesAsync(string completionId, string after, int? limit, string order, RequestOptions options);
+        public virtual AsyncCollectionResult GetChatCompletionMessagesAsync(string completionId, string after, long? limit, string order, RequestOptions options);
         [Experimental("OPENAI001")]
         public virtual CollectionResult<ChatCompletion> GetChatCompletions(ChatCompletionCollectionOptions options = null, CancellationToken cancellationToken = default);
         [Experimental("OPENAI001")]
-        public virtual CollectionResult GetChatCompletions(string after, int? limit, string order, IDictionary<string, string> metadata, string model, RequestOptions options);
+        public virtual CollectionResult GetChatCompletions(string after, long? limit, string order, IDictionary<string, string> metadata, string model, RequestOptions options);
         [Experimental("OPENAI001")]
         public virtual AsyncCollectionResult<ChatCompletion> GetChatCompletionsAsync(ChatCompletionCollectionOptions options = null, CancellationToken cancellationToken = default);
         [Experimental("OPENAI001")]
-        public virtual AsyncCollectionResult GetChatCompletionsAsync(string after, int? limit, string order, IDictionary<string, string> metadata, string model, RequestOptions options);
+        public virtual AsyncCollectionResult GetChatCompletionsAsync(string after, long? limit, string order, IDictionary<string, string> metadata, string model, RequestOptions options);
         [Experimental("OPENAI001")]
         public virtual ClientResult UpdateChatCompletion(string completionId, BinaryContent content, RequestOptions options = null);
         [Experimental("OPENAI001")]
@@ -1556,7 +1556,7 @@ namespace OpenAI.Chat {
         public IDictionary<string, string> Metadata { get; }
         public string Model { get; set; }
         public ChatCompletionCollectionOrder? Order { get; set; }
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
         protected virtual ChatCompletionCollectionOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual ChatCompletionCollectionOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -1592,7 +1592,7 @@ namespace OpenAI.Chat {
     public class ChatCompletionMessageCollectionOptions : IJsonModel<ChatCompletionMessageCollectionOptions>, IPersistableModel<ChatCompletionMessageCollectionOptions> {
         public string AfterId { get; set; }
         public ChatCompletionMessageCollectionOrder? Order { get; set; }
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
         protected virtual ChatCompletionMessageCollectionOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual ChatCompletionMessageCollectionOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -1804,8 +1804,8 @@ namespace OpenAI.Chat {
     }
     [Experimental("OPENAI001")]
     public class ChatMessageAnnotation : IJsonModel<ChatMessageAnnotation>, IPersistableModel<ChatMessageAnnotation> {
-        public int EndIndex { get; }
-        public int StartIndex { get; }
+        public long EndIndex { get; }
+        public long StartIndex { get; }
         public string WebResourceTitle { get; }
         public Uri WebResourceUri { get; }
         protected virtual ChatMessageAnnotation JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
@@ -2229,7 +2229,7 @@ namespace OpenAI.Chat {
     public class StreamingChatToolCallUpdate : IJsonModel<StreamingChatToolCallUpdate>, IPersistableModel<StreamingChatToolCallUpdate> {
         public BinaryData FunctionArgumentsUpdate { get; }
         public string FunctionName { get; }
-        public int Index { get; }
+        public long Index { get; }
         public ChatToolCallKind Kind { get; }
         public string ToolCallId { get; }
         [Experimental("OPENAI001")]
@@ -2324,19 +2324,19 @@ namespace OpenAI.Containers {
         public virtual Task<ClientResult> GetContainerFileContentAsync(string containerId, string fileId, RequestOptions options);
         public virtual Task<ClientResult<BinaryData>> GetContainerFileContentAsync(string containerId, string fileId, CancellationToken cancellationToken = default);
         public virtual CollectionResult<ContainerFileResource> GetContainerFiles(string containerId, ContainerFileCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual CollectionResult GetContainerFiles(string containerId, int? limit, string order, string after, RequestOptions options);
+        public virtual CollectionResult GetContainerFiles(string containerId, long? limit, string order, string after, RequestOptions options);
         public virtual AsyncCollectionResult<ContainerFileResource> GetContainerFilesAsync(string containerId, ContainerFileCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual AsyncCollectionResult GetContainerFilesAsync(string containerId, int? limit, string order, string after, RequestOptions options);
+        public virtual AsyncCollectionResult GetContainerFilesAsync(string containerId, long? limit, string order, string after, RequestOptions options);
         public virtual CollectionResult<ContainerResource> GetContainers(ContainerCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual CollectionResult GetContainers(int? limit, string order, string after, RequestOptions options);
+        public virtual CollectionResult GetContainers(long? limit, string order, string after, RequestOptions options);
         public virtual AsyncCollectionResult<ContainerResource> GetContainersAsync(ContainerCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual AsyncCollectionResult GetContainersAsync(int? limit, string order, string after, RequestOptions options);
+        public virtual AsyncCollectionResult GetContainersAsync(long? limit, string order, string after, RequestOptions options);
     }
     [Experimental("OPENAI001")]
     public class ContainerCollectionOptions : IJsonModel<ContainerCollectionOptions>, IPersistableModel<ContainerCollectionOptions> {
         public string AfterId { get; set; }
         public ContainerCollectionOrder? Order { get; set; }
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
         protected virtual ContainerCollectionOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual ContainerCollectionOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -2362,7 +2362,7 @@ namespace OpenAI.Containers {
     public class ContainerFileCollectionOptions : IJsonModel<ContainerFileCollectionOptions>, IPersistableModel<ContainerFileCollectionOptions> {
         public string AfterId { get; set; }
         public ContainerCollectionOrder? Order { get; set; }
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
         protected virtual ContainerFileCollectionOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual ContainerFileCollectionOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -2370,7 +2370,7 @@ namespace OpenAI.Containers {
     }
     [Experimental("OPENAI001")]
     public class ContainerFileResource : IJsonModel<ContainerFileResource>, IPersistableModel<ContainerFileResource> {
-        public int Bytes { get; }
+        public long Bytes { get; }
         public string ContainerId { get; }
         public DateTimeOffset CreatedAt { get; }
         public string Id { get; }
@@ -2400,7 +2400,7 @@ namespace OpenAI.Containers {
     [Experimental("OPENAI001")]
     public class ContainerResourceExpiresAfter : IJsonModel<ContainerResourceExpiresAfter>, IPersistableModel<ContainerResourceExpiresAfter> {
         public string Anchor { get; }
-        public int? Minutes { get; }
+        public long? Minutes { get; }
         protected virtual ContainerResourceExpiresAfter JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual ContainerResourceExpiresAfter PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -2420,9 +2420,9 @@ namespace OpenAI.Containers {
     }
     [Experimental("OPENAI001")]
     public class CreateContainerBodyExpiresAfter : IJsonModel<CreateContainerBodyExpiresAfter>, IPersistableModel<CreateContainerBodyExpiresAfter> {
-        public CreateContainerBodyExpiresAfter(int minutes);
+        public CreateContainerBodyExpiresAfter(long minutes);
         public string Anchor { get; }
-        public int Minutes { get; }
+        public long Minutes { get; }
         protected virtual CreateContainerBodyExpiresAfter JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual CreateContainerBodyExpiresAfter PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -2486,7 +2486,7 @@ namespace OpenAI.Embeddings {
         public virtual Task<ClientResult<OpenAIEmbeddingCollection>> GenerateEmbeddingsAsync(IEnumerable<string> inputs, EmbeddingGenerationOptions options = null, CancellationToken cancellationToken = default);
     }
     public class EmbeddingGenerationOptions : IJsonModel<EmbeddingGenerationOptions>, IPersistableModel<EmbeddingGenerationOptions> {
-        public int? Dimensions { get; set; }
+        public long? Dimensions { get; set; }
         public string EndUserId { get; set; }
         [Experimental("OPENAI001")]
         protected virtual EmbeddingGenerationOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
@@ -2510,7 +2510,7 @@ namespace OpenAI.Embeddings {
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
     }
     public class OpenAIEmbedding : IJsonModel<OpenAIEmbedding>, IPersistableModel<OpenAIEmbedding> {
-        public int Index { get; }
+        public long Index { get; }
         [Experimental("OPENAI001")]
         protected virtual OpenAIEmbedding JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         [Experimental("OPENAI001")]
@@ -2786,8 +2786,8 @@ namespace OpenAI.FineTuning {
         public virtual FineTuningJob FineTune(string baseModel, string trainingFileId, bool waitUntilCompleted, FineTuningOptions options = null, CancellationToken cancellationToken = default);
         public virtual Task<FineTuningJob> FineTuneAsync(BinaryContent content, bool waitUntilCompleted, RequestOptions options);
         public virtual Task<FineTuningJob> FineTuneAsync(string baseModel, string trainingFileId, bool waitUntilCompleted, FineTuningOptions options = null, CancellationToken cancellationToken = default);
-        public virtual ClientResult GetFineTuningCheckpointPermissions(string fineTunedModelCheckpoint, string after, int? limit, string order, string projectId, RequestOptions options);
-        public virtual Task<ClientResult> GetFineTuningCheckpointPermissionsAsync(string fineTunedModelCheckpoint, string after, int? limit, string order, string projectId, RequestOptions options);
+        public virtual ClientResult GetFineTuningCheckpointPermissions(string fineTunedModelCheckpoint, string after, long? limit, string order, string projectId, RequestOptions options);
+        public virtual Task<ClientResult> GetFineTuningCheckpointPermissionsAsync(string fineTunedModelCheckpoint, string after, long? limit, string order, string projectId, RequestOptions options);
         public virtual FineTuningJob GetJob(string jobId, CancellationToken cancellationToken = default);
         public virtual Task<FineTuningJob> GetJobAsync(string jobId, CancellationToken cancellationToken = default);
         public virtual CollectionResult<FineTuningJob> GetJobs(FineTuningJobCollectionOptions options = null, CancellationToken cancellationToken = default);
@@ -3269,7 +3269,7 @@ namespace OpenAI.Graders {
         public string Name { get; }
         public string SampledModelName { get; }
         public BinaryData Scores { get; }
-        public int? TokenUsage { get; }
+        public long? TokenUsage { get; }
         protected virtual RunGraderResponseMetadata JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual RunGraderResponseMetadata PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -4107,7 +4107,7 @@ namespace OpenAI.Realtime {
     }
     [Experimental("OPENAI002")]
     public class InputAudioTranscriptionDeltaUpdate : RealtimeUpdate, IJsonModel<InputAudioTranscriptionDeltaUpdate>, IPersistableModel<InputAudioTranscriptionDeltaUpdate> {
-        public int? ContentIndex { get; }
+        public long? ContentIndex { get; }
         public string Delta { get; }
         public string ItemId { get; }
         protected override RealtimeUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
@@ -4117,7 +4117,7 @@ namespace OpenAI.Realtime {
     }
     [Experimental("OPENAI002")]
     public class InputAudioTranscriptionFailedUpdate : RealtimeUpdate, IJsonModel<InputAudioTranscriptionFailedUpdate>, IPersistableModel<InputAudioTranscriptionFailedUpdate> {
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
         public string ErrorCode { get; }
         public string ErrorMessage { get; }
         public string ErrorParameterName { get; }
@@ -4129,7 +4129,7 @@ namespace OpenAI.Realtime {
     }
     [Experimental("OPENAI002")]
     public class InputAudioTranscriptionFinishedUpdate : RealtimeUpdate, IJsonModel<InputAudioTranscriptionFinishedUpdate>, IPersistableModel<InputAudioTranscriptionFinishedUpdate> {
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
         public string ItemId { get; }
         public string Transcript { get; }
         protected override RealtimeUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
@@ -4213,8 +4213,8 @@ namespace OpenAI.Realtime {
     }
     [Experimental("OPENAI002")]
     public class ItemTruncatedUpdate : RealtimeUpdate, IJsonModel<ItemTruncatedUpdate>, IPersistableModel<ItemTruncatedUpdate> {
-        public int AudioEndMs { get; }
-        public int ContentIndex { get; }
+        public long AudioEndMs { get; }
+        public long ContentIndex { get; }
         public string ItemId { get; }
         protected override RealtimeUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
@@ -4223,9 +4223,9 @@ namespace OpenAI.Realtime {
     }
     [Experimental("OPENAI002")]
     public class OutputAudioFinishedUpdate : RealtimeUpdate, IJsonModel<OutputAudioFinishedUpdate>, IPersistableModel<OutputAudioFinishedUpdate> {
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         public string ResponseId { get; }
         protected override RealtimeUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
@@ -4234,9 +4234,9 @@ namespace OpenAI.Realtime {
     }
     [Experimental("OPENAI002")]
     public class OutputAudioTranscriptionFinishedUpdate : RealtimeUpdate, IJsonModel<OutputAudioTranscriptionFinishedUpdate>, IPersistableModel<OutputAudioTranscriptionFinishedUpdate> {
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         public string ResponseId { get; }
         public string Transcript { get; }
         protected override RealtimeUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
@@ -4248,22 +4248,22 @@ namespace OpenAI.Realtime {
     public class OutputDeltaUpdate : RealtimeUpdate, IJsonModel<OutputDeltaUpdate>, IPersistableModel<OutputDeltaUpdate> {
         public BinaryData AudioBytes { get; }
         public string AudioTranscript { get; }
-        public int ContentPartIndex { get; }
+        public long ContentPartIndex { get; }
         public string FunctionArguments { get; }
         public string FunctionCallId { get; }
         public string ItemId { get; }
-        public int ItemIndex { get; }
+        public long ItemIndex { get; }
         public string ResponseId { get; }
         public string Text { get; }
     }
     [Experimental("OPENAI002")]
     public class OutputPartFinishedUpdate : RealtimeUpdate, IJsonModel<OutputPartFinishedUpdate>, IPersistableModel<OutputPartFinishedUpdate> {
         public string AudioTranscript { get; }
-        public int ContentPartIndex { get; }
+        public long ContentPartIndex { get; }
         public string FunctionArguments { get; }
         public string FunctionCallId { get; }
         public string ItemId { get; }
-        public int ItemIndex { get; }
+        public long ItemIndex { get; }
         public string ResponseId { get; }
         public string Text { get; }
     }
@@ -4276,7 +4276,7 @@ namespace OpenAI.Realtime {
         public string ItemId { get; }
         public IReadOnlyList<ConversationContentPart> MessageContentParts { get; }
         public ConversationMessageRole? MessageRole { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         public string ResponseId { get; }
         protected override RealtimeUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
@@ -4301,9 +4301,9 @@ namespace OpenAI.Realtime {
     }
     [Experimental("OPENAI002")]
     public class OutputTextFinishedUpdate : RealtimeUpdate, IJsonModel<OutputTextFinishedUpdate>, IPersistableModel<OutputTextFinishedUpdate> {
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         public string ResponseId { get; }
         public string Text { get; }
         protected override RealtimeUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
@@ -4612,8 +4612,8 @@ namespace OpenAI.Responses {
         public ComputerCallActionKind Kind { get; }
         public Drawing.Point? MoveCoordinates { get; }
         public Drawing.Point? ScrollCoordinates { get; }
-        public int? ScrollHorizontalOffset { get; }
-        public int? ScrollVerticalOffset { get; }
+        public long? ScrollHorizontalOffset { get; }
+        public long? ScrollVerticalOffset { get; }
         public string TypeText { get; }
         public static ComputerCallAction CreateClickAction(Drawing.Point clickCoordinates, ComputerCallActionMouseButton clickMouseButton);
         public static ComputerCallAction CreateDoubleClickAction(Drawing.Point doubleClickCoordinates, ComputerCallActionMouseButton doubleClickMouseButton);
@@ -4708,9 +4708,9 @@ namespace OpenAI.Responses {
     }
     [Experimental("OPENAI001")]
     public class ComputerTool : ResponseTool, IJsonModel<ComputerTool>, IPersistableModel<ComputerTool> {
-        public ComputerTool(ComputerToolEnvironment environment, int displayWidth, int displayHeight);
-        public int DisplayHeight { get; set; }
-        public int DisplayWidth { get; set; }
+        public ComputerTool(ComputerToolEnvironment environment, long displayWidth, long displayHeight);
+        public long DisplayHeight { get; set; }
+        public long DisplayWidth { get; set; }
         public ComputerToolEnvironment Environment { get; set; }
         protected override ResponseTool JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
@@ -4747,9 +4747,9 @@ namespace OpenAI.Responses {
     }
     [Experimental("OPENAI001")]
     public class FileCitationMessageAnnotation : ResponseMessageAnnotation, IJsonModel<FileCitationMessageAnnotation>, IPersistableModel<FileCitationMessageAnnotation> {
-        public FileCitationMessageAnnotation(string fileId, int index);
+        public FileCitationMessageAnnotation(string fileId, long index);
         public string FileId { get; set; }
-        public int Index { get; set; }
+        public long Index { get; set; }
         protected override ResponseMessageAnnotation JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override ResponseMessageAnnotation PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -4757,9 +4757,9 @@ namespace OpenAI.Responses {
     }
     [Experimental("OPENAI001")]
     public class FilePathMessageAnnotation : ResponseMessageAnnotation, IJsonModel<FilePathMessageAnnotation>, IPersistableModel<FilePathMessageAnnotation> {
-        public FilePathMessageAnnotation(string fileId, int index);
+        public FilePathMessageAnnotation(string fileId, long index);
         public string FileId { get; set; }
-        public int Index { get; set; }
+        public long Index { get; set; }
         protected override ResponseMessageAnnotation JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override ResponseMessageAnnotation PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -4800,7 +4800,7 @@ namespace OpenAI.Responses {
     public class FileSearchTool : ResponseTool, IJsonModel<FileSearchTool>, IPersistableModel<FileSearchTool> {
         public FileSearchTool(IEnumerable<string> vectorStoreIds);
         public BinaryData Filters { get; set; }
-        public int? MaxResultCount { get; set; }
+        public long? MaxResultCount { get; set; }
         public FileSearchToolRankingOptions RankingOptions { get; set; }
         public IList<string> VectorStoreIds { get; }
         protected override ResponseTool JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
@@ -5073,19 +5073,19 @@ namespace OpenAI.Responses {
         public virtual Task<ClientResult> DeleteResponseAsync(string responseId, RequestOptions options);
         public virtual Task<ClientResult<ResponseDeletionResult>> DeleteResponseAsync(string responseId, CancellationToken cancellationToken = default);
         public virtual CollectionResult<ResponseItem> GetInputItems(string responseId, ResponseItemCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual CollectionResult GetInputItems(string responseId, int? limit, string order, string after, string before, RequestOptions options);
+        public virtual CollectionResult GetInputItems(string responseId, long? limit, string order, string after, string before, RequestOptions options);
         public virtual AsyncCollectionResult<ResponseItem> GetInputItemsAsync(string responseId, ResponseItemCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual AsyncCollectionResult GetInputItemsAsync(string responseId, int? limit, string order, string after, string before, RequestOptions options);
+        public virtual AsyncCollectionResult GetInputItemsAsync(string responseId, long? limit, string order, string after, string before, RequestOptions options);
         public virtual ClientResult GetResponse(string responseId, bool? stream, int? startingAfter, RequestOptions options);
         public virtual ClientResult<OpenAIResponse> GetResponse(string responseId, CancellationToken cancellationToken = default);
-        public virtual Task<ClientResult> GetResponseAsync(string responseId, bool? stream, int? startingAfter, RequestOptions options);
+        public virtual Task<ClientResult> GetResponseAsync(string responseId, bool? stream, long? startingAfter, RequestOptions options);
         public virtual Task<ClientResult<OpenAIResponse>> GetResponseAsync(string responseId, CancellationToken cancellationToken = default);
         public virtual CollectionResult<ResponseItem> GetResponseInputItems(string responseId, ResponseItemCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual CollectionResult GetResponseInputItems(string responseId, int? limit, string order, string after, string before, RequestOptions options = null);
+        public virtual CollectionResult GetResponseInputItems(string responseId, long? limit, string order, string after, string before, RequestOptions options = null);
         public virtual AsyncCollectionResult<ResponseItem> GetResponseInputItemsAsync(string responseId, ResponseItemCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual AsyncCollectionResult GetResponseInputItemsAsync(string responseId, int? limit, string order, string after, string before, RequestOptions options = null);
+        public virtual AsyncCollectionResult GetResponseInputItemsAsync(string responseId, long? limit, string order, string after, string before, RequestOptions options = null);
         public virtual CollectionResult<StreamingResponseUpdate> GetResponseStreaming(string responseId, int? startingAfter = null, CancellationToken cancellationToken = default);
-        public virtual AsyncCollectionResult<StreamingResponseUpdate> GetResponseStreamingAsync(string responseId, int? startingAfter = null, CancellationToken cancellationToken = default);
+        public virtual AsyncCollectionResult<StreamingResponseUpdate> GetResponseStreamingAsync(string responseId, long? startingAfter = null, CancellationToken cancellationToken = default);
     }
     [Experimental("OPENAI001")]
     public static class OpenAIResponsesModelFactory {
@@ -5332,7 +5332,7 @@ namespace OpenAI.Responses {
         public string AfterId { get; set; }
         public string BeforeId { get; set; }
         public ResponseItemCollectionOrder? Order { get; set; }
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
         protected virtual ResponseItemCollectionOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual ResponseItemCollectionOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5548,9 +5548,9 @@ namespace OpenAI.Responses {
     }
     [Experimental("OPENAI001")]
     public class StreamingResponseContentPartAddedUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseContentPartAddedUpdate>, IPersistableModel<StreamingResponseContentPartAddedUpdate> {
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         public ResponseContentPart Part { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
@@ -5559,9 +5559,9 @@ namespace OpenAI.Responses {
     }
     [Experimental("OPENAI001")]
     public class StreamingResponseContentPartDoneUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseContentPartDoneUpdate>, IPersistableModel<StreamingResponseContentPartDoneUpdate> {
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         public ResponseContentPart Part { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
@@ -5597,7 +5597,7 @@ namespace OpenAI.Responses {
     [Experimental("OPENAI001")]
     public class StreamingResponseFileSearchCallCompletedUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseFileSearchCallCompletedUpdate>, IPersistableModel<StreamingResponseFileSearchCallCompletedUpdate> {
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5606,7 +5606,7 @@ namespace OpenAI.Responses {
     [Experimental("OPENAI001")]
     public class StreamingResponseFileSearchCallInProgressUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseFileSearchCallInProgressUpdate>, IPersistableModel<StreamingResponseFileSearchCallInProgressUpdate> {
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5615,7 +5615,7 @@ namespace OpenAI.Responses {
     [Experimental("OPENAI001")]
     public class StreamingResponseFileSearchCallSearchingUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseFileSearchCallSearchingUpdate>, IPersistableModel<StreamingResponseFileSearchCallSearchingUpdate> {
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5625,7 +5625,7 @@ namespace OpenAI.Responses {
     public class StreamingResponseFunctionCallArgumentsDeltaUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseFunctionCallArgumentsDeltaUpdate>, IPersistableModel<StreamingResponseFunctionCallArgumentsDeltaUpdate> {
         public BinaryData Delta { get; }
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5635,7 +5635,7 @@ namespace OpenAI.Responses {
     public class StreamingResponseFunctionCallArgumentsDoneUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseFunctionCallArgumentsDoneUpdate>, IPersistableModel<StreamingResponseFunctionCallArgumentsDoneUpdate> {
         public BinaryData FunctionArguments { get; }
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5661,7 +5661,7 @@ namespace OpenAI.Responses {
     public class StreamingResponseMcpCallArgumentsDeltaUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseMcpCallArgumentsDeltaUpdate>, IPersistableModel<StreamingResponseMcpCallArgumentsDeltaUpdate> {
         public BinaryData Delta { get; }
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5670,7 +5670,7 @@ namespace OpenAI.Responses {
     [Experimental("OPENAI001")]
     public class StreamingResponseMcpCallArgumentsDoneUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseMcpCallArgumentsDoneUpdate>, IPersistableModel<StreamingResponseMcpCallArgumentsDoneUpdate> {
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         public BinaryData ToolArguments { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
@@ -5694,7 +5694,7 @@ namespace OpenAI.Responses {
     [Experimental("OPENAI001")]
     public class StreamingResponseMcpCallInProgressUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseMcpCallInProgressUpdate>, IPersistableModel<StreamingResponseMcpCallInProgressUpdate> {
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5724,7 +5724,7 @@ namespace OpenAI.Responses {
     [Experimental("OPENAI001")]
     public class StreamingResponseOutputItemAddedUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseOutputItemAddedUpdate>, IPersistableModel<StreamingResponseOutputItemAddedUpdate> {
         public ResponseItem Item { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5733,7 +5733,7 @@ namespace OpenAI.Responses {
     [Experimental("OPENAI001")]
     public class StreamingResponseOutputItemDoneUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseOutputItemDoneUpdate>, IPersistableModel<StreamingResponseOutputItemDoneUpdate> {
         public ResponseItem Item { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5741,10 +5741,10 @@ namespace OpenAI.Responses {
     }
     [Experimental("OPENAI001")]
     public class StreamingResponseOutputTextDeltaUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseOutputTextDeltaUpdate>, IPersistableModel<StreamingResponseOutputTextDeltaUpdate> {
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
         public string Delta { get; }
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5752,9 +5752,9 @@ namespace OpenAI.Responses {
     }
     [Experimental("OPENAI001")]
     public class StreamingResponseOutputTextDoneUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseOutputTextDoneUpdate>, IPersistableModel<StreamingResponseOutputTextDoneUpdate> {
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         public string Text { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
@@ -5771,10 +5771,10 @@ namespace OpenAI.Responses {
     }
     [Experimental("OPENAI001")]
     public class StreamingResponseRefusalDeltaUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseRefusalDeltaUpdate>, IPersistableModel<StreamingResponseRefusalDeltaUpdate> {
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
         public string Delta { get; }
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5782,9 +5782,9 @@ namespace OpenAI.Responses {
     }
     [Experimental("OPENAI001")]
     public class StreamingResponseRefusalDoneUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseRefusalDoneUpdate>, IPersistableModel<StreamingResponseRefusalDoneUpdate> {
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         public string Refusal { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
@@ -5794,10 +5794,10 @@ namespace OpenAI.Responses {
     [Experimental("OPENAI001")]
     public class StreamingResponseTextAnnotationAddedUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseTextAnnotationAddedUpdate>, IPersistableModel<StreamingResponseTextAnnotationAddedUpdate> {
         public BinaryData Annotation { get; }
-        public int AnnotationIndex { get; }
-        public int ContentIndex { get; }
+        public long AnnotationIndex { get; }
+        public long ContentIndex { get; }
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5805,7 +5805,7 @@ namespace OpenAI.Responses {
     }
     [Experimental("OPENAI001")]
     public class StreamingResponseUpdate : IJsonModel<StreamingResponseUpdate>, IPersistableModel<StreamingResponseUpdate> {
-        public int SequenceNumber { get; }
+        public long SequenceNumber { get; }
         protected virtual StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5814,7 +5814,7 @@ namespace OpenAI.Responses {
     [Experimental("OPENAI001")]
     public class StreamingResponseWebSearchCallCompletedUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseWebSearchCallCompletedUpdate>, IPersistableModel<StreamingResponseWebSearchCallCompletedUpdate> {
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5823,7 +5823,7 @@ namespace OpenAI.Responses {
     [Experimental("OPENAI001")]
     public class StreamingResponseWebSearchCallInProgressUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseWebSearchCallInProgressUpdate>, IPersistableModel<StreamingResponseWebSearchCallInProgressUpdate> {
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5832,7 +5832,7 @@ namespace OpenAI.Responses {
     [Experimental("OPENAI001")]
     public class StreamingResponseWebSearchCallSearchingUpdate : StreamingResponseUpdate, IJsonModel<StreamingResponseWebSearchCallSearchingUpdate>, IPersistableModel<StreamingResponseWebSearchCallSearchingUpdate> {
         public string ItemId { get; }
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
         protected override StreamingResponseUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override StreamingResponseUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5840,9 +5840,9 @@ namespace OpenAI.Responses {
     }
     [Experimental("OPENAI001")]
     public class UriCitationMessageAnnotation : ResponseMessageAnnotation, IJsonModel<UriCitationMessageAnnotation>, IPersistableModel<UriCitationMessageAnnotation> {
-        public UriCitationMessageAnnotation(Uri uri, int startIndex, int endIndex, string title);
-        public int EndIndex { get; set; }
-        public int StartIndex { get; set; }
+        public UriCitationMessageAnnotation(Uri uri, long startIndex, long endIndex, string title);
+        public long EndIndex { get; set; }
+        public long StartIndex { get; set; }
         public string Title { get; set; }
         public Uri Uri { get; set; }
         protected override ResponseMessageAnnotation JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
@@ -5938,8 +5938,8 @@ namespace OpenAI.VectorStores {
     [Experimental("OPENAI001")]
     public class StaticFileChunkingStrategy : FileChunkingStrategy, IJsonModel<StaticFileChunkingStrategy>, IPersistableModel<StaticFileChunkingStrategy> {
         public StaticFileChunkingStrategy(int maxTokensPerChunk, int overlappingTokenCount);
-        public int MaxTokensPerChunk { get; }
-        public int OverlappingTokenCount { get; }
+        public long MaxTokensPerChunk { get; }
+        public long OverlappingTokenCount { get; }
         protected override FileChunkingStrategy JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected override FileChunkingStrategy PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -5956,7 +5956,7 @@ namespace OpenAI.VectorStores {
         public IReadOnlyDictionary<string, string> Metadata { get; }
         public string Name { get; }
         public VectorStoreStatus Status { get; }
-        public int UsageBytes { get; }
+        public long UsageBytes { get; }
         protected virtual VectorStore JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         public static explicit operator VectorStore(ClientResult result);
@@ -6008,17 +6008,17 @@ namespace OpenAI.VectorStores {
         public virtual Task<ClientResult> GetVectorStoreFileBatchAsync(string vectorStoreId, string batchId, RequestOptions options);
         public virtual Task<ClientResult<VectorStoreFileBatch>> GetVectorStoreFileBatchAsync(string vectorStoreId, string batchId, CancellationToken cancellationToken = default);
         public virtual CollectionResult<VectorStoreFile> GetVectorStoreFiles(string vectorStoreId, VectorStoreFileCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual CollectionResult GetVectorStoreFiles(string vectorStoreId, int? limit, string order, string after, string before, string filter, RequestOptions options);
+        public virtual CollectionResult GetVectorStoreFiles(string vectorStoreId, long? limit, string order, string after, string before, string filter, RequestOptions options);
         public virtual AsyncCollectionResult<VectorStoreFile> GetVectorStoreFilesAsync(string vectorStoreId, VectorStoreFileCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual AsyncCollectionResult GetVectorStoreFilesAsync(string vectorStoreId, int? limit, string order, string after, string before, string filter, RequestOptions options);
+        public virtual AsyncCollectionResult GetVectorStoreFilesAsync(string vectorStoreId, long? limit, string order, string after, string before, string filter, RequestOptions options);
         public virtual CollectionResult<VectorStoreFile> GetVectorStoreFilesInBatch(string vectorStoreId, string batchId, VectorStoreFileCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual CollectionResult GetVectorStoreFilesInBatch(string vectorStoreId, string batchId, int? limit, string order, string after, string before, string filter, RequestOptions options);
+        public virtual CollectionResult GetVectorStoreFilesInBatch(string vectorStoreId, string batchId, long? limit, string order, string after, string before, string filter, RequestOptions options);
         public virtual AsyncCollectionResult<VectorStoreFile> GetVectorStoreFilesInBatchAsync(string vectorStoreId, string batchId, VectorStoreFileCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual AsyncCollectionResult GetVectorStoreFilesInBatchAsync(string vectorStoreId, string batchId, int? limit, string order, string after, string before, string filter, RequestOptions options);
+        public virtual AsyncCollectionResult GetVectorStoreFilesInBatchAsync(string vectorStoreId, string batchId, long? limit, string order, string after, string before, string filter, RequestOptions options);
         public virtual CollectionResult<VectorStore> GetVectorStores(VectorStoreCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual CollectionResult GetVectorStores(int? limit, string order, string after, string before, RequestOptions options);
+        public virtual CollectionResult GetVectorStores(long? limit, string order, string after, string before, RequestOptions options);
         public virtual AsyncCollectionResult<VectorStore> GetVectorStoresAsync(VectorStoreCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual AsyncCollectionResult GetVectorStoresAsync(int? limit, string order, string after, string before, RequestOptions options);
+        public virtual AsyncCollectionResult GetVectorStoresAsync(long? limit, string order, string after, string before, RequestOptions options);
         public virtual ClientResult<VectorStore> ModifyVectorStore(string vectorStoreId, VectorStoreModificationOptions options, CancellationToken cancellationToken = default);
         public virtual ClientResult ModifyVectorStore(string vectorStoreId, BinaryContent content, RequestOptions options = null);
         public virtual Task<ClientResult<VectorStore>> ModifyVectorStoreAsync(string vectorStoreId, VectorStoreModificationOptions options, CancellationToken cancellationToken = default);
@@ -6041,7 +6041,7 @@ namespace OpenAI.VectorStores {
         public string AfterId { get; set; }
         public string BeforeId { get; set; }
         public VectorStoreCollectionOrder? Order { get; set; }
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
         protected virtual VectorStoreCollectionOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual VectorStoreCollectionOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -6093,8 +6093,9 @@ namespace OpenAI.VectorStores {
     [Experimental("OPENAI001")]
     public class VectorStoreExpirationPolicy : IJsonModel<VectorStoreExpirationPolicy>, IPersistableModel<VectorStoreExpirationPolicy> {
         public VectorStoreExpirationPolicy(VectorStoreExpirationAnchor anchor, int days);
+        public VectorStoreExpirationPolicy(VectorStoreExpirationAnchor anchor, long days);
         public VectorStoreExpirationAnchor Anchor { get; set; }
-        public int Days { get; set; }
+        public long Days { get; set; }
         protected virtual VectorStoreExpirationPolicy JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual VectorStoreExpirationPolicy PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -6153,7 +6154,7 @@ namespace OpenAI.VectorStores {
         public string BeforeId { get; set; }
         public VectorStoreFileStatusFilter? Filter { get; set; }
         public VectorStoreFileCollectionOrder? Order { get; set; }
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
         protected virtual VectorStoreFileCollectionOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual VectorStoreFileCollectionOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
@@ -6177,11 +6178,11 @@ namespace OpenAI.VectorStores {
     }
     [Experimental("OPENAI001")]
     public class VectorStoreFileCounts : IJsonModel<VectorStoreFileCounts>, IPersistableModel<VectorStoreFileCounts> {
-        public int Cancelled { get; }
-        public int Completed { get; }
-        public int Failed { get; }
-        public int InProgress { get; }
-        public int Total { get; }
+        public long Cancelled { get; }
+        public long Completed { get; }
+        public long Failed { get; }
+        public long InProgress { get; }
+        public long Total { get; }
         protected virtual VectorStoreFileCounts JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual VectorStoreFileCounts PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);

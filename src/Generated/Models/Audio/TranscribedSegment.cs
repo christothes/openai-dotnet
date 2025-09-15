@@ -11,7 +11,7 @@ namespace OpenAI.Audio
     {
         private readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal TranscribedSegment(int id, int seekOffset, TimeSpan startTime, TimeSpan endTime, string text, ReadOnlyMemory<int> tokenIds, float temperature, float averageLogProbability, float compressionRatio, float noSpeechProbability)
+        internal TranscribedSegment(long id, int seekOffset, TimeSpan startTime, TimeSpan endTime, string text, ReadOnlyMemory<int> tokenIds, float temperature, float averageLogProbability, float compressionRatio, float noSpeechProbability)
         {
             Id = id;
             SeekOffset = seekOffset;
@@ -25,7 +25,7 @@ namespace OpenAI.Audio
             NoSpeechProbability = noSpeechProbability;
         }
 
-        internal TranscribedSegment(int id, int seekOffset, TimeSpan startTime, TimeSpan endTime, string text, ReadOnlyMemory<int> tokenIds, float temperature, float averageLogProbability, float compressionRatio, float noSpeechProbability, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal TranscribedSegment(long id, int seekOffset, TimeSpan startTime, TimeSpan endTime, string text, ReadOnlyMemory<int> tokenIds, float temperature, float averageLogProbability, float compressionRatio, float noSpeechProbability, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Id = id;
             SeekOffset = seekOffset;
@@ -40,7 +40,7 @@ namespace OpenAI.Audio
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public int Id { get; }
+        public long Id { get; }
 
         public string Text { get; }
 

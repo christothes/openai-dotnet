@@ -12,7 +12,7 @@ namespace OpenAI.Responses
     [Experimental("OPENAI001")]
     public partial class UriCitationMessageAnnotation : ResponseMessageAnnotation
     {
-        public UriCitationMessageAnnotation(Uri uri, int startIndex, int endIndex, string title) : base(ResponseMessageAnnotationKind.UriCitation)
+        public UriCitationMessageAnnotation(Uri uri, long startIndex, long endIndex, string title) : base(ResponseMessageAnnotationKind.UriCitation)
         {
             Argument.AssertNotNull(uri, nameof(uri));
             Argument.AssertNotNull(title, nameof(title));
@@ -23,7 +23,7 @@ namespace OpenAI.Responses
             Title = title;
         }
 
-        internal UriCitationMessageAnnotation(ResponseMessageAnnotationKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, Uri uri, int startIndex, int endIndex, string title) : base(kind, additionalBinaryDataProperties)
+        internal UriCitationMessageAnnotation(ResponseMessageAnnotationKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, Uri uri, long startIndex, long endIndex, string title) : base(kind, additionalBinaryDataProperties)
         {
             Uri = uri;
             StartIndex = startIndex;
@@ -31,9 +31,9 @@ namespace OpenAI.Responses
             Title = title;
         }
 
-        public int StartIndex { get; set; }
+        public long StartIndex { get; set; }
 
-        public int EndIndex { get; set; }
+        public long EndIndex { get; set; }
 
         public string Title { get; set; }
     }

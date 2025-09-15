@@ -10,7 +10,7 @@ namespace OpenAI.Assistants
 {
     internal partial class InternalMessageContentTextAnnotationsFilePathObject : InternalMessageContentTextObjectAnnotation
     {
-        internal InternalMessageContentTextAnnotationsFilePathObject(string text, InternalMessageContentTextAnnotationsFilePathObjectFilePath filePath, int startIndex, int endIndex) : base(InternalMessageContentTextAnnotationType.FilePath)
+        internal InternalMessageContentTextAnnotationsFilePathObject(string text, InternalMessageContentTextAnnotationsFilePathObjectFilePath filePath, long startIndex, long endIndex) : base(InternalMessageContentTextAnnotationType.FilePath)
         {
             Argument.AssertNotNull(text, nameof(text));
             Argument.AssertNotNull(filePath, nameof(filePath));
@@ -21,7 +21,7 @@ namespace OpenAI.Assistants
             EndIndex = endIndex;
         }
 
-        internal InternalMessageContentTextAnnotationsFilePathObject(InternalMessageContentTextAnnotationType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, string text, InternalMessageContentTextAnnotationsFilePathObjectFilePath filePath, int startIndex, int endIndex) : base(kind, additionalBinaryDataProperties)
+        internal InternalMessageContentTextAnnotationsFilePathObject(InternalMessageContentTextAnnotationType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, string text, InternalMessageContentTextAnnotationsFilePathObjectFilePath filePath, long startIndex, long endIndex) : base(kind, additionalBinaryDataProperties)
         {
             Text = text;
             FilePath = filePath;
@@ -33,8 +33,8 @@ namespace OpenAI.Assistants
 
         internal InternalMessageContentTextAnnotationsFilePathObjectFilePath FilePath { get; set; }
 
-        public int StartIndex { get; set; }
+        public long StartIndex { get; set; }
 
-        public int EndIndex { get; set; }
+        public long EndIndex { get; set; }
     }
 }

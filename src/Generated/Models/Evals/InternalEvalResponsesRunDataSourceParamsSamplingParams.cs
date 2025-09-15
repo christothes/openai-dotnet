@@ -17,7 +17,7 @@ namespace OpenAI.Evals
         {
         }
 
-        internal InternalEvalResponsesRunDataSourceParamsSamplingParams(float? temperature, int? maxCompletionTokens, float? topP, int? seed, IList<ResponseTool> tools, InternalEvalResponsesRunDataSourceParamsSamplingParamsText text, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalEvalResponsesRunDataSourceParamsSamplingParams(float? temperature, long? maxCompletionTokens, float? topP, long? seed, IList<ResponseTool> tools, InternalEvalResponsesRunDataSourceParamsSamplingParamsText text, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Temperature = temperature;
@@ -31,11 +31,11 @@ namespace OpenAI.Evals
 
         public float? Temperature { get; set; }
 
-        public int? MaxCompletionTokens { get; set; }
+        public long? MaxCompletionTokens { get; set; }
 
         public float? TopP { get; set; }
 
-        public int? Seed { get; set; }
+        public long? Seed { get; set; }
 
         public IList<ResponseTool> Tools { get; }
 

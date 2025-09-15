@@ -10,7 +10,7 @@ namespace OpenAI.Realtime
 {
     internal partial class InternalRealtimeClientEventConversationItemTruncate : InternalRealtimeClientEvent
     {
-        public InternalRealtimeClientEventConversationItemTruncate(string itemId, int contentIndex, int audioEndMs) : base(InternalRealtimeClientEventType.ConversationItemTruncate)
+        public InternalRealtimeClientEventConversationItemTruncate(string itemId, long contentIndex, long audioEndMs) : base(InternalRealtimeClientEventType.ConversationItemTruncate)
         {
             Argument.AssertNotNull(itemId, nameof(itemId));
 
@@ -19,7 +19,7 @@ namespace OpenAI.Realtime
             AudioEndMs = audioEndMs;
         }
 
-        internal InternalRealtimeClientEventConversationItemTruncate(InternalRealtimeClientEventType kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, int contentIndex, int audioEndMs) : base(kind, eventId, additionalBinaryDataProperties)
+        internal InternalRealtimeClientEventConversationItemTruncate(InternalRealtimeClientEventType kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, long contentIndex, long audioEndMs) : base(kind, eventId, additionalBinaryDataProperties)
         {
             ItemId = itemId;
             ContentIndex = contentIndex;
@@ -28,8 +28,8 @@ namespace OpenAI.Realtime
 
         public string ItemId { get; }
 
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
 
-        public int AudioEndMs { get; }
+        public long AudioEndMs { get; }
     }
 }

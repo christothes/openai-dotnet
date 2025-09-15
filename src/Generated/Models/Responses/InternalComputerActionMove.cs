@@ -9,20 +9,20 @@ namespace OpenAI.Responses
 {
     internal partial class InternalComputerActionMove : ComputerCallAction
     {
-        public InternalComputerActionMove(int x, int y) : base(ComputerCallActionKind.Move)
+        public InternalComputerActionMove(long x, long y) : base(ComputerCallActionKind.Move)
         {
             X = x;
             Y = y;
         }
 
-        internal InternalComputerActionMove(ComputerCallActionKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, int x, int y) : base(kind, additionalBinaryDataProperties)
+        internal InternalComputerActionMove(ComputerCallActionKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, long x, long y) : base(kind, additionalBinaryDataProperties)
         {
             X = x;
             Y = y;
         }
 
-        public int X { get; set; }
+        public long X { get; set; }
 
-        public int Y { get; set; }
+        public long Y { get; set; }
     }
 }

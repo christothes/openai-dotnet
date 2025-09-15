@@ -15,7 +15,7 @@ namespace OpenAI.Realtime
         {
         }
 
-        internal InternalRealtimeSessionCreateRequestClientSecretExpiresAt(string anchor, int? seconds, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalRealtimeSessionCreateRequestClientSecretExpiresAt(string anchor, long? seconds, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Anchor = anchor;
             Seconds = seconds;
@@ -24,7 +24,7 @@ namespace OpenAI.Realtime
 
         public string Anchor { get; set; }
 
-        public int? Seconds { get; set; }
+        public long? Seconds { get; set; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

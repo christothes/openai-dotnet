@@ -126,7 +126,7 @@ namespace OpenAI.Audio
             {
                 return default;
             }
-            int id = default;
+            long id = default;
             int seekOffset = default;
             TimeSpan startTime = default;
             TimeSpan endTime = default;
@@ -141,7 +141,7 @@ namespace OpenAI.Audio
             {
                 if (prop.NameEquals("id"u8))
                 {
-                    id = prop.Value.GetInt32();
+                    id = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("seek"u8))

@@ -14,13 +14,13 @@ namespace OpenAI.Assistants
     {
         private readonly InternalAssistantMessageClient _client;
         private readonly string _threadId;
-        private readonly int? _limit;
+        private readonly long? _limit;
         private readonly string _order;
         private readonly string _after;
         private readonly string _before;
         private readonly RequestOptions _options;
 
-        internal InternalAssistantMessageClientGetMessagesCollectionResultOfT(InternalAssistantMessageClient client, string threadId, int? limit, string order, string after, string before, RequestOptions options)
+        internal InternalAssistantMessageClientGetMessagesCollectionResultOfT(InternalAssistantMessageClient client, string threadId, long? limit, string order, string after, string before, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 

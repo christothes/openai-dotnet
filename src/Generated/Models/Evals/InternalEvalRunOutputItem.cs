@@ -13,7 +13,7 @@ namespace OpenAI.Evals
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalEvalRunOutputItem(string id, string runId, string evalId, DateTimeOffset createdAt, string status, int datasourceItemId, IDictionary<string, BinaryData> datasourceItem, IEnumerable<IDictionary<string, BinaryData>> results, InternalEvalRunOutputItemSample sample)
+        internal InternalEvalRunOutputItem(string id, string runId, string evalId, DateTimeOffset createdAt, string status, long datasourceItemId, IDictionary<string, BinaryData> datasourceItem, IEnumerable<IDictionary<string, BinaryData>> results, InternalEvalRunOutputItemSample sample)
         {
             // Plugin customization: ensure initialization of collections
             Id = id;
@@ -27,7 +27,7 @@ namespace OpenAI.Evals
             Sample = sample;
         }
 
-        internal InternalEvalRunOutputItem(string @object, string id, string runId, string evalId, DateTimeOffset createdAt, string status, int datasourceItemId, IDictionary<string, BinaryData> datasourceItem, IList<IDictionary<string, BinaryData>> results, InternalEvalRunOutputItemSample sample, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalEvalRunOutputItem(string @object, string id, string runId, string evalId, DateTimeOffset createdAt, string status, long datasourceItemId, IDictionary<string, BinaryData> datasourceItem, IList<IDictionary<string, BinaryData>> results, InternalEvalRunOutputItemSample sample, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Object = @object;
@@ -55,7 +55,7 @@ namespace OpenAI.Evals
 
         public string Status { get; }
 
-        public int DatasourceItemId { get; }
+        public long DatasourceItemId { get; }
 
         public IDictionary<string, BinaryData> DatasourceItem { get; }
 

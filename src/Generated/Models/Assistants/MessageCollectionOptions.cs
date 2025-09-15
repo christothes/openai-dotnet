@@ -17,7 +17,7 @@ namespace OpenAI.Assistants
         {
         }
 
-        internal MessageCollectionOptions(string afterId, string beforeId, int? pageSizeLimit, MessageCollectionOrder? order, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal MessageCollectionOptions(string afterId, string beforeId, long? pageSizeLimit, MessageCollectionOrder? order, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             AfterId = afterId;
             BeforeId = beforeId;
@@ -30,7 +30,7 @@ namespace OpenAI.Assistants
 
         public string BeforeId { get; set; }
 
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
 
         public MessageCollectionOrder? Order { get; set; }
 

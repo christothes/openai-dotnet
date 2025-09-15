@@ -23,12 +23,12 @@ namespace OpenAI.Containers
 
         public ClientPipeline Pipeline { get; }
 
-        public virtual CollectionResult GetContainers(int? limit, string order, string after, RequestOptions options)
+        public virtual CollectionResult GetContainers(long? limit, string order, string after, RequestOptions options)
         {
             return new ContainerClientGetContainersCollectionResult(this, limit, order, after, options);
         }
 
-        public virtual AsyncCollectionResult GetContainersAsync(int? limit, string order, string after, RequestOptions options)
+        public virtual AsyncCollectionResult GetContainersAsync(long? limit, string order, string after, RequestOptions options)
         {
             return new ContainerClientGetContainersAsyncCollectionResult(this, limit, order, after, options);
         }
@@ -157,7 +157,7 @@ namespace OpenAI.Containers
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
-        public virtual CollectionResult GetContainerFiles(string containerId, int? limit, string order, string after, RequestOptions options)
+        public virtual CollectionResult GetContainerFiles(string containerId, long? limit, string order, string after, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(containerId, nameof(containerId));
 
@@ -170,7 +170,7 @@ namespace OpenAI.Containers
                 options);
         }
 
-        public virtual AsyncCollectionResult GetContainerFilesAsync(string containerId, int? limit, string order, string after, RequestOptions options)
+        public virtual AsyncCollectionResult GetContainerFilesAsync(string containerId, long? limit, string order, string after, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(containerId, nameof(containerId));
 

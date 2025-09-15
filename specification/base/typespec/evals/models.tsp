@@ -25,19 +25,19 @@ alias EvalRunPerModelUsage = {
   model_name: string;
 
   /** The number of invocations. */
-  invocation_count: int32;
+  invocation_count: integer;
 
   /** The number of prompt tokens used. */
-  prompt_tokens: int32;
+  prompt_tokens: integer;
 
   /** The number of completion tokens generated. */
-  completion_tokens: int32;
+  completion_tokens: integer;
 
   /** The total number of tokens used. */
-  total_tokens: int32;
+  total_tokens: integer;
 
   /** The number of tokens retrieved from cache. */
-  cached_tokens: int32;
+  cached_tokens: integer;
 };
 
 // Tool generated type. Extracts from EvalRun.per_testing_criteria_results
@@ -46,10 +46,10 @@ alias EvalRunPerTestingCriteriaResult = {
   testing_criteria: string;
 
   /** Number of tests passed for this criteria. */
-  passed: int32;
+  passed: integer;
 
   /** Number of tests failed for this criteria. */
-  failed: int32;
+  failed: integer;
 };
 
 // Tool generated type. Extracts from EvalRunOutputItem.sample.input
@@ -115,7 +115,7 @@ model Eval {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the eval was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   ...MetadataPropertyForResponse;
@@ -208,13 +208,13 @@ model EvalCompletionsRunDataSourceParams extends EvalRunDataSourceParams {
     temperature?: float32 = 1;
 
     /** The maximum number of tokens in the generated output. */
-    max_completion_tokens?: int32;
+    max_completion_tokens?: integer;
 
     /** An alternative to temperature for nucleus sampling; 1.0 includes all tokens. */
     top_p?: float32 = 1;
 
     /** A seed value to initialize the randomness, during sampling. */
-    seed?: int32 = 42;
+    seed?: integer = 42;
 
     // Tool customization: Employ discriminated type base
     @doc("""
@@ -289,13 +289,13 @@ model EvalResponsesRunDataSourceParams extends EvalRunDataSourceParams {
     temperature?: float32 = 1;
 
     /** The maximum number of tokens in the generated output. */
-    max_completion_tokens?: int32;
+    max_completion_tokens?: integer;
 
     /** An alternative to temperature for nucleus sampling; 1.0 includes all tokens. */
     top_p?: float32 = 1;
 
     /** A seed value to initialize the randomness, during sampling. */
-    seed?: int32 = 42;
+    seed?: integer = 42;
 
     @doc("""
       An array of tools the model may call while generating a response. You
@@ -497,11 +497,11 @@ model EvalRunResponsesDataContentSource extends EvalRunDataContentSource {
 
   /** Only include items created after this timestamp (inclusive). This is a query parameter used to select responses. */
   @minValue(0)
-  created_after?: int32 | null;
+  created_after?: integer | null;
 
   /** Only include items created before this timestamp (inclusive). This is a query parameter used to select responses. */
   @minValue(0)
-  created_before?: int32 | null;
+  created_before?: integer | null;
 
   /** Optional reasoning effort parameter. This is a query parameter used to select responses. */
   reasoning_effort?: ReasoningEffort | null = "medium";
@@ -541,7 +541,7 @@ model EvalRun {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** Unix timestamp (in seconds) when the evaluation run was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** The URL to the rendered evaluation run report on the UI dashboard. */
@@ -550,16 +550,16 @@ model EvalRun {
   /** Counters summarizing the outcomes of the evaluation run. */
   result_counts: {
     /** Total number of executed output items. */
-    total: int32;
+    total: integer;
 
     /** Number of output items that resulted in an error. */
-    errored: int32;
+    errored: integer;
 
     /** Number of output items that failed to pass the evaluation. */
-    failed: int32;
+    failed: integer;
 
     /** Number of output items that passed the evaluation. */
-    passed: int32;
+    passed: integer;
   };
 
   /** Usage statistics for each model during the evaluation run. */
@@ -610,14 +610,14 @@ model EvalRunOutputItem {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** Unix timestamp (in seconds) when the evaluation run was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** The status of the evaluation run. */
   status: string;
 
   /** The identifier for the data source item. */
-  datasource_item_id: int32;
+  datasource_item_id: integer;
 
   /** Details of the input data source item. */
   datasource_item: Record<unknown>;
@@ -642,16 +642,16 @@ model EvalRunOutputItem {
     /** Token usage details for the sample. */
     usage: {
       /** The total number of tokens used. */
-      total_tokens: int32;
+      total_tokens: integer;
 
       /** The number of completion tokens generated. */
-      completion_tokens: int32;
+      completion_tokens: integer;
 
       /** The number of prompt tokens used. */
-      prompt_tokens: int32;
+      prompt_tokens: integer;
 
       /** The number of tokens retrieved from cache. */
-      cached_tokens: int32;
+      cached_tokens: integer;
     };
 
     error: EvalApiError;
@@ -660,13 +660,13 @@ model EvalRunOutputItem {
     temperature: float32;
 
     /** The maximum number of tokens allowed for completion. */
-    max_completion_tokens: int32;
+    max_completion_tokens: integer;
 
     /** The top_p value used for sampling. */
     top_p: float32;
 
     /** The seed used for generating the sample. */
-    seed: int32;
+    seed: integer;
   };
 }
 
@@ -775,13 +775,13 @@ model EvalRunStoredCompletionsDataContentSource
   `model`?: string | null;
 
   /** An optional Unix timestamp to filter items created after this time. */
-  created_after?: int32 | null;
+  created_after?: integer | null;
 
   /** An optional Unix timestamp to filter items created before this time. */
-  created_before?: int32 | null;
+  created_before?: integer | null;
 
   /** An optional maximum number of items to return. */
-  limit?: int32 | null;
+  limit?: integer | null;
 }
 
 // Tool customization (apply_discriminator): Apply discriminated type

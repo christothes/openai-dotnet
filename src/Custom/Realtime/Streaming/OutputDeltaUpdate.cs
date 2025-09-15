@@ -39,7 +39,7 @@ public partial class OutputDeltaUpdate : RealtimeUpdate
         ?? _textDelta?.ItemId
         ?? _functionArgumentsDelta?.ItemId;
 
-    public int ItemIndex
+    public long ItemIndex
         => _contentPartAdded?.OutputIndex
         ?? _audioDelta?.OutputIndex
         ?? _outputTranscriptionDelta?.OutputIndex
@@ -47,7 +47,7 @@ public partial class OutputDeltaUpdate : RealtimeUpdate
         ?? _functionArgumentsDelta?.OutputIndex
         ?? 0;
 
-    public int ContentPartIndex
+    public long ContentPartIndex
         => _contentPartAdded?.ContentIndex
         ?? _audioDelta?.ContentIndex
         ?? _outputTranscriptionDelta?.ContentIndex

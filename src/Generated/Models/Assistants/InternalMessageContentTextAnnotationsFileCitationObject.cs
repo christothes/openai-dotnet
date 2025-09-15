@@ -10,7 +10,7 @@ namespace OpenAI.Assistants
 {
     internal partial class InternalMessageContentTextAnnotationsFileCitationObject : InternalMessageContentTextObjectAnnotation
     {
-        internal InternalMessageContentTextAnnotationsFileCitationObject(string text, InternalMessageContentTextAnnotationsFileCitationObjectFileCitation fileCitation, int startIndex, int endIndex) : base(InternalMessageContentTextAnnotationType.FileCitation)
+        internal InternalMessageContentTextAnnotationsFileCitationObject(string text, InternalMessageContentTextAnnotationsFileCitationObjectFileCitation fileCitation, long startIndex, long endIndex) : base(InternalMessageContentTextAnnotationType.FileCitation)
         {
             Argument.AssertNotNull(text, nameof(text));
             Argument.AssertNotNull(fileCitation, nameof(fileCitation));
@@ -21,7 +21,7 @@ namespace OpenAI.Assistants
             EndIndex = endIndex;
         }
 
-        internal InternalMessageContentTextAnnotationsFileCitationObject(InternalMessageContentTextAnnotationType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, string text, InternalMessageContentTextAnnotationsFileCitationObjectFileCitation fileCitation, int startIndex, int endIndex) : base(kind, additionalBinaryDataProperties)
+        internal InternalMessageContentTextAnnotationsFileCitationObject(InternalMessageContentTextAnnotationType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, string text, InternalMessageContentTextAnnotationsFileCitationObjectFileCitation fileCitation, long startIndex, long endIndex) : base(kind, additionalBinaryDataProperties)
         {
             Text = text;
             FileCitation = fileCitation;
@@ -33,8 +33,8 @@ namespace OpenAI.Assistants
 
         internal InternalMessageContentTextAnnotationsFileCitationObjectFileCitation FileCitation { get; set; }
 
-        public int StartIndex { get; set; }
+        public long StartIndex { get; set; }
 
-        public int EndIndex { get; set; }
+        public long EndIndex { get; set; }
     }
 }

@@ -11,11 +11,11 @@ namespace OpenAI.Responses
     [Experimental("OPENAI001")]
     public partial class StreamingResponseMcpListToolsCompletedUpdate : StreamingResponseUpdate
     {
-        internal StreamingResponseMcpListToolsCompletedUpdate(int sequenceNumber) : base(InternalResponseStreamEventType.ResponseMcpListToolsCompleted, sequenceNumber)
+        internal StreamingResponseMcpListToolsCompletedUpdate(long sequenceNumber) : base(InternalResponseStreamEventType.ResponseMcpListToolsCompleted, sequenceNumber)
         {
         }
 
-        internal StreamingResponseMcpListToolsCompletedUpdate(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal StreamingResponseMcpListToolsCompletedUpdate(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
         }
     }

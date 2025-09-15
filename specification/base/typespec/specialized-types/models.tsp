@@ -54,4 +54,4 @@ model CompoundFilter {
  * length of 512 characters, booleans, or numbers.
  */
 @extension("x-oaiTypeLabel", "map")
-model VectorStoreFileAttributes is Record<string | boolean | int32 | float32>;
+model VectorStoreFileAttributes is Record<string | boolean | integer | float32>;

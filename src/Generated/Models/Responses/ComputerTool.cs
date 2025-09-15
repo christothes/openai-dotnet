@@ -11,14 +11,14 @@ namespace OpenAI.Responses
     [Experimental("OPENAI001")]
     public partial class ComputerTool : ResponseTool
     {
-        public ComputerTool(ComputerToolEnvironment environment, int displayWidth, int displayHeight) : base(InternalToolType.ComputerUsePreview)
+        public ComputerTool(ComputerToolEnvironment environment, long displayWidth, long displayHeight) : base(InternalToolType.ComputerUsePreview)
         {
             Environment = environment;
             DisplayWidth = displayWidth;
             DisplayHeight = displayHeight;
         }
 
-        internal ComputerTool(InternalToolType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, ComputerToolEnvironment environment, int displayWidth, int displayHeight) : base(kind, additionalBinaryDataProperties)
+        internal ComputerTool(InternalToolType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, ComputerToolEnvironment environment, long displayWidth, long displayHeight) : base(kind, additionalBinaryDataProperties)
         {
             Environment = environment;
             DisplayWidth = displayWidth;
@@ -27,8 +27,8 @@ namespace OpenAI.Responses
 
         public ComputerToolEnvironment Environment { get; set; }
 
-        public int DisplayWidth { get; set; }
+        public long DisplayWidth { get; set; }
 
-        public int DisplayHeight { get; set; }
+        public long DisplayHeight { get; set; }
     }
 }

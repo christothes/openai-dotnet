@@ -9,18 +9,18 @@ namespace OpenAI.Assistants
 {
     internal partial class InternalMessageDeltaContentImageUrlObject : InternalMessageDeltaContent
     {
-        internal InternalMessageDeltaContentImageUrlObject(int index) : base(InternalMessageContentType.ImageUrl)
+        internal InternalMessageDeltaContentImageUrlObject(long index) : base(InternalMessageContentType.ImageUrl)
         {
             Index = index;
         }
 
-        internal InternalMessageDeltaContentImageUrlObject(InternalMessageContentType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, int index, InternalMessageDeltaContentImageUrlObjectImageUrl imageUrl) : base(kind, additionalBinaryDataProperties)
+        internal InternalMessageDeltaContentImageUrlObject(InternalMessageContentType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, long index, InternalMessageDeltaContentImageUrlObjectImageUrl imageUrl) : base(kind, additionalBinaryDataProperties)
         {
             Index = index;
             ImageUrl = imageUrl;
         }
 
-        public int Index { get; }
+        public long Index { get; }
 
         internal InternalMessageDeltaContentImageUrlObjectImageUrl ImageUrl { get; }
     }

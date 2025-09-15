@@ -31,7 +31,7 @@ namespace OpenAI.Assistants
             return message;
         }
 
-        internal virtual PipelineMessage CreateGetMessagesRequest(string threadId, int? limit, string order, string after, string before, RequestOptions options)
+        internal virtual PipelineMessage CreateGetMessagesRequest(string threadId, long? limit, string order, string after, string before, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);

@@ -16,7 +16,7 @@ internal class AsyncResponseItemCollectionResult : AsyncCollectionResult<Respons
 
     // Initial values
     private readonly string _responseId;
-    private readonly int? _limit;
+    private readonly long? _limit;
     private readonly string? _order;
     private readonly string? _after;
     private readonly string? _before;
@@ -24,7 +24,7 @@ internal class AsyncResponseItemCollectionResult : AsyncCollectionResult<Respons
     public AsyncResponseItemCollectionResult(
         OpenAIResponseClient parentClient,
         string responseId,
-        int? limit, string? order, string? after, string? before,
+        long? limit, string? order, string? after, string? before,
         RequestOptions? options)
     {
         _parentClient = parentClient;
@@ -81,7 +81,7 @@ internal class AsyncResponseItemCollectionResult : AsyncCollectionResult<Respons
 
     public static bool HasNextPage(ClientResult result) => ResponseItemCollectionResult.HasNextPage(result);
 
-    internal virtual async Task<ClientResult> GetResponsesAsync(string responseId, int? limit, string? order, string? after, string? before, RequestOptions? options)
+    internal virtual async Task<ClientResult> GetResponsesAsync(string responseId, long? limit, string? order, string? after, string? before, RequestOptions? options)
     {
         using PipelineMessage message = _parentClient.CreateGetInputItemsRequest(responseId, limit, order, after, before, options);
         return ClientResult.FromResponse(await _parentClient.Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));

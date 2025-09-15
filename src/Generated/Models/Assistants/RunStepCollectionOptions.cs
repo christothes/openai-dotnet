@@ -17,7 +17,7 @@ namespace OpenAI.Assistants
         {
         }
 
-        internal RunStepCollectionOptions(string afterId, string beforeId, int? pageSizeLimit, RunStepCollectionOrder? order, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal RunStepCollectionOptions(string afterId, string beforeId, long? pageSizeLimit, RunStepCollectionOrder? order, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             AfterId = afterId;
             BeforeId = beforeId;
@@ -30,7 +30,7 @@ namespace OpenAI.Assistants
 
         public string BeforeId { get; set; }
 
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
 
         public RunStepCollectionOrder? Order { get; set; }
 

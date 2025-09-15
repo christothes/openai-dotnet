@@ -76,8 +76,8 @@ namespace OpenAI.Assistants
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             string text = default;
             InternalMessageContentTextAnnotationsFileCitationObjectFileCitation fileCitation = default;
-            int startIndex = default;
-            int endIndex = default;
+            long startIndex = default;
+            long endIndex = default;
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
@@ -97,12 +97,12 @@ namespace OpenAI.Assistants
                 }
                 if (prop.NameEquals("start_index"u8))
                 {
-                    startIndex = prop.Value.GetInt32();
+                    startIndex = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("end_index"u8))
                 {
-                    endIndex = prop.Value.GetInt32();
+                    endIndex = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

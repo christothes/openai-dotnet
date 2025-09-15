@@ -77,7 +77,7 @@ namespace OpenAI.FineTuning
             {
                 return null;
             }
-            int? limit = default;
+            long? limit = default;
             string after = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -88,7 +88,7 @@ namespace OpenAI.FineTuning
                     {
                         continue;
                     }
-                    limit = prop.Value.GetInt32();
+                    limit = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("after"u8))

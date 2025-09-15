@@ -120,7 +120,7 @@ namespace OpenAI.Files
             string id = default;
             DateTimeOffset createdAt = default;
             string filename = default;
-            int bytes = default;
+            long bytes = default;
             string purpose = default;
             InternalUploadStatus status = default;
             DateTimeOffset expiresAt = default;
@@ -146,7 +146,7 @@ namespace OpenAI.Files
                 }
                 if (prop.NameEquals("bytes"u8))
                 {
-                    bytes = prop.Value.GetInt32();
+                    bytes = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("purpose"u8))

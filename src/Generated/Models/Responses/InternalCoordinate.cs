@@ -11,22 +11,22 @@ namespace OpenAI.Responses
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        public InternalCoordinate(int x, int y)
+        public InternalCoordinate(long x, long y)
         {
             X = x;
             Y = y;
         }
 
-        internal InternalCoordinate(int x, int y, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalCoordinate(long x, long y, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             X = x;
             Y = y;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public int X { get; set; }
+        public long X { get; set; }
 
-        public int Y { get; set; }
+        public long Y { get; set; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

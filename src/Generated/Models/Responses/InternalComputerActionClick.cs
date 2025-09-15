@@ -9,14 +9,14 @@ namespace OpenAI.Responses
 {
     internal partial class InternalComputerActionClick : ComputerCallAction
     {
-        public InternalComputerActionClick(ComputerCallActionMouseButton button, int x, int y) : base(ComputerCallActionKind.Click)
+        public InternalComputerActionClick(ComputerCallActionMouseButton button, long x, long y) : base(ComputerCallActionKind.Click)
         {
             Button = button;
             X = x;
             Y = y;
         }
 
-        internal InternalComputerActionClick(ComputerCallActionKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, ComputerCallActionMouseButton button, int x, int y) : base(kind, additionalBinaryDataProperties)
+        internal InternalComputerActionClick(ComputerCallActionKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, ComputerCallActionMouseButton button, long x, long y) : base(kind, additionalBinaryDataProperties)
         {
             Button = button;
             X = x;
@@ -25,8 +25,8 @@ namespace OpenAI.Responses
 
         public ComputerCallActionMouseButton Button { get; set; }
 
-        public int X { get; set; }
+        public long X { get; set; }
 
-        public int Y { get; set; }
+        public long Y { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace OpenAI.Responses
     [Experimental("OPENAI001")]
     public partial class StreamingResponseRefusalDoneUpdate : StreamingResponseUpdate
     {
-        internal StreamingResponseRefusalDoneUpdate(int sequenceNumber, string itemId, int outputIndex, int contentIndex, string refusal) : base(InternalResponseStreamEventType.ResponseRefusalDone, sequenceNumber)
+        internal StreamingResponseRefusalDoneUpdate(long sequenceNumber, string itemId, long outputIndex, long contentIndex, string refusal) : base(InternalResponseStreamEventType.ResponseRefusalDone, sequenceNumber)
         {
             ItemId = itemId;
             OutputIndex = outputIndex;
@@ -19,7 +19,7 @@ namespace OpenAI.Responses
             Refusal = refusal;
         }
 
-        internal StreamingResponseRefusalDoneUpdate(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, int outputIndex, int contentIndex, string refusal) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal StreamingResponseRefusalDoneUpdate(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, long outputIndex, long contentIndex, string refusal) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
             ItemId = itemId;
             OutputIndex = outputIndex;
@@ -29,9 +29,9 @@ namespace OpenAI.Responses
 
         public string ItemId { get; }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
 
         public string Refusal { get; }
     }

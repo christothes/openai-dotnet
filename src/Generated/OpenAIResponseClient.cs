@@ -77,7 +77,7 @@ namespace OpenAI.Responses
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
-        public virtual CollectionResult GetInputItems(string responseId, int? limit, string order, string after, string before, RequestOptions options)
+        public virtual CollectionResult GetInputItems(string responseId, long? limit, string order, string after, string before, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(responseId, nameof(responseId));
 
@@ -91,7 +91,7 @@ namespace OpenAI.Responses
                 options);
         }
 
-        public virtual AsyncCollectionResult GetInputItemsAsync(string responseId, int? limit, string order, string after, string before, RequestOptions options)
+        public virtual AsyncCollectionResult GetInputItemsAsync(string responseId, long? limit, string order, string after, string before, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(responseId, nameof(responseId));
 

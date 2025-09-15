@@ -9,7 +9,7 @@ namespace OpenAI.Responses
 {
     internal partial class InternalComputerActionScroll : ComputerCallAction
     {
-        public InternalComputerActionScroll(int x, int y, int scrollX, int scrollY) : base(ComputerCallActionKind.Scroll)
+        public InternalComputerActionScroll(long x, long y, long scrollX, long scrollY) : base(ComputerCallActionKind.Scroll)
         {
             X = x;
             Y = y;
@@ -17,7 +17,7 @@ namespace OpenAI.Responses
             ScrollY = scrollY;
         }
 
-        internal InternalComputerActionScroll(ComputerCallActionKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, int x, int y, int scrollX, int scrollY) : base(kind, additionalBinaryDataProperties)
+        internal InternalComputerActionScroll(ComputerCallActionKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, long x, long y, long scrollX, long scrollY) : base(kind, additionalBinaryDataProperties)
         {
             X = x;
             Y = y;
@@ -25,12 +25,12 @@ namespace OpenAI.Responses
             ScrollY = scrollY;
         }
 
-        public int X { get; set; }
+        public long X { get; set; }
 
-        public int Y { get; set; }
+        public long Y { get; set; }
 
-        public int ScrollX { get; set; }
+        public long ScrollX { get; set; }
 
-        public int ScrollY { get; set; }
+        public long ScrollY { get; set; }
     }
 }

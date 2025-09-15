@@ -4,7 +4,7 @@ using System;
 
 /// <summary> A streaming update representing part of a tool call made by the model. </summary>
 [CodeGenType("ChatCompletionMessageToolCallChunk")]
-[CodeGenSuppress("StreamingChatToolCallUpdate", typeof(int))]
+[CodeGenSuppress("StreamingChatToolCallUpdate", typeof(long))]
 public partial class StreamingChatToolCallUpdate
 {
     // CUSTOM: Made internal.

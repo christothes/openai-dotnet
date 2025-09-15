@@ -9,19 +9,19 @@ namespace OpenAI.Responses
 {
     internal partial class InternalResponseImageGenCallInProgressEvent : StreamingResponseUpdate
     {
-        internal InternalResponseImageGenCallInProgressEvent(int sequenceNumber, int outputIndex, string itemId) : base(InternalResponseStreamEventType.ResponseImageGenerationCallInProgress, sequenceNumber)
+        internal InternalResponseImageGenCallInProgressEvent(long sequenceNumber, long outputIndex, string itemId) : base(InternalResponseStreamEventType.ResponseImageGenerationCallInProgress, sequenceNumber)
         {
             OutputIndex = outputIndex;
             ItemId = itemId;
         }
 
-        internal InternalResponseImageGenCallInProgressEvent(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, int outputIndex, string itemId) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal InternalResponseImageGenCallInProgressEvent(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, long outputIndex, string itemId) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
             OutputIndex = outputIndex;
             ItemId = itemId;
         }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
         public string ItemId { get; }
     }

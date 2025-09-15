@@ -41,7 +41,7 @@ model ChatCompletionMessageAudioChunk {
   @encode("base64")
   data?: bytes;
 
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   expires_at?: utcDateTime;
 }
 

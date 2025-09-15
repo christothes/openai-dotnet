@@ -124,7 +124,7 @@ alias CollectionLimitQueryParameter = {
    * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the
    * default is 20.
    */
-  @query pageSizeLimit?: int32 = 20;
+  @query pageSizeLimit?: integer = 20;
 };
 
 alias CollectionAfterQueryParameter = {

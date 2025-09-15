@@ -15,7 +15,7 @@ namespace OpenAI.Evals
         {
         }
 
-        internal InternalEvalRunResponsesDataContentSource(InternalEvalRunDataContentSourceType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> metadata, string model, string instructionsSearch, int? createdAfter, int? createdBefore, ChatReasoningEffortLevel? reasoningEffort, float? temperature, float? topP, IList<string> users, IList<string> tools) : base(kind, additionalBinaryDataProperties)
+        internal InternalEvalRunResponsesDataContentSource(InternalEvalRunDataContentSourceType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> metadata, string model, string instructionsSearch, long? createdAfter, long? createdBefore, ChatReasoningEffortLevel? reasoningEffort, float? temperature, float? topP, IList<string> users, IList<string> tools) : base(kind, additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Metadata = metadata ?? new ChangeTrackingDictionary<string, string>();
@@ -36,9 +36,9 @@ namespace OpenAI.Evals
 
         public string InstructionsSearch { get; set; }
 
-        public int? CreatedAfter { get; set; }
+        public long? CreatedAfter { get; set; }
 
-        public int? CreatedBefore { get; set; }
+        public long? CreatedBefore { get; set; }
 
         public ChatReasoningEffortLevel? ReasoningEffort { get; set; }
 

@@ -11,12 +11,12 @@ namespace OpenAI.Responses
     [Experimental("OPENAI001")]
     public partial class StreamingResponseCompletedUpdate : StreamingResponseUpdate
     {
-        internal StreamingResponseCompletedUpdate(int sequenceNumber, OpenAIResponse response) : base(InternalResponseStreamEventType.ResponseCompleted, sequenceNumber)
+        internal StreamingResponseCompletedUpdate(long sequenceNumber, OpenAIResponse response) : base(InternalResponseStreamEventType.ResponseCompleted, sequenceNumber)
         {
             Response = response;
         }
 
-        internal StreamingResponseCompletedUpdate(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, OpenAIResponse response) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal StreamingResponseCompletedUpdate(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, OpenAIResponse response) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
             Response = response;
         }

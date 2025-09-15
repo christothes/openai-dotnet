@@ -109,7 +109,7 @@ namespace OpenAI.Embeddings
             BinaryData input = default;
             InternalCreateEmbeddingRequestModel model = default;
             InternalCreateEmbeddingRequestEncodingFormat? encodingFormat = default;
-            int? dimensions = default;
+            long? dimensions = default;
             string endUserId = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -139,7 +139,7 @@ namespace OpenAI.Embeddings
                     {
                         continue;
                     }
-                    dimensions = prop.Value.GetInt32();
+                    dimensions = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("user"u8))

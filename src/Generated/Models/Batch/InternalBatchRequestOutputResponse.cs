@@ -16,7 +16,7 @@ namespace OpenAI.Batch
         {
         }
 
-        internal InternalBatchRequestOutputResponse(int? statusCode, string requestId, IDictionary<string, BinaryData> body, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalBatchRequestOutputResponse(long? statusCode, string requestId, IDictionary<string, BinaryData> body, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             StatusCode = statusCode;
@@ -25,7 +25,7 @@ namespace OpenAI.Batch
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public int? StatusCode { get; }
+        public long? StatusCode { get; }
 
         public string RequestId { get; }
 

@@ -13,7 +13,7 @@ namespace OpenAI.VectorStores
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal VectorStoreFileCounts(int inProgress, int completed, int failed, int cancelled, int total)
+        internal VectorStoreFileCounts(long inProgress, long completed, long failed, long cancelled, long total)
         {
             InProgress = inProgress;
             Completed = completed;
@@ -22,7 +22,7 @@ namespace OpenAI.VectorStores
             Total = total;
         }
 
-        internal VectorStoreFileCounts(int inProgress, int completed, int failed, int cancelled, int total, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal VectorStoreFileCounts(long inProgress, long completed, long failed, long cancelled, long total, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             InProgress = inProgress;
             Completed = completed;
@@ -32,15 +32,15 @@ namespace OpenAI.VectorStores
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public int InProgress { get; }
+        public long InProgress { get; }
 
-        public int Completed { get; }
+        public long Completed { get; }
 
-        public int Failed { get; }
+        public long Failed { get; }
 
-        public int Cancelled { get; }
+        public long Cancelled { get; }
 
-        public int Total { get; }
+        public long Total { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

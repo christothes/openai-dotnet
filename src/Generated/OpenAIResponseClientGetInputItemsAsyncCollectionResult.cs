@@ -14,13 +14,13 @@ namespace OpenAI.Responses
     {
         private readonly OpenAIResponseClient _client;
         private readonly string _responseId;
-        private readonly int? _limit;
+        private readonly long? _limit;
         private readonly string _order;
         private readonly string _after;
         private readonly string _before;
         private readonly RequestOptions _options;
 
-        public OpenAIResponseClientGetInputItemsAsyncCollectionResult(OpenAIResponseClient client, string responseId, int? limit, string order, string after, string before, RequestOptions options)
+        public OpenAIResponseClientGetInputItemsAsyncCollectionResult(OpenAIResponseClient client, string responseId, long? limit, string order, string after, string before, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(responseId, nameof(responseId));
 

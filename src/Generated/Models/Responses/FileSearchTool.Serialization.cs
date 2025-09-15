@@ -92,7 +92,7 @@ namespace OpenAI.Responses
             InternalToolType kind = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             IList<string> vectorStoreIds = default;
-            int? maxResultCount = default;
+            long? maxResultCount = default;
             FileSearchToolRankingOptions rankingOptions = default;
             BinaryData filters = default;
             foreach (var prop in element.EnumerateObject())
@@ -125,7 +125,7 @@ namespace OpenAI.Responses
                     {
                         continue;
                     }
-                    maxResultCount = prop.Value.GetInt32();
+                    maxResultCount = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("ranking_options"u8))

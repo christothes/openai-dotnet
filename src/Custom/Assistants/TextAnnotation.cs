@@ -13,7 +13,7 @@ public class TextAnnotation
     /// <summary>
     /// The index in the message content at which the citation begins.
     /// </summary>
-    public int StartIndex
+    public long StartIndex
         => _fileSearchCitation?.StartIndex
         ?? _codeCitation?.StartIndex
         ?? (_internalAnnotation?.SerializedAdditionalRawData?.TryGetValue("start_index", out BinaryData indexData) == true
@@ -23,7 +23,7 @@ public class TextAnnotation
     /// <summary>
     /// The index in the message content at which the citation ends.
     /// </summary>
-    public int EndIndex =>
+    public long EndIndex =>
         _fileSearchCitation?.EndIndex
         ?? _codeCitation?.EndIndex
         ?? (_internalAnnotation?.SerializedAdditionalRawData?.TryGetValue("end_index", out BinaryData indexData) == true

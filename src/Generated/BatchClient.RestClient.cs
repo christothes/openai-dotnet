@@ -28,7 +28,7 @@ namespace OpenAI.Batch
             return message;
         }
 
-        internal virtual PipelineMessage CreateGetBatchesRequest(string after, int? limit, RequestOptions options)
+        internal virtual PipelineMessage CreateGetBatchesRequest(string after, long? limit, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);

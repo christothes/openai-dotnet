@@ -100,7 +100,7 @@ namespace OpenAI.Batch
             {
                 return null;
             }
-            int? statusCode = default;
+            long? statusCode = default;
             string requestId = default;
             IDictionary<string, BinaryData> body = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -112,7 +112,7 @@ namespace OpenAI.Batch
                     {
                         continue;
                     }
-                    statusCode = prop.Value.GetInt32();
+                    statusCode = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("request_id"u8))

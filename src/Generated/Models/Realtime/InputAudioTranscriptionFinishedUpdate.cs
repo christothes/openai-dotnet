@@ -12,7 +12,7 @@ namespace OpenAI.Realtime
     [Experimental("OPENAI002")]
     public partial class InputAudioTranscriptionFinishedUpdate : RealtimeUpdate
     {
-        internal InputAudioTranscriptionFinishedUpdate(string itemId, int contentIndex, string transcript) : base(RealtimeUpdateKind.InputTranscriptionFinished)
+        internal InputAudioTranscriptionFinishedUpdate(string itemId, long contentIndex, string transcript) : base(RealtimeUpdateKind.InputTranscriptionFinished)
         {
             ItemId = itemId;
             ContentIndex = contentIndex;
@@ -20,7 +20,7 @@ namespace OpenAI.Realtime
             Logprobs = new ChangeTrackingList<InternalDotNetRealtimeLogProbProperties>();
         }
 
-        internal InputAudioTranscriptionFinishedUpdate(RealtimeUpdateKind kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, int contentIndex, string transcript, IList<InternalDotNetRealtimeLogProbProperties> logprobs) : base(kind, eventId, additionalBinaryDataProperties)
+        internal InputAudioTranscriptionFinishedUpdate(RealtimeUpdateKind kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, long contentIndex, string transcript, IList<InternalDotNetRealtimeLogProbProperties> logprobs) : base(kind, eventId, additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             ItemId = itemId;
@@ -31,7 +31,7 @@ namespace OpenAI.Realtime
 
         public string ItemId { get; }
 
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
 
         public string Transcript { get; }
     }

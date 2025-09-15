@@ -9,19 +9,19 @@ namespace OpenAI.Responses
 {
     internal partial class InternalResponseCodeInterpreterCallInProgressEvent : StreamingResponseUpdate
     {
-        internal InternalResponseCodeInterpreterCallInProgressEvent(int sequenceNumber, int outputIndex, InternalCodeInterpreterToolCallItemResource codeInterpreterCall) : base(InternalResponseStreamEventType.ResponseCodeInterpreterCallInProgress, sequenceNumber)
+        internal InternalResponseCodeInterpreterCallInProgressEvent(long sequenceNumber, long outputIndex, InternalCodeInterpreterToolCallItemResource codeInterpreterCall) : base(InternalResponseStreamEventType.ResponseCodeInterpreterCallInProgress, sequenceNumber)
         {
             OutputIndex = outputIndex;
             CodeInterpreterCall = codeInterpreterCall;
         }
 
-        internal InternalResponseCodeInterpreterCallInProgressEvent(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, int outputIndex, InternalCodeInterpreterToolCallItemResource codeInterpreterCall) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal InternalResponseCodeInterpreterCallInProgressEvent(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, long outputIndex, InternalCodeInterpreterToolCallItemResource codeInterpreterCall) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
             OutputIndex = outputIndex;
             CodeInterpreterCall = codeInterpreterCall;
         }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
         internal InternalCodeInterpreterToolCallItemResource CodeInterpreterCall { get; }
     }

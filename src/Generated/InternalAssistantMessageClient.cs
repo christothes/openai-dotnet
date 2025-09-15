@@ -26,7 +26,7 @@ namespace OpenAI.Assistants
 
         public ClientPipeline Pipeline { get; }
 
-        public virtual CollectionResult GetMessages(string threadId, int? limit, string order, string after, string before, RequestOptions options)
+        public virtual CollectionResult GetMessages(string threadId, long? limit, string order, string after, string before, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 
@@ -40,7 +40,7 @@ namespace OpenAI.Assistants
                 options);
         }
 
-        public virtual AsyncCollectionResult GetMessagesAsync(string threadId, int? limit, string order, string after, string before, RequestOptions options)
+        public virtual AsyncCollectionResult GetMessagesAsync(string threadId, long? limit, string order, string after, string before, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
 

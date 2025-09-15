@@ -86,7 +86,7 @@ interface FineTuning {
     @query after?: string,
 
     /** Number of fine-tuning jobs to retrieve. */
-    @query limit?: int32 = 20,
+    @query limit?: integer = 20,
   ): ListPaginatedFineTuningJobsResponse | ErrorResponse;
 
   @route("jobs/{fine_tuning_job_id}")
@@ -129,7 +129,7 @@ interface FineTuning {
     @query after?: string,
 
     /** Number of checkpoints to retrieve. */
-    @query limit?: int32 = 10,
+    @query limit?: integer = 10,
   ): ListFineTuningJobCheckpointsResponse | ErrorResponse;
 
   @route("jobs/{fine_tuning_job_id}/events")
@@ -146,7 +146,7 @@ interface FineTuning {
     @query after?: string,
 
     /** Number of events to retrieve. */
-    @query limit?: int32 = 20,
+    @query limit?: integer = 20,
   ): ListFineTuningJobEventsResponse | ErrorResponse;
 
   @post

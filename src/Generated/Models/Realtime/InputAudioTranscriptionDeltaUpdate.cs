@@ -18,7 +18,7 @@ namespace OpenAI.Realtime
             Logprobs = new ChangeTrackingList<InternalDotNetRealtimeLogProbProperties>();
         }
 
-        internal InputAudioTranscriptionDeltaUpdate(RealtimeUpdateKind kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, int? contentIndex, string delta, IList<InternalDotNetRealtimeLogProbProperties> logprobs) : base(kind, eventId, additionalBinaryDataProperties)
+        internal InputAudioTranscriptionDeltaUpdate(RealtimeUpdateKind kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, long? contentIndex, string delta, IList<InternalDotNetRealtimeLogProbProperties> logprobs) : base(kind, eventId, additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             ItemId = itemId;
@@ -29,7 +29,7 @@ namespace OpenAI.Realtime
 
         public string ItemId { get; }
 
-        public int? ContentIndex { get; }
+        public long? ContentIndex { get; }
 
         public string Delta { get; }
     }

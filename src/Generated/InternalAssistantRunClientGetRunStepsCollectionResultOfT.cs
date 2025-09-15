@@ -15,14 +15,14 @@ namespace OpenAI.Assistants
         private readonly InternalAssistantRunClient _client;
         private readonly string _threadId;
         private readonly string _runId;
-        private readonly int? _limit;
+        private readonly long? _limit;
         private readonly string _order;
         private readonly string _after;
         private readonly string _before;
         private readonly IEnumerable<InternalIncludedRunStepProperty> _include;
         private readonly RequestOptions _options;
 
-        internal InternalAssistantRunClientGetRunStepsCollectionResultOfT(InternalAssistantRunClient client, string threadId, string runId, int? limit, string order, string after, string before, IEnumerable<InternalIncludedRunStepProperty> include, RequestOptions options)
+        internal InternalAssistantRunClientGetRunStepsCollectionResultOfT(InternalAssistantRunClient client, string threadId, string runId, long? limit, string order, string after, string before, IEnumerable<InternalIncludedRunStepProperty> include, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(threadId, nameof(threadId));
             Argument.AssertNotNullOrEmpty(runId, nameof(runId));

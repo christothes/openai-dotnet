@@ -11,14 +11,14 @@ namespace OpenAI.Realtime
     [Experimental("OPENAI002")]
     public partial class InputAudioTranscriptionFailedUpdate : RealtimeUpdate
     {
-        internal InputAudioTranscriptionFailedUpdate(string itemId, int contentIndex, InternalRealtimeServerEventConversationItemInputAudioTranscriptionFailedError error) : base(RealtimeUpdateKind.InputTranscriptionFailed)
+        internal InputAudioTranscriptionFailedUpdate(string itemId, long contentIndex, InternalRealtimeServerEventConversationItemInputAudioTranscriptionFailedError error) : base(RealtimeUpdateKind.InputTranscriptionFailed)
         {
             ItemId = itemId;
             ContentIndex = contentIndex;
             _error = error;
         }
 
-        internal InputAudioTranscriptionFailedUpdate(RealtimeUpdateKind kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, int contentIndex, InternalRealtimeServerEventConversationItemInputAudioTranscriptionFailedError error) : base(kind, eventId, additionalBinaryDataProperties)
+        internal InputAudioTranscriptionFailedUpdate(RealtimeUpdateKind kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, long contentIndex, InternalRealtimeServerEventConversationItemInputAudioTranscriptionFailedError error) : base(kind, eventId, additionalBinaryDataProperties)
         {
             ItemId = itemId;
             ContentIndex = contentIndex;
@@ -27,6 +27,6 @@ namespace OpenAI.Realtime
 
         public string ItemId { get; }
 
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
     }
 }

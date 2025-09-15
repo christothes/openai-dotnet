@@ -74,10 +74,10 @@ namespace OpenAI.Responses
             }
             ComputerCallActionKind kind = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
-            int x = default;
-            int y = default;
-            int scrollX = default;
-            int scrollY = default;
+            long x = default;
+            long y = default;
+            long scrollX = default;
+            long scrollY = default;
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
@@ -87,22 +87,22 @@ namespace OpenAI.Responses
                 }
                 if (prop.NameEquals("x"u8))
                 {
-                    x = prop.Value.GetInt32();
+                    x = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("y"u8))
                 {
-                    y = prop.Value.GetInt32();
+                    y = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("scroll_x"u8))
                 {
-                    scrollX = prop.Value.GetInt32();
+                    scrollX = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("scroll_y"u8))
                 {
-                    scrollY = prop.Value.GetInt32();
+                    scrollY = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

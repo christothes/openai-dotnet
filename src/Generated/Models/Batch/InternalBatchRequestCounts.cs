@@ -11,14 +11,14 @@ namespace OpenAI.Batch
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalBatchRequestCounts(int total, int completed, int failed)
+        internal InternalBatchRequestCounts(long total, long completed, long failed)
         {
             Total = total;
             Completed = completed;
             Failed = failed;
         }
 
-        internal InternalBatchRequestCounts(int total, int completed, int failed, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalBatchRequestCounts(long total, long completed, long failed, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Total = total;
             Completed = completed;
@@ -26,11 +26,11 @@ namespace OpenAI.Batch
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public int Total { get; }
+        public long Total { get; }
 
-        public int Completed { get; }
+        public long Completed { get; }
 
-        public int Failed { get; }
+        public long Failed { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

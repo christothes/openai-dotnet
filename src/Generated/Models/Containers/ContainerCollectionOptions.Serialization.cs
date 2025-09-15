@@ -68,7 +68,7 @@ namespace OpenAI.Containers
                 return null;
             }
             string afterId = default;
-            int? pageSizeLimit = default;
+            long? pageSizeLimit = default;
             ContainerCollectionOrder? order = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())

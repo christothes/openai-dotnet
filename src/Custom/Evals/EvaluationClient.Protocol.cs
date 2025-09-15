@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace OpenAI.Evals;
 
-[CodeGenSuppress("GetEvals", typeof(string), typeof(int?), typeof(string), typeof(string), typeof(RequestOptions))]
-[CodeGenSuppress("GetEvalsAsync", typeof(string), typeof(int?), typeof(string), typeof(string), typeof(RequestOptions))]
+[CodeGenSuppress("GetEvals", typeof(string), typeof(long?), typeof(string), typeof(string), typeof(RequestOptions))]
+[CodeGenSuppress("GetEvalsAsync", typeof(string), typeof(long?), typeof(string), typeof(string), typeof(RequestOptions))]
 [CodeGenSuppress("CreateEval", typeof(BinaryContent), typeof(RequestOptions))]
 [CodeGenSuppress("CreateEvalAsync", typeof(BinaryContent), typeof(RequestOptions))]
 [CodeGenSuppress("GetEval", typeof(string), typeof(RequestOptions))]
@@ -14,8 +14,8 @@ namespace OpenAI.Evals;
 [CodeGenSuppress("UpdateEvalAsync", typeof(string), typeof(BinaryContent), typeof(RequestOptions))]
 [CodeGenSuppress("DeleteEval", typeof(string), typeof(RequestOptions))]
 [CodeGenSuppress("DeleteEvalAsync", typeof(string), typeof(RequestOptions))]
-[CodeGenSuppress("GetEvalRuns", typeof(string), typeof(string), typeof(int?), typeof(string), typeof(string), typeof(RequestOptions))]
-[CodeGenSuppress("GetEvalRunsAsync", typeof(string), typeof(string), typeof(int?), typeof(string), typeof(string), typeof(RequestOptions))]
+[CodeGenSuppress("GetEvalRuns", typeof(string), typeof(string), typeof(long?), typeof(string), typeof(string), typeof(RequestOptions))]
+[CodeGenSuppress("GetEvalRunsAsync", typeof(string), typeof(string), typeof(long?), typeof(string), typeof(string), typeof(RequestOptions))]
 [CodeGenSuppress("CreateEvalRun", typeof(string), typeof(BinaryContent), typeof(RequestOptions))]
 [CodeGenSuppress("CreateEvalRunAsync", typeof(string), typeof(BinaryContent), typeof(RequestOptions))]
 [CodeGenSuppress("GetEvalRun", typeof(string), typeof(string), typeof(RequestOptions))]
@@ -24,8 +24,8 @@ namespace OpenAI.Evals;
 [CodeGenSuppress("CancelEvalRunAsync", typeof(string), typeof(string), typeof(RequestOptions))]
 [CodeGenSuppress("DeleteEvalRun", typeof(string), typeof(string), typeof(RequestOptions))]
 [CodeGenSuppress("DeleteEvalRunAsync", typeof(string), typeof(string), typeof(RequestOptions))]
-[CodeGenSuppress("GetEvalRunOutputItems", typeof(string), typeof(string), typeof(string), typeof(int?), typeof(string), typeof(string), typeof(RequestOptions))]
-[CodeGenSuppress("GetEvalRunOutputItemsAsync", typeof(string), typeof(string), typeof(string), typeof(int?), typeof(string), typeof(string), typeof(RequestOptions))]
+[CodeGenSuppress("GetEvalRunOutputItems", typeof(string), typeof(string), typeof(string), typeof(long?), typeof(string), typeof(string), typeof(RequestOptions))]
+[CodeGenSuppress("GetEvalRunOutputItemsAsync", typeof(string), typeof(string), typeof(string), typeof(long?), typeof(string), typeof(string), typeof(RequestOptions))]
 [CodeGenSuppress("GetEvalRunOutputItem", typeof(string), typeof(string), typeof(string), typeof(RequestOptions))]
 [CodeGenSuppress("GetEvalRunOutputItemAsync", typeof(string), typeof(string), typeof(string), typeof(RequestOptions))]
 public partial class EvaluationClient

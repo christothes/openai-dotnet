@@ -55,12 +55,12 @@ model OpenAIFile {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the file was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the file will expire. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   expires_at?: utcDateTime;
 
   /** The name of the file. */

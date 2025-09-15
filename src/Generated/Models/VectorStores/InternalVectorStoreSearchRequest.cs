@@ -16,7 +16,7 @@ namespace OpenAI.VectorStores
             Query = query;
         }
 
-        internal InternalVectorStoreSearchRequest(BinaryData query, bool? rewriteQuery, int? maxNumResults, BinaryData filters, InternalVectorStoreSearchRequestRankingOptions rankingOptions, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalVectorStoreSearchRequest(BinaryData query, bool? rewriteQuery, long? maxNumResults, BinaryData filters, InternalVectorStoreSearchRequestRankingOptions rankingOptions, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Query = query;
             RewriteQuery = rewriteQuery;
@@ -30,7 +30,7 @@ namespace OpenAI.VectorStores
 
         public bool? RewriteQuery { get; }
 
-        public int? MaxNumResults { get; }
+        public long? MaxNumResults { get; }
 
         public BinaryData Filters { get; }
 

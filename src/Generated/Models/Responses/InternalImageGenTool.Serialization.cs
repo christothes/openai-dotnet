@@ -99,11 +99,11 @@ namespace OpenAI.Responses
             InternalImageGenToolQuality? quality = default;
             InternalImageGenToolSize? size = default;
             InternalImageGenToolOutputFormat? outputFormat = default;
-            int? outputCompression = default;
+            long? outputCompression = default;
             InternalImageGenToolModeration? moderation = default;
             InternalImageGenToolBackground? background = default;
             InternalImageGenToolInputImageMask inputImageMask = default;
-            int? partialImages = default;
+            long? partialImages = default;
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
@@ -149,7 +149,7 @@ namespace OpenAI.Responses
                     {
                         continue;
                     }
-                    outputCompression = prop.Value.GetInt32();
+                    outputCompression = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("moderation"u8))
@@ -185,7 +185,7 @@ namespace OpenAI.Responses
                     {
                         continue;
                     }
-                    partialImages = prop.Value.GetInt32();
+                    partialImages = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

@@ -14,7 +14,7 @@ namespace OpenAI.Containers
 
         private static PipelineMessageClassifier PipelineMessageClassifier200 => _pipelineMessageClassifier200 = PipelineMessageClassifier.Create(stackalloc ushort[] { 200 });
 
-        internal virtual PipelineMessage CreateGetContainersRequest(int? limit, string order, string after, RequestOptions options)
+        internal virtual PipelineMessage CreateGetContainersRequest(long? limit, string order, string after, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -94,7 +94,7 @@ namespace OpenAI.Containers
             return message;
         }
 
-        internal virtual PipelineMessage CreateGetContainerFilesRequest(string containerId, int? limit, string order, string after, RequestOptions options)
+        internal virtual PipelineMessage CreateGetContainerFilesRequest(string containerId, long? limit, string order, string after, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);

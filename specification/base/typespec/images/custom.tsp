@@ -6,4 +6,4 @@ namespace OpenAI;
 
 @minValue(1)
 @maxValue(10)
-scalar OneToTenInt extends int32;
+scalar OneToTenInt extends integer;

@@ -23,7 +23,7 @@ namespace OpenAI.Responses
             Env = env ?? new ChangeTrackingDictionary<string, string>();
         }
 
-        internal InternalLocalShellExecAction(string kind, IList<string> command, int? timeoutMs, string workingDirectory, IDictionary<string, string> env, string user, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalLocalShellExecAction(string kind, IList<string> command, long? timeoutMs, string workingDirectory, IDictionary<string, string> env, string user, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Kind = kind;
@@ -39,7 +39,7 @@ namespace OpenAI.Responses
 
         public IList<string> Command { get; }
 
-        public int? TimeoutMs { get; set; }
+        public long? TimeoutMs { get; set; }
 
         public string WorkingDirectory { get; set; }
 

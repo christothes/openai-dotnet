@@ -69,7 +69,7 @@ namespace OpenAI.Assistants
             }
             string afterId = default;
             string beforeId = default;
-            int? pageSizeLimit = default;
+            long? pageSizeLimit = default;
             AssistantCollectionOrder? order = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())

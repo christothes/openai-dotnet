@@ -11,7 +11,7 @@ namespace OpenAI.LegacyCompletions
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalCreateCompletionResponseChoice(InternalCreateCompletionResponseChoiceFinishReason finishReason, int index, InternalCreateCompletionResponseChoiceLogprobs logprobs, string text)
+        internal InternalCreateCompletionResponseChoice(InternalCreateCompletionResponseChoiceFinishReason finishReason, long index, InternalCreateCompletionResponseChoiceLogprobs logprobs, string text)
         {
             FinishReason = finishReason;
             Index = index;
@@ -19,7 +19,7 @@ namespace OpenAI.LegacyCompletions
             Text = text;
         }
 
-        internal InternalCreateCompletionResponseChoice(InternalCreateCompletionResponseChoiceFinishReason finishReason, int index, InternalCreateCompletionResponseChoiceLogprobs logprobs, string text, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalCreateCompletionResponseChoice(InternalCreateCompletionResponseChoiceFinishReason finishReason, long index, InternalCreateCompletionResponseChoiceLogprobs logprobs, string text, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             FinishReason = finishReason;
             Index = index;
@@ -30,7 +30,7 @@ namespace OpenAI.LegacyCompletions
 
         internal InternalCreateCompletionResponseChoiceFinishReason FinishReason { get; }
 
-        public int Index { get; }
+        public long Index { get; }
 
         internal InternalCreateCompletionResponseChoiceLogprobs Logprobs { get; }
 

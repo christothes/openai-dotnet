@@ -13,13 +13,13 @@ namespace OpenAI.VectorStores
     internal partial class VectorStoreClientGetVectorStoresAsyncCollectionResultOfT : AsyncCollectionResult<VectorStore>
     {
         private readonly VectorStoreClient _client;
-        private readonly int? _limit;
+        private readonly long? _limit;
         private readonly string _order;
         private readonly string _after;
         private readonly string _before;
         private readonly RequestOptions _options;
 
-        public VectorStoreClientGetVectorStoresAsyncCollectionResultOfT(VectorStoreClient client, int? limit, string order, string after, string before, RequestOptions options)
+        public VectorStoreClientGetVectorStoresAsyncCollectionResultOfT(VectorStoreClient client, long? limit, string order, string after, string before, RequestOptions options)
         {
             _client = client;
             _limit = limit;

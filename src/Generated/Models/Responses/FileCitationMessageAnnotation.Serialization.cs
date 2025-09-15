@@ -65,7 +65,7 @@ namespace OpenAI.Responses
             ResponseMessageAnnotationKind kind = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             string fileId = default;
-            int index = default;
+            long index = default;
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
@@ -80,7 +80,7 @@ namespace OpenAI.Responses
                 }
                 if (prop.NameEquals("index"u8))
                 {
-                    index = prop.Value.GetInt32();
+                    index = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

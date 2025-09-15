@@ -82,7 +82,7 @@ namespace OpenAI.Realtime
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             string responseId = default;
             string itemId = default;
-            int outputIndex = default;
+            long outputIndex = default;
             string callId = default;
             string delta = default;
             foreach (var prop in element.EnumerateObject())
@@ -109,7 +109,7 @@ namespace OpenAI.Realtime
                 }
                 if (prop.NameEquals("output_index"u8))
                 {
-                    outputIndex = prop.Value.GetInt32();
+                    outputIndex = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("call_id"u8))

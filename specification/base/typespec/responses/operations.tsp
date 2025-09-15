@@ -43,7 +43,7 @@ interface Responses {
     includables?: Includable[] = #[],
 
     @query stream?: boolean = false,
-    @query starting_after?: int32,
+    @query starting_after?: integer,
   ): Response | SseResponseOf<ResponseStreamEvent> | ResponseErrorResponse;
 
   @delete

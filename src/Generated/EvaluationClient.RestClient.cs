@@ -17,7 +17,7 @@ namespace OpenAI.Evals
 
         private static PipelineMessageClassifier PipelineMessageClassifier201 => _pipelineMessageClassifier201 = PipelineMessageClassifier.Create(stackalloc ushort[] { 201 });
 
-        internal virtual PipelineMessage CreateGetEvalsRequest(string after, int? limit, string order, string orderBy, RequestOptions options)
+        internal virtual PipelineMessage CreateGetEvalsRequest(string after, long? limit, string order, string orderBy, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -100,7 +100,7 @@ namespace OpenAI.Evals
             return message;
         }
 
-        internal virtual PipelineMessage CreateGetEvalRunsRequest(string evalId, string after, int? limit, string order, string status, RequestOptions options)
+        internal virtual PipelineMessage CreateGetEvalRunsRequest(string evalId, string after, long? limit, string order, string status, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -191,7 +191,7 @@ namespace OpenAI.Evals
             return message;
         }
 
-        internal virtual PipelineMessage CreateGetEvalRunOutputItemsRequest(string evalId, string runId, string after, int? limit, string status, string order, RequestOptions options)
+        internal virtual PipelineMessage CreateGetEvalRunOutputItemsRequest(string evalId, string runId, string after, long? limit, string status, string order, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);

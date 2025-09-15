@@ -96,7 +96,7 @@ namespace OpenAI.Embeddings
             {
                 return null;
             }
-            int index = default;
+            long index = default;
             BinaryData embeddingProperty = default;
             string @object = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -104,7 +104,7 @@ namespace OpenAI.Embeddings
             {
                 if (prop.NameEquals("index"u8))
                 {
-                    index = prop.Value.GetInt32();
+                    index = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("embedding"u8))

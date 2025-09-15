@@ -50,7 +50,7 @@ model CreateFineTuningJobRequest {
      * Number of examples in each batch. A larger batch size means that model parameters
      * are updated less frequently, but with lower variance.
      */
-    batch_size?: "auto" | int32 = "auto";
+    batch_size?: "auto" | integer = "auto";
 
     /**
      * Scaling factor for the learning rate. A smaller learning rate may be useful to avoid
@@ -62,7 +62,7 @@ model CreateFineTuningJobRequest {
      * The number of epochs to train the model for. An epoch refers to one full cycle
      * through the training dataset.
      */
-    n_epochs?: "auto" | int32 = "auto";
+    n_epochs?: "auto" | integer = "auto";
   };
 
   @doc("""
@@ -98,7 +98,7 @@ model CreateFineTuningJobRequest {
    */
   @minValue(0)
   @maxValue(2147483647)
-  seed?: int32 | null;
+  seed?: integer | null;
 
   method?: FineTuneMethod;
   ...MetadataPropertyForRequest;
@@ -137,7 +137,7 @@ model FineTuningJob {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the fine-tuning job was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   @doc("""
@@ -161,7 +161,7 @@ model FineTuningJob {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the fine-tuning job was finished. The value will be null if the fine-tuning job is still running. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   finished_at: utcDateTime | null;
 
   @doc("""
@@ -172,7 +172,7 @@ model FineTuningJob {
      * Number of examples in each batch. A larger batch size means that model parameters
      * are updated less frequently, but with lower variance.
      */
-    batch_size?: "auto" | int32 | null = "auto";
+    batch_size?: "auto" | integer | null = "auto";
 
     /**
      * Scaling factor for the learning rate. A smaller learning rate may be useful to avoid
@@ -184,7 +184,7 @@ model FineTuningJob {
      * The number of epochs to train the model for. An epoch refers to one full cycle
      * through the training dataset.
      */
-    n_epochs?: "auto" | int32 = "auto";
+    n_epochs?: "auto" | integer = "auto";
   };
 
   /** The base model that is being fine-tuned. */
@@ -211,7 +211,7 @@ model FineTuningJob {
     | "cancelled";
 
   /** The total number of billable tokens processed by this fine-tuning job. The value will be null if the fine-tuning job is still running. */
-  trained_tokens: int32 | null;
+  trained_tokens: integer | null;
 
   /** The file ID used for training. You can retrieve the training data with the [Files API](/docs/api-reference/files/retrieve-contents). */
   training_file: string;
@@ -224,11 +224,11 @@ model FineTuningJob {
   integrations?: FineTuningIntegration[] | null;
 
   /** The seed used for the fine-tuning job. */
-  seed: int32;
+  seed: integer;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the fine-tuning job is estimated to finish. The value will be null if the fine-tuning job is not running. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   estimated_finish?: utcDateTime | null;
 
   method?: FineTuneMethod;
@@ -276,7 +276,7 @@ model FineTuningJobEvent {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the fine-tuning job was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** The log level of the event. */
@@ -301,14 +301,14 @@ model FineTuningJobCheckpoint {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the checkpoint was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** The name of the fine-tuned checkpoint model that is created. */
   fine_tuned_model_checkpoint: string;
 
   /** The step number that the checkpoint was created at. */
-  step_number: int32;
+  step_number: integer;
 
   /** Metrics at the step number during the fine-tuning job. */
   metrics: {
@@ -414,25 +414,25 @@ model FineTuneDPOHyperparameters {
   beta?: "auto" | float32 = "auto";
 
   /** Number of examples in each batch. A larger batch size means that model parameters are updated less frequently, but with lower variance. */
-  batch_size?: "auto" | int32 = "auto";
+  batch_size?: "auto" | integer = "auto";
 
   /** Scaling factor for the learning rate. A smaller learning rate may be useful to avoid overfitting. */
   learning_rate_multiplier?: "auto" | float32 = "auto";
 
   /** The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset. */
-  n_epochs?: "auto" | int32 = "auto";
+  n_epochs?: "auto" | integer = "auto";
 }
 
 /** The hyperparameters used for the reinforcement fine-tuning job. */
 model FineTuneReinforcementHyperparameters {
   /** Number of examples in each batch. A larger batch size means that model parameters are updated less frequently, but with lower variance. */
-  batch_size?: "auto" | int32 = "auto";
+  batch_size?: "auto" | integer = "auto";
 
   /** Scaling factor for the learning rate. A smaller learning rate may be useful to avoid overfitting. */
   learning_rate_multiplier?: "auto" | float32 = "auto";
 
   /** The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset. */
-  n_epochs?: "auto" | int32 = "auto";
+  n_epochs?: "auto" | integer = "auto";
 
   /** Level of reasoning effort. */
   reasoning_effort?: "default" | "low" | "medium" | "high" = "default";
@@ -441,10 +441,10 @@ model FineTuneReinforcementHyperparameters {
   compute_multiplier?: "auto" | float32 = "auto";
 
   /** The number of training steps between evaluation runs. */
-  eval_interval?: "auto" | int32 = "auto";
+  eval_interval?: "auto" | integer = "auto";
 
   /** Number of evaluation samples to generate per training step. */
-  eval_samples?: "auto" | int32 = "auto";
+  eval_samples?: "auto" | integer = "auto";
 }
 
 /** Configuration for the reinforcement fine-tuning method. */
@@ -478,13 +478,13 @@ model FineTuneReinforcementRequestInput {
 /** The hyperparameters used for the fine-tuning job. */
 model FineTuneSupervisedHyperparameters {
   /** Number of examples in each batch. A larger batch size means that model parameters are updated less frequently, but with lower variance. */
-  batch_size?: "auto" | int32 = "auto";
+  batch_size?: "auto" | integer = "auto";
 
   /** Scaling factor for the learning rate. A smaller learning rate may be useful to avoid overfitting. */
   learning_rate_multiplier?: "auto" | float32 = "auto";
 
   /** The number of epochs to train the model for. An epoch refers to one full cycle through the training dataset. */
-  n_epochs?: "auto" | int32 = "auto";
+  n_epochs?: "auto" | integer = "auto";
 }
 
 model CreateFineTuningCheckpointPermissionRequest {
@@ -512,7 +512,7 @@ model FineTuningCheckpointPermission {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the permission was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** The project identifier that the permission is for. */

@@ -44,7 +44,7 @@ namespace OpenAI.Responses
             {
                 writer.WritePropertyName("bytes"u8);
                 writer.WriteStartArray();
-                foreach (int item in Bytes)
+                foreach (long item in Bytes)
                 {
                     writer.WriteNumberValue(item);
                 }
@@ -103,7 +103,7 @@ namespace OpenAI.Responses
             }
             string token = default;
             float logprob = default;
-            IList<int> bytes = default;
+            IList<long> bytes = default;
             IList<InternalTopLogProb> topLogprobs = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -120,10 +120,10 @@ namespace OpenAI.Responses
                 }
                 if (prop.NameEquals("bytes"u8))
                 {
-                    List<int> array = new List<int>();
+                    List<long> array = new List<long>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(item.GetInt32());
+                        array.Add(item.GetInt64());
                     }
                     bytes = array;
                     continue;

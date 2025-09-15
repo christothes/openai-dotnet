@@ -25,7 +25,7 @@ model RealtimeRequestSession {
   tools?: RealtimeTool[];
   tool_choice?: RealtimeToolChoice;
   temperature?: float32;
-  max_response_output_tokens?: int32 | "inf";
+  max_response_output_tokens?: integer | "inf";
 }
 
 model RealtimeResponseSession {
@@ -44,7 +44,7 @@ model RealtimeResponseSession {
   tools: RealtimeTool[];
   tool_choice: RealtimeToolChoice;
   temperature: float32;
-  max_response_output_tokens: int32 | "inf" | null;
+  max_response_output_tokens: integer | "inf" | null;
 }
 
 union RealtimeAudioFormat {
@@ -108,13 +108,13 @@ model RealtimeServerVadTurnDetection extends RealtimeTurnDetection {
    */
   threshold?: float32 = 0.5;
 
-  // @encode("milliseconds", int32)
+  // @encode("milliseconds", integer)
   /**
    * Amount of audio to include before the VAD detected speech (in milliseconds). Defaults to 300ms.
    */
   prefix_padding_ms?: duration; // = 300ms
 
-  // @encode("milliseconds", int32)
+  // @encode("milliseconds", integer)
   /**
    * Duration of silence to detect speech stop (in milliseconds). Defaults to 500ms. With shorter values the model will respond more quickly, but may jump in on short pauses from the user.
    */
@@ -135,10 +135,10 @@ model RealtimeServerEventRateLimitsUpdatedRateLimitsItem {
   name: string;
 
   /** The maximum configured limit for this rate limit property. */
-  limit: int32;
+  limit: integer;
 
   /** The remaining quota available against the configured limit for this rate limit property. */
-  remaining: int32;
+  remaining: integer;
 
   /** The remaining time, in seconds, until this rate limit property is reset. */
   @encode("seconds", float32)

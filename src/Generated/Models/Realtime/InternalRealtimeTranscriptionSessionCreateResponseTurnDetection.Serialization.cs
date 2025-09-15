@@ -89,8 +89,8 @@ namespace OpenAI.Realtime
             }
             string kind = default;
             float? threshold = default;
-            int? prefixPaddingMs = default;
-            int? silenceDurationMs = default;
+            long? prefixPaddingMs = default;
+            long? silenceDurationMs = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -114,7 +114,7 @@ namespace OpenAI.Realtime
                     {
                         continue;
                     }
-                    prefixPaddingMs = prop.Value.GetInt32();
+                    prefixPaddingMs = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("silence_duration_ms"u8))
@@ -123,7 +123,7 @@ namespace OpenAI.Realtime
                     {
                         continue;
                     }
-                    silenceDurationMs = prop.Value.GetInt32();
+                    silenceDurationMs = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

@@ -22,7 +22,7 @@ model CreateUploadRequest {
   purpose: "assistants" | "batch" | "fine-tune" | "vision";
 
   /** The number of bytes in the file you are uploading. */
-  bytes: int32;
+  bytes: integer;
 
   /**
    * The MIME type of the file.
@@ -53,14 +53,14 @@ model Upload {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the Upload was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** The name of the file to be uploaded. */
   filename: string;
 
   /** The intended number of bytes to be uploaded. */
-  bytes: int32;
+  bytes: integer;
 
   /** The intended purpose of the file. [Please refer here](/docs/api-reference/files/object#files/object-purpose) for acceptable values. */
   purpose: string;
@@ -70,7 +70,7 @@ model Upload {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the Upload will expire. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   expires_at: utcDateTime;
 
   /** The object type, which is always "upload". */
@@ -86,7 +86,7 @@ model UploadPart {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the Part was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** The ID of the Upload object that this Part was added to. */

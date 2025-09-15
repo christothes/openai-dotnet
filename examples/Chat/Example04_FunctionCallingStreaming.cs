@@ -17,9 +17,9 @@ public partial class ChatExamples
     #region
     public class StreamingChatToolCallsBuilder
     {
-        private readonly Dictionary<int, string> _indexToToolCallId = [];
-        private readonly Dictionary<int, string> _indexToFunctionName = [];
-        private readonly Dictionary<int, SequenceBuilder<byte>> _indexToFunctionArguments = [];
+        private readonly Dictionary<long, string> _indexToToolCallId = [];
+        private readonly Dictionary<long, string> _indexToFunctionName = [];
+        private readonly Dictionary<long, SequenceBuilder<byte>> _indexToFunctionArguments = [];
 
         public void Append(StreamingChatToolCallUpdate toolCallUpdate)
         {
@@ -53,7 +53,7 @@ public partial class ChatExamples
         {
             List<ChatToolCall> toolCalls = [];
 
-            foreach ((int index, string toolCallId) in _indexToToolCallId)
+            foreach ((long index, string toolCallId) in _indexToToolCallId)
             {
                 ReadOnlySequence<byte> sequence = _indexToFunctionArguments[index].Build();
 

@@ -14,12 +14,12 @@ namespace OpenAI.Containers
     {
         private readonly ContainerClient _client;
         private readonly string _containerId;
-        private readonly int? _limit;
+        private readonly long? _limit;
         private readonly string _order;
         private readonly string _after;
         private readonly RequestOptions _options;
 
-        public ContainerClientGetContainerFilesAsyncCollectionResult(ContainerClient client, string containerId, int? limit, string order, string after, RequestOptions options)
+        public ContainerClientGetContainerFilesAsyncCollectionResult(ContainerClient client, string containerId, long? limit, string order, string after, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(containerId, nameof(containerId));
 

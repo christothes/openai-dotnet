@@ -39,11 +39,11 @@ model ContainerFileResource {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** Unix timestamp (in seconds) when the file was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** Size of the file in bytes. */
-  bytes: int32;
+  bytes: integer;
 
   /** Path of the file in the container. */
   path: string;
@@ -83,7 +83,7 @@ model ContainerResource {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** Unix timestamp (in seconds) when the container was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** Status of the container (e.g., active, deleted). */
@@ -99,7 +99,7 @@ model ContainerResource {
     anchor?: "last_active_at";
 
     /** The number of minutes after the anchor before the container expires. */
-    minutes?: int32;
+    minutes?: integer;
   };
 }
 
@@ -115,7 +115,7 @@ model CreateContainerBody {
     /** Time anchor for the expiration time. Currently only 'last_active_at' is supported. */
     anchor: "last_active_at";
 
-    minutes: int32;
+    minutes: integer;
   };
 }
 

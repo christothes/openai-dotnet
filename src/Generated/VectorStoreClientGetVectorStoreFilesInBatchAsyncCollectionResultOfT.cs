@@ -16,14 +16,14 @@ namespace OpenAI.VectorStores
         private readonly VectorStoreClient _client;
         private readonly string _vectorStoreId;
         private readonly string _batchId;
-        private readonly int? _limit;
+        private readonly long? _limit;
         private readonly string _order;
         private readonly string _after;
         private readonly string _before;
         private readonly string _filter;
         private readonly RequestOptions _options;
 
-        public VectorStoreClientGetVectorStoreFilesInBatchAsyncCollectionResultOfT(VectorStoreClient client, string vectorStoreId, string batchId, int? limit, string order, string after, string before, string filter, RequestOptions options)
+        public VectorStoreClientGetVectorStoreFilesInBatchAsyncCollectionResultOfT(VectorStoreClient client, string vectorStoreId, string batchId, long? limit, string order, string after, string before, string filter, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(vectorStoreId, nameof(vectorStoreId));
             Argument.AssertNotNullOrEmpty(batchId, nameof(batchId));

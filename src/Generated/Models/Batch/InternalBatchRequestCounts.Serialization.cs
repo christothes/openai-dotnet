@@ -86,25 +86,25 @@ namespace OpenAI.Batch
             {
                 return null;
             }
-            int total = default;
-            int completed = default;
-            int failed = default;
+            long total = default;
+            long completed = default;
+            long failed = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("total"u8))
                 {
-                    total = prop.Value.GetInt32();
+                    total = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("completed"u8))
                 {
-                    completed = prop.Value.GetInt32();
+                    completed = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("failed"u8))
                 {
-                    failed = prop.Value.GetInt32();
+                    failed = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

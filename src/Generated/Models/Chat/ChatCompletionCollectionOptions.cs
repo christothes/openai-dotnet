@@ -18,7 +18,7 @@ namespace OpenAI.Chat
         {
         }
 
-        internal ChatCompletionCollectionOptions(string afterId, int? pageSizeLimit, ChatCompletionCollectionOrder? order, IDictionary<string, string> metadata, string model, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ChatCompletionCollectionOptions(string afterId, long? pageSizeLimit, ChatCompletionCollectionOrder? order, IDictionary<string, string> metadata, string model, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             AfterId = afterId;
@@ -31,7 +31,7 @@ namespace OpenAI.Chat
 
         public string AfterId { get; set; }
 
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
 
         public ChatCompletionCollectionOrder? Order { get; set; }
 

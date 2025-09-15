@@ -13,7 +13,7 @@ namespace OpenAI.Responses
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        public InternalTopLogProb(string token, float logprob, IEnumerable<int> bytes)
+        public InternalTopLogProb(string token, float logprob, IEnumerable<long> bytes)
         {
             Argument.AssertNotNull(token, nameof(token));
             Argument.AssertNotNull(bytes, nameof(bytes));
@@ -23,12 +23,12 @@ namespace OpenAI.Responses
             Bytes = bytes.ToList();
         }
 
-        internal InternalTopLogProb(string token, float logprob, IList<int> bytes, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalTopLogProb(string token, float logprob, IList<long> bytes, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Token = token;
             Logprob = logprob;
-            Bytes = bytes ?? new ChangeTrackingList<int>();
+            Bytes = bytes ?? new ChangeTrackingList<long>();
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
@@ -36,7 +36,7 @@ namespace OpenAI.Responses
 
         public float Logprob { get; set; }
 
-        public IList<int> Bytes { get; }
+        public IList<long> Bytes { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

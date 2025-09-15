@@ -33,7 +33,7 @@ model VectorStoreExpirationAfter {
   /** The number of days after the anchor time that the vector store will expire. */
   @minValue(1)
   @maxValue(365)
-  days: int32;
+  days: integer;
 }
 
 @doc("""
@@ -50,30 +50,30 @@ model VectorStoreObject {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the vector store was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** The name of the vector store. */
   name: string;
 
   /** The total number of bytes used by the files in the vector store. */
-  usage_bytes: int32;
+  usage_bytes: integer;
 
   file_counts: {
     /** The number of files that are currently being processed. */
-    in_progress: int32;
+    in_progress: integer;
 
     /** The number of files that have been successfully processed. */
-    completed: int32;
+    completed: integer;
 
     /** The number of files that have failed to process. */
-    failed: int32;
+    failed: integer;
 
     /** The number of files that were cancelled. */
-    cancelled: int32;
+    cancelled: integer;
 
     /** The total number of files. */
-    total: int32;
+    total: integer;
   };
 
   @doc("""
@@ -85,12 +85,12 @@ model VectorStoreObject {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the vector store will expire. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   expires_at?: utcDateTime | null;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the vector store was last active. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   last_active_at: utcDateTime | null;
 
   ...MetadataPropertyForResponse;
@@ -151,11 +151,11 @@ model VectorStoreFileObject {
   object: "vector_store.file";
 
   /** The total vector store usage in bytes. Note that this may be different from the original file size. */
-  usage_bytes: int32;
+  usage_bytes: integer;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the vector store file was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** The ID of the [vector store](/docs/api-reference/vector-stores/object) that the [File](/docs/api-reference/files) is attached to. */
@@ -224,7 +224,7 @@ model VectorStoreFileBatchObject {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the vector store files batch was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** The ID of the [vector store](/docs/api-reference/vector-stores/object) that the [File](/docs/api-reference/files) is attached to. */
@@ -237,19 +237,19 @@ model VectorStoreFileBatchObject {
 
   file_counts: {
     /** The number of files that are currently being processed. */
-    in_progress: int32;
+    in_progress: integer;
 
     /** The number of files that have been processed. */
-    completed: int32;
+    completed: integer;
 
     /** The number of files that have failed to process. */
-    failed: int32;
+    failed: integer;
 
     /** The number of files that where cancelled. */
-    cancelled: int32;
+    cancelled: integer;
 
     /** The total number of files. */
-    total: int32;
+    total: integer;
   };
 }
 
@@ -293,14 +293,14 @@ model StaticChunkingStrategy {
     """)
   @minValue(100)
   @maxValue(4096)
-  max_chunk_size_tokens: int32;
+  max_chunk_size_tokens: integer;
 
   @doc("""
     The number of tokens that overlap between chunks. The default value is `400`.
     
     Note that the overlap must not exceed half of `max_chunk_size_tokens`.
     """)
-  chunk_overlap_tokens: int32;
+  chunk_overlap_tokens: integer;
 }
 
 // Tool customization: Qualify union as discriminated base
@@ -366,7 +366,7 @@ model VectorStoreSearchRequest {
   /** The maximum number of results to return. This number should be between 1 and 50 inclusive. */
   @minValue(1)
   @maxValue(50)
-  max_num_results?: int32 = 10;
+  max_num_results?: integer = 10;
 
   /** A filter to apply based on file attributes. */
   filters?: ComparisonFilter | CompoundFilter;

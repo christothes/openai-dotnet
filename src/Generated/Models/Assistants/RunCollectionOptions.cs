@@ -17,7 +17,7 @@ namespace OpenAI.Assistants
         {
         }
 
-        internal RunCollectionOptions(string afterId, string beforeId, int? pageSizeLimit, RunCollectionOrder? order, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal RunCollectionOptions(string afterId, string beforeId, long? pageSizeLimit, RunCollectionOrder? order, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             AfterId = afterId;
             BeforeId = beforeId;
@@ -30,7 +30,7 @@ namespace OpenAI.Assistants
 
         public string BeforeId { get; set; }
 
-        public int? PageSizeLimit { get; set; }
+        public long? PageSizeLimit { get; set; }
 
         public RunCollectionOrder? Order { get; set; }
 

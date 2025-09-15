@@ -99,7 +99,7 @@ namespace OpenAI.Chat
                 return null;
             }
             ChatFinishReason finishReason = default;
-            int index = default;
+            long index = default;
             InternalChatCompletionResponseMessage message = default;
             InternalCreateChatCompletionResponseChoiceLogprobs logprobs = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -112,7 +112,7 @@ namespace OpenAI.Chat
                 }
                 if (prop.NameEquals("index"u8))
                 {
-                    index = prop.Value.GetInt32();
+                    index = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("message"u8))

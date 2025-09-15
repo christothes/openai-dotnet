@@ -13,13 +13,13 @@ namespace OpenAI.Responses
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        private protected StreamingResponseUpdate(InternalResponseStreamEventType kind, int sequenceNumber)
+        private protected StreamingResponseUpdate(InternalResponseStreamEventType kind, long sequenceNumber)
         {
             Kind = kind;
             SequenceNumber = sequenceNumber;
         }
 
-        internal StreamingResponseUpdate(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal StreamingResponseUpdate(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Kind = kind;
             SequenceNumber = sequenceNumber;
@@ -28,7 +28,7 @@ namespace OpenAI.Responses
 
         internal InternalResponseStreamEventType Kind { get; set; }
 
-        public int SequenceNumber { get; }
+        public long SequenceNumber { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

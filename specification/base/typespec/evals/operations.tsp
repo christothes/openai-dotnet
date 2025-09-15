@@ -24,7 +24,7 @@ interface Evals {
     /**
      * A limit on the number of evals to be returned in a single pagination response.
      */
-    @query limit?: int32 = 20,
+    @query limit?: integer = 20,
 
     /**
      * Sort order for evals by timestamp. Use `asc` for ascending order or
@@ -114,7 +114,7 @@ interface Evals {
   getEvalRuns(
     @path eval_id: string,
     @query after?: string,
-    @query limit?: int32 = 20,
+    @query limit?: integer = 20,
     @query order?: "asc" | "desc" = "asc",
     @query status?:
       | "queued"
@@ -202,7 +202,7 @@ interface Evals {
     @path eval_id: string,
     @path run_id: string,
     @query after?: string,
-    @query limit?: int32 = 20,
+    @query limit?: integer = 20,
     @query status?: "fail" | "pass",
     @query order?: "asc" | "desc" = "asc",
   ): EvalRunOutputItemList | EvalsErrorResponse;

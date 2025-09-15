@@ -9,7 +9,7 @@ public class TextAnnotationUpdate
     /// <summary>
     /// The index of the content item that this annotation applies to.
     /// </summary>
-    public int ContentIndex
+    public long ContentIndex
         => _fileSearchCitation?.Index
         ?? _codeCitation?.Index
         ?? (_internalAnnotation?.SerializedAdditionalRawData.TryGetValue("index", out BinaryData indexData) == true
@@ -19,7 +19,7 @@ public class TextAnnotationUpdate
     /// <summary>
     /// The index in the message content at which the citation begins.
     /// </summary>
-    public int? StartIndex
+    public long? StartIndex
         => _fileSearchCitation?.StartIndex
         ?? _codeCitation?.StartIndex
         ?? (_internalAnnotation?.SerializedAdditionalRawData.TryGetValue("start_index", out BinaryData indexData) == true
@@ -29,7 +29,7 @@ public class TextAnnotationUpdate
     /// <summary>
     /// The index in the message content at which the citation ends.
     /// </summary>
-    public int? EndIndex
+    public long? EndIndex
         => _fileSearchCitation?.EndIndex
         ?? _codeCitation?.EndIndex
         ?? (_internalAnnotation?.SerializedAdditionalRawData.TryGetValue("start_index", out BinaryData indexData) == true

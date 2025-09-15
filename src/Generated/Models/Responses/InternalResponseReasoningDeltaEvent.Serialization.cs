@@ -80,11 +80,11 @@ namespace OpenAI.Responses
                 return null;
             }
             InternalResponseStreamEventType kind = default;
-            int sequenceNumber = default;
+            long sequenceNumber = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             string itemId = default;
-            int outputIndex = default;
-            int contentIndex = default;
+            long outputIndex = default;
+            long contentIndex = default;
             BinaryData delta = default;
             foreach (var prop in element.EnumerateObject())
             {
@@ -95,7 +95,7 @@ namespace OpenAI.Responses
                 }
                 if (prop.NameEquals("sequence_number"u8))
                 {
-                    sequenceNumber = prop.Value.GetInt32();
+                    sequenceNumber = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("item_id"u8))
@@ -105,12 +105,12 @@ namespace OpenAI.Responses
                 }
                 if (prop.NameEquals("output_index"u8))
                 {
-                    outputIndex = prop.Value.GetInt32();
+                    outputIndex = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("content_index"u8))
                 {
-                    contentIndex = prop.Value.GetInt32();
+                    contentIndex = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("delta"u8))

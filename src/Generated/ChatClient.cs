@@ -24,7 +24,7 @@ namespace OpenAI.Chat
         public ClientPipeline Pipeline { get; }
 
         [Experimental("OPENAI001")]
-        public virtual CollectionResult GetChatCompletions(string after, int? limit, string order, IDictionary<string, string> metadata, string model, RequestOptions options)
+        public virtual CollectionResult GetChatCompletions(string after, long? limit, string order, IDictionary<string, string> metadata, string model, RequestOptions options)
         {
             return new ChatClientGetChatCompletionsCollectionResult(
                 this,
@@ -37,7 +37,7 @@ namespace OpenAI.Chat
         }
 
         [Experimental("OPENAI001")]
-        public virtual AsyncCollectionResult GetChatCompletionsAsync(string after, int? limit, string order, IDictionary<string, string> metadata, string model, RequestOptions options)
+        public virtual AsyncCollectionResult GetChatCompletionsAsync(string after, long? limit, string order, IDictionary<string, string> metadata, string model, RequestOptions options)
         {
             return new ChatClientGetChatCompletionsAsyncCollectionResult(
                 this,
@@ -148,7 +148,7 @@ namespace OpenAI.Chat
         }
 
         [Experimental("OPENAI001")]
-        public virtual CollectionResult GetChatCompletionMessages(string completionId, string after, int? limit, string order, RequestOptions options)
+        public virtual CollectionResult GetChatCompletionMessages(string completionId, string after, long? limit, string order, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(completionId, nameof(completionId));
 
@@ -162,7 +162,7 @@ namespace OpenAI.Chat
         }
 
         [Experimental("OPENAI001")]
-        public virtual AsyncCollectionResult GetChatCompletionMessagesAsync(string completionId, string after, int? limit, string order, RequestOptions options)
+        public virtual AsyncCollectionResult GetChatCompletionMessagesAsync(string completionId, string after, long? limit, string order, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(completionId, nameof(completionId));
 

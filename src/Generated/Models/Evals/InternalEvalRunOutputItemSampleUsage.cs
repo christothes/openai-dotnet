@@ -11,7 +11,7 @@ namespace OpenAI.Evals
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalEvalRunOutputItemSampleUsage(int totalTokens, int completionTokens, int promptTokens, int cachedTokens)
+        internal InternalEvalRunOutputItemSampleUsage(long totalTokens, long completionTokens, long promptTokens, long cachedTokens)
         {
             TotalTokens = totalTokens;
             CompletionTokens = completionTokens;
@@ -19,7 +19,7 @@ namespace OpenAI.Evals
             CachedTokens = cachedTokens;
         }
 
-        internal InternalEvalRunOutputItemSampleUsage(int totalTokens, int completionTokens, int promptTokens, int cachedTokens, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalEvalRunOutputItemSampleUsage(long totalTokens, long completionTokens, long promptTokens, long cachedTokens, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             TotalTokens = totalTokens;
             CompletionTokens = completionTokens;
@@ -28,13 +28,13 @@ namespace OpenAI.Evals
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public int TotalTokens { get; }
+        public long TotalTokens { get; }
 
-        public int CompletionTokens { get; }
+        public long CompletionTokens { get; }
 
-        public int PromptTokens { get; }
+        public long PromptTokens { get; }
 
-        public int CachedTokens { get; }
+        public long CachedTokens { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

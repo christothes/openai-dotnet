@@ -30,7 +30,7 @@ namespace OpenAI.LegacyCompletions
             {
                 writer.WritePropertyName("text_offset"u8);
                 writer.WriteStartArray();
-                foreach (int item in TextOffset)
+                foreach (long item in TextOffset)
                 {
                     writer.WriteNumberValue(item);
                 }
@@ -123,7 +123,7 @@ namespace OpenAI.LegacyCompletions
             {
                 return null;
             }
-            IList<int> textOffset = default;
+            IList<long> textOffset = default;
             IList<float> tokenLogprobs = default;
             IList<string> tokens = default;
             IList<IDictionary<string, float>> topLogprobs = default;
@@ -136,10 +136,10 @@ namespace OpenAI.LegacyCompletions
                     {
                         continue;
                     }
-                    List<int> array = new List<int>();
+                    List<long> array = new List<long>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(item.GetInt32());
+                        array.Add(item.GetInt64());
                     }
                     textOffset = array;
                     continue;
@@ -208,7 +208,7 @@ namespace OpenAI.LegacyCompletions
                 // Plugin customization: remove options.Format != "W" check
                 additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
             }
-            return new InternalCreateCompletionResponseChoiceLogprobs(textOffset ?? new ChangeTrackingList<int>(), tokenLogprobs ?? new ChangeTrackingList<float>(), tokens ?? new ChangeTrackingList<string>(), topLogprobs ?? new ChangeTrackingList<IDictionary<string, float>>(), additionalBinaryDataProperties);
+            return new InternalCreateCompletionResponseChoiceLogprobs(textOffset ?? new ChangeTrackingList<long>(), tokenLogprobs ?? new ChangeTrackingList<float>(), tokens ?? new ChangeTrackingList<string>(), topLogprobs ?? new ChangeTrackingList<IDictionary<string, float>>(), additionalBinaryDataProperties);
         }
 
         BinaryData IPersistableModel<InternalCreateCompletionResponseChoiceLogprobs>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);

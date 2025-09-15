@@ -9,7 +9,7 @@ namespace OpenAI.Realtime
 {
     internal partial class InternalRealtimeServerEventResponseFunctionCallArgumentsDone : RealtimeUpdate
     {
-        internal InternalRealtimeServerEventResponseFunctionCallArgumentsDone(string responseId, string itemId, int outputIndex, string callId, string arguments) : base(RealtimeUpdateKind.ItemStreamingFunctionCallArgumentsFinished)
+        internal InternalRealtimeServerEventResponseFunctionCallArgumentsDone(string responseId, string itemId, long outputIndex, string callId, string arguments) : base(RealtimeUpdateKind.ItemStreamingFunctionCallArgumentsFinished)
         {
             ResponseId = responseId;
             ItemId = itemId;
@@ -18,7 +18,7 @@ namespace OpenAI.Realtime
             Arguments = arguments;
         }
 
-        internal InternalRealtimeServerEventResponseFunctionCallArgumentsDone(RealtimeUpdateKind kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string responseId, string itemId, int outputIndex, string callId, string arguments) : base(kind, eventId, additionalBinaryDataProperties)
+        internal InternalRealtimeServerEventResponseFunctionCallArgumentsDone(RealtimeUpdateKind kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string responseId, string itemId, long outputIndex, string callId, string arguments) : base(kind, eventId, additionalBinaryDataProperties)
         {
             ResponseId = responseId;
             ItemId = itemId;
@@ -31,7 +31,7 @@ namespace OpenAI.Realtime
 
         public string ItemId { get; }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
         public string CallId { get; }
 

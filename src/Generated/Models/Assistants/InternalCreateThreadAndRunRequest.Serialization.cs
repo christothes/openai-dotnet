@@ -177,8 +177,8 @@ namespace OpenAI.Assistants
             float? temperature = default;
             float? topP = default;
             bool? stream = default;
-            int? maxPromptTokens = default;
-            int? maxCompletionTokens = default;
+            long? maxPromptTokens = default;
+            long? maxCompletionTokens = default;
             RunTruncationStrategy truncationStrategy = default;
             ToolConstraint toolChoice = default;
             bool? parallelToolCalls = default;
@@ -302,7 +302,7 @@ namespace OpenAI.Assistants
                         maxPromptTokens = null;
                         continue;
                     }
-                    maxPromptTokens = prop.Value.GetInt32();
+                    maxPromptTokens = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("max_completion_tokens"u8))
@@ -312,7 +312,7 @@ namespace OpenAI.Assistants
                         maxCompletionTokens = null;
                         continue;
                     }
-                    maxCompletionTokens = prop.Value.GetInt32();
+                    maxCompletionTokens = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("truncation_strategy"u8))

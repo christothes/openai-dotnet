@@ -11,7 +11,7 @@ namespace OpenAI.Files
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalUpload(string id, DateTimeOffset createdAt, string filename, int bytes, string purpose, InternalUploadStatus status, DateTimeOffset expiresAt)
+        internal InternalUpload(string id, DateTimeOffset createdAt, string filename, long bytes, string purpose, InternalUploadStatus status, DateTimeOffset expiresAt)
         {
             Id = id;
             CreatedAt = createdAt;
@@ -22,7 +22,7 @@ namespace OpenAI.Files
             ExpiresAt = expiresAt;
         }
 
-        internal InternalUpload(string id, DateTimeOffset createdAt, string filename, int bytes, string purpose, InternalUploadStatus status, DateTimeOffset expiresAt, string @object, OpenAIFile @file, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalUpload(string id, DateTimeOffset createdAt, string filename, long bytes, string purpose, InternalUploadStatus status, DateTimeOffset expiresAt, string @object, OpenAIFile @file, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Id = id;
             CreatedAt = createdAt;
@@ -42,7 +42,7 @@ namespace OpenAI.Files
 
         public string Filename { get; }
 
-        public int Bytes { get; }
+        public long Bytes { get; }
 
         public string Purpose { get; }
 

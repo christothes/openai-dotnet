@@ -11,14 +11,14 @@ namespace OpenAI.Evals
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalEvalRunPerTestingCriteriaResult(string testingCriteria, int passed, int failed)
+        internal InternalEvalRunPerTestingCriteriaResult(string testingCriteria, long passed, long failed)
         {
             TestingCriteria = testingCriteria;
             Passed = passed;
             Failed = failed;
         }
 
-        internal InternalEvalRunPerTestingCriteriaResult(string testingCriteria, int passed, int failed, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalEvalRunPerTestingCriteriaResult(string testingCriteria, long passed, long failed, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             TestingCriteria = testingCriteria;
             Passed = passed;
@@ -28,9 +28,9 @@ namespace OpenAI.Evals
 
         public string TestingCriteria { get; }
 
-        public int Passed { get; }
+        public long Passed { get; }
 
-        public int Failed { get; }
+        public long Failed { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

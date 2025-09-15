@@ -91,8 +91,8 @@ namespace OpenAI.Chat
             {
                 return null;
             }
-            int endIndex = default;
-            int startIndex = default;
+            long endIndex = default;
+            long startIndex = default;
             Uri url = default;
             string title = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -100,12 +100,12 @@ namespace OpenAI.Chat
             {
                 if (prop.NameEquals("end_index"u8))
                 {
-                    endIndex = prop.Value.GetInt32();
+                    endIndex = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("start_index"u8))
                 {
-                    startIndex = prop.Value.GetInt32();
+                    startIndex = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("url"u8))

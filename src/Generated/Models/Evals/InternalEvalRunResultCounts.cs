@@ -11,7 +11,7 @@ namespace OpenAI.Evals
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalEvalRunResultCounts(int total, int errored, int failed, int passed)
+        internal InternalEvalRunResultCounts(long total, long errored, long failed, long passed)
         {
             Total = total;
             Errored = errored;
@@ -19,7 +19,7 @@ namespace OpenAI.Evals
             Passed = passed;
         }
 
-        internal InternalEvalRunResultCounts(int total, int errored, int failed, int passed, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalEvalRunResultCounts(long total, long errored, long failed, long passed, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Total = total;
             Errored = errored;
@@ -28,13 +28,13 @@ namespace OpenAI.Evals
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public int Total { get; }
+        public long Total { get; }
 
-        public int Errored { get; }
+        public long Errored { get; }
 
-        public int Failed { get; }
+        public long Failed { get; }
 
-        public int Passed { get; }
+        public long Passed { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

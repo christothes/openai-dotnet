@@ -204,7 +204,7 @@ model RunGraderResponse {
     };
     execution_time: float32;
     scores: unknown;
-    token_usage: int32 | null;
+    token_usage: integer | null;
     sampled_model_name: string | null;
   };
   sub_rewards: unknown;

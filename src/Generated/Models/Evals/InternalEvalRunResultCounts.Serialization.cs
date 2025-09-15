@@ -91,31 +91,31 @@ namespace OpenAI.Evals
             {
                 return null;
             }
-            int total = default;
-            int errored = default;
-            int failed = default;
-            int passed = default;
+            long total = default;
+            long errored = default;
+            long failed = default;
+            long passed = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("total"u8))
                 {
-                    total = prop.Value.GetInt32();
+                    total = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("errored"u8))
                 {
-                    errored = prop.Value.GetInt32();
+                    errored = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("failed"u8))
                 {
-                    failed = prop.Value.GetInt32();
+                    failed = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("passed"u8))
                 {
-                    passed = prop.Value.GetInt32();
+                    passed = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

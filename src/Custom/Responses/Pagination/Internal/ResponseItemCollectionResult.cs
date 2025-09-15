@@ -14,7 +14,7 @@ internal class ResponseItemCollectionResult : CollectionResult<ResponseItem>
 
     // Initial values
     private readonly string _responseId;
-    private readonly int? _limit;
+    private readonly long? _limit;
     private readonly string? _order;
     private readonly string? _after;
     private readonly string? _before;
@@ -22,7 +22,7 @@ internal class ResponseItemCollectionResult : CollectionResult<ResponseItem>
     public ResponseItemCollectionResult(
         OpenAIResponseClient parentClient,
         string responseId,
-        int? limit, string? order, string? after, string? before,
+        long? limit, string? order, string? after, string? before,
         RequestOptions? options)
     {
         _parentClient = parentClient;
@@ -89,7 +89,7 @@ internal class ResponseItemCollectionResult : CollectionResult<ResponseItem>
         return hasMore;
     }
 
-    internal virtual ClientResult GetResponseInputItems(string responseId, int? limit, string? order, string? after, string? before, RequestOptions? options)
+    internal virtual ClientResult GetResponseInputItems(string responseId, long? limit, string? order, string? after, string? before, RequestOptions? options)
     {
         using PipelineMessage message = _parentClient.CreateGetInputItemsRequest(responseId, limit, order, after, before, options);
         return ClientResult.FromResponse(_parentClient.Pipeline.ProcessMessage(message, options));

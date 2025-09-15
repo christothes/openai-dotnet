@@ -135,8 +135,8 @@ namespace OpenAI.Evals
             IDictionary<string, string> metadata = default;
             string model = default;
             string instructionsSearch = default;
-            int? createdAfter = default;
-            int? createdBefore = default;
+            long? createdAfter = default;
+            long? createdBefore = default;
             ChatReasoningEffortLevel? reasoningEffort = default;
             float? temperature = default;
             float? topP = default;
@@ -197,7 +197,7 @@ namespace OpenAI.Evals
                         createdAfter = null;
                         continue;
                     }
-                    createdAfter = prop.Value.GetInt32();
+                    createdAfter = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("created_before"u8))
@@ -207,7 +207,7 @@ namespace OpenAI.Evals
                         createdBefore = null;
                         continue;
                     }
-                    createdBefore = prop.Value.GetInt32();
+                    createdBefore = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("reasoning_effort"u8))

@@ -15,14 +15,14 @@ namespace OpenAI.FineTuning
         {
         }
 
-        internal InternalFineTuningJobsPageToken(int? limit, string after, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalFineTuningJobsPageToken(long? limit, string after, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Limit = limit;
             After = after;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public int? Limit { get; set; }
+        public long? Limit { get; set; }
 
         public string After { get; set; }
 

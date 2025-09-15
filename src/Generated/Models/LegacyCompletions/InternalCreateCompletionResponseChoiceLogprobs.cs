@@ -16,17 +16,17 @@ namespace OpenAI.LegacyCompletions
         {
         }
 
-        internal InternalCreateCompletionResponseChoiceLogprobs(IList<int> textOffset, IList<float> tokenLogprobs, IList<string> tokens, IList<IDictionary<string, float>> topLogprobs, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalCreateCompletionResponseChoiceLogprobs(IList<long> textOffset, IList<float> tokenLogprobs, IList<string> tokens, IList<IDictionary<string, float>> topLogprobs, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
-            TextOffset = textOffset ?? new ChangeTrackingList<int>();
+            TextOffset = textOffset ?? new ChangeTrackingList<long>();
             TokenLogprobs = tokenLogprobs ?? new ChangeTrackingList<float>();
             Tokens = tokens ?? new ChangeTrackingList<string>();
             TopLogprobs = topLogprobs ?? new ChangeTrackingList<IDictionary<string, float>>();
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public IList<int> TextOffset { get; }
+        public IList<long> TextOffset { get; }
 
         public IList<float> TokenLogprobs { get; }
 

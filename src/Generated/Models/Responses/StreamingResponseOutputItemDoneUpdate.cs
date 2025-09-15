@@ -11,19 +11,19 @@ namespace OpenAI.Responses
     [Experimental("OPENAI001")]
     public partial class StreamingResponseOutputItemDoneUpdate : StreamingResponseUpdate
     {
-        internal StreamingResponseOutputItemDoneUpdate(int sequenceNumber, int outputIndex, ResponseItem item) : base(InternalResponseStreamEventType.ResponseOutputItemDone, sequenceNumber)
+        internal StreamingResponseOutputItemDoneUpdate(long sequenceNumber, long outputIndex, ResponseItem item) : base(InternalResponseStreamEventType.ResponseOutputItemDone, sequenceNumber)
         {
             OutputIndex = outputIndex;
             Item = item;
         }
 
-        internal StreamingResponseOutputItemDoneUpdate(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, int outputIndex, ResponseItem item) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal StreamingResponseOutputItemDoneUpdate(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, long outputIndex, ResponseItem item) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
             OutputIndex = outputIndex;
             Item = item;
         }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
         public ResponseItem Item { get; }
     }

@@ -23,7 +23,7 @@ namespace OpenAI.Assistants
 
         public ClientPipeline Pipeline { get; }
 
-        public virtual CollectionResult GetAssistants(int? limit, string order, string after, string before, RequestOptions options)
+        public virtual CollectionResult GetAssistants(long? limit, string order, string after, string before, RequestOptions options)
         {
             return new AssistantClientGetAssistantsCollectionResult(
                 this,
@@ -34,7 +34,7 @@ namespace OpenAI.Assistants
                 options);
         }
 
-        public virtual AsyncCollectionResult GetAssistantsAsync(int? limit, string order, string after, string before, RequestOptions options)
+        public virtual AsyncCollectionResult GetAssistantsAsync(long? limit, string order, string after, string before, RequestOptions options)
         {
             return new AssistantClientGetAssistantsAsyncCollectionResult(
                 this,

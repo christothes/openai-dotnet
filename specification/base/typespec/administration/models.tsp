@@ -193,7 +193,7 @@ model AuditLog {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of the event. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   effective_at: utcDateTime;
 
   /** The project that the action was scoped to. Absent for actions not scoped to projects. */
@@ -431,22 +431,22 @@ model AuditLog {
     /** The payload used to update the rate limits. */
     changes_requested?: {
       /** The maximum requests per minute. */
-      max_requests_per_1_minute?: int32;
+      max_requests_per_1_minute?: integer;
 
       /** The maximum tokens per minute. */
-      max_tokens_per_1_minute?: int32;
+      max_tokens_per_1_minute?: integer;
 
       /** The maximum images per minute. Only relevant for certain models. */
-      max_images_per_1_minute?: int32;
+      max_images_per_1_minute?: integer;
 
       /** The maximum audio megabytes per minute. Only relevant for certain models. */
-      max_audio_megabytes_per_1_minute?: int32;
+      max_audio_megabytes_per_1_minute?: integer;
 
       /** The maximum requests per day. Only relevant for certain models. */
-      max_requests_per_1_day?: int32;
+      max_requests_per_1_day?: integer;
 
       /** The maximum batch input tokens per day. Only relevant for certain models. */
-      batch_1_day_max_input_tokens?: int32;
+      batch_1_day_max_input_tokens?: integer;
     };
   };
 
@@ -636,17 +636,17 @@ model Invite {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of when the invite was sent. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   invited_at: utcDateTime;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of when the invite expires. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   expires_at: utcDateTime;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of when the invite was accepted. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   accepted_at?: utcDateTime;
 
   /** The projects that were granted membership upon acceptance of the invite. */
@@ -725,7 +725,7 @@ model User {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of when the user was added. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   added_at: utcDateTime;
 }
 
@@ -765,14 +765,14 @@ model Project {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of when the project was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   @doc("""
     The Unix timestamp (in seconds) of when the project was archived or `null`.
     """)
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   archived_at?: utcDateTime | null;
 
   @doc("""
@@ -822,7 +822,7 @@ model ProjectUser {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of when the project was added. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   added_at: utcDateTime;
 }
 
@@ -877,7 +877,7 @@ model ProjectServiceAccount {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of when the service account was created */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 }
 
@@ -905,7 +905,7 @@ model ProjectServiceAccountCreateResponse {
   role: "member";
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   api_key: ProjectServiceAccountApiKey;
@@ -921,7 +921,7 @@ model ProjectServiceAccountApiKey {
   name: string;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   id: string;
@@ -948,12 +948,12 @@ model ProjectApiKey {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of when the API key was created */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of when the API key was last used. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   last_used_at: utcDateTime;
 
   /** The identifier, which can be referenced in API endpoints */
@@ -1022,22 +1022,22 @@ model ProjectRateLimit {
   `model`: string;
 
   /** The maximum requests per minute. */
-  max_requests_per_1_minute: int32;
+  max_requests_per_1_minute: integer;
 
   /** The maximum tokens per minute. */
-  max_tokens_per_1_minute: int32;
+  max_tokens_per_1_minute: integer;
 
   /** The maximum images per minute. Only present for relevant models. */
-  max_images_per_1_minute?: int32;
+  max_images_per_1_minute?: integer;
 
   /** The maximum audio megabytes per minute. Only present for relevant models. */
-  max_audio_megabytes_per_1_minute?: int32;
+  max_audio_megabytes_per_1_minute?: integer;
 
   /** The maximum requests per day. Only present for relevant models. */
-  max_requests_per_1_day?: int32;
+  max_requests_per_1_day?: integer;
 
   /** The maximum batch input tokens per day. Only present for relevant models. */
-  batch_1_day_max_input_tokens?: int32;
+  batch_1_day_max_input_tokens?: integer;
 }
 
 model ProjectRateLimitListResponse {
@@ -1050,22 +1050,22 @@ model ProjectRateLimitListResponse {
 
 model ProjectRateLimitUpdateRequest {
   /** The maximum requests per minute. */
-  max_requests_per_1_minute?: int32;
+  max_requests_per_1_minute?: integer;
 
   /** The maximum tokens per minute. */
-  max_tokens_per_1_minute?: int32;
+  max_tokens_per_1_minute?: integer;
 
   /** The maximum images per minute. Only relevant for certain models. */
-  max_images_per_1_minute?: int32;
+  max_images_per_1_minute?: integer;
 
   /** The maximum audio megabytes per minute. Only relevant for certain models. */
-  max_audio_megabytes_per_1_minute?: int32;
+  max_audio_megabytes_per_1_minute?: integer;
 
   /** The maximum requests per day. Only relevant for certain models. */
-  max_requests_per_1_day?: int32;
+  max_requests_per_1_day?: integer;
 
   /** The maximum batch input tokens per day. Only relevant for certain models. */
-  batch_1_day_max_input_tokens?: int32;
+  batch_1_day_max_input_tokens?: integer;
 }
 
 /** The aggregated audio speeches usage details of the specific time bucket. */
@@ -1073,10 +1073,10 @@ model UsageAudioSpeechesResult {
   object: "organization.usage.audio_speeches.result";
 
   /** The number of characters processed. */
-  characters: int32;
+  characters: integer;
 
   /** The count of requests made to the model. */
-  num_model_requests: int32;
+  num_model_requests: integer;
 
   @doc("""
     When `group_by=project_id`, this field provides the project ID of the grouped usage result.
@@ -1104,10 +1104,10 @@ model UsageAudioTranscriptionsResult {
   object: "organization.usage.audio_transcriptions.result";
 
   /** The number of seconds processed. */
-  seconds: int32;
+  seconds: integer;
 
   /** The count of requests made to the model. */
-  num_model_requests: int32;
+  num_model_requests: integer;
 
   @doc("""
     When `group_by=project_id`, this field provides the project ID of the grouped usage result.
@@ -1135,7 +1135,7 @@ model UsageCodeInterpreterSessionsResult {
   object: "organization.usage.code_interpreter_sessions.result";
 
   /** The number of code interpreter sessions. */
-  num_sessions?: int32;
+  num_sessions?: integer;
 
   @doc("""
     When `group_by=project_id`, this field provides the project ID of the grouped usage result.
@@ -1148,22 +1148,22 @@ model UsageCompletionsResult {
   object: "organization.usage.completions.result";
 
   /** The aggregated number of text input tokens used, including cached tokens. For customers subscribe to scale tier, this includes scale tier tokens. */
-  input_tokens: int32;
+  input_tokens: integer;
 
   /** The aggregated number of text input tokens that has been cached from previous requests. For customers subscribe to scale tier, this includes scale tier tokens. */
-  input_cached_tokens?: int32;
+  input_cached_tokens?: integer;
 
   /** The aggregated number of text output tokens used. For customers subscribe to scale tier, this includes scale tier tokens. */
-  output_tokens: int32;
+  output_tokens: integer;
 
   /** The aggregated number of audio input tokens used, including cached tokens. */
-  input_audio_tokens?: int32;
+  input_audio_tokens?: integer;
 
   /** The aggregated number of audio output tokens used. */
-  output_audio_tokens?: int32;
+  output_audio_tokens?: integer;
 
   /** The count of requests made to the model. */
-  num_model_requests: int32;
+  num_model_requests: integer;
 
   @doc("""
     When `group_by=project_id`, this field provides the project ID of the grouped usage result.
@@ -1196,10 +1196,10 @@ model UsageEmbeddingsResult {
   object: "organization.usage.embeddings.result";
 
   /** The aggregated number of input tokens used. */
-  input_tokens: int32;
+  input_tokens: integer;
 
   /** The count of requests made to the model. */
-  num_model_requests: int32;
+  num_model_requests: integer;
 
   @doc("""
     When `group_by=project_id`, this field provides the project ID of the grouped usage result.
@@ -1227,10 +1227,10 @@ model UsageImagesResult {
   object: "organization.usage.images.result";
 
   /** The number of images processed. */
-  images: int32;
+  images: integer;
 
   /** The count of requests made to the model. */
-  num_model_requests: int32;
+  num_model_requests: integer;
 
   @doc("""
     When `group_by=source`, this field provides the source of the grouped usage result, possible values are `image.generation`, `image.edit`, `image.variation`.
@@ -1268,10 +1268,10 @@ model UsageModerationsResult {
   object: "organization.usage.moderations.result";
 
   /** The aggregated number of input tokens used. */
-  input_tokens: int32;
+  input_tokens: integer;
 
   /** The count of requests made to the model. */
-  num_model_requests: int32;
+  num_model_requests: integer;
 
   @doc("""
     When `group_by=project_id`, this field provides the project ID of the grouped usage result.
@@ -1303,8 +1303,8 @@ model UsageResponse {
 
 model UsageTimeBucket {
   object: "bucket";
-  start_time: int32;
-  end_time: int32;
+  start_time: integer;
+  end_time: integer;
   result: (
     | UsageCompletionsResult
     | UsageEmbeddingsResult
@@ -1322,7 +1322,7 @@ model UsageVectorStoresResult {
   object: "organization.usage.vector_stores.result";
 
   /** The vector stores usage in bytes. */
-  usage_bytes: int32;
+  usage_bytes: integer;
 
   @doc("""
     When `group_by=project_id`, this field provides the project ID of the grouped usage result.
@@ -1351,18 +1351,18 @@ model Certificate {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) of when the certificate was uploaded. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   certificate_details: {
     // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
     /** The Unix timestamp (in seconds) of when the certificate becomes valid. */
-    @encode("unixTimestamp", int32)
+    @encode("unixTimestamp", integer)
     valid_at?: utcDateTime;
 
     // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
     /** The Unix timestamp (in seconds) of when the certificate expires. */
-    @encode("unixTimestamp", int32)
+    @encode("unixTimestamp", integer)
     expires_at?: utcDateTime;
 
     /** The content of the certificate in PEM format. */

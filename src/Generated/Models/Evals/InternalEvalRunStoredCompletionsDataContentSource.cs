@@ -16,7 +16,7 @@ namespace OpenAI.Evals
             Metadata = metadata ?? new ChangeTrackingDictionary<string, string>();
         }
 
-        internal InternalEvalRunStoredCompletionsDataContentSource(InternalEvalRunDataContentSourceType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> metadata, string model, int? createdAfter, int? createdBefore, int? limit) : base(kind, additionalBinaryDataProperties)
+        internal InternalEvalRunStoredCompletionsDataContentSource(InternalEvalRunDataContentSourceType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> metadata, string model, long? createdAfter, long? createdBefore, long? limit) : base(kind, additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Metadata = metadata ?? new ChangeTrackingDictionary<string, string>();
@@ -30,10 +30,10 @@ namespace OpenAI.Evals
 
         public string Model { get; set; }
 
-        public int? CreatedAfter { get; set; }
+        public long? CreatedAfter { get; set; }
 
-        public int? CreatedBefore { get; set; }
+        public long? CreatedBefore { get; set; }
 
-        public int? Limit { get; set; }
+        public long? Limit { get; set; }
     }
 }

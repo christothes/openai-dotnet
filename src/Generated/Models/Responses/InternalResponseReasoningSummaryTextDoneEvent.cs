@@ -9,7 +9,7 @@ namespace OpenAI.Responses
 {
     internal partial class InternalResponseReasoningSummaryTextDoneEvent : StreamingResponseUpdate
     {
-        internal InternalResponseReasoningSummaryTextDoneEvent(int sequenceNumber, string itemId, int outputIndex, int summaryIndex, string text) : base(InternalResponseStreamEventType.ResponseReasoningSummaryTextDone, sequenceNumber)
+        internal InternalResponseReasoningSummaryTextDoneEvent(long sequenceNumber, string itemId, long outputIndex, long summaryIndex, string text) : base(InternalResponseStreamEventType.ResponseReasoningSummaryTextDone, sequenceNumber)
         {
             ItemId = itemId;
             OutputIndex = outputIndex;
@@ -17,7 +17,7 @@ namespace OpenAI.Responses
             Text = text;
         }
 
-        internal InternalResponseReasoningSummaryTextDoneEvent(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, int outputIndex, int summaryIndex, string text) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal InternalResponseReasoningSummaryTextDoneEvent(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, long outputIndex, long summaryIndex, string text) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
             ItemId = itemId;
             OutputIndex = outputIndex;
@@ -27,9 +27,9 @@ namespace OpenAI.Responses
 
         public string ItemId { get; }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
-        public int SummaryIndex { get; }
+        public long SummaryIndex { get; }
 
         public string Text { get; }
     }

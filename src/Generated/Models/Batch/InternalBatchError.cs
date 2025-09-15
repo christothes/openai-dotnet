@@ -15,7 +15,7 @@ namespace OpenAI.Batch
         {
         }
 
-        internal InternalBatchError(string code, string message, string @param, int? line, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalBatchError(string code, string message, string @param, long? line, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Code = code;
             Message = message;
@@ -30,7 +30,7 @@ namespace OpenAI.Batch
 
         public string Param { get; }
 
-        public int? Line { get; }
+        public long? Line { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

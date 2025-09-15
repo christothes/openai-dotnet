@@ -51,7 +51,7 @@ namespace OpenAI.Assistants
             return message;
         }
 
-        internal virtual PipelineMessage CreateGetRunsRequest(string threadId, int? limit, string order, string after, string before, RequestOptions options)
+        internal virtual PipelineMessage CreateGetRunsRequest(string threadId, long? limit, string order, string after, string before, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -152,7 +152,7 @@ namespace OpenAI.Assistants
             return message;
         }
 
-        internal virtual PipelineMessage CreateGetRunStepsRequest(string threadId, string runId, int? limit, string order, string after, string before, IEnumerable<InternalIncludedRunStepProperty> include, RequestOptions options)
+        internal virtual PipelineMessage CreateGetRunStepsRequest(string threadId, string runId, long? limit, string order, string after, string before, IEnumerable<InternalIncludedRunStepProperty> include, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);

@@ -13,19 +13,19 @@ namespace OpenAI.Realtime
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalDotNetRealtimeLogProbProperties(string token, float logprob, IEnumerable<int> bytes)
+        internal InternalDotNetRealtimeLogProbProperties(string token, float logprob, IEnumerable<long> bytes)
         {
             Token = token;
             Logprob = logprob;
             Bytes = bytes.ToList();
         }
 
-        internal InternalDotNetRealtimeLogProbProperties(string token, float logprob, IList<int> bytes, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalDotNetRealtimeLogProbProperties(string token, float logprob, IList<long> bytes, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Token = token;
             Logprob = logprob;
-            Bytes = bytes ?? new ChangeTrackingList<int>();
+            Bytes = bytes ?? new ChangeTrackingList<long>();
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
@@ -33,7 +33,7 @@ namespace OpenAI.Realtime
 
         public float Logprob { get; }
 
-        public IList<int> Bytes { get; }
+        public IList<long> Bytes { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

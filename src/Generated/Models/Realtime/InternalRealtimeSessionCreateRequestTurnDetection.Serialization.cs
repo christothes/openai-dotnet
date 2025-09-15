@@ -105,8 +105,8 @@ namespace OpenAI.Realtime
             InternalRealtimeSessionCreateRequestTurnDetectionType? kind = default;
             InternalRealtimeSessionCreateRequestTurnDetectionEagerness? eagerness = default;
             float? threshold = default;
-            int? prefixPaddingMs = default;
-            int? silenceDurationMs = default;
+            long? prefixPaddingMs = default;
+            long? silenceDurationMs = default;
             bool? createResponse = default;
             bool? interruptResponse = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -145,7 +145,7 @@ namespace OpenAI.Realtime
                     {
                         continue;
                     }
-                    prefixPaddingMs = prop.Value.GetInt32();
+                    prefixPaddingMs = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("silence_duration_ms"u8))
@@ -154,7 +154,7 @@ namespace OpenAI.Realtime
                     {
                         continue;
                     }
-                    silenceDurationMs = prop.Value.GetInt32();
+                    silenceDurationMs = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("create_response"u8))

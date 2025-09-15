@@ -11,14 +11,14 @@ namespace OpenAI.Responses
     [Experimental("OPENAI001")]
     public partial class StreamingResponseErrorUpdate : StreamingResponseUpdate
     {
-        internal StreamingResponseErrorUpdate(int sequenceNumber, string code, string message, string @param) : base(InternalResponseStreamEventType.Error, sequenceNumber)
+        internal StreamingResponseErrorUpdate(long sequenceNumber, string code, string message, string @param) : base(InternalResponseStreamEventType.Error, sequenceNumber)
         {
             Code = code;
             Message = message;
             Param = @param;
         }
 
-        internal StreamingResponseErrorUpdate(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, string code, string message, string @param) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal StreamingResponseErrorUpdate(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, string code, string message, string @param) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
             Code = code;
             Message = message;

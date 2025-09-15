@@ -28,7 +28,7 @@ model Model {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) when the model was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created: utcDateTime;
 
   /** The object type, which is always "model". */

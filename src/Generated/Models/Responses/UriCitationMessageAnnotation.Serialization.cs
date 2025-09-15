@@ -75,8 +75,8 @@ namespace OpenAI.Responses
             ResponseMessageAnnotationKind kind = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             Uri uri = default;
-            int startIndex = default;
-            int endIndex = default;
+            long startIndex = default;
+            long endIndex = default;
             string title = default;
             foreach (var prop in element.EnumerateObject())
             {
@@ -92,12 +92,12 @@ namespace OpenAI.Responses
                 }
                 if (prop.NameEquals("start_index"u8))
                 {
-                    startIndex = prop.Value.GetInt32();
+                    startIndex = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("end_index"u8))
                 {
-                    endIndex = prop.Value.GetInt32();
+                    endIndex = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("title"u8))

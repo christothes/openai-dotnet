@@ -77,8 +77,8 @@ namespace OpenAI.Realtime
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             string responseId = default;
             string itemId = default;
-            int outputIndex = default;
-            int contentIndex = default;
+            long outputIndex = default;
+            long contentIndex = default;
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
@@ -103,12 +103,12 @@ namespace OpenAI.Realtime
                 }
                 if (prop.NameEquals("output_index"u8))
                 {
-                    outputIndex = prop.Value.GetInt32();
+                    outputIndex = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("content_index"u8))
                 {
-                    contentIndex = prop.Value.GetInt32();
+                    contentIndex = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

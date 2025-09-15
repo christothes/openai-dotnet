@@ -15,7 +15,7 @@ public partial class ComputerCallAction
     // CUSTOM: Exposed click action properties.
     public Point? ClickCoordinates => this switch
     {
-        InternalComputerActionClick click => new Point(click.X, click.Y),
+        InternalComputerActionClick click => new Point((int)click.X, (int)click.Y),
         _ => null
     };
     public ComputerCallActionMouseButton? ClickMouseButton => (this as InternalComputerActionClick)?.Button;
@@ -23,12 +23,12 @@ public partial class ComputerCallAction
     // CUSTOM: Exposed double-click action properties.
     public Point? DoubleClickCoordinates => this switch
     {
-        InternalComputerActionDoubleClick doubleClick => new Point(doubleClick.X, doubleClick.Y),
+        InternalComputerActionDoubleClick doubleClick => new Point((int)doubleClick.X, (int)doubleClick.Y),
         _ => null
     };
 
     // CUSTOM: Exposed drag action properties.
-    public IList<Point> DragPath => (this as InternalComputerActionDrag)?.Path.Select(item => new Point(item.X, item.Y)).ToList();
+    public IList<Point> DragPath => (this as InternalComputerActionDrag)?.Path.Select(item => new Point((int)item.X, (int)item.Y)).ToList();
 
     // CUSTOM: Exposed key press action properties.
     public IList<string> KeyPressKeyCodes => (this as InternalComputerActionKeyPress)?.Keys;
@@ -36,18 +36,18 @@ public partial class ComputerCallAction
     // CUSTOM: Exposed move action properties.
     public Point? MoveCoordinates => this switch
     {
-        InternalComputerActionMove move => new Point(move.X, move.Y),
+        InternalComputerActionMove move => new Point((int)move.X, (int)move.Y),
         _ => null
     };
 
     // CUSTOM: Exposed scroll action properties.
     public Point? ScrollCoordinates => this switch
     {
-        InternalComputerActionScroll scroll => new Point(scroll.X, scroll.Y),
+        InternalComputerActionScroll scroll => new Point((int)scroll.X, (int)scroll.Y),
         _ => null
     };
-    public int? ScrollHorizontalOffset => (this as InternalComputerActionScroll)?.ScrollX;
-    public int? ScrollVerticalOffset => (this as InternalComputerActionScroll)?.ScrollY;
+    public long? ScrollHorizontalOffset => (this as InternalComputerActionScroll)?.ScrollX;
+    public long? ScrollVerticalOffset => (this as InternalComputerActionScroll)?.ScrollY;
 
     // CUSTOM: Exposed type action properties.
     public string TypeText => (this as InternalComputerActionTypeKeys)?.Text;

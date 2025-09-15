@@ -26,7 +26,7 @@ public partial class StaticFileChunkingStrategy : FileChunkingStrategy
     /// <remarks>
     /// If not otherwise specified, a default of <c>800</c> will be used.
     /// </remarks>
-    public int MaxTokensPerChunk => _internalDetails.MaxChunkSizeTokens;
+    public long MaxTokensPerChunk => _internalDetails.MaxChunkSizeTokens;
 
     /// <summary>
     /// The number of shared, overlapping tokens allowed between chunks.
@@ -37,5 +37,5 @@ public partial class StaticFileChunkingStrategy : FileChunkingStrategy
     /// </para>
     /// If not otherwise specified, a default of <c>400</c> will be used.
     /// </remarks>
-    public int OverlappingTokenCount => _internalDetails.ChunkOverlapTokens;
+    public long OverlappingTokenCount => _internalDetails.ChunkOverlapTokens;
 }

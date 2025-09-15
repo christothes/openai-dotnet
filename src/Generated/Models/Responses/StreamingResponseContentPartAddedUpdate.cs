@@ -11,7 +11,7 @@ namespace OpenAI.Responses
     [Experimental("OPENAI001")]
     public partial class StreamingResponseContentPartAddedUpdate : StreamingResponseUpdate
     {
-        internal StreamingResponseContentPartAddedUpdate(int sequenceNumber, string itemId, int outputIndex, int contentIndex, ResponseContentPart part) : base(InternalResponseStreamEventType.ResponseContentPartAdded, sequenceNumber)
+        internal StreamingResponseContentPartAddedUpdate(long sequenceNumber, string itemId, long outputIndex, long contentIndex, ResponseContentPart part) : base(InternalResponseStreamEventType.ResponseContentPartAdded, sequenceNumber)
         {
             ItemId = itemId;
             OutputIndex = outputIndex;
@@ -19,7 +19,7 @@ namespace OpenAI.Responses
             Part = part;
         }
 
-        internal StreamingResponseContentPartAddedUpdate(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, int outputIndex, int contentIndex, ResponseContentPart part) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal StreamingResponseContentPartAddedUpdate(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, long outputIndex, long contentIndex, ResponseContentPart part) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
             ItemId = itemId;
             OutputIndex = outputIndex;
@@ -29,8 +29,8 @@ namespace OpenAI.Responses
 
         public string ItemId { get; }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
     }
 }

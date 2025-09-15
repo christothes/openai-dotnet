@@ -15,11 +15,11 @@ namespace OpenAI.Chat
         private readonly ChatClient _client;
         private readonly string _completionId;
         private readonly string _after;
-        private readonly int? _limit;
+        private readonly long? _limit;
         private readonly string _order;
         private readonly RequestOptions _options;
 
-        public ChatClientGetChatCompletionMessagesAsyncCollectionResult(ChatClient client, string completionId, string after, int? limit, string order, RequestOptions options)
+        public ChatClientGetChatCompletionMessagesAsyncCollectionResult(ChatClient client, string completionId, string after, long? limit, string order, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(completionId, nameof(completionId));
 

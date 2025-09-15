@@ -9,20 +9,20 @@ namespace OpenAI.Responses
 {
     internal partial class InternalComputerActionDoubleClick : ComputerCallAction
     {
-        public InternalComputerActionDoubleClick(int x, int y) : base(ComputerCallActionKind.DoubleClick)
+        public InternalComputerActionDoubleClick(long x, long y) : base(ComputerCallActionKind.DoubleClick)
         {
             X = x;
             Y = y;
         }
 
-        internal InternalComputerActionDoubleClick(ComputerCallActionKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, int x, int y) : base(kind, additionalBinaryDataProperties)
+        internal InternalComputerActionDoubleClick(ComputerCallActionKind kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, long x, long y) : base(kind, additionalBinaryDataProperties)
         {
             X = x;
             Y = y;
         }
 
-        public int X { get; set; }
+        public long X { get; set; }
 
-        public int Y { get; set; }
+        public long Y { get; set; }
     }
 }

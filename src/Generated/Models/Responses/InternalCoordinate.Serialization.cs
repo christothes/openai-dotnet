@@ -81,19 +81,19 @@ namespace OpenAI.Responses
             {
                 return null;
             }
-            int x = default;
-            int y = default;
+            long x = default;
+            long y = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("x"u8))
                 {
-                    x = prop.Value.GetInt32();
+                    x = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("y"u8))
                 {
-                    y = prop.Value.GetInt32();
+                    y = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

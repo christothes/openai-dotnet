@@ -64,7 +64,7 @@ namespace OpenAI.Assistants
             }
             InternalMessageContentType kind = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
-            int index = default;
+            long index = default;
             InternalMessageDeltaContentImageUrlObjectImageUrl imageUrl = default;
             foreach (var prop in element.EnumerateObject())
             {
@@ -75,7 +75,7 @@ namespace OpenAI.Assistants
                 }
                 if (prop.NameEquals("index"u8))
                 {
-                    index = prop.Value.GetInt32();
+                    index = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("image_url"u8))

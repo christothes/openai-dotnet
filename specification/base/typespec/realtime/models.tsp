@@ -148,39 +148,39 @@ model RealtimeResponse {
      * The total number of tokens in the Response including input and output
      * text and audio tokens.
      */
-    total_tokens?: int32;
+    total_tokens?: integer;
 
     /**
      * The number of input tokens used in the Response, including text and
      * audio tokens.
      */
-    input_tokens?: int32;
+    input_tokens?: integer;
 
     /**
      * The number of output tokens sent in the Response, including text and
      * audio tokens.
      */
-    output_tokens?: int32;
+    output_tokens?: integer;
 
     /** Details about the input tokens used in the Response. */
     input_token_details?: {
       /** The number of cached tokens used in the Response. */
-      cached_tokens?: int32;
+      cached_tokens?: integer;
 
       /** The number of text tokens used in the Response. */
-      text_tokens?: int32;
+      text_tokens?: integer;
 
       /** The number of audio tokens used in the Response. */
-      audio_tokens?: int32;
+      audio_tokens?: integer;
     };
 
     /** Details about the output tokens used in the Response. */
     output_token_details?: {
       /** The number of text tokens used in the Response. */
-      text_tokens?: int32;
+      text_tokens?: integer;
 
       /** The number of audio tokens used in the Response. */
-      audio_tokens?: int32;
+      audio_tokens?: integer;
     };
   };
 
@@ -221,7 +221,7 @@ model RealtimeResponse {
    * Maximum number of output tokens for a single assistant response,
    * inclusive of tool calls, that was used in this response.
    */
-  max_output_tokens?: int32 | "inf";
+  max_output_tokens?: integer | "inf";
 }
 
 // Tool customization (apply_discriminator): apply discriminated type base
@@ -355,14 +355,14 @@ model RealtimeClientEventConversationItemTruncate extends RealtimeClientEvent {
   item_id: string;
 
   /** The index of the content part to truncate. Set this to 0. */
-  content_index: int32;
+  content_index: integer;
 
   /**
    * Inclusive duration up to which audio is truncated, in milliseconds. If
    * the audio_end_ms is greater than the actual audio duration, the server
    * will respond with an error.
    */
-  audio_end_ms: int32;
+  audio_end_ms: integer;
 }
 
 // Tool customization (apply_discriminator): apply discriminated type base
@@ -582,7 +582,7 @@ model RealtimeServerEventInputAudioBufferSpeechStarted
     beginning of audio sent to the model, and thus includes the
     `prefix_padding_ms` configured in the Session.
     """)
-  audio_start_ms: int32;
+  audio_start_ms: integer;
 
   /** The ID of the user message item that will be created when speech stops. */
   item_id: string;
@@ -606,7 +606,7 @@ model RealtimeServerEventInputAudioBufferSpeechStopped
     correspond to the end of audio sent to the model, and thus includes the
     `min_silence_duration_ms` configured in the Session.
     """)
-  audio_end_ms: int32;
+  audio_end_ms: integer;
 
   /** The ID of the user message item that will be created. */
   item_id: string;
@@ -717,7 +717,7 @@ model RealtimeServerEventConversationItemInputAudioTranscriptionCompleted
   item_id: string;
 
   /** The index of the content part containing the audio. */
-  content_index: int32;
+  content_index: integer;
 
   /** The transcribed text. */
   transcript: string;
@@ -744,7 +744,7 @@ model RealtimeServerEventConversationItemInputAudioTranscriptionFailed
   item_id: string;
 
   /** The index of the content part containing the audio. */
-  content_index: int32;
+  content_index: integer;
 
   /** Details of the transcription error. */
   error: {
@@ -781,10 +781,10 @@ model RealtimeServerEventConversationItemTruncated extends RealtimeServerEvent {
   item_id: string;
 
   /** The index of the content part that was truncated. */
-  content_index: int32;
+  content_index: integer;
 
   /** The duration up to which the audio was truncated, in milliseconds. */
-  audio_end_ms: int32;
+  audio_end_ms: integer;
 }
 
 // Tool customization (apply_discriminator): apply discriminated type
@@ -844,7 +844,7 @@ model RealtimeServerEventResponseOutputItemAdded extends RealtimeServerEvent {
   response_id: string;
 
   /** The index of the output item in the Response. */
-  output_index: int32;
+  output_index: integer;
 
   // Tool customization: apply enriched item definition hierarchy
   item: RealtimeConversationResponseItem;
@@ -865,7 +865,7 @@ model RealtimeServerEventResponseOutputItemDone extends RealtimeServerEvent {
   response_id: string;
 
   /** The index of the output item in the Response. */
-  output_index: int32;
+  output_index: integer;
 
   // Tool customization: apply enriched item definition hierarchy
   item: RealtimeConversationResponseItem;
@@ -889,10 +889,10 @@ model RealtimeServerEventResponseContentPartAdded extends RealtimeServerEvent {
   item_id: string;
 
   /** The index of the output item in the response. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part in the item's content array. */
-  content_index: int32;
+  content_index: integer;
 
   // Tool customization: apply detailed content part type
   /** The content part that was added. */
@@ -917,10 +917,10 @@ model RealtimeServerEventResponseContentPartDone extends RealtimeServerEvent {
   item_id: string;
 
   /** The index of the output item in the response. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part in the item's content array. */
-  content_index: int32;
+  content_index: integer;
 
   // Tool customization: apply detailed content part type
   /** The content part that is done. */
@@ -942,10 +942,10 @@ model RealtimeServerEventResponseTextDelta extends RealtimeServerEvent {
   item_id: string;
 
   /** The index of the output item in the response. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part in the item's content array. */
-  content_index: int32;
+  content_index: integer;
 
   /** The text delta. */
   delta: string;
@@ -969,10 +969,10 @@ model RealtimeServerEventResponseTextDone extends RealtimeServerEvent {
   item_id: string;
 
   /** The index of the output item in the response. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part in the item's content array. */
-  content_index: int32;
+  content_index: integer;
 
   /** The final text content. */
   text: string;
@@ -994,10 +994,10 @@ model RealtimeServerEventResponseAudioTranscriptDelta
   item_id: string;
 
   /** The index of the output item in the response. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part in the item's content array. */
-  content_index: int32;
+  content_index: integer;
 
   /** The transcript delta. */
   delta: string;
@@ -1023,10 +1023,10 @@ model RealtimeServerEventResponseAudioTranscriptDone
   item_id: string;
 
   /** The index of the output item in the response. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part in the item's content array. */
-  content_index: int32;
+  content_index: integer;
 
   /** The final transcript of the audio. */
   transcript: string;
@@ -1047,10 +1047,10 @@ model RealtimeServerEventResponseAudioDelta extends RealtimeServerEvent {
   item_id: string;
 
   /** The index of the output item in the response. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part in the item's content array. */
-  content_index: int32;
+  content_index: integer;
 
   // Tool customization: use encoded type for audio data
   /** Base64-encoded audio data delta. */
@@ -1076,10 +1076,10 @@ model RealtimeServerEventResponseAudioDone extends RealtimeServerEvent {
   item_id: string;
 
   /** The index of the output item in the response. */
-  output_index: int32;
+  output_index: integer;
 
   /** The index of the content part in the item's content array. */
-  content_index: int32;
+  content_index: integer;
 }
 
 // Tool customization (apply_discriminator): apply discriminated type
@@ -1098,7 +1098,7 @@ model RealtimeServerEventResponseFunctionCallArgumentsDelta
   item_id: string;
 
   /** The index of the output item in the response. */
-  output_index: int32;
+  output_index: integer;
 
   /** The ID of the function call. */
   call_id: string;
@@ -1126,7 +1126,7 @@ model RealtimeServerEventResponseFunctionCallArgumentsDone
   item_id: string;
 
   /** The index of the output item in the response. */
-  output_index: int32;
+  output_index: integer;
 
   /** The ID of the function call. */
   call_id: string;
@@ -1212,7 +1212,7 @@ model RealtimeResponseCreateParams {
     limit output tokens, or `inf` for the maximum available tokens for a
     given model. Defaults to `inf`.
     """)
-  max_output_tokens?: int32 | "inf";
+  max_output_tokens?: integer | "inf";
 
   @doc("""
     Controls which conversation the response is added to. Currently supports
@@ -1333,14 +1333,14 @@ model RealtimeSessionCreateRequest {
       Used only for `server_vad` mode. Amount of audio to include before the VAD detected speech (in
       milliseconds). Defaults to 300ms.
       """)
-    prefix_padding_ms?: int32;
+    prefix_padding_ms?: integer;
 
     @doc("""
       Used only for `server_vad` mode. Duration of silence to detect speech stop (in milliseconds). Defaults
       to 500ms. With shorter values the model will respond more quickly,
       but may jump in on short pauses from the user.
       """)
-    silence_duration_ms?: int32;
+    silence_duration_ms?: integer;
 
     /** Whether or not to automatically generate a response when a VAD stop event occurs. */
     create_response?: boolean = true;
@@ -1419,7 +1419,7 @@ model RealtimeSessionCreateRequest {
     limit output tokens, or `inf` for the maximum available tokens for a
     given model. Defaults to `inf`.
     """)
-  max_response_output_tokens?: int32 | "inf";
+  max_response_output_tokens?: integer | "inf";
 
   /** Configuration options for the generated client secret. */
   client_secret?: {
@@ -1433,7 +1433,7 @@ model RealtimeSessionCreateRequest {
       @doc("""
         The number of seconds from the anchor point to the expiration. Select a value between `10` and `7200`.
         """)
-      seconds?: int32 = 600;
+      seconds?: integer = 600;
     };
   };
 }
@@ -1457,7 +1457,7 @@ model RealtimeSessionCreateResponse {
      * Timestamp for when the token expires. Currently, all tokens expire
      * after one minute.
      */
-    @encode("unixTimestamp", int32)
+    @encode("unixTimestamp", integer)
     expires_at: utcDateTime;
   };
 
@@ -1577,14 +1577,14 @@ model RealtimeSessionCreateResponse {
      * Amount of audio to include before the VAD detected speech (in
      * milliseconds). Defaults to 300ms.
      */
-    prefix_padding_ms?: int32;
+    prefix_padding_ms?: integer;
 
     /**
      * Duration of silence to detect speech stop (in milliseconds). Defaults
      * to 500ms. With shorter values the model will respond more quickly,
      * but may jump in on short pauses from the user.
      */
-    silence_duration_ms?: int32;
+    silence_duration_ms?: integer;
   };
 
   // Tool customization: use enriched tool definition
@@ -1606,7 +1606,7 @@ model RealtimeSessionCreateResponse {
     limit output tokens, or `inf` for the maximum available tokens for a
     given model. Defaults to `inf`.
     """)
-  max_response_output_tokens?: int32 | "inf";
+  max_response_output_tokens?: integer | "inf";
 }
 
 /** The item to add to the conversation. */
@@ -1719,7 +1719,7 @@ model RealtimeServerEventConversationItemInputAudioTranscriptionDelta
   item_id: string;
 
   /** The index of the content part in the item's content array. */
-  content_index?: int32;
+  content_index?: integer;
 
   /** The text delta. */
   delta?: string;
@@ -1820,14 +1820,14 @@ model RealtimeTranscriptionSessionCreateRequest {
       Used only for `server_vad` mode. Amount of audio to include before the VAD detected speech (in
       milliseconds). Defaults to 300ms.
       """)
-    prefix_padding_ms?: int32;
+    prefix_padding_ms?: integer;
 
     @doc("""
       Used only for `server_vad` mode. Duration of silence to detect speech stop (in milliseconds). Defaults
       to 500ms. With shorter values the model will respond more quickly,
       but may jump in on short pauses from the user.
       """)
-    silence_duration_ms?: int32;
+    silence_duration_ms?: integer;
 
     /** Whether or not to automatically generate a response when a VAD stop event occurs. Not available for transcription sessions. */
     create_response?: boolean = true;
@@ -1869,7 +1869,7 @@ model RealtimeTranscriptionSessionCreateRequest {
       @doc("""
         The number of seconds from the anchor point to the expiration. Select a value between `10` and `7200`.
         """)
-      seconds?: int32 = 600;
+      seconds?: integer = 600;
     };
   };
 }
@@ -1899,7 +1899,7 @@ model RealtimeTranscriptionSessionCreateResponse {
      * Timestamp for when the token expires. Currently, all tokens expire
      * after one minute.
      */
-    @encode("unixTimestamp", int32)
+    @encode("unixTimestamp", integer)
     expires_at: utcDateTime;
   };
 
@@ -1958,13 +1958,13 @@ model RealtimeTranscriptionSessionCreateResponse {
      * Amount of audio to include before the VAD detected speech (in
      * milliseconds). Defaults to 300ms.
      */
-    prefix_padding_ms?: int32;
+    prefix_padding_ms?: integer;
 
     /**
      * Duration of silence to detect speech stop (in milliseconds). Defaults
      * to 500ms. With shorter values the model will respond more quickly,
      * but may jump in on short pauses from the user.
      */
-    silence_duration_ms?: int32;
+    silence_duration_ms?: integer;
   };
 }

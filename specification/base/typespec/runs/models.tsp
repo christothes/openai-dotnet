@@ -85,13 +85,13 @@ model CreateRunRequest {
     The maximum number of prompt tokens that may be used over the course of the run. The run will make a best effort to use only the number of prompt tokens specified, across multiple turns of the run. If the run exceeds the number of prompt tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
     """)
   @minValue(256)
-  max_prompt_tokens?: int32 | null;
+  max_prompt_tokens?: integer | null;
 
   @doc("""
     The maximum number of completion tokens that may be used over the course of the run. The run will make a best effort to use only the number of completion tokens specified, across multiple turns of the run. If the run exceeds the number of completion tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
     """)
   @minValue(256)
-  max_completion_tokens?: int32 | null;
+  max_completion_tokens?: integer | null;
 
   truncation_strategy?: TruncationObject | null;
   tool_choice?: AssistantsApiToolChoiceOption | null;
@@ -196,13 +196,13 @@ model CreateThreadAndRunRequest {
     The maximum number of prompt tokens that may be used over the course of the run. The run will make a best effort to use only the number of prompt tokens specified, across multiple turns of the run. If the run exceeds the number of prompt tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
     """)
   @minValue(256)
-  max_prompt_tokens?: int32 | null;
+  max_prompt_tokens?: integer | null;
 
   @doc("""
     The maximum number of completion tokens that may be used over the course of the run. The run will make a best effort to use only the number of completion tokens specified, across multiple turns of the run. If the run exceeds the number of completion tokens specified, the run will end with status `incomplete`. See `incomplete_details` for more info.
     """)
   @minValue(256)
-  max_completion_tokens?: int32 | null;
+  max_completion_tokens?: integer | null;
 
   truncation_strategy?: TruncationObject | null;
   tool_choice?: AssistantsApiToolChoiceOption | null;
@@ -395,13 +395,13 @@ model RunStepDetailsToolCallsFunctionObject
   """)
 model RunCompletionUsage {
   /** Number of completion tokens used over the course of the run. */
-  completion_tokens: int32;
+  completion_tokens: integer;
 
   /** Number of prompt tokens used over the course of the run. */
-  prompt_tokens: int32;
+  prompt_tokens: integer;
 
   /** Total number of tokens used (prompt + completion). */
-  total_tokens: int32;
+  total_tokens: integer;
 }
 
 @doc("""
@@ -409,13 +409,13 @@ model RunCompletionUsage {
   """)
 model RunStepCompletionUsage {
   /** Number of completion tokens used over the course of the run step. */
-  completion_tokens: int32;
+  completion_tokens: integer;
 
   /** Number of prompt tokens used over the course of the run step. */
-  prompt_tokens: int32;
+  prompt_tokens: integer;
 
   /** Total number of tokens used (prompt + completion). */
-  total_tokens: int32;
+  total_tokens: integer;
 }
 
 /** Represents an execution run on a [thread](/docs/api-reference/threads). */
@@ -430,7 +430,7 @@ model RunObject {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the run was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** The ID of the [thread](/docs/api-reference/threads) that was executed on as a part of this run. */
@@ -486,27 +486,27 @@ model RunObject {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the run will expire. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   expires_at: utcDateTime | null;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the run was started. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   started_at: utcDateTime | null;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the run was cancelled. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   cancelled_at: utcDateTime | null;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the run failed. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   failed_at: utcDateTime | null;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the run was completed. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   completed_at: utcDateTime | null;
 
   @doc("""
@@ -539,11 +539,11 @@ model RunObject {
 
   /** The maximum number of prompt tokens specified to have been used over the course of the run. */
   @minValue(256)
-  max_prompt_tokens: int32 | null;
+  max_prompt_tokens: integer | null;
 
   /** The maximum number of completion tokens specified to have been used over the course of the run. */
   @minValue(256)
-  max_completion_tokens: int32 | null;
+  max_completion_tokens: integer | null;
 
   truncation_strategy: TruncationObject | null;
   tool_choice: AssistantsApiToolChoiceOption | null;
@@ -563,7 +563,7 @@ model RunStepObject {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the run step was created. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   created_at: utcDateTime;
 
   /** The ID of the [assistant](/docs/api-reference/assistants) associated with the run step. */
@@ -604,22 +604,22 @@ model RunStepObject {
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   expired_at: utcDateTime | null;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the run step was cancelled. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   cancelled_at: utcDateTime | null;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the run step failed. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   failed_at: utcDateTime | null;
 
   // Tool customization: 'created' and fields ending in '_at' are Unix encoded utcDateTime
   /** The Unix timestamp (in seconds) for when the run step completed. */
-  @encode("unixTimestamp", int32)
+  @encode("unixTimestamp", integer)
   completed_at: utcDateTime | null;
 
   ...MetadataPropertyForResponse;
@@ -699,7 +699,7 @@ model RunStepDeltaStepDetailsToolCallsObject extends RunStepDeltaStepDetails {
 model RunStepDeltaStepDetailsToolCallsCodeObject
   extends RunStepDeltaStepDetailsToolCallsObjectToolCallsObject {
   /** The index of the tool call in the tool calls array. */
-  index: int32;
+  index: integer;
 
   /** The ID of the tool call. */
   id?: string;
@@ -728,7 +728,7 @@ model RunStepDeltaStepDetailsToolCallsCodeObject
 model RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject
   extends RunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreterOutputsObject {
   /** The index of the output in the outputs array. */
-  index: int32;
+  index: integer;
 
   @doc("""
     Always `logs`.
@@ -743,7 +743,7 @@ model RunStepDeltaStepDetailsToolCallsCodeOutputLogsObject
 model RunStepDeltaStepDetailsToolCallsCodeOutputImageObject
   extends RunStepDeltaStepDetailsToolCallsCodeObjectCodeInterpreterOutputsObject {
   /** The index of the output in the outputs array. */
-  index: int32;
+  index: integer;
 
   @doc("""
     Always `image`.
@@ -760,7 +760,7 @@ model RunStepDeltaStepDetailsToolCallsCodeOutputImageObject
 model RunStepDeltaStepDetailsToolCallsFileSearchObject
   extends RunStepDeltaStepDetailsToolCallsObjectToolCallsObject {
   /** The index of the tool call in the tool calls array. */
-  index: int32;
+  index: integer;
 
   /** The ID of the tool call object. */
   id?: string;
@@ -786,7 +786,7 @@ model RunStepDeltaStepDetailsToolCallsFileSearchObject
 model RunStepDeltaStepDetailsToolCallsFunctionObject
   extends RunStepDeltaStepDetailsToolCallsObjectToolCallsObject {
   /** The index of the tool call in the tool calls array. */
-  index: int32;
+  index: integer;
 
   /** The ID of the tool call object. */
   id?: string;

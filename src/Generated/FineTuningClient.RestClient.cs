@@ -14,7 +14,7 @@ namespace OpenAI.FineTuning
 
         private static PipelineMessageClassifier PipelineMessageClassifier200 => _pipelineMessageClassifier200 = PipelineMessageClassifier.Create(stackalloc ushort[] { 200 });
 
-        internal virtual PipelineMessage CreateGetFineTuningCheckpointPermissionsRequest(string fineTunedModelCheckpoint, string after, int? limit, string order, string projectId, RequestOptions options)
+        internal virtual PipelineMessage CreateGetFineTuningCheckpointPermissionsRequest(string fineTunedModelCheckpoint, string after, long? limit, string order, string projectId, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -89,7 +89,7 @@ namespace OpenAI.FineTuning
             return message;
         }
 
-        internal virtual PipelineMessage CreateGetPaginatedFineTuningJobsRequest(string after, int? limit, RequestOptions options)
+        internal virtual PipelineMessage CreateGetPaginatedFineTuningJobsRequest(string after, long? limit, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -136,7 +136,7 @@ namespace OpenAI.FineTuning
             return message;
         }
 
-        internal virtual PipelineMessage CreateGetFineTuningJobCheckpointsRequest(string fineTuningJobId, string after, int? limit, RequestOptions options)
+        internal virtual PipelineMessage CreateGetFineTuningJobCheckpointsRequest(string fineTuningJobId, string after, long? limit, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
@@ -158,7 +158,7 @@ namespace OpenAI.FineTuning
             return message;
         }
 
-        internal virtual PipelineMessage CreateGetFineTuningEventsRequest(string fineTuningJobId, string after, int? limit, RequestOptions options)
+        internal virtual PipelineMessage CreateGetFineTuningEventsRequest(string fineTuningJobId, string after, long? limit, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);

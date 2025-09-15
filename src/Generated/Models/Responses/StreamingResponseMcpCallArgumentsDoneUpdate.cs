@@ -11,21 +11,21 @@ namespace OpenAI.Responses
     [Experimental("OPENAI001")]
     public partial class StreamingResponseMcpCallArgumentsDoneUpdate : StreamingResponseUpdate
     {
-        internal StreamingResponseMcpCallArgumentsDoneUpdate(int sequenceNumber, int outputIndex, string itemId, BinaryData toolArguments) : base(InternalResponseStreamEventType.ResponseMcpCallArgumentsDone, sequenceNumber)
+        internal StreamingResponseMcpCallArgumentsDoneUpdate(long sequenceNumber, long outputIndex, string itemId, BinaryData toolArguments) : base(InternalResponseStreamEventType.ResponseMcpCallArgumentsDone, sequenceNumber)
         {
             OutputIndex = outputIndex;
             ItemId = itemId;
             ToolArguments = toolArguments;
         }
 
-        internal StreamingResponseMcpCallArgumentsDoneUpdate(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, int outputIndex, string itemId, BinaryData toolArguments) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal StreamingResponseMcpCallArgumentsDoneUpdate(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, long outputIndex, string itemId, BinaryData toolArguments) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
             OutputIndex = outputIndex;
             ItemId = itemId;
             ToolArguments = toolArguments;
         }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
         public string ItemId { get; }
     }

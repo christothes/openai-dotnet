@@ -11,14 +11,14 @@ namespace OpenAI.Realtime
     [Experimental("OPENAI002")]
     public partial class ItemTruncatedUpdate : RealtimeUpdate
     {
-        internal ItemTruncatedUpdate(string itemId, int contentIndex, int audioEndMs) : base(RealtimeUpdateKind.ItemTruncated)
+        internal ItemTruncatedUpdate(string itemId, long contentIndex, long audioEndMs) : base(RealtimeUpdateKind.ItemTruncated)
         {
             ItemId = itemId;
             ContentIndex = contentIndex;
             AudioEndMs = audioEndMs;
         }
 
-        internal ItemTruncatedUpdate(RealtimeUpdateKind kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, int contentIndex, int audioEndMs) : base(kind, eventId, additionalBinaryDataProperties)
+        internal ItemTruncatedUpdate(RealtimeUpdateKind kind, string eventId, IDictionary<string, BinaryData> additionalBinaryDataProperties, string itemId, long contentIndex, long audioEndMs) : base(kind, eventId, additionalBinaryDataProperties)
         {
             ItemId = itemId;
             ContentIndex = contentIndex;
@@ -27,8 +27,8 @@ namespace OpenAI.Realtime
 
         public string ItemId { get; }
 
-        public int ContentIndex { get; }
+        public long ContentIndex { get; }
 
-        public int AudioEndMs { get; }
+        public long AudioEndMs { get; }
     }
 }

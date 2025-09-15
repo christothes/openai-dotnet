@@ -129,7 +129,7 @@ namespace OpenAI
             return new TranscribedWord(word, startTime, endTime, additionalBinaryDataProperties: null);
         }
 
-        public static TranscribedSegment TranscribedSegment(int id = default, int seekOffset = default, TimeSpan startTime = default, TimeSpan endTime = default, string text = default, ReadOnlyMemory<int> tokenIds = default, float temperature = default, float averageLogProbability = default, float compressionRatio = default, float noSpeechProbability = default)
+        public static TranscribedSegment TranscribedSegment(long id = default, int seekOffset = default, TimeSpan startTime = default, TimeSpan endTime = default, string text = default, ReadOnlyMemory<int> tokenIds = default, float temperature = default, float averageLogProbability = default, float compressionRatio = default, float noSpeechProbability = default)
         {
             return new TranscribedSegment(
                 id,
@@ -312,7 +312,7 @@ namespace OpenAI
                 additionalBinaryDataProperties: null);
         }
 
-        public static ContainerResourceExpiresAfter ContainerResourceExpiresAfter(string anchor = default, int? minutes = default)
+        public static ContainerResourceExpiresAfter ContainerResourceExpiresAfter(string anchor = default, long? minutes = default)
         {
             return new ContainerResourceExpiresAfter(anchor, minutes, additionalBinaryDataProperties: null);
         }
@@ -324,7 +324,7 @@ namespace OpenAI
             return new CreateContainerBody(name, fileIds.ToList(), expiresAfter, additionalBinaryDataProperties: null);
         }
 
-        public static CreateContainerBodyExpiresAfter CreateContainerBodyExpiresAfter(string anchor = default, int minutes = default)
+        public static CreateContainerBodyExpiresAfter CreateContainerBodyExpiresAfter(string anchor = default, long minutes = default)
         {
             return new CreateContainerBodyExpiresAfter(anchor, minutes, additionalBinaryDataProperties: null);
         }
@@ -339,7 +339,7 @@ namespace OpenAI
             return new CreateContainerFileBody(fileId, @file, additionalBinaryDataProperties: null);
         }
 
-        public static ContainerFileResource ContainerFileResource(string id = default, string @object = default, string containerId = default, DateTimeOffset createdAt = default, int bytes = default, string path = default, string source = default)
+        public static ContainerFileResource ContainerFileResource(string id = default, string @object = default, string containerId = default, DateTimeOffset createdAt = default, long bytes = default, string path = default, string source = default)
         {
             return new ContainerFileResource(
                 id,
@@ -364,9 +364,9 @@ namespace OpenAI
             return new OpenAIEmbeddingCollection(data.ToList(), model, @object, usage, serializedAdditionalRawData: null);
         }
 
-        public static OpenAIEmbedding OpenAIEmbedding(int index = default, BinaryData embeddingProperty = default, string @object = default)
+        public static OpenAIEmbedding OpenAIEmbedding(long index = default, BinaryData embeddingProperty = default, string @object = default)
         {
-            return new OpenAIEmbedding(index, embeddingProperty, @object, serializedAdditionalRawData: null);
+            return new OpenAIEmbedding(index, embeddingProperty, @object, additionalBinaryDataProperties: null);
         }
 
         public static EmbeddingTokenUsage EmbeddingTokenUsage(int inputTokenCount = default, int totalTokenCount = default)
@@ -513,7 +513,7 @@ namespace OpenAI
             return new RunGraderResponse(reward, metadata, subRewards, modelGraderTokenUsagePerModel, additionalBinaryDataProperties: null);
         }
 
-        public static RunGraderResponseMetadata RunGraderResponseMetadata(string name = default, string kind = default, RunGraderResponseMetadataErrors errors = default, float executionTime = default, BinaryData scores = default, int? tokenUsage = default, string sampledModelName = default)
+        public static RunGraderResponseMetadata RunGraderResponseMetadata(string name = default, string kind = default, RunGraderResponseMetadataErrors errors = default, float executionTime = default, BinaryData scores = default, long? tokenUsage = default, string sampledModelName = default)
         {
             return new RunGraderResponseMetadata(
                 name,
@@ -578,12 +578,12 @@ namespace OpenAI
             return new InternalUnknownAnnotation(kind.ToResponseMessageAnnotationKind(), additionalBinaryDataProperties: null);
         }
 
-        public static FileCitationMessageAnnotation FileCitationMessageAnnotation(string fileId = default, int index = default)
+        public static FileCitationMessageAnnotation FileCitationMessageAnnotation(string fileId = default, long index = default)
         {
             return new FileCitationMessageAnnotation(ResponseMessageAnnotationKind.FileCitation, additionalBinaryDataProperties: null, fileId, index);
         }
 
-        public static UriCitationMessageAnnotation UriCitationMessageAnnotation(Uri uri = default, int startIndex = default, int endIndex = default, string title = default)
+        public static UriCitationMessageAnnotation UriCitationMessageAnnotation(Uri uri = default, long startIndex = default, long endIndex = default, string title = default)
         {
             return new UriCitationMessageAnnotation(
                 ResponseMessageAnnotationKind.UriCitation,
@@ -594,7 +594,7 @@ namespace OpenAI
                 title);
         }
 
-        public static FilePathMessageAnnotation FilePathMessageAnnotation(string fileId = default, int index = default)
+        public static FilePathMessageAnnotation FilePathMessageAnnotation(string fileId = default, long index = default)
         {
             return new FilePathMessageAnnotation(ResponseMessageAnnotationKind.FilePath, additionalBinaryDataProperties: null, fileId, index);
         }
@@ -972,7 +972,7 @@ namespace OpenAI
             return new ThreadDeletionResult(threadId, deleted, @object, additionalBinaryDataProperties: null);
         }
 
-        public static VectorStore VectorStore(string id = default, string @object = default, DateTimeOffset createdAt = default, string name = default, int usageBytes = default, VectorStoreFileCounts fileCounts = default, VectorStoreStatus status = default, VectorStoreExpirationPolicy expirationPolicy = default, DateTimeOffset? expiresAt = default, DateTimeOffset? lastActiveAt = default, IReadOnlyDictionary<string, string> metadata = default)
+        public static VectorStore VectorStore(string id = default, string @object = default, DateTimeOffset createdAt = default, string name = default, long usageBytes = default, VectorStoreFileCounts fileCounts = default, VectorStoreStatus status = default, VectorStoreExpirationPolicy expirationPolicy = default, DateTimeOffset? expiresAt = default, DateTimeOffset? lastActiveAt = default, IReadOnlyDictionary<string, string> metadata = default)
         {
             metadata ??= new ChangeTrackingDictionary<string, string>();
 
@@ -991,7 +991,7 @@ namespace OpenAI
                 additionalBinaryDataProperties: null);
         }
 
-        public static VectorStoreFileCounts VectorStoreFileCounts(int inProgress = default, int completed = default, int failed = default, int cancelled = default, int total = default)
+        public static VectorStoreFileCounts VectorStoreFileCounts(long inProgress = default, long completed = default, long failed = default, long cancelled = default, long total = default)
         {
             return new VectorStoreFileCounts(
                 inProgress,
@@ -1002,7 +1002,7 @@ namespace OpenAI
                 additionalBinaryDataProperties: null);
         }
 
-        public static VectorStoreExpirationPolicy VectorStoreExpirationPolicy(VectorStoreExpirationAnchor anchor = default, int days = default)
+        public static VectorStoreExpirationPolicy VectorStoreExpirationPolicy(VectorStoreExpirationAnchor anchor = default, long days = default)
         {
             return new VectorStoreExpirationPolicy(anchor, days, additionalBinaryDataProperties: null);
         }
@@ -1144,7 +1144,7 @@ namespace OpenAI
             return new InputAudioSpeechFinishedUpdate(RealtimeUpdateKind.InputSpeechStopped, eventId, additionalBinaryDataProperties: null, itemId, audioEndMs);
         }
 
-        public static ItemTruncatedUpdate ItemTruncatedUpdate(string eventId = default, string itemId = default, int contentIndex = default, int audioEndMs = default)
+        public static ItemTruncatedUpdate ItemTruncatedUpdate(string eventId = default, string itemId = default, long contentIndex = default, long audioEndMs = default)
         {
             return new ItemTruncatedUpdate(
                 RealtimeUpdateKind.ItemTruncated,
@@ -1181,7 +1181,7 @@ namespace OpenAI
             return new ConversationOutputTokenUsageDetails(textTokenCount, audioTokenCount, additionalBinaryDataProperties: null);
         }
 
-        public static OutputTextFinishedUpdate OutputTextFinishedUpdate(string eventId = default, string responseId = default, string itemId = default, int outputIndex = default, int contentIndex = default, string text = default)
+        public static OutputTextFinishedUpdate OutputTextFinishedUpdate(string eventId = default, string responseId = default, string itemId = default, long outputIndex = default, long contentIndex = default, string text = default)
         {
             return new OutputTextFinishedUpdate(
                 RealtimeUpdateKind.ItemStreamingPartTextFinished,
@@ -1194,7 +1194,7 @@ namespace OpenAI
                 text);
         }
 
-        public static OutputAudioTranscriptionFinishedUpdate OutputAudioTranscriptionFinishedUpdate(string eventId = default, string responseId = default, string itemId = default, int outputIndex = default, int contentIndex = default, string transcript = default)
+        public static OutputAudioTranscriptionFinishedUpdate OutputAudioTranscriptionFinishedUpdate(string eventId = default, string responseId = default, string itemId = default, long outputIndex = default, long contentIndex = default, string transcript = default)
         {
             return new OutputAudioTranscriptionFinishedUpdate(
                 RealtimeUpdateKind.ItemStreamingPartAudioTranscriptionFinished,
@@ -1207,7 +1207,7 @@ namespace OpenAI
                 transcript);
         }
 
-        public static OutputAudioFinishedUpdate OutputAudioFinishedUpdate(string eventId = default, string responseId = default, string itemId = default, int outputIndex = default, int contentIndex = default)
+        public static OutputAudioFinishedUpdate OutputAudioFinishedUpdate(string eventId = default, string responseId = default, string itemId = default, long outputIndex = default, long contentIndex = default)
         {
             return new OutputAudioFinishedUpdate(
                 RealtimeUpdateKind.ItemStreamingPartAudioFinished,
@@ -1246,22 +1246,22 @@ namespace OpenAI
             return new ChatToolChoice(additionalBinaryDataProperties: null);
         }
 
-        public static AssistantCollectionOptions AssistantCollectionOptions(string afterId = default, string beforeId = default, int? pageSizeLimit = default, AssistantCollectionOrder? order = default)
+        public static AssistantCollectionOptions AssistantCollectionOptions(string afterId = default, string beforeId = default, long? pageSizeLimit = default, AssistantCollectionOrder? order = default)
         {
             return new AssistantCollectionOptions(afterId, beforeId, pageSizeLimit, order, additionalBinaryDataProperties: null);
         }
 
-        public static MessageCollectionOptions MessageCollectionOptions(string afterId = default, string beforeId = default, int? pageSizeLimit = default, MessageCollectionOrder? order = default)
+        public static MessageCollectionOptions MessageCollectionOptions(string afterId = default, string beforeId = default, long? pageSizeLimit = default, MessageCollectionOrder? order = default)
         {
             return new MessageCollectionOptions(afterId, beforeId, pageSizeLimit, order, additionalBinaryDataProperties: null);
         }
 
-        public static RunCollectionOptions RunCollectionOptions(string afterId = default, string beforeId = default, int? pageSizeLimit = default, RunCollectionOrder? order = default)
+        public static RunCollectionOptions RunCollectionOptions(string afterId = default, string beforeId = default, long? pageSizeLimit = default, RunCollectionOrder? order = default)
         {
             return new RunCollectionOptions(afterId, beforeId, pageSizeLimit, order, additionalBinaryDataProperties: null);
         }
 
-        public static RunStepCollectionOptions RunStepCollectionOptions(string afterId = default, string beforeId = default, int? pageSizeLimit = default, RunStepCollectionOrder? order = default)
+        public static RunStepCollectionOptions RunStepCollectionOptions(string afterId = default, string beforeId = default, long? pageSizeLimit = default, RunStepCollectionOrder? order = default)
         {
             return new RunStepCollectionOptions(afterId, beforeId, pageSizeLimit, order, additionalBinaryDataProperties: null);
         }
@@ -1283,7 +1283,7 @@ namespace OpenAI
                 additionalBinaryDataProperties: null);
         }
 
-        public static ChatCompletionCollectionOptions ChatCompletionCollectionOptions(string afterId = default, int? pageSizeLimit = default, ChatCompletionCollectionOrder? order = default, IDictionary<string, string> metadata = default, string model = default)
+        public static ChatCompletionCollectionOptions ChatCompletionCollectionOptions(string afterId = default, long? pageSizeLimit = default, ChatCompletionCollectionOrder? order = default, IDictionary<string, string> metadata = default, string model = default)
         {
             metadata ??= new ChangeTrackingDictionary<string, string>();
 
@@ -1296,17 +1296,17 @@ namespace OpenAI
                 additionalBinaryDataProperties: null);
         }
 
-        public static ChatCompletionMessageCollectionOptions ChatCompletionMessageCollectionOptions(string afterId = default, int? pageSizeLimit = default, ChatCompletionMessageCollectionOrder? order = default)
+        public static ChatCompletionMessageCollectionOptions ChatCompletionMessageCollectionOptions(string afterId = default, long? pageSizeLimit = default, ChatCompletionMessageCollectionOrder? order = default)
         {
             return new ChatCompletionMessageCollectionOptions(afterId, pageSizeLimit, order, additionalBinaryDataProperties: null);
         }
 
-        public static ContainerCollectionOptions ContainerCollectionOptions(string afterId = default, int? pageSizeLimit = default, ContainerCollectionOrder? order = default)
+        public static ContainerCollectionOptions ContainerCollectionOptions(string afterId = default, long? pageSizeLimit = default, ContainerCollectionOrder? order = default)
         {
             return new ContainerCollectionOptions(afterId, pageSizeLimit, order, additionalBinaryDataProperties: null);
         }
 
-        public static ContainerFileCollectionOptions ContainerFileCollectionOptions(string afterId = default, int? pageSizeLimit = default, ContainerCollectionOrder? order = default)
+        public static ContainerFileCollectionOptions ContainerFileCollectionOptions(string afterId = default, long? pageSizeLimit = default, ContainerCollectionOrder? order = default)
         {
             return new ContainerFileCollectionOptions(afterId, pageSizeLimit, order, additionalBinaryDataProperties: null);
         }
@@ -1316,7 +1316,7 @@ namespace OpenAI
             return new AudioTokenLogProbabilityDetails(token, logProbability, utf8Bytes, additionalBinaryDataProperties: null);
         }
 
-        public static ResponseItemCollectionOptions ResponseItemCollectionOptions(string afterId = default, string beforeId = default, int? pageSizeLimit = default, ResponseItemCollectionOrder? order = default)
+        public static ResponseItemCollectionOptions ResponseItemCollectionOptions(string afterId = default, string beforeId = default, long? pageSizeLimit = default, ResponseItemCollectionOrder? order = default)
         {
             return new ResponseItemCollectionOptions(afterId, beforeId, pageSizeLimit, order, additionalBinaryDataProperties: null);
         }
@@ -1331,12 +1331,12 @@ namespace OpenAI
             return new McpToolCallApprovalPolicy(globalPolicy, customPolicy, additionalBinaryDataProperties: null);
         }
 
-        public static VectorStoreCollectionOptions VectorStoreCollectionOptions(string afterId = default, string beforeId = default, int? pageSizeLimit = default, VectorStoreCollectionOrder? order = default)
+        public static VectorStoreCollectionOptions VectorStoreCollectionOptions(string afterId = default, string beforeId = default, long? pageSizeLimit = default, VectorStoreCollectionOrder? order = default)
         {
             return new VectorStoreCollectionOptions(afterId, beforeId, pageSizeLimit, order, additionalBinaryDataProperties: null);
         }
 
-        public static VectorStoreFileCollectionOptions VectorStoreFileCollectionOptions(string afterId = default, string beforeId = default, int? pageSizeLimit = default, VectorStoreFileCollectionOrder? order = default, VectorStoreFileStatusFilter? filter = default)
+        public static VectorStoreFileCollectionOptions VectorStoreFileCollectionOptions(string afterId = default, string beforeId = default, long? pageSizeLimit = default, VectorStoreFileCollectionOrder? order = default, VectorStoreFileStatusFilter? filter = default)
         {
             return new VectorStoreFileCollectionOptions(
                 afterId,

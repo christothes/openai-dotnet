@@ -20,7 +20,7 @@ public partial class MessageContentUpdate : StreamingUpdate
     public string MessageId => _delta.Id;
 
     /// <inheritdoc cref="InternalMessageDeltaContentImageFileObject.Index"/>
-    public int MessageIndex => _textContent?.Index
+    public long MessageIndex => _textContent?.Index
         ?? _imageFileContent?.Index
         ?? _imageUrlContent?.Index
         ?? _refusalContent?.Index

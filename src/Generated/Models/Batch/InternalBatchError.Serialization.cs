@@ -90,7 +90,7 @@ namespace OpenAI.Batch
             string code = default;
             string message = default;
             string @param = default;
-            int? line = default;
+            long? line = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -121,7 +121,7 @@ namespace OpenAI.Batch
                         line = null;
                         continue;
                     }
-                    line = prop.Value.GetInt32();
+                    line = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

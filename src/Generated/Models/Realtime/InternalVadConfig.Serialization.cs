@@ -88,8 +88,8 @@ namespace OpenAI.Realtime
                 return null;
             }
             string kind = default;
-            int? prefixPaddingMs = default;
-            int? silenceDurationMs = default;
+            long? prefixPaddingMs = default;
+            long? silenceDurationMs = default;
             float? threshold = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -105,7 +105,7 @@ namespace OpenAI.Realtime
                     {
                         continue;
                     }
-                    prefixPaddingMs = prop.Value.GetInt32();
+                    prefixPaddingMs = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("silence_duration_ms"u8))
@@ -114,7 +114,7 @@ namespace OpenAI.Realtime
                     {
                         continue;
                     }
-                    silenceDurationMs = prop.Value.GetInt32();
+                    silenceDurationMs = prop.Value.GetInt64();
                     continue;
                 }
                 if (prop.NameEquals("threshold"u8))

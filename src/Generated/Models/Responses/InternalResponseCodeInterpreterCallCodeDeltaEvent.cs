@@ -9,19 +9,19 @@ namespace OpenAI.Responses
 {
     internal partial class InternalResponseCodeInterpreterCallCodeDeltaEvent : StreamingResponseUpdate
     {
-        internal InternalResponseCodeInterpreterCallCodeDeltaEvent(int sequenceNumber, int outputIndex, string delta) : base(InternalResponseStreamEventType.ResponseCodeInterpreterCallCodeDelta, sequenceNumber)
+        internal InternalResponseCodeInterpreterCallCodeDeltaEvent(long sequenceNumber, long outputIndex, string delta) : base(InternalResponseStreamEventType.ResponseCodeInterpreterCallCodeDelta, sequenceNumber)
         {
             OutputIndex = outputIndex;
             Delta = delta;
         }
 
-        internal InternalResponseCodeInterpreterCallCodeDeltaEvent(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, int outputIndex, string delta) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal InternalResponseCodeInterpreterCallCodeDeltaEvent(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties, long outputIndex, string delta) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
             OutputIndex = outputIndex;
             Delta = delta;
         }
 
-        public int OutputIndex { get; }
+        public long OutputIndex { get; }
 
         public string Delta { get; }
     }

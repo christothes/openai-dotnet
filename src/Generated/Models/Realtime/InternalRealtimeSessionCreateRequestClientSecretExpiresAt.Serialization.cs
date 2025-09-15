@@ -78,7 +78,7 @@ namespace OpenAI.Realtime
                 return null;
             }
             string anchor = default;
-            int? seconds = default;
+            long? seconds = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -93,7 +93,7 @@ namespace OpenAI.Realtime
                     {
                         continue;
                     }
-                    seconds = prop.Value.GetInt32();
+                    seconds = prop.Value.GetInt64();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

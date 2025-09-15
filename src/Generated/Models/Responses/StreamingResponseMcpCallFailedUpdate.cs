@@ -11,11 +11,11 @@ namespace OpenAI.Responses
     [Experimental("OPENAI001")]
     public partial class StreamingResponseMcpCallFailedUpdate : StreamingResponseUpdate
     {
-        internal StreamingResponseMcpCallFailedUpdate(int sequenceNumber) : base(InternalResponseStreamEventType.ResponseMcpCallFailed, sequenceNumber)
+        internal StreamingResponseMcpCallFailedUpdate(long sequenceNumber) : base(InternalResponseStreamEventType.ResponseMcpCallFailed, sequenceNumber)
         {
         }
 
-        internal StreamingResponseMcpCallFailedUpdate(InternalResponseStreamEventType kind, int sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(kind, sequenceNumber, additionalBinaryDataProperties)
+        internal StreamingResponseMcpCallFailedUpdate(InternalResponseStreamEventType kind, long sequenceNumber, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(kind, sequenceNumber, additionalBinaryDataProperties)
         {
         }
     }
