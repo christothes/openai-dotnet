@@ -1,7 +1,7 @@
 namespace OpenAI.Moderations;
 
 [CodeGenType("CreateModerationRequestModel")]
-internal readonly partial struct InternalCreateModerationRequestModel { }
+public readonly partial struct CreateModerationRequestModel { }
 
 [CodeGenType("CreateModerationRequestInput2")]
 internal partial class InternalCreateModerationRequestInput2 { }

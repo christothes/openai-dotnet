@@ -5,14 +5,16 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using OpenAI.Moderations;
 
-namespace OpenAI.Moderations
+namespace OpenAI
 {
-    public partial class ModerationResult
+    [Experimental("OPENAI001")]
+    public partial class CreateModerationResponseResult
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal ModerationResult(bool flagged, ModerationCategories categories, ModerationCategoryScores categoryScores, CreateModerationResponseResultCategoryAppliedInputTypes categoryAppliedInputTypes)
+        internal CreateModerationResponseResult(bool flagged, ModerationCategories categories, ModerationCategoryScores categoryScores, CreateModerationResponseResultCategoryAppliedInputTypes categoryAppliedInputTypes)
         {
             Flagged = flagged;
             Categories = categories;
@@ -20,7 +22,7 @@ namespace OpenAI.Moderations
             CategoryAppliedInputTypes = categoryAppliedInputTypes;
         }
 
-        internal ModerationResult(bool flagged, ModerationCategories categories, ModerationCategoryScores categoryScores, CreateModerationResponseResultCategoryAppliedInputTypes categoryAppliedInputTypes, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal CreateModerationResponseResult(bool flagged, ModerationCategories categories, ModerationCategoryScores categoryScores, CreateModerationResponseResultCategoryAppliedInputTypes categoryAppliedInputTypes, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Flagged = flagged;
             Categories = categories;
@@ -31,13 +33,10 @@ namespace OpenAI.Moderations
 
         public bool Flagged { get; }
 
-        [Experimental("OPENAI001")]
         public ModerationCategories Categories { get; }
 
-        [Experimental("OPENAI001")]
         public ModerationCategoryScores CategoryScores { get; }
 
-        [Experimental("OPENAI001")]
         public CreateModerationResponseResultCategoryAppliedInputTypes CategoryAppliedInputTypes { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
