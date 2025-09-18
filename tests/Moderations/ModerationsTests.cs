@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
 using OpenAI.Moderations;
 using OpenAI.Tests.Utility;
+using System;
+using System.ClientModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using static OpenAI.Tests.TestHelpers;
@@ -30,6 +32,24 @@ public class ModerationsTests : SyncAsyncTestBase
         Assert.That(moderation, Is.Not.Null);
         Assert.That(moderation.Flagged, Is.True);
         Assert.That(moderation.Violence.Flagged, Is.True);
+        Assert.That(moderation.Violence.Score, Is.GreaterThan(0.5));
+    }
+    
+    [Test]
+    public async Task ClassifySingleInputProtocolModel()
+    {
+        ModerationClient client = GetTestClient<ModerationClient>(TestScenario.Moderations);
+
+        const string input = "I am killing all my houseplants!";
+
+        ClientResult result = IsAsync
+            ? await client.ClassifyTextAsync(BinaryContent.Create(new BinaryData(input)))
+            : client.ClassifyText(input);
+        ModerationResultResponse moderation = result.GetRawResponse().Content.ToObjectFromJson<ModerationResultResponse>();
+
+        Assert.That(moderation, Is.Not.Null);
+        Assert.That(moderation.Flagged, Is.True);
+        Assert.That(moderation.Flagged, Is.True);
         Assert.That(moderation.Violence.Score, Is.GreaterThan(0.5));
     }
 

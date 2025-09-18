@@ -18,8 +18,4 @@ internal readonly partial struct InternalCreateModerationRequestInput3Type { }
 [CodeGenType("CreateModerationRequestInputImageUrl")]
 internal partial class InternalCreateModerationRequestInputImageUrl { }
 
-[CodeGenType("CreateModerationResponseResultCategories")]
-internal partial class InternalModerationCategories { }
 
-[CodeGenType("CreateModerationResponseResultCategoryScores")]
-internal partial class InternalModerationCategoryScores { }

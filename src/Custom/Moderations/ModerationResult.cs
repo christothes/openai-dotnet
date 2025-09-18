@@ -6,11 +6,11 @@ namespace OpenAI.Moderations;
 // CUSTOM:
 // - Removes the redundant classes `ModerationCategories` and `ModerationCategoryScores` and moves their properties into this type.
 [CodeGenType("CreateModerationResponseResult")]
-[CodeGenSuppress("Categories")]
-[CodeGenSuppress("CategoryScores")]
-[CodeGenSuppress("CategoryAppliedInputTypes")]
-[CodeGenSuppress(nameof(ModerationResult), typeof(bool), typeof(InternalModerationCategories), typeof(InternalModerationCategoryScores), typeof(InternalCreateModerationResponseResultCategoryAppliedInputTypes))]
-[CodeGenSuppress(nameof(ModerationResult), typeof(bool), typeof(InternalModerationCategories), typeof(InternalModerationCategoryScores), typeof(InternalCreateModerationResponseResultCategoryAppliedInputTypes), typeof(IDictionary<string, BinaryData>))]
+// [CodeGenSuppress("Categories")]
+// [CodeGenSuppress("CategoryScores")]
+// [CodeGenSuppress("CategoryAppliedInputTypes")]
+// [CodeGenSuppress(nameof(ModerationResult), typeof(bool), typeof(InternalModerationCategories), typeof(InternalModerationCategoryScores), typeof(InternalCreateModerationResponseResultCategoryAppliedInputTypes))]
+// [CodeGenSuppress(nameof(ModerationResult), typeof(bool), typeof(InternalModerationCategories), typeof(InternalModerationCategoryScores), typeof(InternalCreateModerationResponseResultCategoryAppliedInputTypes), typeof(IDictionary<string, BinaryData>))]
 public partial class ModerationResult
 {
     internal ModerationResult(bool flagged, ModerationCategory hate, ModerationCategory hateThreatening, ModerationCategory harassment, ModerationCategory harassmentThreatening, ModerationCategory illicit, ModerationCategory illicitViolent, ModerationCategory selfHarm, ModerationCategory selfHarmIntent, ModerationCategory selfHarmInstructions, ModerationCategory sexual, ModerationCategory sexualMinors, ModerationCategory violence, ModerationCategory violenceGraphic)

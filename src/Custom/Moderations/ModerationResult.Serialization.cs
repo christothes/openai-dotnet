@@ -28,7 +28,7 @@ namespace OpenAI.Moderations
             if (SerializedAdditionalRawData?.ContainsKey("categories") != true)
             {
                 writer.WritePropertyName("categories"u8);
-                InternalModerationCategories internalCategories = new(
+                ModerationCategories internalCategories = new(
                     hate: Hate.Flagged,
                     hateThreatening: HateThreatening.Flagged,
                     harassment: Harassment.Flagged,
@@ -48,7 +48,7 @@ namespace OpenAI.Moderations
             if (SerializedAdditionalRawData?.ContainsKey("category_scores") != true)
             {
                 writer.WritePropertyName("category_scores"u8);
-                InternalModerationCategoryScores internalCategoryScores = new(
+                ModerationCategoryScores internalCategoryScores = new(
                     hate: Hate.Score,
                     hateThreatening: HateThreatening.Score,
                     harassment: Harassment.Score,
@@ -68,20 +68,20 @@ namespace OpenAI.Moderations
             if (SerializedAdditionalRawData?.ContainsKey("category_applied_input_types") != true)
             {
                 writer.WritePropertyName("category_applied_input_types"u8);
-                InternalCreateModerationResponseResultCategoryAppliedInputTypes internalAppliedInputTypes = new(
+                CreateModerationResponseResultCategoryAppliedInputTypes internalAppliedInputTypes = new(
                     hate: Hate.ApplicableInputKinds.ToInternalApplicableInputKinds(),
                     hateThreatening: HateThreatening.ApplicableInputKinds.ToInternalApplicableInputKinds(),
                     harassment: Harassment.ApplicableInputKinds.ToInternalApplicableInputKinds(),
                     harassmentThreatening: HarassmentThreatening.ApplicableInputKinds.ToInternalApplicableInputKinds(),
                     illicit: Illicit.ApplicableInputKinds.ToInternalApplicableInputKinds(),
                     illicitViolent: IllicitViolent.ApplicableInputKinds.ToInternalApplicableInputKinds(),
-                    selfHarm: SelfHarm.ApplicableInputKinds.ToInternalApplicableInputKinds(),
-                    selfHarmIntent: SelfHarmIntent.ApplicableInputKinds.ToInternalApplicableInputKinds(),
-                    selfHarmInstructions: SelfHarmInstructions.ApplicableInputKinds.ToInternalApplicableInputKinds(),
-                    sexual: Sexual.ApplicableInputKinds.ToInternalApplicableInputKinds(),
+                    selfHarm: SelfHarm.ApplicableInputKinds.ToInternalApplicableInputKindsBinaryData(),
+                    selfHarmIntent: SelfHarmIntent.ApplicableInputKinds.ToInternalApplicableInputKindsBinaryData(),
+                    selfHarmInstructions: SelfHarmInstructions.ApplicableInputKinds.ToInternalApplicableInputKindsBinaryData(),
+                    sexual: Sexual.ApplicableInputKinds.ToInternalApplicableInputKindsBinaryData(),
                     sexualMinors: SexualMinors.ApplicableInputKinds.ToInternalApplicableInputKinds(),
-                    violence: Violence.ApplicableInputKinds.ToInternalApplicableInputKinds(),
-                    violenceGraphic: ViolenceGraphic.ApplicableInputKinds.ToInternalApplicableInputKinds(),
+                    violence: Violence.ApplicableInputKinds.ToInternalApplicableInputKindsBinaryData(),
+                    violenceGraphic: ViolenceGraphic.ApplicableInputKinds.ToInternalApplicableInputKindsBinaryData(),
                     additionalBinaryDataProperties: null);
                 writer.WriteObjectValue(internalAppliedInputTypes, options);
             }
@@ -117,9 +117,9 @@ namespace OpenAI.Moderations
             }
             bool flagged = default;
 
-            InternalModerationCategories internalCategories = default;
-            InternalModerationCategoryScores internalCategoryScores = default;
-            InternalCreateModerationResponseResultCategoryAppliedInputTypes internalAppliedInputTypes = default;
+            ModerationCategories internalCategories = default;
+            ModerationCategoryScores internalCategoryScores = default;
+            CreateModerationResponseResultCategoryAppliedInputTypes internalAppliedInputTypes = default;
             IDictionary<string, BinaryData> serializedAdditionalRawData = default;
             Dictionary<string, BinaryData> rawDataDictionary = new Dictionary<string, BinaryData>();
             foreach (var property in element.EnumerateObject())
@@ -131,17 +131,17 @@ namespace OpenAI.Moderations
                 }
                 if (property.NameEquals("categories"u8))
                 {
-                    internalCategories = InternalModerationCategories.DeserializeInternalModerationCategories(property.Value, options);
+                    internalCategories = ModerationCategories.DeserializeModerationCategories(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("category_scores"u8))
                 {
-                    internalCategoryScores = InternalModerationCategoryScores.DeserializeInternalModerationCategoryScores(property.Value, options);
+                    internalCategoryScores = ModerationCategoryScores.DeserializeModerationCategoryScores(property.Value, options);
                     continue;
                 }
                 if (property.NameEquals("category_applied_input_types"u8))
                 {
-                    internalAppliedInputTypes = InternalCreateModerationResponseResultCategoryAppliedInputTypes.DeserializeInternalCreateModerationResponseResultCategoryAppliedInputTypes(property.Value, options);
+                    internalAppliedInputTypes = CreateModerationResponseResultCategoryAppliedInputTypes.DeserializeCreateModerationResponseResultCategoryAppliedInputTypes(property.Value, options);
                     continue;
                 }
                 if (true)
@@ -152,10 +152,10 @@ namespace OpenAI.Moderations
             }
 
             ModerationCategory MakeCategory<T>(
-                Func<InternalModerationCategories, bool> categoryFlaggedGetter,
-                Func<InternalModerationCategoryScores, float> scoreGetter,
+                Func<ModerationCategories, bool> categoryFlaggedGetter,
+                Func<ModerationCategoryScores, float> scoreGetter,
                 Func<
-                    InternalCreateModerationResponseResultCategoryAppliedInputTypes,
+                    CreateModerationResponseResultCategoryAppliedInputTypes,
                     IReadOnlyList<T>
                 > internalAppliedInputTypesGetter)
             {

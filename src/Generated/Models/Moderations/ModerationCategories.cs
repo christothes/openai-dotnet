@@ -4,14 +4,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace OpenAI.Moderations
 {
-    internal partial class InternalModerationCategoryScores
+    [Experimental("OPENAI001")]
+    public partial class ModerationCategories
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalModerationCategoryScores(float hate, float hateThreatening, float harassment, float harassmentThreatening, float illicit, float illicitViolent, float selfHarm, float selfHarmIntent, float selfHarmInstructions, float sexual, float sexualMinors, float violence, float violenceGraphic)
+        internal ModerationCategories(bool hate, bool hateThreatening, bool harassment, bool harassmentThreatening, bool illicit, bool illicitViolent, bool selfHarm, bool selfHarmIntent, bool selfHarmInstructions, bool sexual, bool sexualMinors, bool violence, bool violenceGraphic)
         {
             Hate = hate;
             HateThreatening = hateThreatening;
@@ -28,7 +30,7 @@ namespace OpenAI.Moderations
             ViolenceGraphic = violenceGraphic;
         }
 
-        internal InternalModerationCategoryScores(float hate, float hateThreatening, float harassment, float harassmentThreatening, float illicit, float illicitViolent, float selfHarm, float selfHarmIntent, float selfHarmInstructions, float sexual, float sexualMinors, float violence, float violenceGraphic, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ModerationCategories(bool hate, bool hateThreatening, bool harassment, bool harassmentThreatening, bool illicit, bool illicitViolent, bool selfHarm, bool selfHarmIntent, bool selfHarmInstructions, bool sexual, bool sexualMinors, bool violence, bool violenceGraphic, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Hate = hate;
             HateThreatening = hateThreatening;
@@ -46,31 +48,31 @@ namespace OpenAI.Moderations
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public float Hate { get; }
+        public bool Hate { get; }
 
-        public float HateThreatening { get; }
+        public bool HateThreatening { get; }
 
-        public float Harassment { get; }
+        public bool Harassment { get; }
 
-        public float HarassmentThreatening { get; }
+        public bool HarassmentThreatening { get; }
 
-        public float Illicit { get; }
+        public bool Illicit { get; }
 
-        public float IllicitViolent { get; }
+        public bool IllicitViolent { get; }
 
-        public float SelfHarm { get; }
+        public bool SelfHarm { get; }
 
-        public float SelfHarmIntent { get; }
+        public bool SelfHarmIntent { get; }
 
-        public float SelfHarmInstructions { get; }
+        public bool SelfHarmInstructions { get; }
 
-        public float Sexual { get; }
+        public bool Sexual { get; }
 
-        public float SexualMinors { get; }
+        public bool SexualMinors { get; }
 
-        public float Violence { get; }
+        public bool Violence { get; }
 
-        public float ViolenceGraphic { get; }
+        public bool ViolenceGraphic { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {
