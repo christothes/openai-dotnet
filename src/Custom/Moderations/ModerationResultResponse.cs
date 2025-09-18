@@ -29,13 +29,13 @@ namespace OpenAI.Moderations
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public bool Flagged { get; }
+        public bool Flagged { get; set; }
 
-        public ModerationCategories Categories { get; }
+        public ModerationCategories Categories { get; set; }
 
-        public ModerationCategoryScores CategoryScores { get; }
+        public ModerationCategoryScores CategoryScores { get; set; }
 
-        public CreateModerationResponseResultCategoryAppliedInputTypes CategoryAppliedInputTypes { get; }
+        public CreateModerationResponseResultCategoryAppliedInputTypes CategoryAppliedInputTypes { get; set; }
 
         public IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

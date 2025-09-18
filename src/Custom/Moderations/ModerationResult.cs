@@ -5,7 +5,7 @@ namespace OpenAI.Moderations;
 
 // CUSTOM:
 // - Removes the redundant classes `ModerationCategories` and `ModerationCategoryScores` and moves their properties into this type.
-[CodeGenType("CreateModerationResponseResult")]
+// [CodeGenType("CreateModerationResponseResult")]
 // [CodeGenSuppress("Categories")]
 // [CodeGenSuppress("CategoryScores")]
 // [CodeGenSuppress("CategoryAppliedInputTypes")]
@@ -13,6 +13,8 @@ namespace OpenAI.Moderations;
 // [CodeGenSuppress(nameof(ModerationResult), typeof(bool), typeof(InternalModerationCategories), typeof(InternalModerationCategoryScores), typeof(InternalCreateModerationResponseResultCategoryAppliedInputTypes), typeof(IDictionary<string, BinaryData>))]
 public partial class ModerationResult
 {
+    private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
+
     internal ModerationResult(bool flagged, ModerationCategory hate, ModerationCategory hateThreatening, ModerationCategory harassment, ModerationCategory harassmentThreatening, ModerationCategory illicit, ModerationCategory illicitViolent, ModerationCategory selfHarm, ModerationCategory selfHarmIntent, ModerationCategory selfHarmInstructions, ModerationCategory sexual, ModerationCategory sexualMinors, ModerationCategory violence, ModerationCategory violenceGraphic)
     {
         Flagged = flagged;
@@ -54,6 +56,8 @@ public partial class ModerationResult
     {
     }
 
+    public bool Flagged { get; }
+
     public ModerationCategory Hate { get; }
 
     public ModerationCategory HateThreatening { get; }
@@ -79,4 +83,10 @@ public partial class ModerationResult
     public ModerationCategory Violence { get; }
 
     public ModerationCategory ViolenceGraphic { get; }
+
+    internal IDictionary<string, BinaryData> SerializedAdditionalRawData
+    {
+        get => _additionalBinaryDataProperties;
+        set => _additionalBinaryDataProperties = value;
+    }
 }

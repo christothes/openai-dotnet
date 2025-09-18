@@ -18,8 +18,8 @@ namespace OpenAI.Moderations;
 /// <summary> The service client for OpenAI moderation operations. </summary>
 [CodeGenType("Moderations")]
 [CodeGenSuppress("ModerationClient", typeof(ClientPipeline), typeof(Uri))]
-[CodeGenSuppress("ClassifyTextAsync", typeof(ModerationOptions), typeof(CancellationToken))]
-[CodeGenSuppress("ClassifyText", typeof(ModerationOptions), typeof(CancellationToken))]
+[CodeGenSuppress("ClassifyTextAsync", typeof(CreateModerationRequest), typeof(CancellationToken))]
+[CodeGenSuppress("ClassifyText", typeof(CreateModerationRequest), typeof(CancellationToken))]
 public partial class ModerationClient
 {
     private readonly string _model;
@@ -134,10 +134,8 @@ public partial class ModerationClient
     {
         Argument.AssertNotNullOrEmpty(input, nameof(input));
 
-        ModerationOptions options = new();
-        CreateModerationOptions(input, ref options);
-
-        using BinaryContent content = options.ToBinaryContent();
+        CreateModerationRequest options = CreateModerationOptions(input);
+        using BinaryContent content = BinaryContent.Create(options, ModelSerializationExtensions.WireOptions);
         ClientResult result = await ClassifyTextAsync(content, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
         return ClientResult.FromValue(((ModerationResultCollection)result).FirstOrDefault(), result.GetRawResponse());
     }
@@ -151,10 +149,8 @@ public partial class ModerationClient
     {
         Argument.AssertNotNullOrEmpty(input, nameof(input));
 
-        ModerationOptions options = new();
-        CreateModerationOptions(input, ref options);
-
-        using BinaryContent content = options.ToBinaryContent();
+        CreateModerationRequest options = CreateModerationOptions(input);
+        using BinaryContent content = BinaryContent.Create(options, ModelSerializationExtensions.WireOptions);
         ClientResult result = ClassifyText(content, cancellationToken.ToRequestOptions());
         return ClientResult.FromValue(((ModerationResultCollection)result).FirstOrDefault(), result.GetRawResponse());
     }
@@ -168,10 +164,8 @@ public partial class ModerationClient
     {
         Argument.AssertNotNullOrEmpty(inputs, nameof(inputs));
 
-        ModerationOptions options = new();
-        CreateModerationOptions(inputs, ref options);
-
-        using BinaryContent content = options.ToBinaryContent();
+        CreateModerationRequest options = CreateModerationOptions(inputs);
+        using BinaryContent content = BinaryContent.Create(options, ModelSerializationExtensions.WireOptions);
         ClientResult result = await ClassifyTextAsync(content, cancellationToken.ToRequestOptions()).ConfigureAwait(false);
         return ClientResult.FromValue((ModerationResultCollection)result, result.GetRawResponse());
     }
@@ -185,15 +179,13 @@ public partial class ModerationClient
     {
         Argument.AssertNotNullOrEmpty(inputs, nameof(inputs));
 
-        ModerationOptions options = new();
-        CreateModerationOptions(inputs, ref options);
-
-        using BinaryContent content = options.ToBinaryContent();
+        CreateModerationRequest options = CreateModerationOptions(inputs);
+        using BinaryContent content = BinaryContent.Create(options, ModelSerializationExtensions.WireOptions);
         ClientResult result = ClassifyText(content, cancellationToken.ToRequestOptions());
         return ClientResult.FromValue((ModerationResultCollection)result, result.GetRawResponse());
     }
 
-    private void CreateModerationOptions(string input, ref ModerationOptions options)
+    private CreateModerationRequest CreateModerationOptions(string input)
     {
         using MemoryStream stream = new();
         using Utf8JsonWriter writer = new(stream);
@@ -201,11 +193,13 @@ public partial class ModerationClient
         writer.WriteStringValue(input);
         writer.Flush();
 
-        options.Input = BinaryData.FromBytes(stream.GetBuffer().AsMemory(0, (int)stream.Length));
-        options.Model = _model;
+        return new CreateModerationRequest(
+            BinaryData.FromBytes(stream.GetBuffer().AsMemory(0, (int)stream.Length)),
+            _model,
+            null);
     }
 
-    private void CreateModerationOptions(IEnumerable<string> inputs, ref ModerationOptions options)
+    private CreateModerationRequest CreateModerationOptions(IEnumerable<string> inputs)
     {
         using MemoryStream stream = new();
         using Utf8JsonWriter writer = new(stream);
@@ -220,7 +214,9 @@ public partial class ModerationClient
         writer.WriteEndArray();
         writer.Flush();
 
-        options.Input = BinaryData.FromBytes(stream.GetBuffer().AsMemory(0, (int)stream.Length));
-        options.Model = _model;
+        return new CreateModerationRequest(
+            BinaryData.FromBytes(stream.GetBuffer().AsMemory(0, (int)stream.Length)),
+            _model,
+            null);
     }
 }

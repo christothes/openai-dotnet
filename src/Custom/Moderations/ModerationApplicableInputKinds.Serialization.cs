@@ -29,11 +29,11 @@ internal static partial class ModerationApplicableInputKindsExtensions
         List<BinaryData> internalInputKinds = [];
         if (inputKinds.HasFlag(ModerationApplicableInputKinds.Text))
         {
-            internalInputKinds.Add(new BinaryData(ModerationApplicableInputKinds.Text));
+            internalInputKinds.Add(new BinaryData("text"));
         }
         if (inputKinds.HasFlag(ModerationApplicableInputKinds.Image))
         {
-            internalInputKinds.Add(new BinaryData(ModerationApplicableInputKinds.Image));
+            internalInputKinds.Add(new BinaryData("image"));
         }
         // if (inputKinds.HasFlag(ModerationInputKinds.Audio))
         // {

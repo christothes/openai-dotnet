@@ -4,7 +4,9 @@ using OpenAI.Moderations;
 using OpenAI.Tests.Utility;
 using System;
 using System.ClientModel;
+using System.ClientModel.Primitives;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using static OpenAI.Tests.TestHelpers;
 
@@ -36,17 +38,17 @@ public class ModerationsTests : OpenAIRecordedTestBase
     {
         ModerationClient client = GetTestClient<ModerationClient>(TestScenario.Moderations);
 
-        const string input = "I am killing all my houseplants!";
+        var binaryData = BinaryData.FromObjectAsJson(new { input = "I am killing all my houseplants!", model = CreateModerationRequestModel.TextModerationStable.ToString() });
 
         ClientResult result = IsAsync
-            ? await client.ClassifyTextAsync(BinaryContent.Create(new BinaryData(input)))
-            : client.ClassifyText(input);
-        ModerationResultResponse moderation = result.GetRawResponse().Content.ToObjectFromJson<ModerationResultResponse>();
+            ? await client.ClassifyTextAsync(BinaryContent.Create(binaryData))
+            : client.ClassifyText(BinaryContent.Create(binaryData));
+        CreateModerationResponseResult moderation = ModelReaderWriter.Read<CreateModerationResponse>(result.GetRawResponse().Content).Results.FirstOrDefault();
 
         Assert.That(moderation, Is.Not.Null);
         Assert.That(moderation.Flagged, Is.True);
         Assert.That(moderation.Flagged, Is.True);
-        Assert.That(moderation.Violence.Score, Is.GreaterThan(0.5));
+        Assert.That(moderation.CategoryScores.Violence, Is.GreaterThan(0.5));
     }
 
     [Test]

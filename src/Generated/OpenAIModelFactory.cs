@@ -827,6 +827,11 @@ namespace OpenAI
             return new MessageDeletionResult(messageId, deleted, @object, additionalBinaryDataProperties: null);
         }
 
+        public static CreateModerationRequest CreateModerationRequest(BinaryData input = default, CreateModerationRequestModel? model = default)
+        {
+            return new CreateModerationRequest(input, model, additionalBinaryDataProperties: null);
+        }
+
         public static ModerationResultCollection ModerationResultCollection(string id = default, string model = default, IEnumerable<ModerationResult> results = default)
         {
             results ??= new ChangeTrackingList<ModerationResult>();
@@ -834,9 +839,9 @@ namespace OpenAI
             return new ModerationResultCollection(id, model, results.ToList());
         }
 
-        public static ModerationResult ModerationResult(bool flagged = default, ModerationCategories categories = default, ModerationCategoryScores categoryScores = default, CreateModerationResponseResultCategoryAppliedInputTypes categoryAppliedInputTypes = default)
+        public static CreateModerationResponseResult CreateModerationResponseResult(bool flagged = default, ModerationCategories categories = default, ModerationCategoryScores categoryScores = default, CreateModerationResponseResultCategoryAppliedInputTypes categoryAppliedInputTypes = default)
         {
-            return new ModerationResult(flagged, categories, categoryScores, categoryAppliedInputTypes, additionalBinaryDataProperties: null);
+            return new CreateModerationResponseResult(flagged, categories, categoryScores, categoryAppliedInputTypes, additionalBinaryDataProperties: null);
         }
 
         public static ModerationCategories ModerationCategories(bool hate = default, bool hateThreatening = default, bool harassment = default, bool harassmentThreatening = default, bool illicit = default, bool illicitViolent = default, bool selfHarm = default, bool selfHarmIntent = default, bool selfHarmInstructions = default, bool sexual = default, bool sexualMinors = default, bool violence = default, bool violenceGraphic = default)
