@@ -834,9 +834,47 @@ namespace OpenAI
             return new ModerationResultCollection(id, model, results.ToList());
         }
 
-        public static ModerationResult ModerationResult(bool flagged = default)
+        public static ModerationResult ModerationResult(bool flagged = default, ModerationCategories categories = default, ModerationCategoryScores categoryScores = default, CreateModerationResponseResultCategoryAppliedInputTypes categoryAppliedInputTypes = default)
         {
-            return new ModerationResult(flagged, additionalBinaryDataProperties: null);
+            return new ModerationResult(flagged, categories, categoryScores, categoryAppliedInputTypes, additionalBinaryDataProperties: null);
+        }
+
+        public static ModerationCategories ModerationCategories(bool hate = default, bool hateThreatening = default, bool harassment = default, bool harassmentThreatening = default, bool illicit = default, bool illicitViolent = default, bool selfHarm = default, bool selfHarmIntent = default, bool selfHarmInstructions = default, bool sexual = default, bool sexualMinors = default, bool violence = default, bool violenceGraphic = default)
+        {
+            return new ModerationCategories(
+                hate,
+                hateThreatening,
+                harassment,
+                harassmentThreatening,
+                illicit,
+                illicitViolent,
+                selfHarm,
+                selfHarmIntent,
+                selfHarmInstructions,
+                sexual,
+                sexualMinors,
+                violence,
+                violenceGraphic,
+                additionalBinaryDataProperties: null);
+        }
+
+        public static ModerationCategoryScores ModerationCategoryScores(float hate = default, float hateThreatening = default, float harassment = default, float harassmentThreatening = default, float illicit = default, float illicitViolent = default, float selfHarm = default, float selfHarmIntent = default, float selfHarmInstructions = default, float sexual = default, float sexualMinors = default, float violence = default, float violenceGraphic = default)
+        {
+            return new ModerationCategoryScores(
+                hate,
+                hateThreatening,
+                harassment,
+                harassmentThreatening,
+                illicit,
+                illicitViolent,
+                selfHarm,
+                selfHarmIntent,
+                selfHarmInstructions,
+                sexual,
+                sexualMinors,
+                violence,
+                violenceGraphic,
+                additionalBinaryDataProperties: null);
         }
 
         public static ThreadCreationOptions ThreadCreationOptions(IEnumerable<MessageCreationOptions> internalMessages = default, ToolResources toolResources = default, IDictionary<string, string> metadata = default)

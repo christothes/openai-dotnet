@@ -4,14 +4,26 @@
 
 using System;
 using System.ClientModel.Primitives;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using OpenAI;
 
 namespace OpenAI.Moderations
 {
-    public partial class ModerationResult : IJsonModel<ModerationResult>
+    public partial class ModerationResultResponse : IJsonModel<ModerationResultResponse>
     {
+        internal ModerationResultResponse()
+        {
+        }
+
+        void IJsonModel<ModerationResultResponse>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        {
+            writer.WriteStartObject();
+            JsonModelWriteCore(writer, options);
+            writer.WriteEndObject();
+        }
+
         [Experimental("OPENAI001")]
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
@@ -62,10 +74,10 @@ namespace OpenAI.Moderations
             }
         }
 
-        ModerationResult IJsonModel<ModerationResult>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        ModerationResultResponse IJsonModel<ModerationResultResponse>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         [Experimental("OPENAI001")]
-        protected virtual ModerationResult JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual ModerationResultResponse JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
             string format = options.Format == "W" ? ((IPersistableModel<ModerationResult>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
@@ -76,7 +88,46 @@ namespace OpenAI.Moderations
             return DeserializeModerationResult(document.RootElement, options);
         }
 
-        BinaryData IPersistableModel<ModerationResult>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        internal static ModerationResultResponse DeserializeModerationResult(JsonElement element, ModelReaderWriterOptions options)
+        {
+            if (element.ValueKind == JsonValueKind.Null)
+            {
+                return null;
+            }
+            bool flagged = default;
+            ModerationCategories categories = default;
+            ModerationCategoryScores categoryScores = default;
+            CreateModerationResponseResultCategoryAppliedInputTypes categoryAppliedInputTypes = default;
+            IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
+            foreach (var prop in element.EnumerateObject())
+            {
+                if (prop.NameEquals("flagged"u8))
+                {
+                    flagged = prop.Value.GetBoolean();
+                    continue;
+                }
+                if (prop.NameEquals("categories"u8))
+                {
+                    categories = ModerationCategories.DeserializeModerationCategories(prop.Value, options);
+                    continue;
+                }
+                if (prop.NameEquals("category_scores"u8))
+                {
+                    categoryScores = ModerationCategoryScores.DeserializeModerationCategoryScores(prop.Value, options);
+                    continue;
+                }
+                if (prop.NameEquals("category_applied_input_types"u8))
+                {
+                    categoryAppliedInputTypes = CreateModerationResponseResultCategoryAppliedInputTypes.DeserializeCreateModerationResponseResultCategoryAppliedInputTypes(prop.Value, options);
+                    continue;
+                }
+                // Plugin customization: remove options.Format != "W" check
+                additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
+            }
+            return new ModerationResultResponse(flagged, categories, categoryScores, categoryAppliedInputTypes, additionalBinaryDataProperties);
+        }
+
+        BinaryData IPersistableModel<ModerationResultResponse>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         [Experimental("OPENAI001")]
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
@@ -91,12 +142,12 @@ namespace OpenAI.Moderations
             }
         }
 
-        ModerationResult IPersistableModel<ModerationResult>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        ModerationResultResponse IPersistableModel<ModerationResultResponse>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         [Experimental("OPENAI001")]
-        protected virtual ModerationResult PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual ModerationResultResponse PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<ModerationResult>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ModerationResultResponse>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
@@ -109,6 +160,6 @@ namespace OpenAI.Moderations
             }
         }
 
-        string IPersistableModel<ModerationResult>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ModerationResultResponse>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

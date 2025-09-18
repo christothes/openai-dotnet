@@ -10,13 +10,13 @@ using OpenAI;
 
 namespace OpenAI.Moderations
 {
-    internal partial class InternalModerationCategoryScores : IJsonModel<InternalModerationCategoryScores>
+    public partial class ModerationCategoryScores : IJsonModel<ModerationCategoryScores>
     {
-        internal InternalModerationCategoryScores()
+        internal ModerationCategoryScores()
         {
         }
 
-        void IJsonModel<InternalModerationCategoryScores>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<ModerationCategoryScores>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -25,10 +25,10 @@ namespace OpenAI.Moderations
 
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<InternalModerationCategoryScores>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ModerationCategoryScores>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(InternalModerationCategoryScores)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(ModerationCategoryScores)} does not support writing '{format}' format.");
             }
             if (_additionalBinaryDataProperties?.ContainsKey("hate") != true)
             {
@@ -117,20 +117,20 @@ namespace OpenAI.Moderations
             }
         }
 
-        InternalModerationCategoryScores IJsonModel<InternalModerationCategoryScores>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        ModerationCategoryScores IJsonModel<ModerationCategoryScores>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
-        protected virtual InternalModerationCategoryScores JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual ModerationCategoryScores JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<InternalModerationCategoryScores>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ModerationCategoryScores>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(InternalModerationCategoryScores)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(ModerationCategoryScores)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeInternalModerationCategoryScores(document.RootElement, options);
+            return DeserializeModerationCategoryScores(document.RootElement, options);
         }
 
-        internal static InternalModerationCategoryScores DeserializeInternalModerationCategoryScores(JsonElement element, ModelReaderWriterOptions options)
+        internal static ModerationCategoryScores DeserializeModerationCategoryScores(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -220,7 +220,7 @@ namespace OpenAI.Moderations
                 // Plugin customization: remove options.Format != "W" check
                 additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
             }
-            return new InternalModerationCategoryScores(
+            return new ModerationCategoryScores(
                 hate,
                 hateThreatening,
                 harassment,
@@ -237,37 +237,37 @@ namespace OpenAI.Moderations
                 additionalBinaryDataProperties);
         }
 
-        BinaryData IPersistableModel<InternalModerationCategoryScores>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<ModerationCategoryScores>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<InternalModerationCategoryScores>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ModerationCategoryScores>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, OpenAIContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(InternalModerationCategoryScores)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ModerationCategoryScores)} does not support writing '{options.Format}' format.");
             }
         }
 
-        InternalModerationCategoryScores IPersistableModel<InternalModerationCategoryScores>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        ModerationCategoryScores IPersistableModel<ModerationCategoryScores>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
-        protected virtual InternalModerationCategoryScores PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual ModerationCategoryScores PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<InternalModerationCategoryScores>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<ModerationCategoryScores>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data))
                     {
-                        return DeserializeInternalModerationCategoryScores(document.RootElement, options);
+                        return DeserializeModerationCategoryScores(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(InternalModerationCategoryScores)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(ModerationCategoryScores)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<InternalModerationCategoryScores>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<ModerationCategoryScores>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

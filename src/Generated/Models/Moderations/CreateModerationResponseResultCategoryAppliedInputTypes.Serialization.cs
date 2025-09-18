@@ -10,13 +10,13 @@ using OpenAI;
 
 namespace OpenAI.Moderations
 {
-    internal partial class InternalCreateModerationResponseResultCategoryAppliedInputTypes : IJsonModel<InternalCreateModerationResponseResultCategoryAppliedInputTypes>
+    public partial class CreateModerationResponseResultCategoryAppliedInputTypes : IJsonModel<CreateModerationResponseResultCategoryAppliedInputTypes>
     {
-        internal InternalCreateModerationResponseResultCategoryAppliedInputTypes() : this(null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+        internal CreateModerationResponseResultCategoryAppliedInputTypes() : this(null, null, null, null, null, null, null, null, null, null, null, null, null, null)
         {
         }
 
-        void IJsonModel<InternalCreateModerationResponseResultCategoryAppliedInputTypes>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<CreateModerationResponseResultCategoryAppliedInputTypes>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -25,23 +25,18 @@ namespace OpenAI.Moderations
 
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<InternalCreateModerationResponseResultCategoryAppliedInputTypes>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<CreateModerationResponseResultCategoryAppliedInputTypes>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(InternalCreateModerationResponseResultCategoryAppliedInputTypes)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(CreateModerationResponseResultCategoryAppliedInputTypes)} does not support writing '{format}' format.");
             }
             if (_additionalBinaryDataProperties?.ContainsKey("hate") != true)
             {
                 writer.WritePropertyName("hate"u8);
                 writer.WriteStartArray();
-                foreach (string item in Hate)
+                foreach (ModerationApplicableInputKinds item in Hate)
                 {
-                    if (item == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
-                    writer.WriteStringValue(item);
+                    writer.WriteStringValue(item.ToSerialString());
                 }
                 writer.WriteEndArray();
             }
@@ -49,14 +44,9 @@ namespace OpenAI.Moderations
             {
                 writer.WritePropertyName("hate/threatening"u8);
                 writer.WriteStartArray();
-                foreach (string item in HateThreatening)
+                foreach (ModerationApplicableInputKinds item in HateThreatening)
                 {
-                    if (item == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
-                    writer.WriteStringValue(item);
+                    writer.WriteStringValue(item.ToSerialString());
                 }
                 writer.WriteEndArray();
             }
@@ -64,14 +54,9 @@ namespace OpenAI.Moderations
             {
                 writer.WritePropertyName("harassment"u8);
                 writer.WriteStartArray();
-                foreach (string item in Harassment)
+                foreach (ModerationApplicableInputKinds item in Harassment)
                 {
-                    if (item == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
-                    writer.WriteStringValue(item);
+                    writer.WriteStringValue(item.ToSerialString());
                 }
                 writer.WriteEndArray();
             }
@@ -79,14 +64,9 @@ namespace OpenAI.Moderations
             {
                 writer.WritePropertyName("harassment/threatening"u8);
                 writer.WriteStartArray();
-                foreach (string item in HarassmentThreatening)
+                foreach (ModerationApplicableInputKinds item in HarassmentThreatening)
                 {
-                    if (item == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
-                    writer.WriteStringValue(item);
+                    writer.WriteStringValue(item.ToSerialString());
                 }
                 writer.WriteEndArray();
             }
@@ -94,14 +74,9 @@ namespace OpenAI.Moderations
             {
                 writer.WritePropertyName("illicit"u8);
                 writer.WriteStartArray();
-                foreach (string item in Illicit)
+                foreach (ModerationApplicableInputKinds item in Illicit)
                 {
-                    if (item == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
-                    writer.WriteStringValue(item);
+                    writer.WriteStringValue(item.ToSerialString());
                 }
                 writer.WriteEndArray();
             }
@@ -109,14 +84,9 @@ namespace OpenAI.Moderations
             {
                 writer.WritePropertyName("illicit/violent"u8);
                 writer.WriteStartArray();
-                foreach (string item in IllicitViolent)
+                foreach (ModerationApplicableInputKinds item in IllicitViolent)
                 {
-                    if (item == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
-                    writer.WriteStringValue(item);
+                    writer.WriteStringValue(item.ToSerialString());
                 }
                 writer.WriteEndArray();
             }
@@ -124,14 +94,21 @@ namespace OpenAI.Moderations
             {
                 writer.WritePropertyName("self-harm"u8);
                 writer.WriteStartArray();
-                foreach (string item in SelfHarm)
+                foreach (BinaryData item in SelfHarm)
                 {
                     if (item == null)
                     {
                         writer.WriteNullValue();
                         continue;
                     }
-                    writer.WriteStringValue(item);
+#if NET6_0_OR_GREATER
+                    writer.WriteRawValue(item);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
+#endif
                 }
                 writer.WriteEndArray();
             }
@@ -139,14 +116,21 @@ namespace OpenAI.Moderations
             {
                 writer.WritePropertyName("self-harm/intent"u8);
                 writer.WriteStartArray();
-                foreach (string item in SelfHarmIntent)
+                foreach (BinaryData item in SelfHarmIntent)
                 {
                     if (item == null)
                     {
                         writer.WriteNullValue();
                         continue;
                     }
-                    writer.WriteStringValue(item);
+#if NET6_0_OR_GREATER
+                    writer.WriteRawValue(item);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
+#endif
                 }
                 writer.WriteEndArray();
             }
@@ -154,14 +138,21 @@ namespace OpenAI.Moderations
             {
                 writer.WritePropertyName("self-harm/instructions"u8);
                 writer.WriteStartArray();
-                foreach (string item in SelfHarmInstructions)
+                foreach (BinaryData item in SelfHarmInstructions)
                 {
                     if (item == null)
                     {
                         writer.WriteNullValue();
                         continue;
                     }
-                    writer.WriteStringValue(item);
+#if NET6_0_OR_GREATER
+                    writer.WriteRawValue(item);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
+#endif
                 }
                 writer.WriteEndArray();
             }
@@ -169,14 +160,21 @@ namespace OpenAI.Moderations
             {
                 writer.WritePropertyName("sexual"u8);
                 writer.WriteStartArray();
-                foreach (string item in Sexual)
+                foreach (BinaryData item in Sexual)
                 {
                     if (item == null)
                     {
                         writer.WriteNullValue();
                         continue;
                     }
-                    writer.WriteStringValue(item);
+#if NET6_0_OR_GREATER
+                    writer.WriteRawValue(item);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
+#endif
                 }
                 writer.WriteEndArray();
             }
@@ -184,14 +182,9 @@ namespace OpenAI.Moderations
             {
                 writer.WritePropertyName("sexual/minors"u8);
                 writer.WriteStartArray();
-                foreach (string item in SexualMinors)
+                foreach (ModerationApplicableInputKinds item in SexualMinors)
                 {
-                    if (item == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
-                    writer.WriteStringValue(item);
+                    writer.WriteStringValue(item.ToSerialString());
                 }
                 writer.WriteEndArray();
             }
@@ -199,14 +192,21 @@ namespace OpenAI.Moderations
             {
                 writer.WritePropertyName("violence"u8);
                 writer.WriteStartArray();
-                foreach (string item in Violence)
+                foreach (BinaryData item in Violence)
                 {
                     if (item == null)
                     {
                         writer.WriteNullValue();
                         continue;
                     }
-                    writer.WriteStringValue(item);
+#if NET6_0_OR_GREATER
+                    writer.WriteRawValue(item);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
+#endif
                 }
                 writer.WriteEndArray();
             }
@@ -214,14 +214,21 @@ namespace OpenAI.Moderations
             {
                 writer.WritePropertyName("violence/graphic"u8);
                 writer.WriteStartArray();
-                foreach (string item in ViolenceGraphic)
+                foreach (BinaryData item in ViolenceGraphic)
                 {
                     if (item == null)
                     {
                         writer.WriteNullValue();
                         continue;
                     }
-                    writer.WriteStringValue(item);
+#if NET6_0_OR_GREATER
+                    writer.WriteRawValue(item);
+#else
+                    using (JsonDocument document = JsonDocument.Parse(item))
+                    {
+                        JsonSerializer.Serialize(writer, document.RootElement);
+                    }
+#endif
                 }
                 writer.WriteEndArray();
             }
@@ -247,146 +254,104 @@ namespace OpenAI.Moderations
             }
         }
 
-        InternalCreateModerationResponseResultCategoryAppliedInputTypes IJsonModel<InternalCreateModerationResponseResultCategoryAppliedInputTypes>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        CreateModerationResponseResultCategoryAppliedInputTypes IJsonModel<CreateModerationResponseResultCategoryAppliedInputTypes>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
-        protected virtual InternalCreateModerationResponseResultCategoryAppliedInputTypes JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual CreateModerationResponseResultCategoryAppliedInputTypes JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<InternalCreateModerationResponseResultCategoryAppliedInputTypes>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<CreateModerationResponseResultCategoryAppliedInputTypes>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(InternalCreateModerationResponseResultCategoryAppliedInputTypes)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(CreateModerationResponseResultCategoryAppliedInputTypes)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeInternalCreateModerationResponseResultCategoryAppliedInputTypes(document.RootElement, options);
+            return DeserializeCreateModerationResponseResultCategoryAppliedInputTypes(document.RootElement, options);
         }
 
-        internal static InternalCreateModerationResponseResultCategoryAppliedInputTypes DeserializeInternalCreateModerationResponseResultCategoryAppliedInputTypes(JsonElement element, ModelReaderWriterOptions options)
+        internal static CreateModerationResponseResultCategoryAppliedInputTypes DeserializeCreateModerationResponseResultCategoryAppliedInputTypes(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            IReadOnlyList<string> hate = default;
-            IReadOnlyList<string> hateThreatening = default;
-            IReadOnlyList<string> harassment = default;
-            IReadOnlyList<string> harassmentThreatening = default;
-            IReadOnlyList<string> illicit = default;
-            IReadOnlyList<string> illicitViolent = default;
-            IReadOnlyList<string> selfHarm = default;
-            IReadOnlyList<string> selfHarmIntent = default;
-            IReadOnlyList<string> selfHarmInstructions = default;
-            IReadOnlyList<string> sexual = default;
-            IReadOnlyList<string> sexualMinors = default;
-            IReadOnlyList<string> violence = default;
-            IReadOnlyList<string> violenceGraphic = default;
+            IList<ModerationApplicableInputKinds> hate = default;
+            IList<ModerationApplicableInputKinds> hateThreatening = default;
+            IList<ModerationApplicableInputKinds> harassment = default;
+            IList<ModerationApplicableInputKinds> harassmentThreatening = default;
+            IList<ModerationApplicableInputKinds> illicit = default;
+            IList<ModerationApplicableInputKinds> illicitViolent = default;
+            IList<BinaryData> selfHarm = default;
+            IList<BinaryData> selfHarmIntent = default;
+            IList<BinaryData> selfHarmInstructions = default;
+            IList<BinaryData> sexual = default;
+            IList<ModerationApplicableInputKinds> sexualMinors = default;
+            IList<BinaryData> violence = default;
+            IList<BinaryData> violenceGraphic = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("hate"u8))
                 {
-                    List<string> array = new List<string>();
+                    List<ModerationApplicableInputKinds> array = new List<ModerationApplicableInputKinds>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(item.GetString());
-                        }
+                        array.Add(item.GetString().ToModerationApplicableInputKinds());
                     }
                     hate = array;
                     continue;
                 }
                 if (prop.NameEquals("hate/threatening"u8))
                 {
-                    List<string> array = new List<string>();
+                    List<ModerationApplicableInputKinds> array = new List<ModerationApplicableInputKinds>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(item.GetString());
-                        }
+                        array.Add(item.GetString().ToModerationApplicableInputKinds());
                     }
                     hateThreatening = array;
                     continue;
                 }
                 if (prop.NameEquals("harassment"u8))
                 {
-                    List<string> array = new List<string>();
+                    List<ModerationApplicableInputKinds> array = new List<ModerationApplicableInputKinds>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(item.GetString());
-                        }
+                        array.Add(item.GetString().ToModerationApplicableInputKinds());
                     }
                     harassment = array;
                     continue;
                 }
                 if (prop.NameEquals("harassment/threatening"u8))
                 {
-                    List<string> array = new List<string>();
+                    List<ModerationApplicableInputKinds> array = new List<ModerationApplicableInputKinds>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(item.GetString());
-                        }
+                        array.Add(item.GetString().ToModerationApplicableInputKinds());
                     }
                     harassmentThreatening = array;
                     continue;
                 }
                 if (prop.NameEquals("illicit"u8))
                 {
-                    List<string> array = new List<string>();
+                    List<ModerationApplicableInputKinds> array = new List<ModerationApplicableInputKinds>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(item.GetString());
-                        }
+                        array.Add(item.GetString().ToModerationApplicableInputKinds());
                     }
                     illicit = array;
                     continue;
                 }
                 if (prop.NameEquals("illicit/violent"u8))
                 {
-                    List<string> array = new List<string>();
+                    List<ModerationApplicableInputKinds> array = new List<ModerationApplicableInputKinds>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(item.GetString());
-                        }
+                        array.Add(item.GetString().ToModerationApplicableInputKinds());
                     }
                     illicitViolent = array;
                     continue;
                 }
                 if (prop.NameEquals("self-harm"u8))
                 {
-                    List<string> array = new List<string>();
+                    List<BinaryData> array = new List<BinaryData>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
                         if (item.ValueKind == JsonValueKind.Null)
@@ -395,7 +360,7 @@ namespace OpenAI.Moderations
                         }
                         else
                         {
-                            array.Add(item.GetString());
+                            array.Add(BinaryData.FromString(item.GetRawText()));
                         }
                     }
                     selfHarm = array;
@@ -403,7 +368,7 @@ namespace OpenAI.Moderations
                 }
                 if (prop.NameEquals("self-harm/intent"u8))
                 {
-                    List<string> array = new List<string>();
+                    List<BinaryData> array = new List<BinaryData>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
                         if (item.ValueKind == JsonValueKind.Null)
@@ -412,7 +377,7 @@ namespace OpenAI.Moderations
                         }
                         else
                         {
-                            array.Add(item.GetString());
+                            array.Add(BinaryData.FromString(item.GetRawText()));
                         }
                     }
                     selfHarmIntent = array;
@@ -420,7 +385,7 @@ namespace OpenAI.Moderations
                 }
                 if (prop.NameEquals("self-harm/instructions"u8))
                 {
-                    List<string> array = new List<string>();
+                    List<BinaryData> array = new List<BinaryData>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
                         if (item.ValueKind == JsonValueKind.Null)
@@ -429,7 +394,7 @@ namespace OpenAI.Moderations
                         }
                         else
                         {
-                            array.Add(item.GetString());
+                            array.Add(BinaryData.FromString(item.GetRawText()));
                         }
                     }
                     selfHarmInstructions = array;
@@ -437,7 +402,7 @@ namespace OpenAI.Moderations
                 }
                 if (prop.NameEquals("sexual"u8))
                 {
-                    List<string> array = new List<string>();
+                    List<BinaryData> array = new List<BinaryData>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
                         if (item.ValueKind == JsonValueKind.Null)
@@ -446,7 +411,7 @@ namespace OpenAI.Moderations
                         }
                         else
                         {
-                            array.Add(item.GetString());
+                            array.Add(BinaryData.FromString(item.GetRawText()));
                         }
                     }
                     sexual = array;
@@ -454,24 +419,17 @@ namespace OpenAI.Moderations
                 }
                 if (prop.NameEquals("sexual/minors"u8))
                 {
-                    List<string> array = new List<string>();
+                    List<ModerationApplicableInputKinds> array = new List<ModerationApplicableInputKinds>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(item.GetString());
-                        }
+                        array.Add(item.GetString().ToModerationApplicableInputKinds());
                     }
                     sexualMinors = array;
                     continue;
                 }
                 if (prop.NameEquals("violence"u8))
                 {
-                    List<string> array = new List<string>();
+                    List<BinaryData> array = new List<BinaryData>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
                         if (item.ValueKind == JsonValueKind.Null)
@@ -480,7 +438,7 @@ namespace OpenAI.Moderations
                         }
                         else
                         {
-                            array.Add(item.GetString());
+                            array.Add(BinaryData.FromString(item.GetRawText()));
                         }
                     }
                     violence = array;
@@ -488,7 +446,7 @@ namespace OpenAI.Moderations
                 }
                 if (prop.NameEquals("violence/graphic"u8))
                 {
-                    List<string> array = new List<string>();
+                    List<BinaryData> array = new List<BinaryData>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
                         if (item.ValueKind == JsonValueKind.Null)
@@ -497,7 +455,7 @@ namespace OpenAI.Moderations
                         }
                         else
                         {
-                            array.Add(item.GetString());
+                            array.Add(BinaryData.FromString(item.GetRawText()));
                         }
                     }
                     violenceGraphic = array;
@@ -506,7 +464,7 @@ namespace OpenAI.Moderations
                 // Plugin customization: remove options.Format != "W" check
                 additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
             }
-            return new InternalCreateModerationResponseResultCategoryAppliedInputTypes(
+            return new CreateModerationResponseResultCategoryAppliedInputTypes(
                 hate,
                 hateThreatening,
                 harassment,
@@ -523,37 +481,37 @@ namespace OpenAI.Moderations
                 additionalBinaryDataProperties);
         }
 
-        BinaryData IPersistableModel<InternalCreateModerationResponseResultCategoryAppliedInputTypes>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<CreateModerationResponseResultCategoryAppliedInputTypes>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<InternalCreateModerationResponseResultCategoryAppliedInputTypes>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<CreateModerationResponseResultCategoryAppliedInputTypes>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, OpenAIContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(InternalCreateModerationResponseResultCategoryAppliedInputTypes)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(CreateModerationResponseResultCategoryAppliedInputTypes)} does not support writing '{options.Format}' format.");
             }
         }
 
-        InternalCreateModerationResponseResultCategoryAppliedInputTypes IPersistableModel<InternalCreateModerationResponseResultCategoryAppliedInputTypes>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        CreateModerationResponseResultCategoryAppliedInputTypes IPersistableModel<CreateModerationResponseResultCategoryAppliedInputTypes>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
-        protected virtual InternalCreateModerationResponseResultCategoryAppliedInputTypes PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual CreateModerationResponseResultCategoryAppliedInputTypes PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<InternalCreateModerationResponseResultCategoryAppliedInputTypes>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<CreateModerationResponseResultCategoryAppliedInputTypes>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data))
                     {
-                        return DeserializeInternalCreateModerationResponseResultCategoryAppliedInputTypes(document.RootElement, options);
+                        return DeserializeCreateModerationResponseResultCategoryAppliedInputTypes(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(InternalCreateModerationResponseResultCategoryAppliedInputTypes)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(CreateModerationResponseResultCategoryAppliedInputTypes)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<InternalCreateModerationResponseResultCategoryAppliedInputTypes>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<CreateModerationResponseResultCategoryAppliedInputTypes>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
     }
 }

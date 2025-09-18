@@ -6,16 +6,16 @@ namespace OpenAI.Moderations;
 
 internal static partial class ModerationApplicableInputKindsExtensions
 {
-    internal static IReadOnlyList<string> ToInternalApplicableInputKinds(this ModerationApplicableInputKinds inputKinds)
+    internal static IList<ModerationApplicableInputKinds> ToInternalApplicableInputKinds(this ModerationApplicableInputKinds inputKinds)
     {
-        List<string> internalInputKinds = [];
+        List<ModerationApplicableInputKinds> internalInputKinds = [];
         if (inputKinds.HasFlag(ModerationApplicableInputKinds.Text))
         {
-            internalInputKinds.Add("text");
+            internalInputKinds.Add(ModerationApplicableInputKinds.Text);
         }
         if (inputKinds.HasFlag(ModerationApplicableInputKinds.Image))
         {
-            internalInputKinds.Add("image");
+            internalInputKinds.Add(ModerationApplicableInputKinds.Image);
         }
         // if (inputKinds.HasFlag(ModerationInputKinds.Audio))
         // {
@@ -23,6 +23,25 @@ internal static partial class ModerationApplicableInputKindsExtensions
         // }
         return internalInputKinds;
     }
+
+     internal static IList<BinaryData> ToInternalApplicableInputKindsBinaryData(this ModerationApplicableInputKinds inputKinds)
+    {
+        List<BinaryData> internalInputKinds = [];
+        if (inputKinds.HasFlag(ModerationApplicableInputKinds.Text))
+        {
+            internalInputKinds.Add(new BinaryData(ModerationApplicableInputKinds.Text));
+        }
+        if (inputKinds.HasFlag(ModerationApplicableInputKinds.Image))
+        {
+            internalInputKinds.Add(new BinaryData(ModerationApplicableInputKinds.Image));
+        }
+        // if (inputKinds.HasFlag(ModerationInputKinds.Audio))
+        // {
+        //     internalInputKinds.Add("audio");
+        // }
+        return internalInputKinds;
+    }
+
 
     internal static ModerationApplicableInputKinds FromInternalApplicableInputKinds(IEnumerable<string> internalInputKinds)
     {
