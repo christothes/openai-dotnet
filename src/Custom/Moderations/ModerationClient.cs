@@ -219,4 +219,20 @@ public partial class ModerationClient
             _model,
             null);
     }
+
+    public BinaryContent CreateClassifyTextRequest(string input, CreateModerationRequestModel? model = null)
+    {
+        using MemoryStream stream = new();
+        using Utf8JsonWriter writer = new(stream);
+
+        var data = BinaryData.FromString($"\"{input.Replace("\"", "\\\"")}\"");
+
+        var request = new CreateModerationRequest(
+            data,
+            _model,
+            null);
+
+        BinaryData bytes = ModelReaderWriter.Write(request);
+        return BinaryContent.Create(bytes);
+    }
 }

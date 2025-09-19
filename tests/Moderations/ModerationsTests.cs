@@ -26,24 +26,28 @@ public class ModerationsTests : OpenAIRecordedTestBase
 
         const string input = "I am killing all my houseplants!";
 
-        ModerationResult moderation = await client.ClassifyTextAsync(input);
+        ModerationResult moderation = IsAsync
+            ? await client.ClassifyTextAsync(input)
+            : client.ClassifyText(input);
+
         Assert.That(moderation, Is.Not.Null);
         Assert.That(moderation.Flagged, Is.True);
         Assert.That(moderation.Violence.Flagged, Is.True);
         Assert.That(moderation.Violence.Score, Is.GreaterThan(0.5));
     }
-    
+
     [Test]
     public async Task ClassifySingleInputProtocolModel()
     {
         ModerationClient client = GetTestClient<ModerationClient>(TestScenario.Moderations);
 
-        var binaryData = BinaryData.FromObjectAsJson(new { input = "I am killing all my houseplants!", model = CreateModerationRequestModel.TextModerationStable.ToString() });
+        const string input = "I am killing all my houseplants!";
 
         ClientResult result = IsAsync
-            ? await client.ClassifyTextAsync(BinaryContent.Create(binaryData))
-            : client.ClassifyText(BinaryContent.Create(binaryData));
-        CreateModerationResponseResult moderation = ModelReaderWriter.Read<CreateModerationResponse>(result.GetRawResponse().Content).Results.FirstOrDefault();
+            ? await client.ClassifyTextAsync(client.CreateClassifyTextRequest(input))
+            : client.ClassifyText(client.CreateClassifyTextRequest(input));
+
+        CreateModerationResponseResult moderation = CreateModerationResponse.FromClientResult(result).Results.FirstOrDefault();
 
         Assert.That(moderation, Is.Not.Null);
         Assert.That(moderation.Flagged, Is.True);

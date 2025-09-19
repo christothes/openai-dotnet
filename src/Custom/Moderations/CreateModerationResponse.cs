@@ -3,6 +3,8 @@
 #nullable disable
 
 using System;
+using System.ClientModel;
+using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -41,6 +43,12 @@ namespace OpenAI
         {
             get => _additionalBinaryDataProperties;
             set => _additionalBinaryDataProperties = value;
+        }
+
+        public static CreateModerationResponse FromClientResult(ClientResult clientResult)
+        {
+            Argument.AssertNotNull(clientResult, nameof(clientResult));
+            return ModelReaderWriter.Read<CreateModerationResponse>(clientResult.GetRawResponse().Content);
         }
     }
 }
