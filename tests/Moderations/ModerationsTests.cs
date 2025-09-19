@@ -44,10 +44,11 @@ public class ModerationsTests : SyncAsyncTestBase
         ModerationClient client = GetTestClient<ModerationClient>(TestScenario.Moderations);
 
         const string input = "I am killing all my houseplants!";
+        var request = client.CreateClassifyTextRequest(input);
 
         ClientResult result = IsAsync
-            ? await client.ClassifyTextAsync(client.CreateClassifyTextRequest(input))
-            : client.ClassifyText(client.CreateClassifyTextRequest(input));
+            ? await client.ClassifyTextAsync(request)
+            : client.ClassifyText(request);
 
         CreateModerationResponseResult moderation = CreateModerationResponse.FromClientResult(result).Results.FirstOrDefault();
 
