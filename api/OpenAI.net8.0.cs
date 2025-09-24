@@ -1,4 +1,73 @@
 namespace OpenAI {
+    [Experimental("OPENAI001")]
+    public class CreateChatCompletionRequest : IJsonModel<CreateChatCompletionRequest>, IPersistableModel<CreateChatCompletionRequest> {
+        public CreateChatCompletionRequest(IEnumerable<ChatMessage> messages, string model);
+        public ChatAudioOptions Audio { get; set; }
+        public float? FrequencyPenalty { get; set; }
+        public BinaryData FunctionCall { get; set; }
+        public IList<ChatFunction> Functions { get; }
+        public IDictionary<string, int> LogitBias { get; set; }
+        public bool? Logprobs { get; set; }
+        public int? MaxCompletionTokens { get; set; }
+        public int? MaxTokens { get; set; }
+        public IList<ChatMessage> Messages { get; }
+        public IDictionary<string, string> Metadata { get; }
+        public int? N { get; set; }
+        public bool? ParallelToolCalls { get; set; }
+        public ChatOutputPrediction Prediction { get; set; }
+        public float? PresencePenalty { get; set; }
+        public ChatReasoningEffortLevel? ReasoningEffort { get; set; }
+        public long? Seed { get; set; }
+        public ChatServiceTier? ServiceTier { get; set; }
+        public BinaryData Stop { get; set; }
+        public bool? Store { get; set; }
+        public bool? Stream { get; set; }
+        public ChatCompletionStreamOptions StreamOptions { get; set; }
+        public float? Temperature { get; set; }
+        public BinaryData ToolChoice { get; set; }
+        public IList<ChatTool> Tools { get; }
+        public int? TopLogprobs { get; set; }
+        public float? TopP { get; set; }
+        public string User { get; set; }
+        public ChatWebSearchOptions WebSearchOptions { get; set; }
+        protected virtual CreateChatCompletionRequest JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual CreateChatCompletionRequest PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
+    public class CreateModerationRequest : IJsonModel<CreateModerationRequest>, IPersistableModel<CreateModerationRequest> {
+        public CreateModerationRequest(BinaryData input);
+        public BinaryData Input { get; }
+        public CreateModerationRequestModel? Model { get; set; }
+        protected virtual CreateModerationRequest JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual CreateModerationRequest PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
+    public class CreateModerationResponse : IJsonModel<CreateModerationResponse>, IPersistableModel<CreateModerationResponse> {
+        public string Id { get; }
+        public string Model { get; }
+        public IList<CreateModerationResponseResult> Results { get; }
+        public static CreateModerationResponse FromClientResult(ClientResult clientResult);
+        protected virtual CreateModerationResponse JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        public static explicit operator CreateModerationResponse(ClientResult result);
+        protected virtual CreateModerationResponse PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
+    public class CreateModerationResponseResult : IJsonModel<CreateModerationResponseResult>, IPersistableModel<CreateModerationResponseResult> {
+        public ModerationCategories Categories { get; }
+        public CreateModerationResponseResultCategoryAppliedInputTypes CategoryAppliedInputTypes { get; }
+        public ModerationCategoryScores CategoryScores { get; }
+        public bool Flagged { get; }
+        protected virtual CreateModerationResponseResult JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual CreateModerationResponseResult PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
     public class OpenAIClient {
         protected OpenAIClient();
         public OpenAIClient(ApiKeyCredential credential, OpenAIClientOptions options);
@@ -1476,6 +1545,7 @@ namespace OpenAI.Chat {
         public virtual CollectionResult<StreamingChatCompletionUpdate> CompleteChatStreaming(params ChatMessage[] messages);
         public virtual CollectionResult<StreamingChatCompletionUpdate> CompleteChatStreaming(IEnumerable<ChatMessage> messages, ChatCompletionOptions options = null, CancellationToken cancellationToken = default);
         public virtual AsyncCollectionResult<StreamingChatCompletionUpdate> CompleteChatStreamingAsync(params ChatMessage[] messages);
+        public virtual AsyncCollectionResult<StreamingChatCompletionUpdate> CompleteChatStreamingAsync(CreateChatCompletionRequest request, RequestOptions options = null);
         public virtual AsyncCollectionResult<StreamingChatCompletionUpdate> CompleteChatStreamingAsync(IEnumerable<ChatMessage> messages, ChatCompletionOptions options = null, CancellationToken cancellationToken = default);
         [Experimental("OPENAI001")]
         public virtual ClientResult DeleteChatCompletion(string completionId, RequestOptions options);
@@ -1669,6 +1739,13 @@ namespace OpenAI.Chat {
         [Experimental("OPENAI001")]
         protected virtual ChatCompletionOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
         [Experimental("OPENAI001")]
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    public class ChatCompletionStreamOptions : IJsonModel<ChatCompletionStreamOptions>, IPersistableModel<ChatCompletionStreamOptions> {
+        public bool? IncludeUsage { get; set; }
+        protected virtual ChatCompletionStreamOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual ChatCompletionStreamOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
     }
     public enum ChatFinishReason {
@@ -3680,9 +3757,80 @@ namespace OpenAI.Models {
     }
 }
 namespace OpenAI.Moderations {
+    [Experimental("OPENAI001")]
+    public readonly partial struct CreateModerationRequestModel : IEquatable<CreateModerationRequestModel> {
+        public CreateModerationRequestModel(string value);
+        public static CreateModerationRequestModel OmniModeration20240926 { get; }
+        public static CreateModerationRequestModel OmniModerationLatest { get; }
+        public static CreateModerationRequestModel TextModerationLatest { get; }
+        public static CreateModerationRequestModel TextModerationStable { get; }
+        public readonly bool Equals(CreateModerationRequestModel other);
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override readonly bool Equals(object obj);
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override readonly int GetHashCode();
+        public static bool operator ==(CreateModerationRequestModel left, CreateModerationRequestModel right);
+        public static implicit operator CreateModerationRequestModel(string value);
+        public static implicit operator CreateModerationRequestModel?(string value);
+        public static bool operator !=(CreateModerationRequestModel left, CreateModerationRequestModel right);
+        public override readonly string ToString();
+    }
+    [Experimental("OPENAI001")]
+    public class CreateModerationResponseResultCategoryAppliedInputTypes : IJsonModel<CreateModerationResponseResultCategoryAppliedInputTypes>, IPersistableModel<CreateModerationResponseResultCategoryAppliedInputTypes> {
+        public IList<BinaryData> SelfHarm { get; }
+        public IList<BinaryData> SelfHarmInstructions { get; }
+        public IList<BinaryData> SelfHarmIntent { get; }
+        public IList<BinaryData> Sexual { get; }
+        public IList<BinaryData> Violence { get; }
+        public IList<BinaryData> ViolenceGraphic { get; }
+        protected virtual CreateModerationResponseResultCategoryAppliedInputTypes JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual CreateModerationResponseResultCategoryAppliedInputTypes PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
+    public class ModerationCategories : IJsonModel<ModerationCategories>, IPersistableModel<ModerationCategories> {
+        public bool Harassment { get; }
+        public bool HarassmentThreatening { get; }
+        public bool Hate { get; }
+        public bool HateThreatening { get; }
+        public bool Illicit { get; }
+        public bool IllicitViolent { get; }
+        public bool SelfHarm { get; }
+        public bool SelfHarmInstructions { get; }
+        public bool SelfHarmIntent { get; }
+        public bool Sexual { get; }
+        public bool SexualMinors { get; }
+        public bool Violence { get; }
+        public bool ViolenceGraphic { get; }
+        protected virtual ModerationCategories JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual ModerationCategories PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
     public class ModerationCategory {
         public bool Flagged { get; }
         public float Score { get; }
+    }
+    [Experimental("OPENAI001")]
+    public class ModerationCategoryScores : IJsonModel<ModerationCategoryScores>, IPersistableModel<ModerationCategoryScores> {
+        public float Harassment { get; }
+        public float HarassmentThreatening { get; }
+        public float Hate { get; }
+        public float HateThreatening { get; }
+        public float Illicit { get; }
+        public float IllicitViolent { get; }
+        public float SelfHarm { get; }
+        public float SelfHarmInstructions { get; }
+        public float SelfHarmIntent { get; }
+        public float Sexual { get; }
+        public float SexualMinors { get; }
+        public float Violence { get; }
+        public float ViolenceGraphic { get; }
+        protected virtual ModerationCategoryScores JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual ModerationCategoryScores PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
     }
     public class ModerationClient {
         protected ModerationClient();
@@ -3705,6 +3853,7 @@ namespace OpenAI.Moderations {
         public virtual Task<ClientResult> ClassifyTextAsync(BinaryContent content, RequestOptions options = null);
         public virtual Task<ClientResult<ModerationResultCollection>> ClassifyTextAsync(IEnumerable<string> inputs, CancellationToken cancellationToken = default);
         public virtual Task<ClientResult<ModerationResult>> ClassifyTextAsync(string input, CancellationToken cancellationToken = default);
+        public BinaryContent CreateClassifyTextRequest(string input, CreateModerationRequestModel? model = null);
     }
     public class ModerationResult : IJsonModel<ModerationResult>, IPersistableModel<ModerationResult> {
         public bool Flagged { get; }
@@ -3741,6 +3890,21 @@ namespace OpenAI.Moderations {
         public static explicit operator ModerationResultCollection(ClientResult result);
         [Experimental("OPENAI001")]
         protected virtual ModerationResultCollection PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        [Experimental("OPENAI001")]
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    public class ModerationResultResponse : IJsonModel<ModerationResultResponse>, IPersistableModel<ModerationResultResponse> {
+        public ModerationCategories Categories { get; set; }
+        public CreateModerationResponseResultCategoryAppliedInputTypes CategoryAppliedInputTypes { get; set; }
+        public ModerationCategoryScores CategoryScores { get; set; }
+        public bool Flagged { get; set; }
+        public IDictionary<string, BinaryData> SerializedAdditionalRawData { get; set; }
+        [Experimental("OPENAI001")]
+        protected virtual ModerationResultResponse JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        [Experimental("OPENAI001")]
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        [Experimental("OPENAI001")]
+        protected virtual ModerationResultResponse PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
         [Experimental("OPENAI001")]
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
     }
