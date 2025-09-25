@@ -100,8 +100,8 @@ namespace OpenAI.Chat
             }
             ChatFinishReason finishReason = default;
             int index = default;
-            InternalChatCompletionResponseMessage message = default;
-            InternalCreateChatCompletionResponseChoiceLogprobs logprobs = default;
+            ChatCompletionResponseMessage message = default;
+            CreateChatCompletionResponseChoiceLogprobs1 logprobs = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -117,7 +117,7 @@ namespace OpenAI.Chat
                 }
                 if (prop.NameEquals("message"u8))
                 {
-                    message = InternalChatCompletionResponseMessage.DeserializeInternalChatCompletionResponseMessage(prop.Value, options);
+                    message = ChatCompletionResponseMessage.DeserializeChatCompletionResponseMessage(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("logprobs"u8))
@@ -127,7 +127,7 @@ namespace OpenAI.Chat
                         logprobs = null;
                         continue;
                     }
-                    logprobs = InternalCreateChatCompletionResponseChoiceLogprobs.DeserializeInternalCreateChatCompletionResponseChoiceLogprobs(prop.Value, options);
+                    logprobs = CreateChatCompletionResponseChoiceLogprobs1.DeserializeCreateChatCompletionResponseChoiceLogprobs1(prop.Value, options);
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check
