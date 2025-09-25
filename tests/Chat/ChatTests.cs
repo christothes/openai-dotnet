@@ -137,7 +137,7 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(usage?.OutputTokenDetails?.ReasoningTokenCount, Is.Null.Or.EqualTo(0));
     }
 
-       [Test]
+    [Test]
     public async Task StreamingChatProtocolModel2Async()
     {
         AssertAsyncOnly();
@@ -174,6 +174,20 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(usage?.InputTokenCount, Is.GreaterThan(0));
         Assert.That(usage?.OutputTokenCount, Is.GreaterThan(0));
         Assert.That(usage?.OutputTokenDetails?.ReasoningTokenCount, Is.Null.Or.EqualTo(0));
+    }
+
+    [Test]
+    public async Task StreamingChatProtocolModel3Async()
+    {
+        AssertAsyncOnly();
+
+        ChatClient client = GetTestClient();
+        IEnumerable<ChatMessage> messages = [new UserChatMessage("What are the best pizza toppings? Give me a breakdown on the reasons.")];
+
+        CreateChatCompletionResponse result = await client.CompleteChatAsync(
+            new CreateChatCompletionRequest(messages, "gpt-4o-mini"), new RequestOptions());
+
+        Assert.That(result, Is.InstanceOf<CreateChatCompletionResponse>());
     }
 
     [Test]
