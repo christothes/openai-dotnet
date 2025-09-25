@@ -3,6 +3,7 @@
 #nullable disable
 
 using System;
+using System.ClientModel;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -710,5 +711,11 @@ namespace OpenAI
         }
 
         string IPersistableModel<CreateChatCompletionRequest>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
+        public static implicit operator BinaryContent(CreateChatCompletionRequest model)
+        {
+            BinaryData bytes = ModelReaderWriter.Write(model);
+            return BinaryContent.Create(bytes);
+        }
     }
 }
