@@ -145,12 +145,14 @@ public class ChatTests : OpenAIRecordedTestBase
         ChatClient client = GetTestClient();
         IEnumerable<ChatMessage> messages = [new UserChatMessage("What are the best pizza toppings? Give me a breakdown on the reasons.")];
 
-        AsyncCollectionResult<StreamingChatCompletionUpdate> streamingResult = (await client.CompleteChatAsync(
-            new CreateChatCompletionRequest(messages, "gpt-4o-mini")
-            {
-                Stream = true,
-                StreamOptions = new() { IncludeUsage = true }
-            }, new RequestOptions())).ToAsyncCollectionResult();
+        // Create the protocol model request with streaming enabled.
+        CreateChatCompletionRequest request = CreateChatCompletionRequest.Create(messages, client);
+        request.Stream = true;
+        request.StreamOptions = new() { IncludeUsage = true };
+
+        // Get the ClientResult and convert to AsyncCollectionResult.
+        ClientResult result = await client.CompleteChatAsync(request, new RequestOptions());
+        AsyncCollectionResult<StreamingChatCompletionUpdate> streamingResult = result.ToAsyncCollectionResult();
 
         Assert.That(streamingResult, Is.InstanceOf<AsyncCollectionResult<StreamingChatCompletionUpdate>>());
     }
