@@ -983,6 +983,82 @@ public class ChatStoreToolTests : OpenAIRecordedTestBase
         catch { /* Ignore cleanup errors */ }
     }
 
+    [Test]
+    public async Task GetChatCompletionMessagesWithPaginationProtocol()
+    {
+        ChatClient client = GetTestClient();
+
+        // Create completion with multiple messages (conversation with tool calls)
+        List<ChatMessage> conversationMessages = new()
+        {
+            new UserChatMessage("What's the weather like today? Use the weather tool."),
+            new UserChatMessage("Name something I could do outside in this weather."),
+            new UserChatMessage("Name something else I could do outside in this weather."),
+            new UserChatMessage("Name something yet another thing I could do outside in this weather.")
+        };
+
+        // Add function definition to trigger more back-and-forth
+        ChatTool weatherTool = ChatTool.CreateFunctionTool(
+            "get_weather",
+            "Get current weather information",
+            BinaryData.FromString("""
+                {
+                    "type": "object",
+                    "properties": {
+                        "location": {
+                            "type": "string",
+                            "description": "The city and state, e.g. San Francisco, CA"
+                        }
+                    },
+                    "required": ["location"]
+                }
+                """));
+
+        ChatCompletionOptions createOptions = new()
+        {
+            StoredOutputEnabled = true,
+            Tools = { weatherTool },
+            Metadata = { ["test_scenario"] = "pagination_messages" }
+        };
+
+        ChatCompletion completion = await client.CompleteChatAsync(
+            conversationMessages,
+            createOptions);
+
+        await RetryWithExponentialBackoffAsync(async () =>
+        {
+            // Test pagination with limit
+            int totalMessages = 0;
+            string lastMessageId = null;
+
+            var result = client.GetChatCompletionMessagesAsync(completion.Id, null, limit: 2, null, options: null);
+
+            await foreach (ChatCompletionMessageList pageResult in result.GetRawPagesAsync())
+            {
+                lastMessageId = pageResult.LastId;
+                Assert.That(pageResult.Data, Is.Not.Null.And.Not.Empty);
+
+                foreach (var message in pageResult.Data)
+                {
+                    totalMessages++;
+                    Assert.That(message.Id, Is.Not.Null.And.Not.Empty);
+                }
+
+                if (totalMessages >= 4) break; // Get a few pages worth
+            }
+
+            Assert.That(totalMessages, Is.GreaterThan(1));
+            Assert.That(lastMessageId, Is.Not.Null);
+        });
+
+        // Clean up
+        try
+        {
+            await client.DeleteChatCompletionAsync(completion.Id);
+        }
+        catch { /* Ignore cleanup errors */ }
+    }
+
     private ChatClient GetTestClient(string overrideModel = null)
         => GetProxiedOpenAIClient<ChatClient>(
             scenario: TestScenario.Chat,

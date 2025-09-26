@@ -1,5 +1,32 @@
 namespace OpenAI {
     [Experimental("OPENAI001")]
+    public class ChatCompletionMessageList : IJsonModel<ChatCompletionMessageList>, IPersistableModel<ChatCompletionMessageList> {
+        public IList<ChatCompletionMessageListDatum> Data { get; }
+        public string FirstId { get; }
+        public bool HasMore { get; }
+        public string LastId { get; }
+        public string Object { get; }
+        protected virtual ChatCompletionMessageList JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        public static implicit operator ChatCompletionMessageList(ClientResult result);
+        protected virtual ChatCompletionMessageList PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
+    public class ChatCompletionResponseMessage : IJsonModel<ChatCompletionResponseMessage>, IPersistableModel<ChatCompletionResponseMessage> {
+        public IReadOnlyList<ChatMessageAnnotation> Annotations { get; }
+        public ChatOutputAudio Audio { get; }
+        public string Content { get; }
+        public ChatCompletionResponseMessageFunctionCall FunctionCall { get; }
+        public string Refusal { get; }
+        public ChatMessageRole Role { get; }
+        public IReadOnlyList<ChatToolCall> ToolCalls { get; }
+        protected virtual ChatCompletionResponseMessage JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual ChatCompletionResponseMessage PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
     public class CreateChatCompletionRequest : IJsonModel<CreateChatCompletionRequest>, IPersistableModel<CreateChatCompletionRequest> {
         public CreateChatCompletionRequest(IEnumerable<ChatMessage> messages, string model);
         public ChatAudioOptions Audio { get; set; }
@@ -32,7 +59,17 @@ namespace OpenAI {
         public ChatWebSearchOptions WebSearchOptions { get; set; }
         protected virtual CreateChatCompletionRequest JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        public static implicit operator BinaryContent(CreateChatCompletionRequest model);
         protected virtual CreateChatCompletionRequest PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
+    public class CreateChatCompletionResponseChoiceLogprobs1 : IJsonModel<CreateChatCompletionResponseChoiceLogprobs1>, IPersistableModel<CreateChatCompletionResponseChoiceLogprobs1> {
+        public IReadOnlyList<ChatTokenLogProbabilityDetails> Content { get; }
+        public IReadOnlyList<ChatTokenLogProbabilityDetails> Refusal { get; }
+        protected virtual CreateChatCompletionResponseChoiceLogprobs1 JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual CreateChatCompletionResponseChoiceLogprobs1 PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
     }
     [Experimental("OPENAI001")]
@@ -1741,6 +1778,14 @@ namespace OpenAI.Chat {
         [Experimental("OPENAI001")]
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
     }
+    public class ChatCompletionResponseMessageFunctionCall : IJsonModel<ChatCompletionResponseMessageFunctionCall>, IPersistableModel<ChatCompletionResponseMessageFunctionCall> {
+        public string Arguments { get; }
+        public string Name { get; }
+        protected virtual ChatCompletionResponseMessageFunctionCall JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual ChatCompletionResponseMessageFunctionCall PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
     public class ChatCompletionStreamOptions : IJsonModel<ChatCompletionStreamOptions>, IPersistableModel<ChatCompletionStreamOptions> {
         public bool? IncludeUsage { get; set; }
         protected virtual ChatCompletionStreamOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
@@ -2196,6 +2241,37 @@ namespace OpenAI.Chat {
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         protected virtual ChatWebSearchOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
+    public class CreateChatCompletionResponse : IJsonModel<CreateChatCompletionResponse>, IPersistableModel<CreateChatCompletionResponse> {
+        public IList<CreateChatCompletionResponseChoice> Choices { get; }
+        public DateTimeOffset Created { get; }
+        public string Id { get; }
+        public string Model { get; }
+        public string Object { get; }
+        public ChatServiceTier? ServiceTier { get; }
+        public string SystemFingerprint { get; }
+        public ChatTokenUsage Usage { get; }
+        protected virtual CreateChatCompletionResponse JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        public static implicit operator CreateChatCompletionResponse(ClientResult result);
+        protected virtual CreateChatCompletionResponse PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
+    public class CreateChatCompletionResponseChoice : IJsonModel<CreateChatCompletionResponseChoice>, IPersistableModel<CreateChatCompletionResponseChoice> {
+        public ChatFinishReason FinishReason { get; }
+        public int Index { get; }
+        public CreateChatCompletionResponseChoiceLogprobs1 Logprobs { get; }
+        public ChatCompletionResponseMessage Message { get; }
+        protected virtual CreateChatCompletionResponseChoice JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual CreateChatCompletionResponseChoice PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
+    public static class CreateChatCompletionResponseExtensions {
+        public static AsyncCollectionResult<StreamingChatCompletionUpdate> ToAsyncCollectionResult(this ClientResult result);
     }
     [Experimental("OPENAI001")]
     public class DeveloperChatMessage : ChatMessage, IJsonModel<DeveloperChatMessage>, IPersistableModel<DeveloperChatMessage> {

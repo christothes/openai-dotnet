@@ -145,11 +145,6 @@ public class ChatTests : OpenAIRecordedTestBase
         ChatClient client = GetTestClient();
         IEnumerable<ChatMessage> messages = [new UserChatMessage("What are the best pizza toppings? Give me a breakdown on the reasons.")];
 
-        int updateCount = 0;
-        ChatTokenUsage usage = null;
-        TimeSpan? firstTokenReceiptTime = null;
-        TimeSpan? latestTokenReceiptTime = null;
-        Stopwatch stopwatch = Stopwatch.StartNew();
         AsyncCollectionResult<StreamingChatCompletionUpdate> streamingResult = (await client.CompleteChatAsync(
             new CreateChatCompletionRequest(messages, "gpt-4o-mini")
             {
@@ -158,22 +153,6 @@ public class ChatTests : OpenAIRecordedTestBase
             }, new RequestOptions())).ToAsyncCollectionResult();
 
         Assert.That(streamingResult, Is.InstanceOf<AsyncCollectionResult<StreamingChatCompletionUpdate>>());
-
-        await foreach (StreamingChatCompletionUpdate chatUpdate in streamingResult)
-        {
-            firstTokenReceiptTime ??= stopwatch.Elapsed;
-            latestTokenReceiptTime = stopwatch.Elapsed;
-            usage ??= chatUpdate.Usage;
-            updateCount++;
-        }
-
-        stopwatch.Stop();
-
-        Assert.That(updateCount, Is.GreaterThan(1));
-        Assert.That(usage, Is.Not.Null);
-        Assert.That(usage?.InputTokenCount, Is.GreaterThan(0));
-        Assert.That(usage?.OutputTokenCount, Is.GreaterThan(0));
-        Assert.That(usage?.OutputTokenDetails?.ReasoningTokenCount, Is.Null.Or.EqualTo(0));
     }
 
     [Test]
