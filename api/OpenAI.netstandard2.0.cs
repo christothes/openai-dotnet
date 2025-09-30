@@ -36,6 +36,7 @@ namespace OpenAI {
         public int? MaxTokens { get; set; }
         public IList<ChatMessage> Messages { get; }
         public IDictionary<string, string> Metadata { get; }
+        public string Model { get; set; }
         public int? N { get; set; }
         public bool? ParallelToolCalls { get; set; }
         public ChatOutputPrediction Prediction { get; set; }
@@ -54,6 +55,7 @@ namespace OpenAI {
         public float? TopP { get; set; }
         public string User { get; set; }
         public ChatWebSearchOptions WebSearchOptions { get; set; }
+        public static CreateChatCompletionRequest Create(IEnumerable<ChatMessage> messages, ChatClient client);
         protected virtual CreateChatCompletionRequest JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         public static implicit operator BinaryContent(CreateChatCompletionRequest model);
@@ -68,34 +70,15 @@ namespace OpenAI {
         protected virtual CreateChatCompletionResponseChoiceLogprobs1 PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
     }
-    public class CreateModerationRequest : IJsonModel<CreateModerationRequest>, IPersistableModel<CreateModerationRequest> {
-        public CreateModerationRequest(BinaryData input);
-        public BinaryData Input { get; }
-        public CreateModerationRequestModel? Model { get; set; }
-        protected virtual CreateModerationRequest JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
-        protected virtual CreateModerationRequest PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
-    }
     public class CreateModerationResponse : IJsonModel<CreateModerationResponse>, IPersistableModel<CreateModerationResponse> {
         public string Id { get; }
         public string Model { get; }
-        public IList<CreateModerationResponseResult> Results { get; }
+        public IList<ModerationResultResponse> Results { get; }
         public static CreateModerationResponse FromClientResult(ClientResult clientResult);
         protected virtual CreateModerationResponse JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
         public static explicit operator CreateModerationResponse(ClientResult result);
         protected virtual CreateModerationResponse PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
-        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
-    }
-    public class CreateModerationResponseResult : IJsonModel<CreateModerationResponseResult>, IPersistableModel<CreateModerationResponseResult> {
-        public ModerationCategories Categories { get; }
-        public CreateModerationResponseResultCategoryAppliedInputTypes CategoryAppliedInputTypes { get; }
-        public ModerationCategoryScores CategoryScores { get; }
-        public bool Flagged { get; }
-        protected virtual CreateModerationResponseResult JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
-        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
-        protected virtual CreateModerationResponseResult PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
     }
     public class OpenAIClient {
@@ -1196,6 +1179,7 @@ namespace OpenAI.Audio {
         public string Text { get; }
         protected virtual AudioTranslation JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        public static explicit operator AudioTranslation(ClientResult result);
         protected virtual AudioTranslation PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
     }
@@ -1306,6 +1290,7 @@ namespace OpenAI.Audio {
     public class StreamingAudioTranscriptionUpdate : IJsonModel<StreamingAudioTranscriptionUpdate>, IPersistableModel<StreamingAudioTranscriptionUpdate> {
         protected virtual StreamingAudioTranscriptionUpdate JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        public static explicit operator StreamingAudioTranscriptionUpdate(ClientResult result);
         protected virtual StreamingAudioTranscriptionUpdate PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
     }
@@ -3462,6 +3447,7 @@ namespace OpenAI.Moderations {
         public IDictionary<string, BinaryData> SerializedAdditionalRawData { get; set; }
         protected virtual ModerationResultResponse JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        public static implicit operator ModerationResultResponse(ClientResult result);
         protected virtual ModerationResultResponse PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
     }
@@ -3471,6 +3457,27 @@ namespace OpenAI.Moderations {
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static ModerationResult ModerationResult(bool flagged, ModerationCategory hate, ModerationCategory hateThreatening, ModerationCategory harassment, ModerationCategory harassmentThreatening, ModerationCategory selfHarm, ModerationCategory selfHarmIntent, ModerationCategory selfHarmInstructions, ModerationCategory sexual, ModerationCategory sexualMinors, ModerationCategory violence, ModerationCategory violenceGraphic);
         public static ModerationResultCollection ModerationResultCollection(string id = null, string model = null, IEnumerable<ModerationResult> items = null);
+    }
+}
+namespace OpenAI.Models {
+    public class CreateModerationRequest : IJsonModel<CreateModerationRequest>, IPersistableModel<CreateModerationRequest> {
+        public CreateModerationRequest(BinaryData input);
+        public BinaryData Input { get; }
+        public CreateModerationRequestModel? Model { get; set; }
+        protected virtual CreateModerationRequest JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual CreateModerationRequest PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    public class CreateModerationResponse : IJsonModel<CreateModerationResponse>, IPersistableModel<CreateModerationResponse> {
+        public ModerationCategories Categories { get; }
+        public CreateModerationResponseResultCategoryAppliedInputTypes CategoryAppliedInputTypes { get; }
+        public ModerationCategoryScores CategoryScores { get; }
+        public bool Flagged { get; }
+        protected virtual CreateModerationResponse JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual CreateModerationResponse PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
     }
 }
 namespace OpenAI.Realtime {
