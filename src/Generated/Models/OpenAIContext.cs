@@ -18,6 +18,7 @@ using OpenAI.Internal;
 using OpenAI.LegacyCompletions;
 using OpenAI.Models;
 using OpenAI.Moderations;
+using OpenAI.Moderations.Models;
 using OpenAI.Realtime;
 using OpenAI.Responses;
 using OpenAI.VectorStores;
@@ -100,7 +101,7 @@ namespace OpenAI
     [ModelReaderWriterBuildable(typeof(CreateContainerBodyExpiresAfter))]
     [ModelReaderWriterBuildable(typeof(CreateContainerFileBody))]
     [ModelReaderWriterBuildable(typeof(CreateModerationRequest))]
-    [ModelReaderWriterBuildable(typeof(CreateModerationResponseResult))]
+    [ModelReaderWriterBuildable(typeof(Moderations.Models.CreateModerationResponse))]
     [ModelReaderWriterBuildable(typeof(CreateModerationResponseResultCategoryAppliedInputTypes))]
     [ModelReaderWriterBuildable(typeof(CustomMcpToolCallApprovalPolicy))]
     [ModelReaderWriterBuildable(typeof(DeleteContainerFileResponse))]

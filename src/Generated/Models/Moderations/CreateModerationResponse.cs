@@ -7,14 +7,14 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using OpenAI.Moderations;
 
-namespace OpenAI
+namespace OpenAI.Moderations.Models
 {
     [Experimental("OPENAI001")]
-    public partial class CreateModerationResponseResult
+    public partial class CreateModerationResponse
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal CreateModerationResponseResult(bool flagged, ModerationCategories categories, ModerationCategoryScores categoryScores, CreateModerationResponseResultCategoryAppliedInputTypes categoryAppliedInputTypes)
+        internal CreateModerationResponse(bool flagged, ModerationCategories categories, ModerationCategoryScores categoryScores, CreateModerationResponseResultCategoryAppliedInputTypes categoryAppliedInputTypes)
         {
             Flagged = flagged;
             Categories = categories;
@@ -22,7 +22,7 @@ namespace OpenAI
             CategoryAppliedInputTypes = categoryAppliedInputTypes;
         }
 
-        internal CreateModerationResponseResult(bool flagged, ModerationCategories categories, ModerationCategoryScores categoryScores, CreateModerationResponseResultCategoryAppliedInputTypes categoryAppliedInputTypes, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal CreateModerationResponse(bool flagged, ModerationCategories categories, ModerationCategoryScores categoryScores, CreateModerationResponseResultCategoryAppliedInputTypes categoryAppliedInputTypes, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Flagged = flagged;
             Categories = categories;

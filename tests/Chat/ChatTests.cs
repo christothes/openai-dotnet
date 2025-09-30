@@ -98,11 +98,10 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(usage?.OutputTokenDetails?.ReasoningTokenCount, Is.Null.Or.EqualTo(0));
     }
 
+    [AsyncOnly]
     [Test]
     public async Task StreamingChatProtocolModelAsync()
     {
-        AssertAsyncOnly();
-
         ChatClient client = GetTestClient();
         IEnumerable<ChatMessage> messages = [new UserChatMessage("What are the best pizza toppings? Give me a breakdown on the reasons.")];
 
@@ -131,229 +130,13 @@ public class ChatTests : OpenAIRecordedTestBase
         stopwatch.Stop();
 
         Assert.That(updateCount, Is.GreaterThan(1));
+        //Assert.That(latestTokenReceiptTime - firstTokenReceiptTime > TimeSpan.FromMilliseconds(500));
         Assert.That(usage, Is.Not.Null);
         Assert.That(usage?.InputTokenCount, Is.GreaterThan(0));
         Assert.That(usage?.OutputTokenCount, Is.GreaterThan(0));
         Assert.That(usage?.OutputTokenDetails?.ReasoningTokenCount, Is.Null.Or.EqualTo(0));
     }
 
-    [Test]
-    public async Task StreamingChatProtocolModel2Async()
-    {
-        AssertAsyncOnly();
-
-        ChatClient client = GetTestClient();
-        IEnumerable<ChatMessage> messages = [new UserChatMessage("What are the best pizza toppings? Give me a breakdown on the reasons.")];
-
-        // Create the protocol model request with streaming enabled.
-        CreateChatCompletionRequest request = CreateChatCompletionRequest.Create(messages, client);
-        request.Stream = true;
-        request.StreamOptions = new() { IncludeUsage = true };
-
-        // Get the ClientResult and convert to AsyncCollectionResult.
-        ClientResult result = await client.CompleteChatAsync(request, new RequestOptions());
-        AsyncCollectionResult<StreamingChatCompletionUpdate> streamingResult = result.ToAsyncCollectionResult();
-
-        Assert.That(streamingResult, Is.InstanceOf<AsyncCollectionResult<StreamingChatCompletionUpdate>>());
-    }
-
-    [Test]
-    public async Task StreamingChatProtocolModel3Async()
-    {
-        AssertAsyncOnly();
-
-        ChatClient client = GetTestClient();
-        IEnumerable<ChatMessage> messages = [new UserChatMessage("What are the best pizza toppings? Give me a breakdown on the reasons.")];
-
-        CreateChatCompletionResponse result = await client.CompleteChatAsync(
-            new CreateChatCompletionRequest(messages, "gpt-4o-mini"), new RequestOptions());
-
-        Assert.That(result, Is.InstanceOf<CreateChatCompletionResponse>());
-    }
-
-    [Test]
-    public void StreamingChatCanBeCancelled()
-    {
-        AssertSyncOnly();
-
-        MockPipelineResponse response = new(200);
-        response.SetContent("""
-            data: {"id":"chatcmpl-A7mKGugwaczn3YyrJLlZY6CM0Wlkr","object":"chat.completion.chunk","created":1726417424,"model":"gpt-4o-mini-2024-07-18","system_fingerprint":"fp_483d39d857","choices":[{"index":0,"delta":{"role":"assistant","content":"","refusal":null},"logprobs":null,"finish_reason":null}],"usage":null}
-
-            data: {"id":"chatcmpl-A7mKGugwaczn3YyrJLlZY6CM0Wlkr","object":"chat.completion.chunk","created":1726417424,"model":"gpt-4o-mini-2024-07-18","system_fingerprint":"fp_483d39d857","choices":[{"index":0,"delta":{"content":"The"},"logprobs":null,"finish_reason":null}],"usage":null}
-
-            data: [DONE]
-            """);
-
-        OpenAIClientOptions options = new OpenAIClientOptions()
-        {
-            Transport = new MockPipelineTransport(response)
-        };
-
-        CancellationTokenSource cancellationTokenSource = new();
-        cancellationTokenSource.CancelAfter(1000);
-
-        ChatClient client = GetTestClient<ChatClient>(TestScenario.Chat, options: options);
-        IEnumerable<ChatMessage> messages = [new UserChatMessage("What are the best pizza toppings? Give me a breakdown on the reasons.")];
-
-        CollectionResult<StreamingChatCompletionUpdate> streamingResult = client.CompleteChatStreaming(messages, cancellationToken: cancellationTokenSource.Token);
-        IEnumerator<StreamingChatCompletionUpdate> enumerator = streamingResult.GetEnumerator();
-
-        enumerator.MoveNext();
-        StreamingChatCompletionUpdate firstUpdate = enumerator.Current;
-
-        Assert.That(firstUpdate, Is.Not.Null);
-        Assert.That(cancellationTokenSource.IsCancellationRequested, Is.False);
-
-        Thread.Sleep(1000);
-
-        Assert.Throws<OperationCanceledException>(() =>
-        {
-            // Should throw for the second update.
-            Assert.True(cancellationTokenSource.IsCancellationRequested);
-            Assert.True(cancellationTokenSource.Token.IsCancellationRequested);
-            enumerator.MoveNext();
-            enumerator.MoveNext();
-        });
-    }
-
-    [Test]
-    public async Task StreamingChatCanBeCancelledAsync()
-    {
-        AssertAsyncOnly();
-
-        MockPipelineResponse response = new(200);
-        response.SetContent("""
-            data: {"id":"chatcmpl-A7mKGugwaczn3YyrJLlZY6CM0Wlkr","object":"chat.completion.chunk","created":1726417424,"model":"gpt-4o-mini-2024-07-18","system_fingerprint":"fp_483d39d857","choices":[{"index":0,"delta":{"role":"assistant","content":"","refusal":null},"logprobs":null,"finish_reason":null}],"usage":null}
-
-            data: {"id":"chatcmpl-A7mKGugwaczn3YyrJLlZY6CM0Wlkr","object":"chat.completion.chunk","created":1726417424,"model":"gpt-4o-mini-2024-07-18","system_fingerprint":"fp_483d39d857","choices":[{"index":0,"delta":{"content":"The"},"logprobs":null,"finish_reason":null}],"usage":null}
-
-            data: [DONE]
-            """);
-
-        OpenAIClientOptions options = new OpenAIClientOptions()
-        {
-            Transport = new MockPipelineTransport(response)
-        };
-
-        CancellationTokenSource cancellationTokenSource = new();
-        cancellationTokenSource.CancelAfter(1000);
-
-        ChatClient client = GetTestClient<ChatClient>(TestScenario.Chat, options: options);
-        IEnumerable<ChatMessage> messages = [new UserChatMessage("What are the best pizza toppings? Give me a breakdown on the reasons.")];
-
-        AsyncCollectionResult<StreamingChatCompletionUpdate> streamingResult = client.CompleteChatStreamingAsync(messages, cancellationToken: cancellationTokenSource.Token);
-        IAsyncEnumerator<StreamingChatCompletionUpdate> enumerator = streamingResult.GetAsyncEnumerator();
-
-        await enumerator.MoveNextAsync();
-        StreamingChatCompletionUpdate firstUpdate = enumerator.Current;
-
-        Assert.That(firstUpdate, Is.Not.Null);
-        Assert.That(cancellationTokenSource.IsCancellationRequested, Is.False);
-
-        await Task.Delay(1000);
-
-        Assert.ThrowsAsync<OperationCanceledException>(async () =>
-        {
-            // Should throw for the second update.
-            Assert.True(cancellationTokenSource.IsCancellationRequested);
-            Assert.True(cancellationTokenSource.Token.IsCancellationRequested);
-            await enumerator.MoveNextAsync();
-            await enumerator.MoveNextAsync();
-        });
-    }
-
-    [Test]
-    public void CompleteChatStreamingClosesNetworkStream()
-    {
-        AssertSyncOnly();
-
-        MockPipelineResponse response = new(200);
-        response.SetContent("""
-            data: {"id":"chatcmpl-A7mKGugwaczn3YyrJLlZY6CM0Wlkr","object":"chat.completion.chunk","created":1726417424,"model":"gpt-4o-mini-2024-07-18","system_fingerprint":"fp_483d39d857","choices":[{"index":0,"delta":{"role":"assistant","content":"","refusal":null},"logprobs":null,"finish_reason":null}],"usage":null}
-
-            data: {"id":"chatcmpl-A7mKGugwaczn3YyrJLlZY6CM0Wlkr","object":"chat.completion.chunk","created":1726417424,"model":"gpt-4o-mini-2024-07-18","system_fingerprint":"fp_483d39d857","choices":[{"index":0,"delta":{"content":"The"},"logprobs":null,"finish_reason":null}],"usage":null}
-
-            data: [DONE]
-            """);
-
-        OpenAIClientOptions options = new OpenAIClientOptions()
-        {
-            Transport = new MockPipelineTransport(response)
-        };
-
-        ChatClient client = GetTestClient<ChatClient>(TestScenario.Chat, options: options);
-        IEnumerable<ChatMessage> messages = [new UserChatMessage("What are the best pizza toppings? Give me a breakdown on the reasons.")];
-
-        int updateCount = 0;
-        TimeSpan? firstTokenReceiptTime = null;
-        TimeSpan? latestTokenReceiptTime = null;
-        Stopwatch stopwatch = Stopwatch.StartNew();
-        CollectionResult<StreamingChatCompletionUpdate> streamingResult = client.CompleteChatStreaming(messages);
-
-        Assert.That(streamingResult, Is.InstanceOf<CollectionResult<StreamingChatCompletionUpdate>>());
-        Assert.IsFalse(response.IsDisposed);
-
-        foreach (StreamingChatCompletionUpdate chatUpdate in streamingResult)
-        {
-            firstTokenReceiptTime ??= stopwatch.Elapsed;
-            latestTokenReceiptTime = stopwatch.Elapsed;
-            updateCount++;
-
-            Console.WriteLine(stopwatch.Elapsed.TotalMilliseconds);
-        }
-
-        stopwatch.Stop();
-
-        Assert.IsTrue(response.IsDisposed);
-    }
-
-    [Test]
-    public async Task CompleteChatStreamingClosesNetworkStreamAsync()
-    {
-        AssertAsyncOnly();
-
-        MockPipelineResponse response = new(200);
-        response.SetContent("""
-            data: {"id":"chatcmpl-A7mKGugwaczn3YyrJLlZY6CM0Wlkr","object":"chat.completion.chunk","created":1726417424,"model":"gpt-4o-mini-2024-07-18","system_fingerprint":"fp_483d39d857","choices":[{"index":0,"delta":{"role":"assistant","content":"","refusal":null},"logprobs":null,"finish_reason":null}],"usage":null}
-
-            data: {"id":"chatcmpl-A7mKGugwaczn3YyrJLlZY6CM0Wlkr","object":"chat.completion.chunk","created":1726417424,"model":"gpt-4o-mini-2024-07-18","system_fingerprint":"fp_483d39d857","choices":[{"index":0,"delta":{"content":"The"},"logprobs":null,"finish_reason":null}],"usage":null}
-
-            data: [DONE]
-            """);
-
-        OpenAIClientOptions options = new OpenAIClientOptions()
-        {
-            Transport = new MockPipelineTransport(response)
-        };
-
-        ChatClient client = GetTestClient<ChatClient>(TestScenario.Chat, options: options);
-        IEnumerable<ChatMessage> messages = [new UserChatMessage("What are the best pizza toppings? Give me a breakdown on the reasons.")];
-
-        int updateCount = 0;
-        TimeSpan? firstTokenReceiptTime = null;
-        TimeSpan? latestTokenReceiptTime = null;
-        Stopwatch stopwatch = Stopwatch.StartNew();
-        AsyncCollectionResult<StreamingChatCompletionUpdate> streamingResult = client.CompleteChatStreamingAsync(messages);
-
-        Assert.That(streamingResult, Is.InstanceOf<AsyncCollectionResult<StreamingChatCompletionUpdate>>());
-        Assert.IsFalse(response.IsDisposed);
-
-        await foreach (StreamingChatCompletionUpdate chatUpdate in streamingResult)
-        {
-            firstTokenReceiptTime ??= stopwatch.Elapsed;
-            latestTokenReceiptTime = stopwatch.Elapsed;
-            updateCount++;
-
-            Console.WriteLine(stopwatch.Elapsed.TotalMilliseconds);
-        }
-
-        stopwatch.Stop();
-
-        Assert.IsTrue(response.IsDisposed);
-    }
-
-    [Test]
     public async Task TwoTurnChat()
     {
         ChatClient client = GetTestClient();

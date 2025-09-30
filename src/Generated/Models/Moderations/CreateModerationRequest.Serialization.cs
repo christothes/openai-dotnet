@@ -6,9 +6,10 @@ using System;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
+using OpenAI;
 using OpenAI.Moderations;
 
-namespace OpenAI
+namespace OpenAI.Moderations.Models
 {
     public partial class CreateModerationRequest : IJsonModel<CreateModerationRequest>
     {

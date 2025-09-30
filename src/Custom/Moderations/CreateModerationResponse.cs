@@ -17,19 +17,19 @@ namespace OpenAI
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal CreateModerationResponse(string id, string model, IEnumerable<CreateModerationResponseResult> results)
+        internal CreateModerationResponse(string id, string model, IEnumerable<ModerationResultResponse> results)
         {
             Id = id;
             Model = model;
             Results = results.ToList();
         }
 
-        internal CreateModerationResponse(string id, string model, IList<CreateModerationResponseResult> results, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal CreateModerationResponse(string id, string model, IList<ModerationResultResponse> results, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Id = id;
             Model = model;
-            Results = results ?? new ChangeTrackingList<CreateModerationResponseResult>();
+            Results = results ?? new ChangeTrackingList<ModerationResultResponse>();
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
@@ -37,7 +37,7 @@ namespace OpenAI
 
         public string Model { get; }
 
-        public IList<CreateModerationResponseResult> Results { get; }
+        public IList<ModerationResultResponse> Results { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

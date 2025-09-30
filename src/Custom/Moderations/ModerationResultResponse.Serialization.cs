@@ -3,6 +3,7 @@
 #nullable disable
 
 using System;
+using System.ClientModel;
 using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -161,5 +162,12 @@ namespace OpenAI.Moderations
         }
 
         string IPersistableModel<ModerationResultResponse>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+
+        public static implicit operator ModerationResultResponse(ClientResult result)
+        {
+            using PipelineResponse response = result.GetRawResponse();
+            using JsonDocument document = JsonDocument.Parse(response.Content);
+            return DeserializeModerationResult(document.RootElement, ModelSerializationExtensions.WireOptions);
+        }
     }
 }

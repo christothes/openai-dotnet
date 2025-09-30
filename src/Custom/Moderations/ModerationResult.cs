@@ -3,14 +3,6 @@ using System;
 
 namespace OpenAI.Moderations;
 
-// CUSTOM:
-// - Removes the redundant classes `ModerationCategories` and `ModerationCategoryScores` and moves their properties into this type.
-// [CodeGenType("CreateModerationResponseResult")]
-// [CodeGenSuppress("Categories")]
-// [CodeGenSuppress("CategoryScores")]
-// [CodeGenSuppress("CategoryAppliedInputTypes")]
-// [CodeGenSuppress(nameof(ModerationResult), typeof(bool), typeof(InternalModerationCategories), typeof(InternalModerationCategoryScores), typeof(InternalCreateModerationResponseResultCategoryAppliedInputTypes))]
-// [CodeGenSuppress(nameof(ModerationResult), typeof(bool), typeof(InternalModerationCategories), typeof(InternalModerationCategoryScores), typeof(InternalCreateModerationResponseResultCategoryAppliedInputTypes), typeof(IDictionary<string, BinaryData>))]
 public partial class ModerationResult
 {
     private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;

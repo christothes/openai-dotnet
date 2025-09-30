@@ -48,7 +48,7 @@ public class ModerationsTests : OpenAIRecordedTestBase
             ? await client.ClassifyTextAsync(request)
             : client.ClassifyText(request);
 
-        CreateModerationResponseResult moderation = CreateModerationResponse.FromClientResult(result).Results.FirstOrDefault();
+        ModerationResultResponse moderation = CreateModerationResponse.FromClientResult(result).Results.FirstOrDefault();
 
         Assert.That(moderation, Is.Not.Null);
         Assert.That(moderation.Flagged, Is.True);

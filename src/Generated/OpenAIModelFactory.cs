@@ -16,6 +16,7 @@ using OpenAI.Graders;
 using OpenAI.Images;
 using OpenAI.Models;
 using OpenAI.Moderations;
+using OpenAI.Moderations.Models;
 using OpenAI.Realtime;
 using OpenAI.Responses;
 using OpenAI.VectorStores;
@@ -839,9 +840,9 @@ namespace OpenAI
             return new ModerationResultCollection(id, model, results.ToList());
         }
 
-        public static CreateModerationResponseResult CreateModerationResponseResult(bool flagged = default, ModerationCategories categories = default, ModerationCategoryScores categoryScores = default, CreateModerationResponseResultCategoryAppliedInputTypes categoryAppliedInputTypes = default)
+        public static Moderations.Models.CreateModerationResponse CreateModerationResponse(bool flagged = default, ModerationCategories categories = default, ModerationCategoryScores categoryScores = default, CreateModerationResponseResultCategoryAppliedInputTypes categoryAppliedInputTypes = default)
         {
-            return new CreateModerationResponseResult(flagged, categories, categoryScores, categoryAppliedInputTypes, additionalBinaryDataProperties: null);
+            return new Moderations.Models.CreateModerationResponse(flagged, categories, categoryScores, categoryAppliedInputTypes, additionalBinaryDataProperties: null);
         }
 
         public static ModerationCategories ModerationCategories(bool hate = default, bool hateThreatening = default, bool harassment = default, bool harassmentThreatening = default, bool illicit = default, bool illicitViolent = default, bool selfHarm = default, bool selfHarmIntent = default, bool selfHarmInstructions = default, bool sexual = default, bool sexualMinors = default, bool violence = default, bool violenceGraphic = default)

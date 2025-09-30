@@ -94,7 +94,7 @@ namespace OpenAI
             }
             string id = default;
             string model = default;
-            IList<CreateModerationResponseResult> results = default;
+            IList<ModerationResultResponse> results = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -110,10 +110,10 @@ namespace OpenAI
                 }
                 if (prop.NameEquals("results"u8))
                 {
-                    List<CreateModerationResponseResult> array = new List<CreateModerationResponseResult>();
+                    List<ModerationResultResponse> array = new List<ModerationResultResponse>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(CreateModerationResponseResult.DeserializeCreateModerationResponseResult(item, options));
+                        array.Add(ModerationResultResponse.DeserializeModerationResult(item, options));
                     }
                     results = array;
                     continue;

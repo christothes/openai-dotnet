@@ -5,9 +5,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using OpenAI;
 using OpenAI.Moderations;
 
-namespace OpenAI
+namespace OpenAI.Moderations.Models
 {
     [Experimental("OPENAI001")]
     public partial class CreateModerationRequest
