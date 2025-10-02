@@ -130,11 +130,42 @@ public class ChatTests : OpenAIRecordedTestBase
         stopwatch.Stop();
 
         Assert.That(updateCount, Is.GreaterThan(1));
-        //Assert.That(latestTokenReceiptTime - firstTokenReceiptTime > TimeSpan.FromMilliseconds(500));
         Assert.That(usage, Is.Not.Null);
         Assert.That(usage?.InputTokenCount, Is.GreaterThan(0));
         Assert.That(usage?.OutputTokenCount, Is.GreaterThan(0));
         Assert.That(usage?.OutputTokenDetails?.ReasoningTokenCount, Is.Null.Or.EqualTo(0));
+    }
+
+    [AsyncOnly]
+    [Test]
+    public async Task StreamingChatProtocolModel2Async()
+    {
+        ChatClient client = GetTestClient();
+        IEnumerable<ChatMessage> messages = [new UserChatMessage("What are the best pizza toppings? Give me a breakdown on the reasons.")];
+
+        // Create the protocol model request with streaming enabled.
+        CreateChatCompletionRequest request = CreateChatCompletionRequest.Create(messages, client);
+        request.Stream = true;
+        request.StreamOptions = new() { IncludeUsage = true };
+
+        // Get the ClientResult and convert to AsyncCollectionResult.
+        ClientResult result = await client.CompleteChatAsync(request, new RequestOptions());
+        AsyncCollectionResult<StreamingChatCompletionUpdate> streamingResult = result.ToAsyncCollectionResult();
+
+        Assert.That(streamingResult, Is.InstanceOf<AsyncCollectionResult<StreamingChatCompletionUpdate>>());
+    }
+
+    [AsyncOnly]
+    [Test]
+    public async Task ChatProtocolModel3Async()
+    {
+        ChatClient client = GetTestClient();
+        IEnumerable<ChatMessage> messages = [new UserChatMessage("What are the best pizza toppings? Give me a breakdown on the reasons.")];
+
+        CreateChatCompletionResponse result = await client.CompleteChatAsync(
+            new CreateChatCompletionRequest(messages, "gpt-4o-mini"), new RequestOptions());
+
+        Assert.That(result, Is.InstanceOf<CreateChatCompletionResponse>());
     }
 
     public async Task TwoTurnChat()
