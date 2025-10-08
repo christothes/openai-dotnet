@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -29,7 +29,7 @@ public static partial class OpenAIChatModelFactory
         ChatCompletion(
             id: id,
             finishReason: finishReason,
-            content:content,
+            content: content,
             refusal: refusal,
             toolCalls: toolCalls,
             role: role,
@@ -371,5 +371,47 @@ public static partial class OpenAIChatModelFactory
             kind: kind,
             toolCallId: toolCallId,
             additionalBinaryDataProperties: null);
+    }
+
+    public static ChatCompletionList ChatCompletionList(string @object = default, IEnumerable<CreateChatCompletionResponse> data = default, string firstId = default, string lastId = default, bool hasMore = default)
+    {
+        data ??= new ChangeTrackingList<CreateChatCompletionResponse>();
+
+        return new ChatCompletionList(
+            @object,
+            data.ToList(),
+            firstId,
+            lastId,
+            hasMore,
+            additionalBinaryDataProperties: null);
+    }
+
+    public static CreateChatCompletionResponse CreateChatCompletionResponse(string id = default, IEnumerable<CreateChatCompletionResponseChoice> choices = default, DateTimeOffset created = default, string model = default, ChatServiceTier? serviceTier = default, string systemFingerprint = default, string @object = default, ChatTokenUsage usage = default)
+    {
+        choices ??= new ChangeTrackingList<CreateChatCompletionResponseChoice>();
+
+        return new CreateChatCompletionResponse(
+            id,
+            choices.ToList(),
+            created,
+            model,
+            serviceTier,
+            systemFingerprint,
+            @object,
+            usage,
+            additionalBinaryDataProperties: null);
+    }
+
+    public static CreateChatCompletionResponseChoice CreateChatCompletionResponseChoice(ChatFinishReason finishReason = default, int index = default, ChatCompletionResponseMessage message = default, CreateChatCompletionResponseChoiceLogprobs logprobs = default)
+    {
+        return new CreateChatCompletionResponseChoice(finishReason, index, message, logprobs, additionalBinaryDataProperties: null);
+    }
+
+    public static CreateChatCompletionResponseChoiceLogprobs CreateChatCompletionResponseChoiceLogprobs(IEnumerable<ChatTokenLogProbabilityDetails> content = default, IEnumerable<ChatTokenLogProbabilityDetails> refusal = default)
+    {
+        content ??= new ChangeTrackingList<ChatTokenLogProbabilityDetails>();
+        refusal ??= new ChangeTrackingList<ChatTokenLogProbabilityDetails>();
+
+        return new CreateChatCompletionResponseChoiceLogprobs(content.ToList(), refusal.ToList(), additionalBinaryDataProperties: null);
     }
 }

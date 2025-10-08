@@ -380,6 +380,33 @@ public partial class ChatClient
         return ClientResult.FromValue((ChatCompletionDeletionResult)result, result.GetRawResponse());
     }
 
+    // Protocol model methods
+    [Experimental("OPENAI001")]
+        public virtual CollectionResult<CreateChatCompletionResponse> GetChatCompletions(string after, int? limit, ChatCompletionCollectionOrder? order, IDictionary<string, string> metadata, string model = null, CancellationToken cancellationToken = default)
+        {
+            return new ChatClientGetPMChatCompletionsCollectionResultOfT(
+                this,
+                after,
+                limit,
+                order?.ToString(),
+                metadata,
+                model,
+                cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
+        }
+
+        [Experimental("OPENAI001")]
+        public virtual AsyncCollectionResult<CreateChatCompletionResponse> GetChatCompletionsAsync(string after,  int? limit, ChatCompletionCollectionOrder? order, IDictionary<string, string> metadata, string model = null, CancellationToken cancellationToken = default)
+        {
+            return new ChatPMClientGetChatCompletionsAsyncCollectionResultOfT(
+                this,
+                after,
+                limit,
+                order?.ToString(),
+                metadata,
+                model,
+                cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
+        }
+
     private void CreateChatCompletionOptions(IEnumerable<ChatMessage> messages, ref ChatCompletionOptions options, bool stream = false)
     {
         options.Messages = messages.ToList();

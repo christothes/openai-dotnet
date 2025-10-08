@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
+namespace OpenAI.Chat
+{
+    [Experimental("OPENAI001")]
+    public partial class CreateChatCompletionResponseChoice
+    {
+        private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
+
+        internal CreateChatCompletionResponseChoice(ChatFinishReason finishReason, int index, ChatCompletionResponseMessage message, CreateChatCompletionResponseChoiceLogprobs logprobs)
+        {
+            FinishReason = finishReason;
+            Index = index;
+            Message = message;
+            Logprobs = logprobs;
+        }
+
+        internal CreateChatCompletionResponseChoice(ChatFinishReason finishReason, int index, ChatCompletionResponseMessage message, CreateChatCompletionResponseChoiceLogprobs logprobs, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        {
+            FinishReason = finishReason;
+            Index = index;
+            Message = message;
+            Logprobs = logprobs;
+            _additionalBinaryDataProperties = additionalBinaryDataProperties;
+        }
+
+        public ChatFinishReason FinishReason { get; }
+
+        public int Index { get; }
+
+        public ChatCompletionResponseMessage Message { get; }
+
+        public CreateChatCompletionResponseChoiceLogprobs Logprobs { get; }
+
+        internal IDictionary<string, BinaryData> SerializedAdditionalRawData
+        {
+            get => _additionalBinaryDataProperties;
+            set => _additionalBinaryDataProperties = value;
+        }
+    }
+}
