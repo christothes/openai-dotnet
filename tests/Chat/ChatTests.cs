@@ -31,7 +31,7 @@ public class ChatTests : OpenAIRecordedTestBase
         TestTimeoutInSeconds = 75;
     }
 
-    [Test]
+    [RecordedTest]
     public async Task HelloWorldChat()
     {
         ChatClient client = GetTestClient();
@@ -42,7 +42,7 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(result.Value.Content[0].Text.Length, Is.GreaterThan(0));
     }
 
-    [Test]
+    [RecordedTest]
     public async Task HelloWorldWithTopLevelClient()
     {
         OpenAIClient client = GetProxiedOpenAIClient<OpenAIClient>(TestScenario.TopLevel);
@@ -52,7 +52,7 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(result.Value.Content[0].Text.Length, Is.GreaterThan(0));
     }
 
-    [Test]
+    [RecordedTest]
     public async Task MultiMessageChat()
     {
         ChatClient client = GetTestClient();
@@ -65,7 +65,7 @@ public class ChatTests : OpenAIRecordedTestBase
     }
 
     [Ignore("This test is failing consistently.")]
-    [Test]
+    [RecordedTest]
     public async Task StreamingChat()
     {
         ChatClient client = GetTestClient();
@@ -98,7 +98,7 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(usage?.OutputTokenDetails?.ReasoningTokenCount, Is.Null.Or.EqualTo(0));
     }
 
-    [Test]
+    [RecordedTest]
     public async Task TwoTurnChat()
     {
         ChatClient client = GetTestClient();
@@ -118,7 +118,7 @@ public class ChatTests : OpenAIRecordedTestBase
     }
 
     [Ignore("Temporarily disabled due to service instability.")]
-    [Test]
+    [RecordedTest]
     public async Task ChatWithVision()
     {
         string mediaType = "image/png";
@@ -139,7 +139,31 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(result.Value.Content[0].Text.ToLowerInvariant(), Does.Contain("dog").Or.Contain("cat").IgnoreCase);
     }
 
-    [Test]
+    [Ignore("Temporarily disabled due to service instability.")]
+    [RecordedTest]
+    public async Task ChatWithVision_PM()
+    {
+        string mediaType = "image/png";
+        string filePath = Path.Combine("Assets", "images_dog_and_cat.png");
+        using Stream stream = File.OpenRead(filePath);
+        BinaryData imageData = BinaryData.FromStream(stream);
+
+        ChatClient client = GetTestClient();
+        IEnumerable<ChatMessage> messages = [
+            new UserChatMessage(
+                ChatMessageContentPart.CreateTextPart("Describe this image for me."),
+                ChatMessageContentPart.CreateImagePart(imageData, mediaType)),
+        ];
+        ChatCompletionOptions options = new() { MaxOutputTokenCount = 2048 };
+
+        CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
+        ClientResult<BinaryData> result = await client.CompleteChatAsync(requestBody);
+        ChatCompletion completion = ModelReaderWriter.Read<ChatCompletion>(result.Value);
+        Console.WriteLine(completion.Content[0].Text);
+        Assert.That(completion.Content[0].Text.ToLowerInvariant(), Does.Contain("dog").Or.Contain("cat").IgnoreCase);
+    }
+
+    [RecordedTest]
     public async Task ChatWithBasicAudioOutput()
     {
         ChatClient client = GetTestClient(overrideModel: "gpt-4o-audio-preview");
@@ -189,7 +213,7 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(streamedExpiresAt, Is.GreaterThan(DateTimeOffset.Parse("2025-01-01")));
     }
 
-    [Test]
+    [RecordedTest]
     public async Task ChatWithAudio()
     {
         ChatClient client = GetTestClient(overrideModel: "gpt-4o-audio-preview");
@@ -279,7 +303,103 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(streamedUsage?.OutputTokenDetails?.AudioTokenCount, Is.GreaterThan(0));
     }
 
-    [Test]
+    // TODO: Implement PM support for streaming audio responses.
+    [RecordedTest]
+    public async Task ChatWithAudio_PM()
+    {
+        ChatClient client = GetTestClient(overrideModel: "gpt-4o-audio-preview");
+
+        string helloWorldAudioPath = Path.Join("Assets", "audio_hello_world.mp3");
+        BinaryData helloWorldAudioBytes = BinaryData.FromBytes(File.ReadAllBytes(helloWorldAudioPath));
+        ChatMessageContentPart helloWorldAudioContentPart = ChatMessageContentPart.CreateInputAudioPart(
+            helloWorldAudioBytes,
+            ChatInputAudioFormat.Mp3);
+        string whatsTheWeatherAudioPath = Path.Join("Assets", "realtime_whats_the_weather_pcm16_24khz_mono.wav");
+        BinaryData whatsTheWeatherAudioBytes = BinaryData.FromBytes(File.ReadAllBytes(whatsTheWeatherAudioPath));
+        ChatMessageContentPart whatsTheWeatherAudioContentPart = ChatMessageContentPart.CreateInputAudioPart(
+            whatsTheWeatherAudioBytes,
+            ChatInputAudioFormat.Wav);
+
+        List<ChatMessage> messages = [new UserChatMessage([helloWorldAudioContentPart])];
+
+        ChatCompletionOptions options = new()
+        {
+            ResponseModalities = ChatResponseModalities.Text | ChatResponseModalities.Audio,
+            AudioOptions = new(ChatOutputAudioVoice.Alloy, ChatOutputAudioFormat.Pcm16)
+        };
+
+        CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
+        CreateChatCompletionResponse response = (CreateChatCompletionResponse)await client.CompleteChatAsync(requestBody);
+        ChatCompletionResponseMessage message = response.Choices[0].Message;
+        Assert.That(response, Is.Not.Null);
+        Assert.That(message.Content, Is.Null);
+
+        ChatOutputAudio outputAudio = message.Audio;
+        Assert.That(outputAudio, Is.Not.Null);
+        Assert.That(outputAudio.Id, Is.Not.Null.And.Not.Empty);
+        Assert.That(outputAudio.AudioBytes, Is.Not.Null);
+        Assert.That(outputAudio.Transcript, Is.Not.Null.And.Not.Empty);
+
+        AssistantChatMessage audioHistoryMessage = ChatMessage.CreateAssistantMessage(message.Content);
+        Assert.That(audioHistoryMessage, Is.InstanceOf<AssistantChatMessage>());
+        Assert.That(audioHistoryMessage.Content, Has.Count.EqualTo(0));
+
+        Assert.That(audioHistoryMessage.OutputAudioReference?.Id, Is.EqualTo(message.Audio.Id));
+        messages.Add(audioHistoryMessage);
+
+        messages.Add(
+            new UserChatMessage(
+                [
+                    "Please answer the following spoken question:",
+                    ChatMessageContentPart.CreateInputAudioPart(whatsTheWeatherAudioBytes, ChatInputAudioFormat.Wav),
+                ]));
+
+        string streamedCorrelationId = null;
+        DateTimeOffset? streamedExpiresAt = null;
+        StringBuilder streamedTranscriptBuilder = new();
+        ChatTokenUsage streamedUsage = null;
+        using MemoryStream outputAudioStream = new();
+
+        requestBody = CreateChatCompletionRequest.Create(messages, client, options);
+        var binaryResponse = await client.CompleteChatAsync(requestBody);
+        await foreach (StreamingChatCompletionUpdate update in binaryResponse.ToAsyncCollectionResult())
+        {
+            Assert.That(update.ContentUpdate, Has.Count.EqualTo(0));
+            StreamingChatOutputAudioUpdate outputAudioUpdate = update.OutputAudioUpdate;
+
+            if (update.Usage is not null)
+            {
+                Assert.That(streamedUsage, Is.Null);
+                streamedUsage = update.Usage;
+            }
+            if (outputAudioUpdate is not null)
+            {
+                string serializedOutputAudioUpdate = ModelReaderWriter.Write(outputAudioUpdate).ToString();
+                Assert.That(serializedOutputAudioUpdate, Is.Not.Null.And.Not.Empty);
+
+                if (outputAudioUpdate.Id is not null)
+                {
+                    Assert.That(streamedCorrelationId, Is.Null.Or.EqualTo(streamedCorrelationId));
+                    streamedCorrelationId ??= outputAudioUpdate.Id;
+                }
+                if (outputAudioUpdate.ExpiresAt.HasValue)
+                {
+                    Assert.That(streamedExpiresAt.HasValue, Is.False);
+                    streamedExpiresAt = outputAudioUpdate.ExpiresAt;
+                }
+                streamedTranscriptBuilder.Append(outputAudioUpdate.TranscriptUpdate);
+                outputAudioStream.Write(outputAudioUpdate.AudioBytesUpdate);
+            }
+        }
+        Assert.That(streamedCorrelationId, Is.Not.Null.And.Not.Empty);
+        Assert.That(streamedExpiresAt.HasValue, Is.True);
+        Assert.That(streamedTranscriptBuilder.ToString(), Is.Not.Null.And.Not.Empty);
+        Assert.That(outputAudioStream.Length, Is.GreaterThan(9000));
+        Assert.That(streamedUsage?.InputTokenDetails?.AudioTokenCount, Is.GreaterThan(0));
+        Assert.That(streamedUsage?.OutputTokenDetails?.AudioTokenCount, Is.GreaterThan(0));
+    }
+
+    [RecordedTest]
     public async Task AuthFailure()
     {
         string fakeApiKey = "not-a-real-key-but-should-be-sanitized";
@@ -300,7 +420,7 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(clientResultException.Message, Does.Not.Contain(fakeApiKey));
     }
 
-    [Test]
+    [RecordedTest]
     [TestCase(true)]
     [TestCase(false)]
     public async Task TokenLogProbabilities(bool includeLogProbabilities)
@@ -352,7 +472,60 @@ public class ChatTests : OpenAIRecordedTestBase
         }
     }
 
-    [Test]
+    [RecordedTest]
+    [TestCase(true)]
+    [TestCase(false)]
+    public async Task TokenLogProbabilities_PM(bool includeLogProbabilities)
+    {
+        const int topLogProbabilityCount = 3;
+        ChatClient client = GetTestClient();
+        IList<ChatMessage> messages = [new UserChatMessage("What are the best pizza toppings? Give me a breakdown on the reasons.")];
+        ChatCompletionOptions options;
+
+        if (includeLogProbabilities)
+        {
+            options = new()
+            {
+                IncludeLogProbabilities = true,
+                TopLogProbabilityCount = topLogProbabilityCount
+            };
+        }
+        else
+        {
+            options = new();
+        }
+
+        CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
+        ClientResult<BinaryData> result = await client.CompleteChatAsync(requestBody);
+        string raw = result.GetRawResponse().Content.ToString();
+        ChatCompletion chatCompletions = ModelReaderWriter.Read<ChatCompletion>(result.Value);
+        Assert.That(chatCompletions, Is.Not.Null);
+
+        if (includeLogProbabilities)
+        {
+            IReadOnlyList<ChatTokenLogProbabilityDetails> chatTokenLogProbabilities = chatCompletions.ContentTokenLogProbabilities;
+            Assert.That(chatTokenLogProbabilities, Is.Not.Null.Or.Empty);
+
+            foreach (ChatTokenLogProbabilityDetails tokenLogProbs in chatTokenLogProbabilities)
+            {
+                Assert.That(tokenLogProbs.Token, Is.Not.Null.Or.Empty);
+                Assert.That(tokenLogProbs.TopLogProbabilities, Is.Not.Null.Or.Empty);
+                Assert.That(tokenLogProbs.TopLogProbabilities, Has.Count.EqualTo(topLogProbabilityCount));
+
+                foreach (ChatTokenTopLogProbabilityDetails tokenTopLogProbs in tokenLogProbs.TopLogProbabilities)
+                {
+                    Assert.That(tokenTopLogProbs.Token, Is.Not.Null.Or.Empty);
+                }
+            }
+        }
+        else
+        {
+            Assert.That(chatCompletions.ContentTokenLogProbabilities, Is.Not.Null);
+            Assert.That(chatCompletions.ContentTokenLogProbabilities, Is.Empty);
+        }
+    }
+
+    [RecordedTest]
     [TestCase(true)]
     [TestCase(false)]
     public async Task TokenLogProbabilitiesStreaming(bool includeLogProbabilities)
@@ -408,7 +581,7 @@ public class ChatTests : OpenAIRecordedTestBase
         }
     }
 
-    [Test]
+    [RecordedTest]
     public async Task NonStrictJsonSchemaWorks()
     {
         ChatClient client = GetTestClient(overrideModel: "gpt-4o-mini");
@@ -430,7 +603,32 @@ public class ChatTests : OpenAIRecordedTestBase
         Console.WriteLine(completion);
     }
 
-    [Test]
+    [RecordedTest]
+    public async Task NonStrictJsonSchemaWorks_PM()
+    {
+        ChatClient client = GetTestClient(overrideModel: "gpt-4o-mini");
+        IEnumerable<ChatMessage> messages = [new UserChatMessage("What are the hex values for red, green, and blue?")];
+        ChatCompletionOptions options = new()
+        {
+            ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
+                "some_color_schema",
+                BinaryData.FromBytes("""
+                    {
+                        "type": "object",
+                        "properties": {},
+                        "additionalProperties": false
+                    }
+                    """u8.ToArray()),
+                "an object that describes color components by name",
+                jsonSchemaIsStrict: false)
+        };
+        CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
+        ClientResult<BinaryData> result = await client.CompleteChatAsync(requestBody);
+        ChatCompletion completion = ModelReaderWriter.Read<ChatCompletion>(result.Value);
+        Console.WriteLine(completion);
+    }
+
+    [RecordedTest]
     public async Task JsonResult()
     {
         ChatClient client = GetTestClient();
@@ -451,7 +649,30 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(blueProperty.GetString().ToLowerInvariant(), Contains.Substring("0000ff"));
     }
 
-    [Test]
+    [RecordedTest]
+    public async Task JsonResult_PM()
+    {
+        ChatClient client = GetTestClient();
+        IEnumerable<ChatMessage> messages = [
+            new UserChatMessage("Give me a JSON object with the following properties: red, green, and blue. The value "
+                + "of each property should be a string containing their RGB representation in hexadecimal.")
+        ];
+        ChatCompletionOptions options = new() { ResponseFormat = ChatResponseFormat.CreateJsonObjectFormat() };
+        CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
+        ClientResult<BinaryData> result = await client.CompleteChatAsync(requestBody);
+        ChatCompletion completion = ModelReaderWriter.Read<ChatCompletion>(result.Value);
+
+        JsonDocument jsonDocument = JsonDocument.Parse(completion.Content[0].Text);
+
+        Assert.That(jsonDocument.RootElement.TryGetProperty("red", out JsonElement redProperty));
+        Assert.That(jsonDocument.RootElement.TryGetProperty("green", out JsonElement greenProperty));
+        Assert.That(jsonDocument.RootElement.TryGetProperty("blue", out JsonElement blueProperty));
+        Assert.That(redProperty.GetString().ToLowerInvariant(), Contains.Substring("ff0000"));
+        Assert.That(greenProperty.GetString().ToLowerInvariant(), Contains.Substring("00ff00"));
+        Assert.That(blueProperty.GetString().ToLowerInvariant(), Contains.Substring("0000ff"));
+    }
+
+    [RecordedTest]
     public async Task MultipartContentWorks()
     {
         ChatClient client = GetTestClient();
@@ -472,7 +693,7 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(completion.Content[0].Text.ToLowerInvariant(), Does.Contain("dog").Or.Contain("pup").Or.Contain("kit"));
     }
 
-    [Test]
+    [RecordedTest]
     public async Task StructuredOutputsWork()
     {
         ChatClient client = GetTestClient();
@@ -519,7 +740,56 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(stepsProperty.ValueKind == JsonValueKind.Array);
     }
 
-    [Test]
+    [RecordedTest]
+    public async Task StructuredOutputsWork_PM()
+    {
+        ChatClient client = GetTestClient();
+        IEnumerable<ChatMessage> messages = [
+            new UserChatMessage("What's heavier, a pound of feathers or sixteen ounces of steel?")
+        ];
+        ChatCompletionOptions options = new ChatCompletionOptions()
+        {
+            ResponseFormat = ChatResponseFormat.CreateJsonSchemaFormat(
+                "test_schema",
+                BinaryData.FromBytes("""
+                    {
+                        "type": "object",
+                        "properties": {
+                            "answer": {
+                                "type": "string"
+                            },
+                            "steps": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "required": [
+                            "answer",
+                            "steps"
+                        ],
+                        "additionalProperties": false
+                    }
+                    """u8.ToArray()),
+                "a single final answer with a supporting collection of steps",
+                jsonSchemaIsStrict: true)
+        };
+        CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
+        ClientResult<BinaryData> result = await client.CompleteChatAsync(requestBody);
+        ChatCompletion completion = ModelReaderWriter.Read<ChatCompletion>(result.Value);
+        Assert.That(completion, Is.Not.Null);
+        Assert.That(completion.Refusal, Is.Null.Or.Empty);
+        Assert.That(completion.Content?.Count, Is.EqualTo(1));
+        JsonDocument contentDocument = null;
+        Assert.DoesNotThrow(() => contentDocument = JsonDocument.Parse(completion.Content[0].Text));
+        Assert.That(contentDocument.RootElement.TryGetProperty("answer", out JsonElement answerProperty));
+        Assert.That(answerProperty.ValueKind == JsonValueKind.String);
+        Assert.That(contentDocument.RootElement.TryGetProperty("steps", out JsonElement stepsProperty));
+        Assert.That(stepsProperty.ValueKind == JsonValueKind.Array);
+    }
+
+    [RecordedTest]
     public async Task StructuredRefusalWorks()
     {
         ChatClient client = GetTestClient(overrideModel: "gpt-4o-2024-08-06");
@@ -576,7 +846,7 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(completion.Content[0].Text, Is.Not.Null.And.Not.Empty);
     }
 
-    [Test]
+    [RecordedTest]
     public async Task StreamingStructuredRefusalWorks()
     {
         ChatClient client = GetTestClient(overrideModel: "gpt-4o-2024-08-06");
@@ -637,7 +907,7 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(finishReason, Is.EqualTo(ChatFinishReason.Stop));
     }
 
-    [Test]
+    [RecordedTest]
     [NonParallelizable]
     public async Task HelloWorldChatWithTracingAndMetrics()
     {
@@ -669,7 +939,7 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(output.value, Is.EqualTo(result.Value.Usage.OutputTokenCount));
     }
 
-    [Test]
+    [RecordedTest]
     public async Task ReasoningTokensWork()
     {
         ChatClient client = GetTestClient(overrideModel: "o3-mini");
@@ -693,7 +963,33 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(completion.Usage.OutputTokenDetails?.ReasoningTokenCount, Is.LessThan(completion.Usage.OutputTokenCount));
     }
 
-    [Test]
+    [RecordedTest]
+    public async Task ReasoningTokensWork_PM()
+    {
+        ChatClient client = GetTestClient(overrideModel: "o3-mini");
+
+        UserChatMessage message = new("Using a comprehensive evaluation of popular media in the 1970s and 1980s, what were the most common sci-fi themes?");
+        IEnumerable<ChatMessage> messages = [message];
+        ChatCompletionOptions options = new()
+        {
+            MaxOutputTokenCount = 2148,
+            ReasoningEffortLevel = ChatReasoningEffortLevel.Low,
+        };
+        Assert.That(ModelReaderWriter.Write(options).ToString(), Does.Contain(@"""reasoning_effort"":""low"""));
+        CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
+        ClientResult<BinaryData> result = await client.CompleteChatAsync(requestBody);
+        ChatCompletion completion = ModelReaderWriter.Read<ChatCompletion>(result.Value);
+
+        Assert.That(completion, Is.Not.Null);
+        Assert.That(completion.FinishReason, Is.EqualTo(ChatFinishReason.Stop));
+        Assert.That(completion.Usage, Is.Not.Null);
+        Assert.That(completion.Usage.OutputTokenCount, Is.GreaterThan(0));
+        Assert.That(completion.Usage.OutputTokenCount, Is.LessThanOrEqualTo(options.MaxOutputTokenCount));
+        Assert.That(completion.Usage.OutputTokenDetails?.ReasoningTokenCount, Is.GreaterThan(0));
+        Assert.That(completion.Usage.OutputTokenDetails?.ReasoningTokenCount, Is.LessThan(completion.Usage.OutputTokenCount));
+    }
+
+    [RecordedTest]
     public async Task PredictedOutputsWork()
     {
         ChatClient client = GetTestClient();
@@ -747,7 +1043,64 @@ public class ChatTests : OpenAIRecordedTestBase
         }
     }
 
-    [Test]
+    [RecordedTest]
+    public async Task PredictedOutputsWork_PM()
+    {
+        ChatClient client = GetTestClient();
+
+        foreach (ChatOutputPrediction predictionVariant in new List<ChatOutputPrediction>(
+            [
+                // Plain string
+                ChatOutputPrediction.CreateStaticContentPrediction("""
+                    {
+                      "feature_name": "test_feature",
+                      "enabled": true
+                    }
+                    """.ReplaceLineEndings("\n")),
+                // One content part
+                ChatOutputPrediction.CreateStaticContentPrediction(
+                [
+                    ChatMessageContentPart.CreateTextPart("""
+                    {
+                      "feature_name": "test_feature",
+                      "enabled": true
+                    }
+                    """.ReplaceLineEndings("\n")),
+                ]),
+                // Several content parts
+                ChatOutputPrediction.CreateStaticContentPrediction(
+                    [
+                        "{\n",
+                        "  \"feature_name\": \"test_feature\",\n",
+                        "  \"enabled\": true\n",
+                        "}",
+                    ]),
+            ]))
+        {
+            ChatCompletionOptions options = new()
+            {
+                OutputPrediction = predictionVariant,
+            };
+
+            ChatMessage message = ChatMessage.CreateUserMessage("""
+            Modify the following input to enable the feature. Only respond with the JSON and include no other text. Do not enclose in markdown backticks or any other additional annotations.
+
+            {
+              "feature_name": "test_feature",
+              "enabled": false
+            }
+            """.ReplaceLineEndings("\n"));
+
+            IEnumerable<ChatMessage> messages = [message];
+            CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
+            ClientResult<BinaryData> result = await client.CompleteChatAsync(requestBody);
+            ChatCompletion completion = ModelReaderWriter.Read<ChatCompletion>(result.Value);
+
+            Assert.That(completion.Usage.OutputTokenDetails.AcceptedPredictionTokenCount, Is.GreaterThan(0));
+        }
+    }
+
+    [RecordedTest]
     public async Task O3miniDeveloperMessagesWork()
     {
         List<ChatMessage> messages =
@@ -768,7 +1121,7 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(completion.Content[0].Text, Does.EndWith("Hope this helps!"));
     }
 
-    [Test]
+    [RecordedTest]
     public async Task WebSearchWorks()
     {
         ChatClient client = GetTestClient("gpt-4o-search-preview");
@@ -785,7 +1138,7 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(completion.Annotations, Has.Count.GreaterThan(0));
     }
 
-    [Test]
+    [RecordedTest]
     public async Task FileIdContentWorks()
     {
         OpenAIFileClient fileClient = GetProxiedOpenAIClient<OpenAIFileClient>(TestScenario.Files);
@@ -812,7 +1165,7 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(completion.Content[0].Text?.ToLower(), Does.Contain("pizza"));
     }
 
-    [Test]
+    [RecordedTest]
     public async Task FileBinaryContentWorks()
     {
         ChatMessageContentPart binaryFileContentPart
@@ -853,7 +1206,7 @@ public class ChatTests : OpenAIRecordedTestBase
         }
     }
 
-    [Test]
+    [RecordedTest]
     public async Task GetChatCompletionMessagesHandlesNonExistentCompletion()
     {
         ChatClient client = GetTestClient();
@@ -876,7 +1229,7 @@ public class ChatTests : OpenAIRecordedTestBase
         }
     }
 
-    [Test]
+    [RecordedTest]
     public void GetChatCompletionMessagesWithInvalidParameters()
     {
         ChatClient client = CreateProxyFromClient(GetTestClient<ChatClient>(scenario: TestScenario.Chat, credential: GetTestApiKeyCredential()));
@@ -900,7 +1253,7 @@ public class ChatTests : OpenAIRecordedTestBase
         });
     }
 
-    [Test]
+    [RecordedTest]
     public async Task ChatServiceTierWorks()
     {
         ChatClient client = GetProxiedOpenAIClient<ChatClient>(TestScenario.Chat, "o3-mini");
@@ -918,7 +1271,7 @@ public class ChatTests : OpenAIRecordedTestBase
     }
 
     [SyncOnly]
-    [Test]
+    [RecordedTest]
     public void StreamingChatCanBeCancelled()
     {
         MockPipelineResponse response = new MockPipelineResponse(200).WithContent("""
@@ -962,7 +1315,7 @@ public class ChatTests : OpenAIRecordedTestBase
     }
 
     [AsyncOnly]
-    [Test]
+    [RecordedTest]
     public async Task StreamingChatCanBeCancelledAsync()
     {
         MockPipelineResponse response = new MockPipelineResponse(200).WithContent("""
@@ -1008,7 +1361,7 @@ public class ChatTests : OpenAIRecordedTestBase
         });
     }
 
-    [Test]
+    [RecordedTest]
     public async Task CompleteChatStreamingClosesNetworkStream()
     {
         MockPipelineResponse response = new MockPipelineResponse(200).WithContent("""

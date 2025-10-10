@@ -230,5 +230,11 @@ namespace OpenAI.Chat
             using JsonDocument document = JsonDocument.Parse(response.Content);
             return DeserializeCreateChatCompletionResponse(document.RootElement, ModelSerializationExtensions.WireOptions);
         }
+
+        public static explicit operator CreateChatCompletionResponse(BinaryData data)
+        {
+            using JsonDocument document = JsonDocument.Parse(data);
+            return DeserializeCreateChatCompletionResponse(document.RootElement, ModelSerializationExtensions.WireOptions);
+        }
     }
 }

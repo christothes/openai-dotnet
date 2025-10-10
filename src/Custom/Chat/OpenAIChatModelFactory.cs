@@ -414,4 +414,79 @@ public static partial class OpenAIChatModelFactory
 
         return new CreateChatCompletionResponseChoiceLogprobs(content.ToList(), refusal.ToList(), additionalBinaryDataProperties: null);
     }
+
+    public static ResponseFormatText ResponseFormatText()
+    {
+        return new ResponseFormatText(ResponseFormatType.Text, additionalBinaryDataProperties: null);
+    }
+
+    public static ResponseFormat ResponseFormat(string kind = default)
+    {
+        return new UnknownResponseFormat(kind.ToResponseFormatType(), additionalBinaryDataProperties: null);
+    }
+
+    public static ResponseFormatJsonObject ResponseFormatJsonObject()
+    {
+        return new ResponseFormatJsonObject(ResponseFormatType.JsonObject, additionalBinaryDataProperties: null);
+    }
+
+    public static CreateChatCompletionRequest CreateChatCompletionRequest(IDictionary<string, string> metadata = default, float? temperature = default, float? topP = default, string user = default, ChatServiceTier? serviceTier = default, IEnumerable<ChatMessage> messages = default, string model = default, IEnumerable<CreateChatCompletionRequestModality> modalities = default, ChatReasoningEffortLevel? reasoningEffort = default, int? maxCompletionTokens = default, float? frequencyPenalty = default, float? presencePenalty = default, ChatWebSearchOptions webSearchOptions = default, int? topLogprobs = default, ResponseFormat responseFormat = default, ChatAudioOptions audio = default, bool? store = default, bool? stream = default, BinaryData stop = default, IDictionary<string, int> logitBias = default, bool? logprobs = default, int? maxTokens = default, int? n = default, ChatOutputPrediction prediction = default, long? seed = default, ChatCompletionStreamOptions streamOptions = default, IEnumerable<ChatTool> tools = default, BinaryData toolChoice = default, bool? parallelToolCalls = default, BinaryData functionCall = default, IEnumerable<ChatFunction> functions = default)
+    {
+        metadata ??= new ChangeTrackingDictionary<string, string>();
+        messages ??= new ChangeTrackingList<ChatMessage>();
+        modalities ??= new ChangeTrackingList<CreateChatCompletionRequestModality>();
+        logitBias ??= new ChangeTrackingDictionary<string, int>();
+        tools ??= new ChangeTrackingList<ChatTool>();
+        functions ??= new ChangeTrackingList<ChatFunction>();
+
+        return new CreateChatCompletionRequest(
+            metadata,
+            temperature,
+            topP,
+            user,
+            serviceTier,
+            messages.ToList(),
+            model,
+            modalities.ToList(),
+            reasoningEffort,
+            maxCompletionTokens,
+            frequencyPenalty,
+            presencePenalty,
+            webSearchOptions,
+            topLogprobs,
+            responseFormat,
+            audio,
+            store,
+            stream,
+            stop,
+            logitBias,
+            logprobs,
+            maxTokens,
+            n,
+            prediction,
+            seed,
+            streamOptions,
+            tools.ToList(),
+            toolChoice,
+            parallelToolCalls,
+            functionCall,
+            functions.ToList(),
+            additionalBinaryDataProperties: null);
+    }
+
+    public static ChatCompletionStreamOptions ChatCompletionStreamOptions(bool? includeUsage = default)
+    {
+        return new ChatCompletionStreamOptions(includeUsage, additionalBinaryDataProperties: null);
+    }
+
+    public static ResponseFormat ChatResponseFormat(string kind = default)
+    {
+        return kind switch
+        {
+            nameof(ResponseFormatType.Text) => new ResponseFormatText(),
+            nameof(ResponseFormatType.JsonObject) => new ResponseFormatJsonObject(),
+            nameof(ResponseFormatType.JsonSchema) => new ResponseFormatJsonSchema(),
+            _ => new UnknownResponseFormat(),
+        };
+    }
 }

@@ -122,7 +122,7 @@ public partial class ChatClient
     /// Gets the name of the model used in requests sent to the service.
     /// </summary>
     [Experimental("OPENAI001")]
-    public string Model => _model;
+    public virtual string Model => _model;
 
     /// <summary>
     /// Gets the endpoint URI for the service.
@@ -407,10 +407,29 @@ public partial class ChatClient
                 cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
         }
 
-    private void CreateChatCompletionOptions(IEnumerable<ChatMessage> messages, ref ChatCompletionOptions options, bool stream = false)
+
+        [Experimental("OPENAI001")]
+        public virtual ClientResult<BinaryData> CompleteChat(CreateChatCompletionRequest requestBody, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(requestBody, nameof(requestBody));
+
+            ClientResult result = this.CompleteChat(requestBody, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
+            return ClientResult.FromValue(result.GetRawResponse().Content, result.GetRawResponse());
+        }
+
+        [Experimental("OPENAI001")]
+        public virtual async Task<ClientResult<BinaryData>> CompleteChatAsync(CreateChatCompletionRequest requestBody, CancellationToken cancellationToken = default)
+        {
+            Argument.AssertNotNull(requestBody, nameof(requestBody));
+
+            ClientResult result = await this.CompleteChatAsync(requestBody, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
+            return ClientResult.FromValue(result.GetRawResponse().Content, result.GetRawResponse());
+        }
+
+    internal void CreateChatCompletionOptions(IEnumerable<ChatMessage> messages, ref ChatCompletionOptions options, bool stream = false)
     {
         options.Messages = messages.ToList();
-        options.Model = _model;
+        options.Model = Model;
         if (stream)
         {
             options.Stream = true;

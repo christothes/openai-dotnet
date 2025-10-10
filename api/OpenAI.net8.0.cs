@@ -12,6 +12,59 @@ namespace OpenAI {
         protected virtual ChatCompletionResponseMessage PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
     }
+    [Experimental("OPENAI001")]
+    public class ChatCompletionStreamOptions : IJsonModel<ChatCompletionStreamOptions>, IPersistableModel<ChatCompletionStreamOptions> {
+        public bool? IncludeUsage { get; set; }
+        protected virtual ChatCompletionStreamOptions JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual ChatCompletionStreamOptions PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    public class CreateChatCompletionRequest : IJsonModel<CreateChatCompletionRequest>, IPersistableModel<CreateChatCompletionRequest> {
+        public CreateChatCompletionRequest(IEnumerable<ChatMessage> messages, string model);
+        public ChatAudioOptions Audio { get; set; }
+        public float? FrequencyPenalty { get; set; }
+        public BinaryData FunctionCall { get; set; }
+        public IList<ChatFunction> Functions { get; }
+        public IDictionary<string, int> LogitBias { get; set; }
+        public bool? Logprobs { get; set; }
+        public int? MaxCompletionTokens { get; set; }
+        public int? MaxTokens { get; set; }
+        public IList<ChatMessage> Messages { get; }
+        public IDictionary<string, string> Metadata { get; }
+        public IList<CreateChatCompletionRequestModality> Modalities { get; set; }
+        public string Model { get; }
+        public int? N { get; set; }
+        public bool? ParallelToolCalls { get; set; }
+        public ChatOutputPrediction Prediction { get; set; }
+        public float? PresencePenalty { get; set; }
+        public ChatReasoningEffortLevel? ReasoningEffort { get; set; }
+        public ResponseFormat ResponseFormat { get; set; }
+        public long? Seed { get; set; }
+        public ChatServiceTier? ServiceTier { get; set; }
+        public BinaryData Stop { get; set; }
+        public bool? Store { get; set; }
+        public bool? Stream { get; set; }
+        public ChatCompletionStreamOptions StreamOptions { get; set; }
+        public float? Temperature { get; set; }
+        public BinaryData ToolChoice { get; set; }
+        public IList<ChatTool> Tools { get; }
+        public int? TopLogprobs { get; set; }
+        public float? TopP { get; set; }
+        public string User { get; set; }
+        public ChatWebSearchOptions WebSearchOptions { get; set; }
+        public static CreateChatCompletionRequest Create(IEnumerable<ChatMessage> messages, ChatClient client, ChatCompletionOptions options = null);
+        protected virtual CreateChatCompletionRequest JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        public static implicit operator BinaryContent(CreateChatCompletionRequest createCompletionRequest);
+        protected virtual CreateChatCompletionRequest PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
+    public enum CreateChatCompletionRequestModality {
+        Text = 0,
+        Audio = 1
+    }
     public class OpenAIClient {
         protected OpenAIClient();
         public OpenAIClient(ApiKeyCredential credential, OpenAIClientOptions options);
@@ -61,6 +114,42 @@ namespace OpenAI {
     public class OpenAIContext : ModelReaderWriterContext {
         public static OpenAIContext Default { get; }
         protected override bool TryGetTypeBuilderCore(Type type, out ModelReaderWriterTypeBuilder builder);
+    }
+    [Experimental("OPENAI001")]
+    public abstract class ResponseFormat : IJsonModel<ResponseFormat>, IPersistableModel<ResponseFormat> {
+        protected virtual ResponseFormat JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected virtual ResponseFormat PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
+    public class ResponseFormatJsonObject : ResponseFormat, IJsonModel<ResponseFormatJsonObject>, IPersistableModel<ResponseFormatJsonObject> {
+        public ResponseFormatJsonObject();
+        protected override ResponseFormat JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected override ResponseFormat PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected override BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
+    public class ResponseFormatJsonSchema : ResponseFormat, IJsonModel<ResponseFormatJsonSchema>, IPersistableModel<ResponseFormatJsonSchema> {
+        protected override ResponseFormat JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected override ResponseFormat PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected override BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
+    public class ResponseFormatText : ResponseFormat, IJsonModel<ResponseFormatText>, IPersistableModel<ResponseFormatText> {
+        public ResponseFormatText();
+        protected override ResponseFormat JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected override void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        protected override ResponseFormat PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected override BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
+    [Experimental("OPENAI001")]
+    public enum ResponseFormatType {
+        Text = 0,
+        JsonObject = 1,
+        JsonSchema = 2
     }
 }
 namespace OpenAI.Assistants {
@@ -1483,12 +1572,16 @@ namespace OpenAI.Chat {
         [Experimental("OPENAI001")]
         public Uri Endpoint { get; }
         [Experimental("OPENAI001")]
-        public string Model { get; }
+        public virtual string Model { get; }
         public ClientPipeline Pipeline { get; }
         public virtual ClientResult<ChatCompletion> CompleteChat(params ChatMessage[] messages);
+        [Experimental("OPENAI001")]
+        public virtual ClientResult<BinaryData> CompleteChat(CreateChatCompletionRequest requestBody, CancellationToken cancellationToken = default);
         public virtual ClientResult CompleteChat(BinaryContent content, RequestOptions options = null);
         public virtual ClientResult<ChatCompletion> CompleteChat(IEnumerable<ChatMessage> messages, ChatCompletionOptions options = null, CancellationToken cancellationToken = default);
         public virtual Task<ClientResult<ChatCompletion>> CompleteChatAsync(params ChatMessage[] messages);
+        [Experimental("OPENAI001")]
+        public virtual Task<ClientResult<BinaryData>> CompleteChatAsync(CreateChatCompletionRequest requestBody, CancellationToken cancellationToken = default);
         public virtual Task<ClientResult> CompleteChatAsync(BinaryContent content, RequestOptions options = null);
         public virtual Task<ClientResult<ChatCompletion>> CompleteChatAsync(IEnumerable<ChatMessage> messages, ChatCompletionOptions options = null, CancellationToken cancellationToken = default);
         public virtual CollectionResult<StreamingChatCompletionUpdate> CompleteChatStreaming(params ChatMessage[] messages);
@@ -2221,6 +2314,7 @@ namespace OpenAI.Chat {
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static ChatCompletion ChatCompletion(string id, ChatFinishReason finishReason, ChatMessageContent content, string refusal, IEnumerable<ChatToolCall> toolCalls, ChatMessageRole role, ChatFunctionCall functionCall, IEnumerable<ChatTokenLogProbabilityDetails> contentTokenLogProbabilities, IEnumerable<ChatTokenLogProbabilityDetails> refusalTokenLogProbabilities, DateTimeOffset createdAt, string model, string systemFingerprint, ChatTokenUsage usage);
         public static ChatCompletionList ChatCompletionList(string @object = null, IEnumerable<CreateChatCompletionResponse> data = null, string firstId = null, string lastId = null, bool hasMore = false);
+        public static ChatCompletionStreamOptions ChatCompletionStreamOptions(bool? includeUsage = null);
         public static ChatInputTokenUsageDetails ChatInputTokenUsageDetails(int audioTokenCount = 0, int cachedTokenCount = 0);
         [Experimental("OPENAI001")]
         public static ChatMessageAnnotation ChatMessageAnnotation(int startIndex = 0, int endIndex = 0, Uri webResourceUri = null, string webResourceTitle = null);
@@ -2232,14 +2326,19 @@ namespace OpenAI.Chat {
         public static ChatOutputTokenUsageDetails ChatOutputTokenUsageDetails(int reasoningTokenCount, int audioTokenCount);
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static ChatOutputTokenUsageDetails ChatOutputTokenUsageDetails(int reasoningTokenCount);
+        public static ResponseFormat ChatResponseFormat(string kind = null);
         public static ChatTokenLogProbabilityDetails ChatTokenLogProbabilityDetails(string token = null, float logProbability = 0, ReadOnlyMemory<byte>? utf8Bytes = null, IEnumerable<ChatTokenTopLogProbabilityDetails> topLogProbabilities = null);
         public static ChatTokenTopLogProbabilityDetails ChatTokenTopLogProbabilityDetails(string token = null, float logProbability = 0, ReadOnlyMemory<byte>? utf8Bytes = null);
         public static ChatTokenUsage ChatTokenUsage(int outputTokenCount = 0, int inputTokenCount = 0, int totalTokenCount = 0, ChatOutputTokenUsageDetails outputTokenDetails = null, ChatInputTokenUsageDetails inputTokenDetails = null);
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static ChatTokenUsage ChatTokenUsage(int outputTokenCount, int inputTokenCount, int totalTokenCount, ChatOutputTokenUsageDetails outputTokenDetails);
+        public static CreateChatCompletionRequest CreateChatCompletionRequest(IDictionary<string, string> metadata = null, float? temperature = null, float? topP = null, string user = null, ChatServiceTier? serviceTier = null, IEnumerable<ChatMessage> messages = null, string model = null, IEnumerable<CreateChatCompletionRequestModality> modalities = null, ChatReasoningEffortLevel? reasoningEffort = null, int? maxCompletionTokens = null, float? frequencyPenalty = null, float? presencePenalty = null, ChatWebSearchOptions webSearchOptions = null, int? topLogprobs = null, ResponseFormat responseFormat = null, ChatAudioOptions audio = null, bool? store = null, bool? stream = null, BinaryData stop = null, IDictionary<string, int> logitBias = null, bool? logprobs = null, int? maxTokens = null, int? n = null, ChatOutputPrediction prediction = null, long? seed = null, ChatCompletionStreamOptions streamOptions = null, IEnumerable<ChatTool> tools = null, BinaryData toolChoice = null, bool? parallelToolCalls = null, BinaryData functionCall = null, IEnumerable<ChatFunction> functions = null);
         public static CreateChatCompletionResponse CreateChatCompletionResponse(string id = null, IEnumerable<CreateChatCompletionResponseChoice> choices = null, DateTimeOffset created = default, string model = null, ChatServiceTier? serviceTier = null, string systemFingerprint = null, string @object = null, ChatTokenUsage usage = null);
         public static CreateChatCompletionResponseChoice CreateChatCompletionResponseChoice(ChatFinishReason finishReason = ChatFinishReason.Stop, int index = 0, ChatCompletionResponseMessage message = null, CreateChatCompletionResponseChoiceLogprobs logprobs = null);
         public static CreateChatCompletionResponseChoiceLogprobs CreateChatCompletionResponseChoiceLogprobs(IEnumerable<ChatTokenLogProbabilityDetails> content = null, IEnumerable<ChatTokenLogProbabilityDetails> refusal = null);
+        public static ResponseFormat ResponseFormat(string kind = null);
+        public static ResponseFormatJsonObject ResponseFormatJsonObject();
+        public static ResponseFormatText ResponseFormatText();
         [Experimental("OPENAI001")]
         public static StreamingChatCompletionUpdate StreamingChatCompletionUpdate(string completionId = null, ChatMessageContent contentUpdate = null, StreamingChatFunctionCallUpdate functionCallUpdate = null, IEnumerable<StreamingChatToolCallUpdate> toolCallUpdates = null, ChatMessageRole? role = null, string refusalUpdate = null, IEnumerable<ChatTokenLogProbabilityDetails> contentTokenLogProbabilities = null, IEnumerable<ChatTokenLogProbabilityDetails> refusalTokenLogProbabilities = null, ChatFinishReason? finishReason = null, DateTimeOffset createdAt = default, string model = null, ChatServiceTier? serviceTier = null, string systemFingerprint = null, ChatTokenUsage usage = null, StreamingChatOutputAudioUpdate outputAudioUpdate = null);
         [EditorBrowsable(EditorBrowsableState.Never)]
