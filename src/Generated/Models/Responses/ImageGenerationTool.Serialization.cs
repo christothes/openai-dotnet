@@ -30,7 +30,7 @@ namespace OpenAI.Responses
             if (Optional.IsDefined(Model) && _additionalBinaryDataProperties?.ContainsKey("model") != true)
             {
                 writer.WritePropertyName("model"u8);
-                writer.WriteStringValue(Model);
+                writer.WriteStringValue(Model.Value.ToString());
             }
             if (Optional.IsDefined(Quality) && _additionalBinaryDataProperties?.ContainsKey("quality") != true)
             {
@@ -100,7 +100,7 @@ namespace OpenAI.Responses
             }
             InternalToolType kind = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
-            string model = default;
+            ImageGenToolModel? model = default;
             ImageGenerationToolQuality? quality = default;
             ImageGenerationToolSize? size = default;
             ImageGenerationToolOutputFileFormat? outputFileFormat = default;
@@ -119,7 +119,11 @@ namespace OpenAI.Responses
                 }
                 if (prop.NameEquals("model"u8))
                 {
-                    model = prop.Value.GetString();
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    model = new ImageGenToolModel(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("quality"u8))

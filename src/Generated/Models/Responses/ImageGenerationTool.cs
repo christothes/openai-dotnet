@@ -5,17 +5,18 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using OpenAI;
 
 namespace OpenAI.Responses
 {
     [Experimental("OPENAI001")]
     public partial class ImageGenerationTool : ResponseTool
     {
-        public ImageGenerationTool() : this(InternalToolType.ImageGeneration, null, null, default, default, default, default, default, default, default, null, default)
+        public ImageGenerationTool() : this(InternalToolType.ImageGeneration, null, default, default, default, default, default, default, default, default, null, default)
         {
         }
 
-        internal ImageGenerationTool(InternalToolType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, string model, ImageGenerationToolQuality? quality, ImageGenerationToolSize? size, ImageGenerationToolOutputFileFormat? outputFileFormat, int? outputCompressionFactor, ImageGenerationToolModerationLevel? moderationLevel, ImageGenerationToolBackground? background, ImageGenerationToolInputFidelityLevel? inputFidelityLevel, ImageGenerationToolInputImageMask inputImageMask, int? partialImageCount) : base(kind, additionalBinaryDataProperties)
+        internal ImageGenerationTool(InternalToolType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, ImageGenToolModel? model, ImageGenerationToolQuality? quality, ImageGenerationToolSize? size, ImageGenerationToolOutputFileFormat? outputFileFormat, int? outputCompressionFactor, ImageGenerationToolModerationLevel? moderationLevel, ImageGenerationToolBackground? background, ImageGenerationToolInputFidelityLevel? inputFidelityLevel, ImageGenerationToolInputImageMask inputImageMask, int? partialImageCount) : base(kind, additionalBinaryDataProperties)
         {
             Model = model;
             Quality = quality;
@@ -29,7 +30,7 @@ namespace OpenAI.Responses
             PartialImageCount = partialImageCount;
         }
 
-        public string Model { get; set; }
+        public ImageGenToolModel? Model { get; set; }
 
         public ImageGenerationToolQuality? Quality { get; set; }
 
