@@ -133,11 +133,11 @@ namespace OpenAI
             set => _additionalBinaryDataProperties = value;
         }
 
-        public static CreateChatCompletionRequest Create(IEnumerable<ChatMessage> messages, ChatClient client, ChatCompletionOptions options = null)
+        public static CreateChatCompletionRequest Create(IEnumerable<ChatMessage> messages, ChatClient client, ChatCompletionOptions options = null, bool isStreaming = false)
         {
             Argument.AssertNotNull(messages, nameof(messages));
             options ??= new();
-            client.CreateChatCompletionOptions(messages, ref options);
+            client.CreateChatCompletionOptions(messages, ref options, isStreaming);
 
             var request = new CreateChatCompletionRequest(messages, options.Model);
 
@@ -167,6 +167,7 @@ namespace OpenAI
             request.Logprobs = options.IncludeLogProbabilities;
             request.Prediction = options.OutputPrediction;
             request.Seed = options.Seed;
+            request.Stream = options.Stream;
             request.ParallelToolCalls = options.AllowParallelToolCalls;
 
             // Handle collections and complex types
@@ -224,6 +225,10 @@ namespace OpenAI
             if (options.ResponseModalities.HasFlag(ChatResponseModalities.Text))
             {
                 request.Modalities.Add(CreateChatCompletionRequestModality.Text);
+            }
+            if(options.StreamOptions != null)
+            {
+                request.StreamOptions = new(options.StreamOptions.IncludeUsage, options.StreamOptions.SerializedAdditionalRawData);
             }
 
             return request;

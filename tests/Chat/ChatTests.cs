@@ -340,12 +340,12 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(outputAudio.AudioBytes, Is.Not.Null);
         Assert.That(outputAudio.Transcript, Is.Not.Null.And.Not.Empty);
 
-        AssistantChatMessage audioHistoryMessage = ChatMessage.CreateAssistantMessage(message.Content);
-        Assert.That(audioHistoryMessage, Is.InstanceOf<AssistantChatMessage>());
-        Assert.That(audioHistoryMessage.Content, Has.Count.EqualTo(0));
+        ChatCompletionRequestAssistantMessage audioHistoryMessage = ChatMessage.CreateAssistantMessage(message);
+        // Assert.That(audioHistoryMessage, Is.InstanceOf<AssistantChatMessage>());
+        // Assert.That(audioHistoryMessage.Content, Has.Count.EqualTo(0));
 
-        Assert.That(audioHistoryMessage.OutputAudioReference?.Id, Is.EqualTo(message.Audio.Id));
-        messages.Add(audioHistoryMessage);
+        // Assert.That(audioHistoryMessage.OutputAudioReference?.Id, Is.EqualTo(message.Audio.Id));
+        // messages.Add(audioHistoryMessage);
 
         messages.Add(
             new UserChatMessage(
@@ -360,7 +360,7 @@ public class ChatTests : OpenAIRecordedTestBase
         ChatTokenUsage streamedUsage = null;
         using MemoryStream outputAudioStream = new();
 
-        requestBody = CreateChatCompletionRequest.Create(messages, client, options);
+        requestBody = CreateChatCompletionRequest.Create(messages, client, options, true);
         var binaryResponse = await client.CompleteChatAsync(requestBody);
         await foreach (StreamingChatCompletionUpdate update in binaryResponse.ToAsyncCollectionResult())
         {

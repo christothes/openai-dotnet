@@ -489,4 +489,61 @@ public static partial class OpenAIChatModelFactory
             _ => new UnknownResponseFormat(),
         };
     }
+
+    public static ChatCompletionRequestSystemMessage ChatCompletionRequestSystemMessage(ChatMessageContent content = default, string name = default)
+    {
+        return new ChatCompletionRequestSystemMessage(default, content, additionalBinaryDataProperties: null, name);
+    }
+
+    public static ChatCompletionRequestDeveloperMessage ChatCompletionRequestDeveloperMessage(ChatMessageContent content = default, string name = default)
+    {
+        return new ChatCompletionRequestDeveloperMessage(default, content, additionalBinaryDataProperties: null, name);
+    }
+
+    public static ChatCompletionRequestUserMessage ChatCompletionRequestUserMessage(ChatMessageContent content = default, string name = default)
+    {
+        return new ChatCompletionRequestUserMessage(default, content, additionalBinaryDataProperties: null, name);
+    }
+
+    public static ChatCompletionRequestAssistantMessage ChatCompletionRequestAssistantMessage(ChatMessageContent content = default, string refusal = default, string name = default, ChatOutputAudioReference audio = default, IEnumerable<ChatToolCall> toolCalls = default, ChatFunctionCall functionCall = default)
+    {
+        toolCalls ??= new ChangeTrackingList<ChatToolCall>();
+
+        return new ChatCompletionRequestAssistantMessage(
+            default,
+            content,
+            additionalBinaryDataProperties: null,
+            refusal,
+            name,
+            audio,
+            toolCalls.ToList(),
+            functionCall);
+    }
+
+    public static ChatCompletionRequestToolMessage ChatCompletionRequestToolMessage(ChatMessageContent content = default, string toolCallId = default)
+    {
+        return new ChatCompletionRequestToolMessage(default, content, additionalBinaryDataProperties: null, toolCallId);
+    }
+
+    public static ChatCompletionResponseMessageFunctionCall ChatCompletionResponseMessageFunctionCall(string name = default, BinaryData arguments = default)
+    {
+        return new ChatCompletionResponseMessageFunctionCall(name, arguments, additionalBinaryDataProperties: null);
+    }
+
+    public static ChatCompletionMessageListDatum ChatCompletionMessageListDatum(string content = default, string refusal = default, IEnumerable<ChatToolCall> toolCalls = default, IEnumerable<ChatMessageAnnotation> annotations = default, ChatMessageRole role = default, ChatCompletionResponseMessageFunctionCall functionCall = default, ChatOutputAudio outputAudio = default, string id = default)
+    {
+        toolCalls ??= new ChangeTrackingList<ChatToolCall>();
+        annotations ??= new ChangeTrackingList<ChatMessageAnnotation>();
+
+        return new ChatCompletionMessageListDatum(
+            content,
+            refusal,
+            toolCalls.ToList(),
+            annotations.ToList(),
+            role,
+            functionCall,
+            outputAudio,
+            id,
+            additionalBinaryDataProperties: null);
+    }
 }

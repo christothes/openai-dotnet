@@ -142,7 +142,7 @@ namespace OpenAI.Chat
             IReadOnlyList<ChatToolCall> toolCalls = default;
             IReadOnlyList<ChatMessageAnnotation> annotations = default;
             ChatMessageRole role = default;
-            InternalChatCompletionResponseMessageFunctionCall functionCall = default;
+            ChatCompletionResponseMessageFunctionCall functionCall = default;
             ChatOutputAudio outputAudio = default;
             string id = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -207,7 +207,7 @@ namespace OpenAI.Chat
                     {
                         continue;
                     }
-                    functionCall = InternalChatCompletionResponseMessageFunctionCall.DeserializeInternalChatCompletionResponseMessageFunctionCall(prop.Value, options);
+                    functionCall = ChatCompletionResponseMessageFunctionCall.DeserializeChatCompletionResponseMessageFunctionCall(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("audio"u8))
