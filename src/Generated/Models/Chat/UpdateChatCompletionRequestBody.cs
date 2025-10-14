@@ -4,21 +4,23 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using OpenAI;
 
 namespace OpenAI.Chat
 {
-    internal partial class InternalUpdateChatCompletionRequest
+    [Experimental("OPENAI001")]
+    public partial class UpdateChatCompletionRequestBody
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalUpdateChatCompletionRequest(IDictionary<string, string> metadata)
+        internal UpdateChatCompletionRequestBody(IDictionary<string, string> metadata)
         {
             // Plugin customization: ensure initialization of collections
             Metadata = metadata ?? new ChangeTrackingDictionary<string, string>();
         }
 
-        internal InternalUpdateChatCompletionRequest(IDictionary<string, string> metadata, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal UpdateChatCompletionRequestBody(IDictionary<string, string> metadata, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Metadata = metadata ?? new ChangeTrackingDictionary<string, string>();

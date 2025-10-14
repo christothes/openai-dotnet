@@ -24,7 +24,7 @@ using OpenAI.VectorStores;
 
 namespace OpenAI
 {
-    [ModelReaderWriterBuildable(typeof(CreateChatCompletionRequest))]
+    [ModelReaderWriterBuildable(typeof(CreateChatCompletionRequestBody))]
     public partial class OpenAIContext : ModelReaderWriterContext
     {
     }

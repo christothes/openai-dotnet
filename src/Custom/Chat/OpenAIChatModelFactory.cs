@@ -439,7 +439,7 @@ public static partial class OpenAIChatModelFactory
         tools ??= new ChangeTrackingList<ChatTool>();
         functions ??= new ChangeTrackingList<ChatFunction>();
 
-        return new CreateChatCompletionRequest(
+        return new CreateChatCompletionRequest(new CreateChatCompletionRequestBody(
             metadata,
             temperature,
             topP,
@@ -471,7 +471,7 @@ public static partial class OpenAIChatModelFactory
             parallelToolCalls,
             functionCall,
             functions.ToList(),
-            additionalBinaryDataProperties: null);
+            additionalBinaryDataProperties: null));
     }
 
     public static ChatCompletionStreamOptions ChatCompletionStreamOptions(bool? includeUsage = default)

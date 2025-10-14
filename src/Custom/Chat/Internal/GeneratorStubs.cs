@@ -51,15 +51,15 @@ internal partial class InternalChatCompletionRequestMessageContentPartRefusal { 
 internal readonly partial struct InternalCreateChatCompletionRequestModel { }
 
 [CodeGenType("UpdateChatCompletionRequest")]
-internal partial class InternalUpdateChatCompletionRequest
+public partial class UpdateChatCompletionRequestBody
 {
-    public static implicit operator BinaryContent(InternalUpdateChatCompletionRequest internalUpdateChatCompletionRequest)
+    public static implicit operator BinaryContent(UpdateChatCompletionRequestBody updateChatCompletionRequestBody)
     {
-        if (internalUpdateChatCompletionRequest == null)
+        if (updateChatCompletionRequestBody == null)
         {
             return null;
         }
-        return BinaryContent.Create(internalUpdateChatCompletionRequest, ModelSerializationExtensions.WireOptions);
+        return BinaryContent.Create(updateChatCompletionRequestBody, ModelSerializationExtensions.WireOptions);
     }
 }
 

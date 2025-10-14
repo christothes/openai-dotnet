@@ -5,6 +5,7 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -290,7 +291,7 @@ public partial class ChatClient
     /// <param name="request"> The request containing the messages comprising the chat so far in addition to other options. </param>
     /// <param name="cancellationToken"> A token that can be used to cancel this method call. </param>
     /// <exception cref="ArgumentNullException"> <paramref name="request"/> is null. </exception>
-    public virtual CollectionResult<StreamingChatCompletionUpdate> CompleteChatStreaming(CreateChatCompletionRequest request, CancellationToken cancellationToken = default)
+    public virtual CollectionResult<StreamingChatCompletionUpdate> CompleteChatStreaming(CreateChatCompletionRequestBody request, CancellationToken cancellationToken = default)
     {
         Argument.AssertNotNull(request, nameof(request));
 
@@ -303,7 +304,7 @@ public partial class ChatClient
             cancellationToken);
     }
 
-    public virtual AsyncCollectionResult<StreamingChatCompletionUpdate> CompleteChatStreamingAsync(CreateChatCompletionRequest request, CancellationToken cancellationToken = default)
+    public virtual AsyncCollectionResult<StreamingChatCompletionUpdate> CompleteChatStreamingAsync(CreateChatCompletionRequestBody request, CancellationToken cancellationToken = default)
     {
         Argument.AssertNotNull(request, nameof(request));
 
@@ -364,7 +365,10 @@ public partial class ChatClient
     {
         Argument.AssertNotNullOrEmpty(completionId, nameof(completionId));
 
-        ClientResult result = GetChatCompletion(completionId, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
+        var req = new ProtocolRequest();
+        req.Properties["completion_id"] = completionId;
+
+        ClientResult result = GetChatCompletion(req, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
         return ClientResult.FromValue((ChatCompletion)result, result.GetRawResponse());
     }
 
@@ -376,8 +380,10 @@ public partial class ChatClient
         Argument.AssertNotNullOrEmpty(completionId, nameof(completionId));
         Argument.AssertNotNull(metadata, nameof(metadata));
 
-        InternalUpdateChatCompletionRequest spreadModel = new InternalUpdateChatCompletionRequest(metadata, null);
-        ClientResult result = this.UpdateChatCompletion(completionId, spreadModel, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
+        ProtocolRequest req = new(new UpdateChatCompletionRequestBody(metadata));
+        req.Properties["completion_id"] = completionId;
+
+        ClientResult result = this.UpdateChatCompletion(req, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
         return ClientResult.FromValue((ChatCompletion)result, result.GetRawResponse());
     }
 
@@ -389,7 +395,7 @@ public partial class ChatClient
         Argument.AssertNotNullOrEmpty(completionId, nameof(completionId));
         Argument.AssertNotNull(metadata, nameof(metadata));
 
-        InternalUpdateChatCompletionRequest spreadModel = new InternalUpdateChatCompletionRequest(metadata, null);
+        UpdateChatCompletionRequestBody spreadModel = new UpdateChatCompletionRequestBody(metadata, null);
         ClientResult result = await this.UpdateChatCompletionAsync(completionId, spreadModel, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
         return ClientResult.FromValue((ChatCompletion)result, result.GetRawResponse());
     }
@@ -447,22 +453,48 @@ public partial class ChatClient
 
 
     [Experimental("OPENAI001")]
-    public virtual ClientResult<CreateChatCompletionResponse> CompleteChat(CreateChatCompletionRequest requestBody, CancellationToken cancellationToken = default)
+    public virtual ClientResult<CreateChatCompletionResponse> CompleteChat(CreateChatCompletionRequest request, CancellationToken cancellationToken = default)
     {
-        Argument.AssertNotNull(requestBody, nameof(requestBody));
+        Argument.AssertNotNull(request, nameof(request));
 
-        ClientResult result = this.CompleteChat(requestBody, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
+        ClientResult result = this.CompleteChat(request.Body, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
         return ClientResult.FromValue((CreateChatCompletionResponse)result.GetRawResponse().Content, result.GetRawResponse());
     }
 
     [Experimental("OPENAI001")]
-    public virtual async Task<ClientResult<CreateChatCompletionResponse>> CompleteChatAsync(CreateChatCompletionRequest requestBody, CancellationToken cancellationToken = default)
+    public virtual async Task<ClientResult<CreateChatCompletionResponse>> CompleteChatAsync(CreateChatCompletionRequest request, CancellationToken cancellationToken = default)
     {
-        Argument.AssertNotNull(requestBody, nameof(requestBody));
+        Argument.AssertNotNull(request, nameof(request));
 
-        ClientResult result = await this.CompleteChatAsync(requestBody, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
+        ClientResult result = await this.CompleteChatAsync(request.Body, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
         // this doesn't work for streaming responses because it will not serialize correctly. We need a CompleteChatStreaming.
         return ClientResult.FromValue((CreateChatCompletionResponse)result.GetRawResponse().Content, result.GetRawResponse());
+    }
+
+    [Experimental("OPENAI001")]
+    public virtual ClientResult GetChatCompletion(ProtocolRequest request, RequestOptions options)
+    {
+        if (!request.Properties.TryGetValue("completion_id", out var completionObj) || completionObj is not string completionId || string.IsNullOrEmpty(completionId))
+        {
+            throw new ArgumentException("Completion ID is required.", nameof(request));
+        }
+
+        using PipelineMessage message = CreateGetChatCompletionRequest(completionId, options);
+        return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
+    }
+
+    [Experimental("OPENAI001")]
+    public virtual ClientResult UpdateChatCompletion(ProtocolRequest request, RequestOptions options = null)
+    {
+        if (!request.Properties.TryGetValue("completion_id", out var completionObj) || completionObj is not string completionId || string.IsNullOrEmpty(completionId))
+        {
+            throw new ArgumentException("Completion ID is required.", nameof(request));
+        }
+
+        Argument.AssertNotNull(request.Body, nameof(request.Body));
+
+        using PipelineMessage message = CreateUpdateChatCompletionRequest(completionId, request.Body, options);
+        return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
     }
 
     internal void CreateChatCompletionOptions(IEnumerable<ChatMessage> messages, ref ChatCompletionOptions options, bool stream = false)
