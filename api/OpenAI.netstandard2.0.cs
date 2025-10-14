@@ -1403,16 +1403,18 @@ namespace OpenAI.Chat {
         public virtual string Model { get; }
         public ClientPipeline Pipeline { get; }
         public virtual ClientResult<ChatCompletion> CompleteChat(params ChatMessage[] messages);
-        public virtual ClientResult<BinaryData> CompleteChat(CreateChatCompletionRequest requestBody, CancellationToken cancellationToken = default);
+        public virtual ClientResult<CreateChatCompletionResponse> CompleteChat(CreateChatCompletionRequest requestBody, CancellationToken cancellationToken = default);
         public virtual ClientResult CompleteChat(BinaryContent content, RequestOptions options = null);
         public virtual ClientResult<ChatCompletion> CompleteChat(IEnumerable<ChatMessage> messages, ChatCompletionOptions options = null, CancellationToken cancellationToken = default);
         public virtual Task<ClientResult<ChatCompletion>> CompleteChatAsync(params ChatMessage[] messages);
-        public virtual Task<ClientResult<BinaryData>> CompleteChatAsync(CreateChatCompletionRequest requestBody, CancellationToken cancellationToken = default);
+        public virtual Task<ClientResult<CreateChatCompletionResponse>> CompleteChatAsync(CreateChatCompletionRequest requestBody, CancellationToken cancellationToken = default);
         public virtual Task<ClientResult> CompleteChatAsync(BinaryContent content, RequestOptions options = null);
         public virtual Task<ClientResult<ChatCompletion>> CompleteChatAsync(IEnumerable<ChatMessage> messages, ChatCompletionOptions options = null, CancellationToken cancellationToken = default);
         public virtual CollectionResult<StreamingChatCompletionUpdate> CompleteChatStreaming(params ChatMessage[] messages);
+        public virtual CollectionResult<StreamingChatCompletionUpdate> CompleteChatStreaming(CreateChatCompletionRequest request, CancellationToken cancellationToken = default);
         public virtual CollectionResult<StreamingChatCompletionUpdate> CompleteChatStreaming(IEnumerable<ChatMessage> messages, ChatCompletionOptions options = null, CancellationToken cancellationToken = default);
         public virtual AsyncCollectionResult<StreamingChatCompletionUpdate> CompleteChatStreamingAsync(params ChatMessage[] messages);
+        public virtual AsyncCollectionResult<StreamingChatCompletionUpdate> CompleteChatStreamingAsync(CreateChatCompletionRequest request, CancellationToken cancellationToken = default);
         public virtual AsyncCollectionResult<StreamingChatCompletionUpdate> CompleteChatStreamingAsync(IEnumerable<ChatMessage> messages, ChatCompletionOptions options = null, CancellationToken cancellationToken = default);
         public virtual ClientResult DeleteChatCompletion(string completionId, RequestOptions options);
         public virtual ClientResult<ChatCompletionDeletionResult> DeleteChatCompletion(string completionId, CancellationToken cancellationToken = default);
@@ -1532,9 +1534,22 @@ namespace OpenAI.Chat {
         public static bool operator !=(ChatCompletionMessageCollectionOrder left, ChatCompletionMessageCollectionOrder right);
         public override readonly string ToString();
     }
+    public class ChatCompletionMessageList : IJsonModel<ChatCompletionMessageList>, IPersistableModel<ChatCompletionMessageList> {
+        public IList<ChatCompletionMessageListDatum> Data { get; }
+        public string FirstId { get; }
+        public bool HasMore { get; }
+        public string LastId { get; }
+        public string Object { get; }
+        protected virtual ChatCompletionMessageList JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
+        protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
+        public static explicit operator ChatCompletionMessageList(ClientResult result);
+        protected virtual ChatCompletionMessageList PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options);
+        protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
+    }
     public class ChatCompletionMessageListDatum : IJsonModel<ChatCompletionMessageListDatum>, IPersistableModel<ChatCompletionMessageListDatum> {
         public IReadOnlyList<ChatMessageAnnotation> Annotations { get; }
         public string Content { get; }
+        public ChatCompletionResponseMessageFunctionCall FunctionCall { get; }
         public string Id { get; }
         public ChatOutputAudio OutputAudio { get; }
         public string Refusal { get; }
@@ -1636,7 +1651,7 @@ namespace OpenAI.Chat {
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options);
     }
     public class ChatCompletionResponseMessageFunctionCall : IJsonModel<ChatCompletionResponseMessageFunctionCall>, IPersistableModel<ChatCompletionResponseMessageFunctionCall> {
-        public BinaryData Arguments { get; }
+        public string Arguments { get; }
         public string Name { get; }
         protected virtual ChatCompletionResponseMessageFunctionCall JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options);
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options);
@@ -2072,13 +2087,14 @@ namespace OpenAI.Chat {
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static ChatCompletion ChatCompletion(string id, ChatFinishReason finishReason, ChatMessageContent content, string refusal, IEnumerable<ChatToolCall> toolCalls, ChatMessageRole role, ChatFunctionCall functionCall, IEnumerable<ChatTokenLogProbabilityDetails> contentTokenLogProbabilities, IEnumerable<ChatTokenLogProbabilityDetails> refusalTokenLogProbabilities, DateTimeOffset createdAt, string model, string systemFingerprint, ChatTokenUsage usage);
         public static ChatCompletionList ChatCompletionList(string @object = null, IEnumerable<CreateChatCompletionResponse> data = null, string firstId = null, string lastId = null, bool hasMore = false);
+        public static ChatCompletionMessageList ChatCompletionMessageList(string @object = null, IEnumerable<ChatCompletionMessageListDatum> data = null, string firstId = null, string lastId = null, bool hasMore = false);
         public static ChatCompletionMessageListDatum ChatCompletionMessageListDatum(string content = null, string refusal = null, IEnumerable<ChatToolCall> toolCalls = null, IEnumerable<ChatMessageAnnotation> annotations = null, ChatMessageRole role = ChatMessageRole.System, ChatCompletionResponseMessageFunctionCall functionCall = null, ChatOutputAudio outputAudio = null, string id = null);
         public static ChatCompletionRequestAssistantMessage ChatCompletionRequestAssistantMessage(ChatMessageContent content = null, string refusal = null, string name = null, ChatOutputAudioReference audio = null, IEnumerable<ChatToolCall> toolCalls = null, ChatFunctionCall functionCall = null);
         public static ChatCompletionRequestDeveloperMessage ChatCompletionRequestDeveloperMessage(ChatMessageContent content = null, string name = null);
         public static ChatCompletionRequestSystemMessage ChatCompletionRequestSystemMessage(ChatMessageContent content = null, string name = null);
         public static ChatCompletionRequestToolMessage ChatCompletionRequestToolMessage(ChatMessageContent content = null, string toolCallId = null);
         public static ChatCompletionRequestUserMessage ChatCompletionRequestUserMessage(ChatMessageContent content = null, string name = null);
-        public static ChatCompletionResponseMessageFunctionCall ChatCompletionResponseMessageFunctionCall(string name = null, BinaryData arguments = null);
+        public static ChatCompletionResponseMessageFunctionCall ChatCompletionResponseMessageFunctionCall(string name = null, string arguments = null);
         public static ChatCompletionStreamOptions ChatCompletionStreamOptions(bool? includeUsage = null);
         public static ChatInputTokenUsageDetails ChatInputTokenUsageDetails(int audioTokenCount = 0, int cachedTokenCount = 0);
         public static ChatMessageAnnotation ChatMessageAnnotation(int startIndex = 0, int endIndex = 0, Uri webResourceUri = null, string webResourceTitle = null);

@@ -157,10 +157,10 @@ public class ChatTests : OpenAIRecordedTestBase
         ChatCompletionOptions options = new() { MaxOutputTokenCount = 2048 };
 
         CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
-        ClientResult<BinaryData> result = await client.CompleteChatAsync(requestBody);
-        ChatCompletion completion = ModelReaderWriter.Read<ChatCompletion>(result.Value);
-        Console.WriteLine(completion.Content[0].Text);
-        Assert.That(completion.Content[0].Text.ToLowerInvariant(), Does.Contain("dog").Or.Contain("cat").IgnoreCase);
+        ClientResult<CreateChatCompletionResponse> result = await client.CompleteChatAsync(requestBody);
+        CreateChatCompletionResponse completion = result.Value;
+        Console.WriteLine(completion.Choices[0].Message.Content);
+        Assert.That(completion.Choices[0].Message.Content.ToLowerInvariant(), Does.Contain("dog").Or.Contain("cat").IgnoreCase);
     }
 
     [RecordedTest]
@@ -303,7 +303,6 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(streamedUsage?.OutputTokenDetails?.AudioTokenCount, Is.GreaterThan(0));
     }
 
-    // TODO: Implement PM support for streaming audio responses.
     [RecordedTest]
     public async Task ChatWithAudio_PM()
     {
@@ -341,11 +340,11 @@ public class ChatTests : OpenAIRecordedTestBase
         Assert.That(outputAudio.Transcript, Is.Not.Null.And.Not.Empty);
 
         ChatCompletionRequestAssistantMessage audioHistoryMessage = ChatMessage.CreateAssistantMessage(message);
-        // Assert.That(audioHistoryMessage, Is.InstanceOf<AssistantChatMessage>());
-        // Assert.That(audioHistoryMessage.Content, Has.Count.EqualTo(0));
+        Assert.That(audioHistoryMessage, Is.InstanceOf<ChatCompletionRequestAssistantMessage>());
+        Assert.That(audioHistoryMessage.Content, Has.Count.EqualTo(0));
 
-        // Assert.That(audioHistoryMessage.OutputAudioReference?.Id, Is.EqualTo(message.Audio.Id));
-        // messages.Add(audioHistoryMessage);
+        Assert.That(audioHistoryMessage.Audio?.Id, Is.EqualTo(message.Audio.Id));
+        messages.Add(audioHistoryMessage);
 
         messages.Add(
             new UserChatMessage(
@@ -361,8 +360,7 @@ public class ChatTests : OpenAIRecordedTestBase
         using MemoryStream outputAudioStream = new();
 
         requestBody = CreateChatCompletionRequest.Create(messages, client, options, true);
-        var binaryResponse = await client.CompleteChatAsync(requestBody);
-        await foreach (StreamingChatCompletionUpdate update in binaryResponse.ToAsyncCollectionResult())
+        await foreach (StreamingChatCompletionUpdate update in client.CompleteChatStreamingAsync(requestBody))
         {
             Assert.That(update.ContentUpdate, Has.Count.EqualTo(0));
             StreamingChatOutputAudioUpdate outputAudioUpdate = update.OutputAudioUpdate;
@@ -496,14 +494,14 @@ public class ChatTests : OpenAIRecordedTestBase
         }
 
         CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
-        ClientResult<BinaryData> result = await client.CompleteChatAsync(requestBody);
+        ClientResult<CreateChatCompletionResponse> result = await client.CompleteChatAsync(requestBody);
         string raw = result.GetRawResponse().Content.ToString();
-        ChatCompletion chatCompletions = ModelReaderWriter.Read<ChatCompletion>(result.Value);
-        Assert.That(chatCompletions, Is.Not.Null);
+        CreateChatCompletionResponse response = result.Value;
+        Assert.That(response, Is.Not.Null);
 
         if (includeLogProbabilities)
         {
-            IReadOnlyList<ChatTokenLogProbabilityDetails> chatTokenLogProbabilities = chatCompletions.ContentTokenLogProbabilities;
+            IReadOnlyList<ChatTokenLogProbabilityDetails> chatTokenLogProbabilities = response.Choices[0].Logprobs.Content;
             Assert.That(chatTokenLogProbabilities, Is.Not.Null.Or.Empty);
 
             foreach (ChatTokenLogProbabilityDetails tokenLogProbs in chatTokenLogProbabilities)
@@ -520,8 +518,7 @@ public class ChatTests : OpenAIRecordedTestBase
         }
         else
         {
-            Assert.That(chatCompletions.ContentTokenLogProbabilities, Is.Not.Null);
-            Assert.That(chatCompletions.ContentTokenLogProbabilities, Is.Empty);
+            Assert.That(response.Choices[0].Logprobs, Is.Null);
         }
     }
 
@@ -623,8 +620,8 @@ public class ChatTests : OpenAIRecordedTestBase
                 jsonSchemaIsStrict: false)
         };
         CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
-        ClientResult<BinaryData> result = await client.CompleteChatAsync(requestBody);
-        ChatCompletion completion = ModelReaderWriter.Read<ChatCompletion>(result.Value);
+        ClientResult<CreateChatCompletionResponse> result = await client.CompleteChatAsync(requestBody);
+        CreateChatCompletionResponse completion = result.Value;
         Console.WriteLine(completion);
     }
 
@@ -659,10 +656,10 @@ public class ChatTests : OpenAIRecordedTestBase
         ];
         ChatCompletionOptions options = new() { ResponseFormat = ChatResponseFormat.CreateJsonObjectFormat() };
         CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
-        ClientResult<BinaryData> result = await client.CompleteChatAsync(requestBody);
-        ChatCompletion completion = ModelReaderWriter.Read<ChatCompletion>(result.Value);
+        ClientResult<CreateChatCompletionResponse> result = await client.CompleteChatAsync(requestBody);
+        CreateChatCompletionResponse completion = result.Value;
 
-        JsonDocument jsonDocument = JsonDocument.Parse(completion.Content[0].Text);
+        JsonDocument jsonDocument = JsonDocument.Parse(completion.Choices[0].Message.Content);
 
         Assert.That(jsonDocument.RootElement.TryGetProperty("red", out JsonElement redProperty));
         Assert.That(jsonDocument.RootElement.TryGetProperty("green", out JsonElement greenProperty));
@@ -776,13 +773,12 @@ public class ChatTests : OpenAIRecordedTestBase
                 jsonSchemaIsStrict: true)
         };
         CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
-        ClientResult<BinaryData> result = await client.CompleteChatAsync(requestBody);
-        ChatCompletion completion = ModelReaderWriter.Read<ChatCompletion>(result.Value);
+        ClientResult<CreateChatCompletionResponse> result = await client.CompleteChatAsync(requestBody);
+        CreateChatCompletionResponse completion = result.Value;
         Assert.That(completion, Is.Not.Null);
-        Assert.That(completion.Refusal, Is.Null.Or.Empty);
-        Assert.That(completion.Content?.Count, Is.EqualTo(1));
+        Assert.That(completion.Choices[0].Message.Refusal, Is.Null.Or.Empty);
         JsonDocument contentDocument = null;
-        Assert.DoesNotThrow(() => contentDocument = JsonDocument.Parse(completion.Content[0].Text));
+        Assert.DoesNotThrow(() => contentDocument = JsonDocument.Parse(completion.Choices[0].Message.Content));
         Assert.That(contentDocument.RootElement.TryGetProperty("answer", out JsonElement answerProperty));
         Assert.That(answerProperty.ValueKind == JsonValueKind.String);
         Assert.That(contentDocument.RootElement.TryGetProperty("steps", out JsonElement stepsProperty));
@@ -977,11 +973,11 @@ public class ChatTests : OpenAIRecordedTestBase
         };
         Assert.That(ModelReaderWriter.Write(options).ToString(), Does.Contain(@"""reasoning_effort"":""low"""));
         CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
-        ClientResult<BinaryData> result = await client.CompleteChatAsync(requestBody);
-        ChatCompletion completion = ModelReaderWriter.Read<ChatCompletion>(result.Value);
+        ClientResult<CreateChatCompletionResponse> response = await client.CompleteChatAsync(requestBody);
+        CreateChatCompletionResponse completion = response.Value;
 
         Assert.That(completion, Is.Not.Null);
-        Assert.That(completion.FinishReason, Is.EqualTo(ChatFinishReason.Stop));
+        Assert.That(completion.Choices[0].FinishReason, Is.EqualTo(ChatFinishReason.Stop));
         Assert.That(completion.Usage, Is.Not.Null);
         Assert.That(completion.Usage.OutputTokenCount, Is.GreaterThan(0));
         Assert.That(completion.Usage.OutputTokenCount, Is.LessThanOrEqualTo(options.MaxOutputTokenCount));
@@ -1093,8 +1089,8 @@ public class ChatTests : OpenAIRecordedTestBase
 
             IEnumerable<ChatMessage> messages = [message];
             CreateChatCompletionRequest requestBody = CreateChatCompletionRequest.Create(messages, client, options);
-            ClientResult<BinaryData> result = await client.CompleteChatAsync(requestBody);
-            ChatCompletion completion = ModelReaderWriter.Read<ChatCompletion>(result.Value);
+            ClientResult<CreateChatCompletionResponse> result = await client.CompleteChatAsync(requestBody);
+            CreateChatCompletionResponse completion = result.Value;
 
             Assert.That(completion.Usage.OutputTokenDetails.AcceptedPredictionTokenCount, Is.GreaterThan(0));
         }

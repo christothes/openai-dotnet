@@ -9,13 +9,13 @@ namespace OpenAI.Chat
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal ChatCompletionResponseMessageFunctionCall(string name, BinaryData arguments)
+        internal ChatCompletionResponseMessageFunctionCall(string name, string arguments)
         {
             Name = name;
             Arguments = arguments;
         }
 
-        internal ChatCompletionResponseMessageFunctionCall(string name, BinaryData arguments, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ChatCompletionResponseMessageFunctionCall(string name, string arguments, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Name = name;
             Arguments = arguments;
@@ -24,7 +24,7 @@ namespace OpenAI.Chat
 
         public string Name { get; }
 
-        public BinaryData Arguments { get; }
+        public string Arguments { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

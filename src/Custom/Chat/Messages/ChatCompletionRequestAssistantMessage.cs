@@ -16,12 +16,12 @@ namespace OpenAI.Chat
         {
         }
 
-        public ChatCompletionRequestAssistantMessage(ChatCompletionResponseMessage message)
+        public ChatCompletionRequestAssistantMessage(ChatCompletionResponseMessage message) : this(ChatMessageRole.Assistant, null, null, null, null, null, null, null)
         {
             Refusal = message.Refusal;
             Audio = new(message.Audio?.Id);
-            ToolCalls = message.ToolCalls != null ? new(message.ToolCalls) : new List<ChatToolCall>();
-            FunctionCall = message.FunctionCall != null ? new(message.FunctionCall.Name, message.FunctionCall.Arguments) : null;
+            ToolCalls = message.ToolCalls != null && message.ToolCalls.Count > 0 ? new(message.ToolCalls) :  new ChangeTrackingList<ChatToolCall>();
+            FunctionCall = message.FunctionCall != null ? new(message.FunctionCall.Name, BinaryData.FromString(message.FunctionCall.Arguments)) : null;
         }
 
         internal ChatCompletionRequestAssistantMessage(ChatMessageRole role, ChatMessageContent content, IDictionary<string, BinaryData> additionalBinaryDataProperties, string refusal, string name, ChatOutputAudioReference audio, IList<ChatToolCall> toolCalls, ChatFunctionCall functionCall) : base(role, content, additionalBinaryDataProperties)

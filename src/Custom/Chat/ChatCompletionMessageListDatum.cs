@@ -10,4 +10,7 @@ public partial class ChatCompletionMessageListDatum
     // CUSTOM: Rename
     [CodeGenMember("Audio")]
     public ChatOutputAudio OutputAudio { get; }
+
+    // CUSTOM: make public
+    public ChatCompletionResponseMessageFunctionCall FunctionCall { get; }
 }

@@ -525,7 +525,7 @@ public static partial class OpenAIChatModelFactory
         return new ChatCompletionRequestToolMessage(default, content, additionalBinaryDataProperties: null, toolCallId);
     }
 
-    public static ChatCompletionResponseMessageFunctionCall ChatCompletionResponseMessageFunctionCall(string name = default, BinaryData arguments = default)
+    public static ChatCompletionResponseMessageFunctionCall ChatCompletionResponseMessageFunctionCall(string name = default, string arguments = default)
     {
         return new ChatCompletionResponseMessageFunctionCall(name, arguments, additionalBinaryDataProperties: null);
     }
@@ -544,6 +544,19 @@ public static partial class OpenAIChatModelFactory
             functionCall,
             outputAudio,
             id,
+            additionalBinaryDataProperties: null);
+    }
+
+    public static ChatCompletionMessageList ChatCompletionMessageList(string @object = default, IEnumerable<ChatCompletionMessageListDatum> data = default, string firstId = default, string lastId = default, bool hasMore = default)
+    {
+        data ??= new ChangeTrackingList<ChatCompletionMessageListDatum>();
+
+        return new ChatCompletionMessageList(
+            @object,
+            data.ToList(),
+            firstId,
+            lastId,
+            hasMore,
             additionalBinaryDataProperties: null);
     }
 }

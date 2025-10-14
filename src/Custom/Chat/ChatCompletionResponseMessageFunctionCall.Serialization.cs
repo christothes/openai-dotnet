@@ -77,7 +77,7 @@ namespace OpenAI.Chat
                 return null;
             }
             string name = default;
-            BinaryData arguments = default;
+            string arguments = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -88,7 +88,7 @@ namespace OpenAI.Chat
                 }
                 if (prop.NameEquals("arguments"u8))
                 {
-                    arguments = BinaryData.FromString(prop.Value.GetString());
+                    arguments = prop.Value.GetString();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

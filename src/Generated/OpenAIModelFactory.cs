@@ -300,6 +300,23 @@ namespace OpenAI
             return new ChatCompletionDeletionResult(@object, chatCompletionId, deleted, additionalBinaryDataProperties: null);
         }
 
+        public static ChatCompletionMessageListDatum ChatCompletionMessageListDatum(string content = default, string refusal = default, IEnumerable<ChatToolCall> toolCalls = default, IEnumerable<ChatMessageAnnotation> annotations = default, ChatMessageRole role = default, ChatCompletionResponseMessageFunctionCall functionCall = default, ChatOutputAudio outputAudio = default, string id = default)
+        {
+            toolCalls ??= new ChangeTrackingList<ChatToolCall>();
+            annotations ??= new ChangeTrackingList<ChatMessageAnnotation>();
+
+            return new ChatCompletionMessageListDatum(
+                content,
+                refusal,
+                toolCalls.ToList(),
+                annotations.ToList(),
+                role,
+                functionCall,
+                outputAudio,
+                id,
+                additionalBinaryDataProperties: null);
+        }
+
         public static ContainerResource ContainerResource(string id = default, string @object = default, string name = default, DateTimeOffset createdAt = default, string status = default, ContainerResourceExpiresAfter expiresAfter = default)
         {
             return new ContainerResource(

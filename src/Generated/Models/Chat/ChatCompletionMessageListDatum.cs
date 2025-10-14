@@ -46,8 +46,6 @@ namespace OpenAI.Chat
 
         public IReadOnlyList<ChatMessageAnnotation> Annotations { get; }
 
-        internal ChatCompletionResponseMessageFunctionCall FunctionCall { get; }
-
         public string Id { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
