@@ -6,7 +6,7 @@
       "RequestHeaders": {
         "Accept": "application/json",
         "Authorization": "Sanitized",
-        "Content-Length": "549",
+        "Content-Length": "639",
         "Content-Type": "application/json",
         "User-Agent": "OpenAI/2.5.0 (.NET 9.0.5; Darwin 25.0.0 Darwin Kernel Version 25.0.0: Wed Sep 17 21:42:08 PDT 2025; root:xnu-12377.1.9~141/RELEASE_ARM64_T8132)"
       },
@@ -21,6 +21,7 @@
         "response_format": {
           "type": "json_schema",
           "json_schema": {
+            "description": "a single final answer with a supporting collection of steps",
             "name": "test_schema",
             "schema": {
               "type": "object",
@@ -40,7 +41,8 @@
                 "steps"
               ],
               "additionalProperties": false
-            }
+            },
+            "strict": true
           }
         }
       },
@@ -49,39 +51,43 @@
         "Access-Control-Expose-Headers": "X-Request-ID",
         "Alt-Svc": "h3=\":443\"",
         "cf-cache-status": "DYNAMIC",
-        "CF-RAY": "98c7f4487b75f0b5-DFW",
+        "CF-RAY": "98f2e0107a3b6b77-DFW",
         "Connection": "keep-alive",
         "Content-Type": "application/json",
-        "Date": "Fri, 10 Oct 2025 17:49:27 GMT",
+        "Date": "Wed, 15 Oct 2025 22:50:26 GMT",
         "openai-organization": "Sanitized",
-        "openai-processing-ms": "1872",
+        "openai-processing-ms": "1649",
         "openai-project": "Sanitized",
         "openai-version": "2020-10-01",
         "Server": "cloudflare",
+        "Set-Cookie": [
+          "Sanitized",
+          "Sanitized"
+        ],
         "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
         "Transfer-Encoding": "chunked",
         "X-Content-Type-Options": "nosniff",
-        "x-envoy-upstream-service-time": "1896",
+        "x-envoy-upstream-service-time": "1671",
         "x-openai-proxy-wasm": "v0.1",
         "x-ratelimit-limit-requests": "30000",
         "x-ratelimit-limit-tokens": "150000000",
         "x-ratelimit-remaining-requests": "29999",
-        "x-ratelimit-remaining-tokens": "149999982",
+        "x-ratelimit-remaining-tokens": "149999980",
         "x-ratelimit-reset-requests": "2ms",
         "x-ratelimit-reset-tokens": "0s",
         "X-Request-ID": "Sanitized"
       },
       "ResponseBody": {
-        "id": "chatcmpl-CPBX3F5MwcEeJJM44qp31djyAp8eJ",
+        "id": "chatcmpl-CR4c4APLvfOfS4WCyk3PROvo4VnEb",
         "object": "chat.completion",
-        "created": 1760118565,
+        "created": 1760568624,
         "model": "gpt-4o-mini-2024-07-18",
         "choices": [
           {
             "index": 0,
             "message": {
               "role": "assistant",
-              "content": "{\"answer\":\"A pound of feathers and sixteen ounces of steel weigh the same, as both are equal to one pound.\",\"steps\":[\"Understand that a pound is a unit of weight.\",\"Recognize that 16 ounces is equivalent to 1 pound.\",\"Thus, compare 1 pound of feathers to 1 pound (or 16 ounces) of steel. They are equal in weight.\"]}",
+              "content": "{\"answer\":\"A pound of feathers is equal in weight to sixteen ounces of steel. They both weigh exactly one pound.\",\"steps\":[\"Understand that 1 pound is equivalent to 16 ounces.\",\"Recognize that a pound of feathers is the same as 16 ounces of feathers.\",\"1 pound of steel also equals 16 ounces of steel.\",\"Therefore, 1 pound of feathers and 16 ounces of steel have the same weight, which is 1 pound.\"]}",
               "refusal": null,
               "annotations": []
             },
@@ -90,9 +96,9 @@
           }
         ],
         "usage": {
-          "prompt_tokens": 63,
-          "completion_tokens": 78,
-          "total_tokens": 141,
+          "prompt_tokens": 75,
+          "completion_tokens": 93,
+          "total_tokens": 168,
           "prompt_tokens_details": {
             "cached_tokens": 0,
             "audio_tokens": 0

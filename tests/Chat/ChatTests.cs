@@ -156,7 +156,7 @@ public class ChatTests : OpenAIRecordedTestBase
         ];
         ChatCompletionOptions options = new() { MaxOutputTokenCount = 2048 };
 
-        CreateChatCompletionRequest request = new(CreateChatCompletionRequestBody.Create(messages, client, options));
+        CreateChatCompletionOptions request = CreateChatCompletionOptions.Create(messages, client, options);
         ClientResult<CreateChatCompletionResponse> result = await client.CompleteChatAsync(request);
         CreateChatCompletionResponse completion = result.Value;
         Console.WriteLine(completion.Choices[0].Message.Content);
@@ -493,7 +493,7 @@ public class ChatTests : OpenAIRecordedTestBase
             options = new();
         }
 
-        CreateChatCompletionRequest request = new(CreateChatCompletionRequestBody.Create(messages, client, options));
+        CreateChatCompletionOptions request = CreateChatCompletionOptions.Create(messages, client, options);
         ClientResult<CreateChatCompletionResponse> result = await client.CompleteChatAsync(request);
         string raw = result.GetRawResponse().Content.ToString();
         CreateChatCompletionResponse response = result.Value;
@@ -619,7 +619,7 @@ public class ChatTests : OpenAIRecordedTestBase
                 "an object that describes color components by name",
                 jsonSchemaIsStrict: false)
         };
-        CreateChatCompletionRequest request = new(CreateChatCompletionRequestBody.Create(messages, client, options));
+        CreateChatCompletionOptions request = CreateChatCompletionOptions.Create(messages, client, options);
         ClientResult<CreateChatCompletionResponse> result = await client.CompleteChatAsync(request);
         CreateChatCompletionResponse completion = result.Value;
         Console.WriteLine(completion);
@@ -655,7 +655,7 @@ public class ChatTests : OpenAIRecordedTestBase
                 + "of each property should be a string containing their RGB representation in hexadecimal.")
         ];
         ChatCompletionOptions options = new() { ResponseFormat = ChatResponseFormat.CreateJsonObjectFormat() };
-        CreateChatCompletionRequest request = new(CreateChatCompletionRequestBody.Create(messages, client, options));
+        CreateChatCompletionOptions request = CreateChatCompletionOptions.Create(messages, client, options);
         ClientResult<CreateChatCompletionResponse> result = await client.CompleteChatAsync(request);
         CreateChatCompletionResponse completion = result.Value;
 
@@ -772,7 +772,7 @@ public class ChatTests : OpenAIRecordedTestBase
                 "a single final answer with a supporting collection of steps",
                 jsonSchemaIsStrict: true)
         };
-        CreateChatCompletionRequest request = new (CreateChatCompletionRequestBody.Create(messages, client, options));
+        CreateChatCompletionOptions request = CreateChatCompletionOptions.Create(messages, client, options);
         ClientResult<CreateChatCompletionResponse> result = await client.CompleteChatAsync(request);
         CreateChatCompletionResponse completion = result.Value;
         Assert.That(completion, Is.Not.Null);
@@ -972,7 +972,7 @@ public class ChatTests : OpenAIRecordedTestBase
             ReasoningEffortLevel = ChatReasoningEffortLevel.Low,
         };
         Assert.That(ModelReaderWriter.Write(options).ToString(), Does.Contain(@"""reasoning_effort"":""low"""));
-        CreateChatCompletionRequest request = new(CreateChatCompletionRequestBody.Create(messages, client, options));
+        CreateChatCompletionOptions request = CreateChatCompletionOptions.Create(messages, client, options);
         ClientResult<CreateChatCompletionResponse> response = await client.CompleteChatAsync(request);
         CreateChatCompletionResponse completion = response.Value;
 
@@ -1088,7 +1088,7 @@ public class ChatTests : OpenAIRecordedTestBase
             """.ReplaceLineEndings("\n"));
 
             IEnumerable<ChatMessage> messages = [message];
-            CreateChatCompletionRequest request = new(CreateChatCompletionRequestBody.Create(messages, client, options));
+            CreateChatCompletionOptions request = CreateChatCompletionOptions.Create(messages, client, options);
             ClientResult<CreateChatCompletionResponse> result = await client.CompleteChatAsync(request);
             CreateChatCompletionResponse completion = result.Value;
 

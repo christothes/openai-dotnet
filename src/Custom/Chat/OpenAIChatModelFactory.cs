@@ -430,7 +430,7 @@ public static partial class OpenAIChatModelFactory
         return new ResponseFormatJsonObject(ResponseFormatType.JsonObject, additionalBinaryDataProperties: null);
     }
 
-    public static CreateChatCompletionRequest CreateChatCompletionRequest(IDictionary<string, string> metadata = default, float? temperature = default, float? topP = default, string user = default, ChatServiceTier? serviceTier = default, IEnumerable<ChatMessage> messages = default, string model = default, IEnumerable<CreateChatCompletionRequestModality> modalities = default, ChatReasoningEffortLevel? reasoningEffort = default, int? maxCompletionTokens = default, float? frequencyPenalty = default, float? presencePenalty = default, ChatWebSearchOptions webSearchOptions = default, int? topLogprobs = default, ResponseFormat responseFormat = default, ChatAudioOptions audio = default, bool? store = default, bool? stream = default, BinaryData stop = default, IDictionary<string, int> logitBias = default, bool? logprobs = default, int? maxTokens = default, int? n = default, ChatOutputPrediction prediction = default, long? seed = default, ChatCompletionStreamOptions streamOptions = default, IEnumerable<ChatTool> tools = default, BinaryData toolChoice = default, bool? parallelToolCalls = default, BinaryData functionCall = default, IEnumerable<ChatFunction> functions = default)
+    public static CreateChatCompletionOptions CreateChatCompletionOptions(IDictionary<string, string> metadata = default, float? temperature = default, float? topP = default, string user = default, ChatServiceTier? serviceTier = default, IEnumerable<ChatMessage> messages = default, string model = default, IEnumerable<CreateChatCompletionRequestModality> modalities = default, ChatReasoningEffortLevel? reasoningEffort = default, int? maxCompletionTokens = default, float? frequencyPenalty = default, float? presencePenalty = default, ChatWebSearchOptions webSearchOptions = default, int? topLogprobs = default, ResponseFormat responseFormat = default, ChatAudioOptions audio = default, bool? store = default, bool? stream = default, BinaryData stop = default, IDictionary<string, int> logitBias = default, bool? logprobs = default, int? maxTokens = default, int? n = default, ChatOutputPrediction prediction = default, long? seed = default, ChatCompletionStreamOptions streamOptions = default, IEnumerable<ChatTool> tools = default, BinaryData toolChoice = default, bool? parallelToolCalls = default, BinaryData functionCall = default, IEnumerable<ChatFunction> functions = default)
     {
         metadata ??= new ChangeTrackingDictionary<string, string>();
         messages ??= new ChangeTrackingList<ChatMessage>();
@@ -439,7 +439,7 @@ public static partial class OpenAIChatModelFactory
         tools ??= new ChangeTrackingList<ChatTool>();
         functions ??= new ChangeTrackingList<ChatFunction>();
 
-        return new CreateChatCompletionRequest(new CreateChatCompletionRequestBody(
+        return new CreateChatCompletionOptions(
             metadata,
             temperature,
             topP,
@@ -471,7 +471,7 @@ public static partial class OpenAIChatModelFactory
             parallelToolCalls,
             functionCall,
             functions.ToList(),
-            additionalBinaryDataProperties: null));
+            additionalBinaryDataProperties: null);
     }
 
     public static ChatCompletionStreamOptions ChatCompletionStreamOptions(bool? includeUsage = default)
