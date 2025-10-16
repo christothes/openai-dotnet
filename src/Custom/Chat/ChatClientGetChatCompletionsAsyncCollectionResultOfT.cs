@@ -11,7 +11,7 @@ using OpenAI;
 
 namespace OpenAI.Chat
 {
-    internal partial class ChatPMClientGetChatCompletionsAsyncCollectionResultOfT : AsyncCollectionResult<CreateChatCompletionResponse>
+    internal partial class ChatPMClientGetChatCompletionsAsyncCollectionResultOfT : AsyncCollectionResult<ChatCompletionResult>
     {
         private readonly ChatClient _client;
         private readonly string _after;
@@ -66,9 +66,9 @@ namespace OpenAI.Chat
             }
         }
 
-        protected override async IAsyncEnumerable<CreateChatCompletionResponse> GetValuesFromPageAsync(ClientResult page)
+        protected override async IAsyncEnumerable<ChatCompletionResult> GetValuesFromPageAsync(ClientResult page)
         {
-            foreach (CreateChatCompletionResponse item in ((ChatCompletionList)page).Data)
+            foreach (ChatCompletionResult item in ((ChatCompletionList)page).Data)
             {
                 yield return item;
                 await Task.Yield();

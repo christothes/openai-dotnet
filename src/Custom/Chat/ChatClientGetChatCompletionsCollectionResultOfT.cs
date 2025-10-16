@@ -6,7 +6,7 @@ using OpenAI;
 
 namespace OpenAI.Chat
 {
-    internal partial class ChatClientGetPMChatCompletionsCollectionResultOfT : CollectionResult<CreateChatCompletionResponse>
+    internal partial class ChatClientGetPMChatCompletionsCollectionResultOfT : CollectionResult<ChatCompletionResult>
     {
         private readonly ChatClient _client;
         private readonly string _after;
@@ -61,7 +61,7 @@ namespace OpenAI.Chat
             }
         }
 
-        protected override IEnumerable<CreateChatCompletionResponse> GetValuesFromPage(ClientResult page)
+        protected override IEnumerable<ChatCompletionResult> GetValuesFromPage(ClientResult page)
         {
             return ((ChatCompletionList)page).Data;
         }

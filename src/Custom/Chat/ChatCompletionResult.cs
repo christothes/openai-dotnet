@@ -6,11 +6,11 @@ using System.Linq;
 namespace OpenAI.Chat
 {
     [Experimental("OPENAI001")]
-    public partial class CreateChatCompletionResponse
+    public partial class ChatCompletionResult
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal CreateChatCompletionResponse(string id, IEnumerable<CreateChatCompletionResponseChoice> choices, DateTimeOffset created, string model)
+        internal ChatCompletionResult(string id, IEnumerable<CreateChatCompletionResponseChoice> choices, DateTimeOffset created, string model)
         {
             Id = id;
             Choices = choices.ToList();
@@ -18,7 +18,7 @@ namespace OpenAI.Chat
             Model = model;
         }
 
-        internal CreateChatCompletionResponse(string id, IList<CreateChatCompletionResponseChoice> choices, DateTimeOffset created, string model, ChatServiceTier? serviceTier, string systemFingerprint, string @object, ChatTokenUsage usage, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal ChatCompletionResult(string id, IList<CreateChatCompletionResponseChoice> choices, DateTimeOffset created, string model, ChatServiceTier? serviceTier, string systemFingerprint, string @object, ChatTokenUsage usage, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Id = id;

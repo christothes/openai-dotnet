@@ -199,7 +199,7 @@ public class ChatStoreToolTests : OpenAIRecordedTestBase
 
         await foreach (ChatCompletionList fetchedCompletion in foo.GetRawPagesAsync())
         {
-            foreach(CreateChatCompletionResponse item in fetchedCompletion.Data)
+            foreach(ChatCompletionResult item in fetchedCompletion.Data)
             {
                 totalCount++;
                 lastId = item.Id;

@@ -35,7 +35,7 @@ namespace OpenAI.Chat
             {
                 writer.WritePropertyName("data"u8);
                 writer.WriteStartArray();
-                foreach (CreateChatCompletionResponse item in Data)
+                foreach (ChatCompletionResult item in Data)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -98,7 +98,7 @@ namespace OpenAI.Chat
                 return null;
             }
             string @object = default;
-            IList<CreateChatCompletionResponse> data = default;
+            IList<ChatCompletionResult> data = default;
             string firstId = default;
             string lastId = default;
             bool hasMore = default;
@@ -112,10 +112,10 @@ namespace OpenAI.Chat
                 }
                 if (prop.NameEquals("data"u8))
                 {
-                    List<CreateChatCompletionResponse> array = new List<CreateChatCompletionResponse>();
+                    List<ChatCompletionResult> array = new List<ChatCompletionResult>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(CreateChatCompletionResponse.DeserializeCreateChatCompletionResponse(item, options));
+                        array.Add(ChatCompletionResult.DeserializeCreateChatCompletionResponse(item, options));
                     }
                     data = array;
                     continue;

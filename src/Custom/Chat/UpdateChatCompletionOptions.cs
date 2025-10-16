@@ -12,19 +12,12 @@ public class UpdateChatCompletionOptions : JsonModel<UpdateChatCompletionOptions
 
     public UpdateChatCompletionOptions() { }
 
-    public UpdateChatCompletionOptions(BinaryContent content)
-    {
-        Content = content ?? throw new ArgumentNullException(nameof(content));
-    }
-
     internal UpdateChatCompletionOptions(IDictionary<string, string> metadata, IDictionary<string, BinaryData> additionalBinaryDataProperties)
     {
         // Plugin customization: ensure initialization of collections
         Metadata = metadata ?? new ChangeTrackingDictionary<string, string>();
         _additionalBinaryDataProperties = additionalBinaryDataProperties;
     }
-
-    internal BinaryContent Content { get; set; }
 
     public string CompletionId { get; set; }
 
@@ -126,5 +119,14 @@ public class UpdateChatCompletionOptions : JsonModel<UpdateChatCompletionOptions
             additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
         }
         return new UpdateChatCompletionOptions(metadata, additionalBinaryDataProperties);
+    }
+
+    public static implicit operator BinaryContent(UpdateChatCompletionOptions options)
+    {
+        if (options == null)
+        {
+            return null;
+        }
+        return BinaryContent.Create(options, ModelSerializationExtensions.WireOptions);
     }
 }

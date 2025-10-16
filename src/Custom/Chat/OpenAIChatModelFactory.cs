@@ -373,9 +373,9 @@ public static partial class OpenAIChatModelFactory
             additionalBinaryDataProperties: null);
     }
 
-    public static ChatCompletionList ChatCompletionList(string @object = default, IEnumerable<CreateChatCompletionResponse> data = default, string firstId = default, string lastId = default, bool hasMore = default)
+    public static ChatCompletionList ChatCompletionList(string @object = default, IEnumerable<ChatCompletionResult> data = default, string firstId = default, string lastId = default, bool hasMore = default)
     {
-        data ??= new ChangeTrackingList<CreateChatCompletionResponse>();
+        data ??= new ChangeTrackingList<ChatCompletionResult>();
 
         return new ChatCompletionList(
             @object,
@@ -386,11 +386,11 @@ public static partial class OpenAIChatModelFactory
             additionalBinaryDataProperties: null);
     }
 
-    public static CreateChatCompletionResponse CreateChatCompletionResponse(string id = default, IEnumerable<CreateChatCompletionResponseChoice> choices = default, DateTimeOffset created = default, string model = default, ChatServiceTier? serviceTier = default, string systemFingerprint = default, string @object = default, ChatTokenUsage usage = default)
+    public static ChatCompletionResult CreateChatCompletionResponse(string id = default, IEnumerable<CreateChatCompletionResponseChoice> choices = default, DateTimeOffset created = default, string model = default, ChatServiceTier? serviceTier = default, string systemFingerprint = default, string @object = default, ChatTokenUsage usage = default)
     {
         choices ??= new ChangeTrackingList<CreateChatCompletionResponseChoice>();
 
-        return new CreateChatCompletionResponse(
+        return new ChatCompletionResult(
             id,
             choices.ToList(),
             created,
