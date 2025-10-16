@@ -295,13 +295,6 @@ namespace OpenAI
             return new StreamingChatFunctionCallUpdate(functionName, functionArgumentsUpdate, additionalBinaryDataProperties: null);
         }
 
-        public static UpdateChatCompletionRequestBody UpdateChatCompletionRequestBody(IDictionary<string, string> metadata = default)
-        {
-            metadata ??= new ChangeTrackingDictionary<string, string>();
-
-            return new UpdateChatCompletionRequestBody(metadata, additionalBinaryDataProperties: null);
-        }
-
         public static ChatCompletionDeletionResult ChatCompletionDeletionResult(string @object = default, string chatCompletionId = default, bool deleted = default)
         {
             return new ChatCompletionDeletionResult(@object, chatCompletionId, deleted, additionalBinaryDataProperties: null);

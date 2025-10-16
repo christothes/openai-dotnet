@@ -31,10 +31,10 @@ public class UpdateChatCompletionOptions : JsonModel<UpdateChatCompletionOptions
 
     protected override void WriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
     {
-        string format = options.Format == "W" ? ((IPersistableModel<UpdateChatCompletionRequestBody>)this).GetFormatFromOptions(options) : options.Format;
+        string format = options.Format == "W" ? ((IPersistableModel<UpdateChatCompletionOptions>)this).GetFormatFromOptions(options) : options.Format;
         if (format != "J")
         {
-            throw new FormatException($"The model {nameof(UpdateChatCompletionRequestBody)} does not support writing '{format}' format.");
+            throw new FormatException($"The model {nameof(UpdateChatCompletionOptions)} does not support writing '{format}' format.");
         }
         if (_additionalBinaryDataProperties?.ContainsKey("metadata") != true)
         {

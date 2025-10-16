@@ -791,7 +791,6 @@ namespace OpenAI
     [ModelReaderWriterBuildable(typeof(UnknownRunStepDetailsToolCallsCodeObjectCodeInterpreterOutputsObject))]
     [ModelReaderWriterBuildable(typeof(UnknownRunStepDetailsToolCallsObjectToolCallsObject))]
     [ModelReaderWriterBuildable(typeof(UnknownRunStepObjectStepDetails))]
-    [ModelReaderWriterBuildable(typeof(UpdateChatCompletionRequestBody))]
     [ModelReaderWriterBuildable(typeof(UriCitationMessageAnnotation))]
     [ModelReaderWriterBuildable(typeof(UserChatMessage))]
     [ModelReaderWriterBuildable(typeof(ValidateGraderRequest))]
