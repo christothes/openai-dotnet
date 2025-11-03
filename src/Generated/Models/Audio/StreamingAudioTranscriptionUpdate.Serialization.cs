@@ -125,7 +125,7 @@ namespace OpenAI.Audio
 
         public static explicit operator StreamingAudioTranscriptionUpdate(ClientResult result)
         {
-            using PipelineResponse response = result.GetRawResponse();
+            PipelineResponse response = result.GetRawResponse();
             using JsonDocument document = JsonDocument.Parse(response.Content);
             return DeserializeStreamingAudioTranscriptionUpdate(document.RootElement, ModelSerializationExtensions.WireOptions);
         }
