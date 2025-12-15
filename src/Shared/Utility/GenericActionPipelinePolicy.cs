@@ -3,11 +3,11 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace OpenAI;
+namespace OpenAI.Shared;
 
 internal partial class GenericActionPipelinePolicy : PipelinePolicy
 {
-    private Action<PipelineMessage> _processMessageAction;
+    private readonly Action<PipelineMessage> _processMessageAction;
 
     public GenericActionPipelinePolicy(Action<PipelineMessage> processMessageAction)
     {

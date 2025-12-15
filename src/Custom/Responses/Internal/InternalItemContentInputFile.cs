@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using OpenAI.Shared;
 
 namespace OpenAI.Responses;
 

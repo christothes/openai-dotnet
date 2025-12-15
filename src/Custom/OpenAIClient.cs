@@ -20,6 +20,7 @@ using System;
 using System.ClientModel;
 using System.ClientModel.Primitives;
 using System.Diagnostics.CodeAnalysis;
+using OpenAI.Shared;
 
 namespace OpenAI;
 

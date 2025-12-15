@@ -3,7 +3,7 @@ using System.Diagnostics.Contracts;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace OpenAI;
+namespace OpenAI.Shared;
 
 internal static class SemaphoreSlimExtensions
 {

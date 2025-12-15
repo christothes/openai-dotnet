@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 #nullable enable
 
-namespace OpenAI;
+namespace OpenAI.Shared;
 
 internal static partial class DataEncodingHelpers
 {
