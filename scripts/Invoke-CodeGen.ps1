@@ -317,6 +317,56 @@ try {
 
     Set-Location $specificationFolderPath
     Invoke-ScriptWithLogging { npx tsp compile . --stats --trace @typespec/http-client-csharp }
+
+    # Ensure generated shared primitives land in the new shared layout even if the emitter writes legacy paths.
+    $sharedRelocations = @(
+        @{ Old = Join-Path $repoRootPath "src/Generated/Models/OpenAIContext.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Models/OpenAIContext.cs" },
+        @{ Old = Join-Path $repoRootPath "src/Generated/Models/OpenAIContext.Custom.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Models/OpenAIContext.Custom.cs" },
+        @{ Old = Join-Path $repoRootPath "src/Generated/Internal/ChangeTrackingList.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Internal/ChangeTrackingList.cs" },
+        @{ Old = Join-Path $repoRootPath "src/Generated/Internal/ChangeTrackingDictionary.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Internal/ChangeTrackingDictionary.cs" },
+        @{ Old = Join-Path $repoRootPath "src/Generated/Internal/ClientUriBuilder.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Internal/ClientUriBuilder.cs" },
+        @{ Old = Join-Path $repoRootPath "src/Generated/Internal/PipelineRequestHeadersExtensions.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Internal/PipelineRequestHeadersExtensions.cs" },
+        @{ Old = Join-Path $repoRootPath "src/Utility/CustomSerializationHelpers.cs"; New = Join-Path $repoRootPath "src/Shared/Utility/CustomSerializationHelpers.cs" }
+    )
+
+    foreach ($entry in $sharedRelocations) {
+        $oldPath = $entry.Old
+        $newPath = $entry.New
+
+        if (Test-Path $oldPath) {
+            $newDir = Split-Path $newPath -Parent
+            New-Item -ItemType Directory -Path $newDir -Force | Out-Null
+            Move-Item -Path $oldPath -Destination $newPath -Force
+            Write-Host "Moved generated file to shared layout: $($oldPath.Replace($repoRootPath, '.')) -> $($newPath.Replace($repoRootPath, '.'))"
+        }
+    }
+
+    # Remove any legacy duplicates for helpers that already live in shared utility locations.
+    $sharedDuplicates = @(
+        @{ Legacy = Join-Path $repoRootPath "src/Generated/Internal/Argument.cs"; Canonical = Join-Path $repoRootPath "src/Shared/Utility/Argument.cs" },
+        @{ Legacy = Join-Path $repoRootPath "src/Generated/Internal/ModelSerializationExtensions.cs"; Canonical = Join-Path $repoRootPath "src/Shared/Utility/ModelSerializationExtensions.cs" },
+        @{ Legacy = Join-Path $repoRootPath "src/Generated/Internal/Optional.cs"; Canonical = Join-Path $repoRootPath "src/Shared/Utility/Optional.cs" },
+        @{ Legacy = Join-Path $repoRootPath "src/Generated/Internal/SerializationFormat.cs"; Canonical = Join-Path $repoRootPath "src/Shared/Utility/SerializationFormat.cs" },
+        @{ Legacy = Join-Path $repoRootPath "src/Generated/Internal/TypeFormatters.cs"; Canonical = Join-Path $repoRootPath "src/Shared/Utility/TypeFormatters.cs" }
+    )
+
+    foreach ($entry in $sharedDuplicates) {
+        $legacyPath = $entry.Legacy
+        $canonicalPath = $entry.Canonical
+
+        if (Test-Path $legacyPath) {
+            if (Test-Path $canonicalPath) {
+                Remove-Item -Path $legacyPath -Force
+                Write-Host "Removed legacy duplicate in favor of shared copy: $($legacyPath.Replace($repoRootPath, '.')) -> $($canonicalPath.Replace($repoRootPath, '.'))"
+            }
+            else {
+                $canonicalDir = Split-Path $canonicalPath -Parent
+                New-Item -ItemType Directory -Path $canonicalDir -Force | Out-Null
+                Move-Item -Path $legacyPath -Destination $canonicalPath -Force
+                Write-Host "Moved legacy file to canonical shared location: $($legacyPath.Replace($repoRootPath, '.')) -> $($canonicalPath.Replace($repoRootPath, '.'))"
+            }
+        }
+    }
 }
 finally {
     Pop-Location
