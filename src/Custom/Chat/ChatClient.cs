@@ -1,3 +1,5 @@
+﻿#nullable enable
+
 using OpenAI.Telemetry;
 using System;
 using System.ClientModel;
@@ -24,6 +26,17 @@ public partial class ChatClient
     private readonly string _model;
     private readonly OpenTelemetrySource _telemetry;
     private static readonly InternalChatCompletionStreamOptions s_includeUsageStreamOptions = new(includeUsage: true, patch: default);
+
+    private static string? ConvertFinishReason(ChatFinishReason? finishReason) => finishReason switch
+    {
+        ChatFinishReason.ContentFilter => "content_filter",
+        ChatFinishReason.FunctionCall => "function_call",
+        ChatFinishReason.Length => "length",
+        ChatFinishReason.Stop => "stop",
+        ChatFinishReason.ToolCalls => "tool_calls",
+        null => null,
+        _ => finishReason.ToString(),
+    };
 
     // CUSTOM: Added as a convenience.
     /// <summary> Initializes a new instance of <see cref="ChatClient"/>. </summary>
@@ -136,12 +149,12 @@ public partial class ChatClient
     /// <param name="cancellationToken"> A token that can be used to cancel this method call. </param>
     /// <exception cref="ArgumentNullException"> <paramref name="messages"/> is null. </exception>
     /// <exception cref="ArgumentException"> <paramref name="messages"/> is an empty collection, and was expected to be non-empty. </exception>
-    public virtual Task<ClientResult<ChatCompletion>> CompleteChatAsync(IEnumerable<ChatMessage> messages, ChatCompletionOptions options = null, CancellationToken cancellationToken = default)
+    public virtual Task<ClientResult<ChatCompletion>> CompleteChatAsync(IEnumerable<ChatMessage> messages, ChatCompletionOptions? options = null, CancellationToken cancellationToken = default)
     {
         return CompleteChatAsync(messages, options, cancellationToken.ToRequestOptions() ?? new RequestOptions());
     }
 
-    internal async Task<ClientResult<ChatCompletion>> CompleteChatAsync(IEnumerable<ChatMessage> messages, ChatCompletionOptions options, RequestOptions requestOptions)
+    internal async Task<ClientResult<ChatCompletion>> CompleteChatAsync(IEnumerable<ChatMessage> messages, ChatCompletionOptions? options, RequestOptions requestOptions)
     {
         Argument.AssertNotNullOrEmpty(messages, nameof(messages));
         Argument.AssertNotNull(requestOptions, nameof(requestOptions));
@@ -150,17 +163,22 @@ public partial class ChatClient
             throw new InvalidOperationException("'requestOptions.BufferResponse' must be 'true' when calling 'CompleteChatAsync'.");
         }
 
-        options ??= new();
-        CreateChatCompletionOptions(messages, ref options);
-        using OpenTelemetryScope scope = _telemetry.StartChatScope(options);
+        ChatCompletionOptions preparedOptions = options ?? new();
+        CreateChatCompletionOptions(messages, ref preparedOptions);
+        using OpenTelemetryScope? scope = _telemetry.StartChatScope(preparedOptions.MaxOutputTokenCount, preparedOptions.Temperature, preparedOptions.TopP);
 
         try
         {
-            using BinaryContent content = options.ToBinaryContent();
+            using BinaryContent content = preparedOptions.ToBinaryContent();
 
             ClientResult result = await CompleteChatAsync(content, requestOptions).ConfigureAwait(false);
             ChatCompletion chatCompletion = (ChatCompletion)result;
-            scope?.RecordChatCompletion(chatCompletion);
+            scope?.RecordChatCompletion(
+                chatCompletion.Id,
+                chatCompletion.Model,
+                ConvertFinishReason(chatCompletion.FinishReason),
+                chatCompletion.Usage?.InputTokenCount,
+                chatCompletion.Usage?.OutputTokenCount);
             return ClientResult.FromValue(chatCompletion, result.GetRawResponse());
         }
         catch (Exception ex)
@@ -176,21 +194,26 @@ public partial class ChatClient
     /// <param name="cancellationToken"> A token that can be used to cancel this method call. </param>
     /// <exception cref="ArgumentNullException"> <paramref name="messages"/> is null. </exception>
     /// <exception cref="ArgumentException"> <paramref name="messages"/> is an empty collection, and was expected to be non-empty. </exception>
-    public virtual ClientResult<ChatCompletion> CompleteChat(IEnumerable<ChatMessage> messages, ChatCompletionOptions options = null, CancellationToken cancellationToken = default)
+    public virtual ClientResult<ChatCompletion> CompleteChat(IEnumerable<ChatMessage> messages, ChatCompletionOptions? options = null, CancellationToken cancellationToken = default)
     {
         Argument.AssertNotNullOrEmpty(messages, nameof(messages));
 
-        options ??= new();
-        CreateChatCompletionOptions(messages, ref options);
-        using OpenTelemetryScope scope = _telemetry.StartChatScope(options);
+        ChatCompletionOptions preparedOptions = options ?? new();
+        CreateChatCompletionOptions(messages, ref preparedOptions);
+        using OpenTelemetryScope? scope = _telemetry.StartChatScope(preparedOptions.MaxOutputTokenCount, preparedOptions.Temperature, preparedOptions.TopP);
 
         try
         {
-            using BinaryContent content = options.ToBinaryContent();
+            using BinaryContent content = preparedOptions.ToBinaryContent();
             ClientResult result = CompleteChat(content, cancellationToken.ToRequestOptions());
             ChatCompletion chatCompletion = (ChatCompletion)result;
 
-            scope?.RecordChatCompletion(chatCompletion);
+            scope?.RecordChatCompletion(
+                chatCompletion.Id,
+                chatCompletion.Model,
+                ConvertFinishReason(chatCompletion.FinishReason),
+                chatCompletion.Usage?.InputTokenCount,
+                chatCompletion.Usage?.OutputTokenCount);
             return ClientResult.FromValue(chatCompletion, result.GetRawResponse());
         }
         catch (Exception ex)
@@ -227,12 +250,12 @@ public partial class ChatClient
     /// <param name="cancellationToken"> A token that can be used to cancel this method call. </param>
     /// <exception cref="ArgumentNullException"> <paramref name="messages"/> is null. </exception>
     /// <exception cref="ArgumentException"> <paramref name="messages"/> is an empty collection, and was expected to be non-empty. </exception>
-    public virtual AsyncCollectionResult<StreamingChatCompletionUpdate> CompleteChatStreamingAsync(IEnumerable<ChatMessage> messages, ChatCompletionOptions options = null, CancellationToken cancellationToken = default)
+    public virtual AsyncCollectionResult<StreamingChatCompletionUpdate> CompleteChatStreamingAsync(IEnumerable<ChatMessage> messages, ChatCompletionOptions? options = null, CancellationToken cancellationToken = default)
     {
         return CompleteChatStreamingAsync(messages, options, cancellationToken.ToRequestOptions(streaming: true));
     }
 
-    internal AsyncCollectionResult<StreamingChatCompletionUpdate> CompleteChatStreamingAsync(IEnumerable<ChatMessage> messages, ChatCompletionOptions options, RequestOptions requestOptions)
+    internal AsyncCollectionResult<StreamingChatCompletionUpdate> CompleteChatStreamingAsync(IEnumerable<ChatMessage> messages, ChatCompletionOptions? options, RequestOptions requestOptions)
     {
         Argument.AssertNotNull(messages, nameof(messages));
         Argument.AssertNotNull(requestOptions, nameof(requestOptions));
@@ -241,10 +264,10 @@ public partial class ChatClient
             throw new InvalidOperationException("'requestOptions.BufferResponse' must be 'false' when calling 'CompleteChatStreamingAsync'.");
         }
 
-        options ??= new();
-        CreateChatCompletionOptions(messages, ref options, stream: true);
+        ChatCompletionOptions preparedOptions = options ?? new();
+        CreateChatCompletionOptions(messages, ref preparedOptions, stream: true);
 
-        using BinaryContent content = options.ToBinaryContent();
+        using BinaryContent content = preparedOptions.ToBinaryContent();
         return new AsyncSseUpdateCollection<StreamingChatCompletionUpdate>(
             async () => await CompleteChatAsync(content, requestOptions).ConfigureAwait(false),
             StreamingChatCompletionUpdate.DeserializeStreamingChatCompletionUpdate,
@@ -264,14 +287,14 @@ public partial class ChatClient
     /// <param name="cancellationToken"> A token that can be used to cancel this method call. </param>
     /// <exception cref="ArgumentNullException"> <paramref name="messages"/> is null. </exception>
     /// <exception cref="ArgumentException"> <paramref name="messages"/> is an empty collection, and was expected to be non-empty. </exception>
-    public virtual CollectionResult<StreamingChatCompletionUpdate> CompleteChatStreaming(IEnumerable<ChatMessage> messages, ChatCompletionOptions options = null, CancellationToken cancellationToken = default)
+    public virtual CollectionResult<StreamingChatCompletionUpdate> CompleteChatStreaming(IEnumerable<ChatMessage> messages, ChatCompletionOptions? options = null, CancellationToken cancellationToken = default)
     {
         Argument.AssertNotNull(messages, nameof(messages));
 
-        options ??= new();
-        CreateChatCompletionOptions(messages, ref options, stream: true);
+        ChatCompletionOptions preparedOptions = options ?? new();
+        CreateChatCompletionOptions(messages, ref preparedOptions, stream: true);
 
-        using BinaryContent content = options.ToBinaryContent();
+        using BinaryContent content = preparedOptions.ToBinaryContent();
         return new SseUpdateCollection<StreamingChatCompletionUpdate>(
             () => CompleteChat(content, cancellationToken.ToRequestOptions(streaming: true)),
             StreamingChatCompletionUpdate.DeserializeStreamingChatCompletionUpdate,

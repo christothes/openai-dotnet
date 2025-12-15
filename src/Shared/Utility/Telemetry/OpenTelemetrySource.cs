@@ -1,7 +1,8 @@
-﻿using OpenAI.Chat;
-using System;
+﻿using System;
 
 namespace OpenAI.Telemetry;
+
+#nullable enable
 
 internal class OpenTelemetrySource
 {
@@ -20,11 +21,19 @@ internal class OpenTelemetrySource
         _model = model;
     }
 
-    public OpenTelemetryScope StartChatScope(ChatCompletionOptions completionsOptions)
+    public OpenTelemetryScope? StartChatScope(int? maxOutputTokenCount = null, float? temperature = null, float? topP = null)
     {
         return IsOTelEnabled
-            ? OpenTelemetryScope.StartChat(_model, ChatOperationName, _serverAddress, _serverPort, completionsOptions)
+            ? OpenTelemetryScope.StartChat(
+                _model,
+                ChatOperationName,
+                _serverAddress,
+                _serverPort,
+                maxOutputTokenCount,
+                temperature,
+                topP)
             : null;
     }
+
 
 }

@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 using static OpenAI.Tests.Telemetry.TestMeterListener;
 using static OpenAI.Tests.Telemetry.TestActivityListener;
 
+#nullable enable
+#pragma warning disable CS8600, CS8602, CS8603, CS8604, CS8605, CS8625
+
 namespace OpenAI.Tests.Telemetry;
 
 [TestFixture]
@@ -37,7 +40,7 @@ public class ChatTelemetryTests
     public void AllTelemetryOff()
     {
         var telemetry = new OpenTelemetrySource(RequestModel, new Uri(Endpoint));
-        Assert.That(telemetry.StartChatScope(new ChatCompletionOptions()), Is.Null);
+        Assert.That(StartScope(telemetry, new ChatCompletionOptions()), Is.Null);
         Assert.That(Activity.Current, Is.Null);
     }
 
@@ -47,7 +50,7 @@ public class ChatTelemetryTests
         using var activityListener = new TestActivityListener("OpenAI.ChatClient");
         using var meterListener = new TestMeterListener("OpenAI.ChatClient");
         var telemetry = new OpenTelemetrySource(RequestModel, new Uri(Endpoint));
-        Assert.That(telemetry.StartChatScope(new ChatCompletionOptions()), Is.Null);
+        Assert.That(StartScope(telemetry, new ChatCompletionOptions()), Is.Null);
         Assert.That(Activity.Current, Is.Null);
     }
 
@@ -61,7 +64,7 @@ public class ChatTelemetryTests
         using var meterListener = new TestMeterListener("OpenAI.ChatClient");
 
         var elapsedMax = Stopwatch.StartNew();
-        using var scope = telemetry.StartChatScope(new ChatCompletionOptions());
+        using var scope = StartScope(telemetry, new ChatCompletionOptions());
         var elapsedMin = Stopwatch.StartNew();
 
         Assert.That(Activity.Current, Is.Null);
@@ -73,7 +76,7 @@ public class ChatTelemetryTests
         elapsedMin.Stop();
 
         var response = CreateChatCompletion();
-        scope.RecordChatCompletion(response);
+        RecordCompletion(scope, response);
         scope.Dispose();
 
         ValidateDuration(meterListener, response, elapsedMin.Elapsed, elapsedMax.Elapsed);
@@ -88,7 +91,7 @@ public class ChatTelemetryTests
         var telemetry = new OpenTelemetrySource(RequestModel, new Uri(Endpoint));
         using var meterListener = new TestMeterListener("OpenAI.ChatClient");
 
-        using (var scope = telemetry.StartChatScope(new ChatCompletionOptions()))
+        using (var scope = StartScope(telemetry, new ChatCompletionOptions()))
         {
             scope.RecordException(new TaskCanceledException());
         }
@@ -108,7 +111,7 @@ public class ChatTelemetryTests
         var chatCompletion = CreateChatCompletion();
 
         Activity activity = null;
-        using (var scope = telemetry.StartChatScope(new ChatCompletionOptions()))
+        using (var scope = StartScope(telemetry, new ChatCompletionOptions()))
         {
             activity = Activity.Current;
             Assert.That(activity.GetTagItem("gen_ai.request.temperature"), Is.Null);
@@ -117,7 +120,7 @@ public class ChatTelemetryTests
 
             Assert.That(scope, Is.Not.Null);
 
-            scope.RecordChatCompletion(chatCompletion);
+            RecordCompletion(scope, chatCompletion);
         }
 
         Assert.That(Activity.Current, Is.Null);
@@ -142,12 +145,12 @@ public class ChatTelemetryTests
 
         var chatCompletion = CreateChatCompletion();
 
-        using (var scope = telemetry.StartChatScope(options))
+        using (var scope = StartScope(telemetry, options))
         {
             Assert.That((float)Activity.Current.GetTagItem("gen_ai.request.temperature"), Is.EqualTo(options.Temperature.Value).Within(0.01));
             Assert.That((float)Activity.Current.GetTagItem("gen_ai.request.top_p"), Is.EqualTo(options.TopP.Value).Within(0.01));
             Assert.That(Activity.Current.GetTagItem("gen_ai.request.max_tokens"), Is.EqualTo(options.MaxOutputTokenCount.Value));
-            scope.RecordChatCompletion(chatCompletion);
+            RecordCompletion(scope, chatCompletion);
         }
         Assert.That(Activity.Current, Is.Null);
 
@@ -163,7 +166,7 @@ public class ChatTelemetryTests
         using var listener = new TestActivityListener("OpenAI.ChatClient");
 
         var error = new SocketException(42, "test error");
-        using (var scope = telemetry.StartChatScope(new ChatCompletionOptions()))
+        using (var scope = StartScope(telemetry, new ChatCompletionOptions()))
         {
             scope.RecordException(error);
         }
@@ -194,7 +197,7 @@ public class ChatTelemetryTests
             // don't let Activity.Current escape the scope
             tasks[i] = Task.Run(async () =>
             {
-                using var scope = source.StartChatScope(options);
+                using var scope = StartScope(source, options);
                 await Task.Delay(10);
                 if (t < numberOfSuccessfulResponses)
                 {
@@ -204,7 +207,7 @@ public class ChatTelemetryTests
                     var completion = CreateChatCompletion(promptTokens, completionTokens);
                     totalPromptTokens += promptTokens;
                     totalCompletionTokens += completionTokens;
-                    scope.RecordChatCompletion(completion);
+                    RecordCompletion(scope, completion);
                 }
                 else
                 {
@@ -233,6 +236,31 @@ public class ChatTelemetryTests
             .Where(u => u.tags.Contains(new KeyValuePair<string, object>("gen_ai.token.type", "output")))
             .Sum(u => (long)u.value), Is.EqualTo(totalCompletionTokens));
     }
+
+    private static OpenTelemetryScope? StartScope(OpenTelemetrySource telemetry, ChatCompletionOptions options)
+    {
+        return telemetry.StartChatScope(options.MaxOutputTokenCount, options.Temperature, options.TopP);
+    }
+
+    private static void RecordCompletion(OpenTelemetryScope scope, ChatCompletion completion)
+    {
+        scope.RecordChatCompletion(
+            completion.Id,
+            completion.Model,
+            finishReason: GetFinishReason(completion.FinishReason),
+            inputTokenCount: completion.Usage?.InputTokenCount,
+            outputTokenCount: completion.Usage?.OutputTokenCount);
+    }
+
+    private static string? GetFinishReason(ChatFinishReason? finishReason) => finishReason switch
+    {
+        ChatFinishReason.ContentFilter => "content_filter",
+        ChatFinishReason.FunctionCall => "function_call",
+        ChatFinishReason.Length => "length",
+        ChatFinishReason.Stop => "stop",
+        ChatFinishReason.ToolCalls => "tool_calls",
+        _ => finishReason?.ToString(),
+    };
 
     private void SetMessages(ChatCompletionOptions options, params ChatMessage[] messages)
     {

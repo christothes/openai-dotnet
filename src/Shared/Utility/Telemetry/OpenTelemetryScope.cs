@@ -1,10 +1,11 @@
-﻿using OpenAI.Chat;
-using System;
+﻿using System;
 using System.ClientModel;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 
 using static OpenAI.Telemetry.OpenTelemetryConstants;
+
+#nullable enable
 
 namespace OpenAI.Telemetry;
 
@@ -22,8 +23,8 @@ internal class OpenTelemetryScope : IDisposable
     private readonly int _serverPort;
     private readonly string _requestModel;
 
-    private Stopwatch _duration;
-    private Activity _activity;
+    private Stopwatch? _duration;
+    private Activity? _activity;
     private TagList _commonTags;
 
     private OpenTelemetryScope(
@@ -38,20 +39,26 @@ internal class OpenTelemetryScope : IDisposable
 
     private static bool IsChatEnabled => s_chatSource.HasListeners() || s_tokens.Enabled || s_duration.Enabled;
 
-    public static OpenTelemetryScope StartChat(string model, string operationName,
-        string serverAddress, int serverPort, ChatCompletionOptions options)
+    public static OpenTelemetryScope? StartChat(
+        string model,
+        string operationName,
+        string serverAddress,
+        int serverPort,
+        int? maxOutputTokenCount,
+        float? temperature,
+        float? topP)
     {
         if (IsChatEnabled)
         {
             var scope = new OpenTelemetryScope(model, operationName, serverAddress, serverPort);
-            scope.StartChat(options);
+            scope.StartChat(maxOutputTokenCount, temperature, topP);
             return scope;
         }
 
         return null;
     }
 
-    private void StartChat(ChatCompletionOptions options)
+    private void StartChat(int? maxOutputTokenCount, float? temperature, float? topP)
     {
         _duration = Stopwatch.StartNew();
         _commonTags = new TagList
@@ -67,21 +74,26 @@ internal class OpenTelemetryScope : IDisposable
         if (_activity?.IsAllDataRequested == true)
         {
             RecordCommonAttributes();
-            SetActivityTagIfNotNull(GenAiRequestMaxTokensKey, options?.MaxOutputTokenCount);
-            SetActivityTagIfNotNull(GenAiRequestTemperatureKey, options?.Temperature);
-            SetActivityTagIfNotNull(GenAiRequestTopPKey, options?.TopP);
+            SetActivityTagIfNotNull(GenAiRequestMaxTokensKey, maxOutputTokenCount);
+            SetActivityTagIfNotNull(GenAiRequestTemperatureKey, temperature);
+            SetActivityTagIfNotNull(GenAiRequestTopPKey, topP);
         }
 
         return;
     }
 
-    public void RecordChatCompletion(ChatCompletion completion)
+    public void RecordChatCompletion(
+        string responseId,
+        string? responseModel = null,
+        string? finishReason = null,
+        int? inputTokenCount = null,
+        int? outputTokenCount = null)
     {
-        RecordMetrics(completion.Model, null, completion.Usage?.InputTokenCount, completion.Usage?.OutputTokenCount);
+        RecordMetrics(responseModel, null, inputTokenCount, outputTokenCount);
 
         if (_activity?.IsAllDataRequested == true)
         {
-            RecordResponseAttributes(completion.Id, completion.Model, completion.FinishReason, completion.Usage);
+            RecordResponseAttributes(responseId, responseModel, finishReason, inputTokenCount, outputTokenCount);
         }
     }
 
@@ -103,14 +115,20 @@ internal class OpenTelemetryScope : IDisposable
 
     private void RecordCommonAttributes()
     {
-        _activity.SetTag(GenAiSystemKey, GenAiSystemValue);
-        _activity.SetTag(GenAiRequestModelKey, _requestModel);
-        _activity.SetTag(ServerAddressKey, _serverAddress);
-        _activity.SetTag(ServerPortKey, _serverPort);
-        _activity.SetTag(GenAiOperationNameKey, _operationName);
+        Activity? activity = _activity;
+        if (activity is null)
+        {
+            return;
+        }
+
+        activity.SetTag(GenAiSystemKey, GenAiSystemValue);
+        activity.SetTag(GenAiRequestModelKey, _requestModel);
+        activity.SetTag(ServerAddressKey, _serverAddress);
+        activity.SetTag(ServerPortKey, _serverPort);
+        activity.SetTag(GenAiOperationNameKey, _operationName);
     }
 
-    private void RecordMetrics(string responseModel, string errorType, int? inputTokensUsage, int? outputTokensUsage)
+    private void RecordMetrics(string? responseModel, string? errorType, int? inputTokensUsage, int? outputTokensUsage)
     {
         // tags is a struct, let's copy and modify them
         var tags = _commonTags;
@@ -139,50 +157,40 @@ internal class OpenTelemetryScope : IDisposable
             tags.Add(ErrorTypeKey, errorType);
         }
 
-        s_duration.Record(_duration.Elapsed.TotalSeconds, tags);
+        s_duration.Record(_duration!.Elapsed.TotalSeconds, tags);
     }
 
-    private void RecordResponseAttributes(string responseId, string model, ChatFinishReason? finishReason, ChatTokenUsage usage)
+    private void RecordResponseAttributes(
+        string responseId,
+        string? model,
+        string? finishReason,
+        int? inputTokenCount,
+        int? outputTokenCount)
     {
         SetActivityTagIfNotNull(GenAiResponseIdKey, responseId);
         SetActivityTagIfNotNull(GenAiResponseModelKey, model);
-        SetActivityTagIfNotNull(GenAiUsageInputTokensKey, usage?.InputTokenCount);
-        SetActivityTagIfNotNull(GenAiUsageOutputTokensKey, usage?.OutputTokenCount);
+        SetActivityTagIfNotNull(GenAiUsageInputTokensKey, inputTokenCount);
+        SetActivityTagIfNotNull(GenAiUsageOutputTokensKey, outputTokenCount);
         SetFinishReasonAttribute(finishReason);
     }
 
-    private void SetFinishReasonAttribute(ChatFinishReason? finishReason)
+    private void SetFinishReasonAttribute(string? finishReason)
     {
-        if (finishReason == null)
+        if (string.IsNullOrEmpty(finishReason))
         {
             return;
         }
 
-        var reasonStr = finishReason switch
-        {
-            ChatFinishReason.ContentFilter => "content_filter",
-            ChatFinishReason.FunctionCall => "function_call",
-            ChatFinishReason.Length => "length",
-            ChatFinishReason.Stop => "stop",
-            ChatFinishReason.ToolCalls => "tool_calls",
-            _ => finishReason.ToString(),
-        };
-
         // There could be multiple finish reasons, so semantic conventions use array type for the corrresponding attribute.
         // It's likely to change, but for now let's report it as array.
-        _activity.SetTag(GenAiResponseFinishReasonKey, new[] { reasonStr });
-    }
-
-    private string GetChatMessageRole(ChatMessageRole? role) =>
-        role switch
+        Activity? activity = _activity;
+        if (activity is null)
         {
-            ChatMessageRole.Assistant => "assistant",
-            ChatMessageRole.Function => "function",
-            ChatMessageRole.System => "system",
-            ChatMessageRole.Tool => "tool",
-            ChatMessageRole.User => "user",
-            _ => role?.ToString(),
-        };
+            return;
+        }
+
+        activity.SetTag(GenAiResponseFinishReasonKey, new[] { finishReason });
+    }
 
     private string GetErrorType(Exception exception)
     {
@@ -193,30 +201,35 @@ internal class OpenTelemetryScope : IDisposable
             return requestFailedException.Status.ToString();
         }
 
-        return exception?.GetType()?.FullName;
+        return exception?.GetType()?.FullName ?? "unknown";
     }
 
-    private void SetActivityTagIfNotNull(string name, object value)
+    private void SetActivityTagIfNotNull(string name, object? value)
     {
-        if (value != null)
+        Activity? activity = _activity;
+        if (value is null || activity is null)
         {
-            _activity.SetTag(name, value);
+            return;
         }
+
+        activity.SetTag(name, value);
     }
 
     private void SetActivityTagIfNotNull(string name, int? value)
     {
-        if (value.HasValue)
+        Activity? activity = _activity;
+        if (value.HasValue && activity is not null)
         {
-            _activity.SetTag(name, value.Value);
+            activity.SetTag(name, value.Value);
         }
     }
 
     private void SetActivityTagIfNotNull(string name, float? value)
     {
-        if (value.HasValue)
+        Activity? activity = _activity;
+        if (value.HasValue && activity is not null)
         {
-            _activity.SetTag(name, value.Value);
+            activity.SetTag(name, value.Value);
         }
     }
 }

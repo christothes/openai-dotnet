@@ -6,6 +6,8 @@ The OpenAI .NET library provides convenient access to the OpenAI REST API from .
 
 It is generated from our [OpenAPI specification](https://github.com/openai/openai-openapi) in collaboration with Microsoft.
 
+> Package layout note: we are introducing a shared package (`OpenAI.Shared`) that contains common pipeline/auth/utility primitives. Client-specific packages (e.g., chat, responses, assistants) will depend on `OpenAI.Shared`, while the existing `OpenAI` meta-package will continue to roll up all clients during the transition.
+
 ## Table of Contents
 
 - [Getting started](#getting-started)
