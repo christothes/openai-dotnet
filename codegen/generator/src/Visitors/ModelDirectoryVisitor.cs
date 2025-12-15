@@ -11,6 +11,12 @@ public class ModelDirectoryVisitor : ScmLibraryVisitor
 {
     protected override TypeProvider VisitType(TypeProvider type)
     {
+        // Leave paths already routed into Shared untouched so SharedDirectoryVisitor can override layout.
+        if (type.RelativeFilePath.Replace('\\', '/').StartsWith("src/Shared/", System.StringComparison.OrdinalIgnoreCase))
+        {
+            return type;
+        }
+
         // Only apply to types in the Models folder
         if (type.RelativeFilePath.Contains("Models"))
         {
