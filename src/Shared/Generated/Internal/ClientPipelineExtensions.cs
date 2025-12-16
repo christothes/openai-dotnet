@@ -4,7 +4,7 @@
 
 namespace OpenAI
 {
-    internal static partial class PipelineRequestHeadersExtensions
+    internal static partial class ClientPipelineExtensions
     {
     }
 }

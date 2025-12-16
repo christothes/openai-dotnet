@@ -41,7 +41,7 @@
     <NoWarn>$(NoWarn),0169</NoWarn>
 
     <!-- Disable warnings for experimental APIs -->
-    <NoWarn>$(NoWarn),OPENAI001;OPENAI002;OPENAICUA001</NoWarn>
+    <NoWarn>$(NoWarn),OPENAI001;OPENAI002;OPENAICUA001;SCME0001</NoWarn>
 
     <Configurations>Debug;Release;Unsigned</Configurations>
 
@@ -56,13 +56,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Shared/**/*.cs" />
+    <Compile Remove="Shared/**/*.*" />
+    <Compile Remove="Generated/OpenAIClientOptions.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Shared/Generated/Models/OpenAIContext.cs" Link="Generated/Models/OpenAIContext.cs" />
-    <Compile Include="Shared/Generated/Models/OpenAIContext.Custom.cs" Link="Generated/Models/OpenAIContext.Custom.cs" />
-    <Compile Include="Shared/Utility/CustomSerializationHelpers.cs" Link="Utility/CustomSerializationHelpers.cs" />
+    <Compile Include="Shared/Generated/Models/OpenAIContext.cs" />
+    <Compile Include="Shared/Generated/Models/OpenAIContext.Custom.cs" />
+    <Compile Include="Shared/Utility/CustomSerializationHelpers.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="Shared/OpenAI.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="System.ClientModel.Primitives" />
   </ItemGroup>
 
   <ItemGroup>
@@ -81,10 +90,6 @@
   <ItemGroup>
     <PackageReference Include="System.ClientModel" Version="1.8.1" />
     <PackageReference Include="System.Net.ServerSentEvents" Version="10.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="Shared/OpenAI.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="!$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">

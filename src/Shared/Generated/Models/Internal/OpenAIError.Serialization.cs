@@ -87,7 +87,6 @@ namespace OpenAI.Internal
         }
 
         OpenAIError IJsonModel<OpenAIError>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
-
         protected virtual OpenAIError JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
             string format = options.Format == "W" ? ((IPersistableModel<OpenAIError>)this).GetFormatFromOptions(options) : options.Format;
@@ -149,21 +148,23 @@ namespace OpenAI.Internal
         }
 
         BinaryData IPersistableModel<OpenAIError>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
-
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
             string format = options.Format == "W" ? ((IPersistableModel<OpenAIError>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
-                    return ModelReaderWriter.Write(this, options, OpenAIContext.Default);
+#pragma warning disable IL2026 // AOT: reflection usage acceptable for shared primitive serialization
+#pragma warning disable IL3050 // AOT: reflection usage acceptable for shared primitive serialization
+                    return ModelReaderWriter.Write(this, options);
+#pragma warning restore IL3050
+#pragma warning restore IL2026
                 default:
                     throw new FormatException($"The model {nameof(OpenAIError)} does not support writing '{options.Format}' format.");
             }
         }
 
         OpenAIError IPersistableModel<OpenAIError>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
-
         protected virtual OpenAIError PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
             string format = options.Format == "W" ? ((IPersistableModel<OpenAIError>)this).GetFormatFromOptions(options) : options.Format;

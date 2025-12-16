@@ -236,8 +236,6 @@ $specificationFolderPath = Join-Path $repoRootPath "specification"
 $baseSpecificationFolderPath = Join-Path $repoRootPath "specification\base"
 $codegenFolderPath = Join-Path $repoRootPath "codegen"
 
-$scriptStartTime = Get-Date
-
 if ($PSCmdlet.ParameterSetName -eq 'Default') {
     if (-not (Test-Path $baseSpecificationFolderPath)) {
         Write-Error "Base specification path does not exist: $baseSpecificationFolderPath"
@@ -324,8 +322,14 @@ try {
         @{ Old = Join-Path $repoRootPath "src/Generated/Models/OpenAIContext.Custom.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Models/OpenAIContext.Custom.cs" },
         @{ Old = Join-Path $repoRootPath "src/Generated/Internal/ChangeTrackingList.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Internal/ChangeTrackingList.cs" },
         @{ Old = Join-Path $repoRootPath "src/Generated/Internal/ChangeTrackingDictionary.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Internal/ChangeTrackingDictionary.cs" },
+        @{ Old = Join-Path $repoRootPath "src/Generated/Internal/ClientPipelineExtensions.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Internal/ClientPipelineExtensions.cs" },
         @{ Old = Join-Path $repoRootPath "src/Generated/Internal/ClientUriBuilder.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Internal/ClientUriBuilder.cs" },
         @{ Old = Join-Path $repoRootPath "src/Generated/Internal/PipelineRequestHeadersExtensions.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Internal/PipelineRequestHeadersExtensions.cs" },
+        @{ Old = Join-Path $repoRootPath "src/Generated/Models/Internal/OpenAIError.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Models/Internal/OpenAIError.cs" },
+        @{ Old = Join-Path $repoRootPath "src/Generated/Models/Internal/OpenAIError.Serialization.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Models/Internal/OpenAIError.Serialization.cs" },
+        @{ Old = Join-Path $repoRootPath "src/Generated/Models/Internal/OpenAIErrorResponse.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Models/Internal/OpenAIErrorResponse.cs" },
+        @{ Old = Join-Path $repoRootPath "src/Generated/Models/Internal/OpenAIErrorResponse.Serialization.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Models/Internal/OpenAIErrorResponse.Serialization.cs" },
+        @{ Old = Join-Path $repoRootPath "src/Generated/Internal/CodeGenTypeAttribute.cs"; New = Join-Path $repoRootPath "src/Shared/Generated/Internal/CodeGenTypeAttribute.cs" },
         @{ Old = Join-Path $repoRootPath "src/Utility/CustomSerializationHelpers.cs"; New = Join-Path $repoRootPath "src/Shared/Utility/CustomSerializationHelpers.cs" }
     )
 

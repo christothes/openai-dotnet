@@ -4,133 +4,142 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace OpenAI
 {
+    // Lightweight URI builder used by generated REST clients.
     internal partial class ClientUriBuilder
     {
-        private UriBuilder _uriBuilder;
-        private StringBuilder _pathAndQuery;
-        private int _pathLength;
+        private readonly StringBuilder _pathBuilder = new StringBuilder();
+        private readonly List<string> _queryParts = new List<string>();
+        private Uri _baseUri = null!;
 
-        public ClientUriBuilder()
+        public void Reset(Uri baseUri)
         {
+            _baseUri = baseUri ?? throw new ArgumentNullException(nameof(baseUri));
+            _pathBuilder.Clear();
+            _queryParts.Clear();
         }
 
-        private UriBuilder UriBuilder => _uriBuilder ??= new UriBuilder();
-
-        private StringBuilder PathAndQuery => _pathAndQuery ??= new StringBuilder();
-
-        public void Reset(Uri uri)
+        public void AppendPath(string path, bool escape)
         {
-            _uriBuilder = new UriBuilder(uri);
-            PathAndQuery.Clear();
-            PathAndQuery.Append(UriBuilder.Path);
-            _pathLength = PathAndQuery.Length;
+            if (string.IsNullOrEmpty(path))
+            {
+                return;
+            }
+
+            string segment = escape ? Uri.EscapeDataString(path) : path;
+
+            // Ensure a single separator between existing path and the new segment.
+            bool endsWithSlash = _pathBuilder.Length > 0 && _pathBuilder[_pathBuilder.Length - 1] == '/';
+            bool startsWithSlash = segment.Length > 0 && segment[0] == '/';
+
+            if (!endsWithSlash && !startsWithSlash)
+            {
+                _pathBuilder.Append('/');
+            }
+            else if (endsWithSlash && startsWithSlash)
+            {
+                segment = segment.TrimStart('/');
+            }
+
+            _pathBuilder.Append(segment);
         }
 
-        public void AppendPath(string value, bool escape)
+        public void AppendQuery(string name, object value, bool escape)
         {
-            if (escape)
+            if (name == null)
             {
-                value = Uri.EscapeDataString(value);
+                throw new ArgumentNullException(nameof(name));
             }
-            if (_pathLength > 0 && PathAndQuery[_pathLength - 1] == '/' && value[0] == '/')
+
+            if (value == null)
             {
-                PathAndQuery.Remove(_pathLength - 1, 1);
-                _pathLength = _pathLength - 1;
+                return;
             }
-            PathAndQuery.Insert(_pathLength, value);
-            _pathLength = _pathLength + value.Length;
+
+            string encodedName = escape ? Uri.EscapeDataString(name) : name;
+            string stringValue = value.ToString();
+            if (stringValue == null)
+            {
+                return;
+            }
+
+            string encodedValue = escape ? Uri.EscapeDataString(stringValue) : stringValue;
+            _queryParts.Add($"{encodedName}={encodedValue}");
         }
 
-        public void AppendPath(bool value, bool escape = false) => AppendPath(TypeFormatters.ConvertToString(value), escape);
-
-        public void AppendPath(float value, bool escape = true) => AppendPath(TypeFormatters.ConvertToString(value), escape);
-
-        public void AppendPath(double value, bool escape = true) => AppendPath(TypeFormatters.ConvertToString(value), escape);
-
-        public void AppendPath(int value, bool escape = true) => AppendPath(TypeFormatters.ConvertToString(value), escape);
-
-        public void AppendPath(byte[] value, OpenAI.SerializationFormat format = OpenAI.SerializationFormat.Default, bool escape = true) => AppendPath(TypeFormatters.ConvertToString(value, format), escape);
-
-        public void AppendPath(DateTimeOffset value, OpenAI.SerializationFormat format = OpenAI.SerializationFormat.Default, bool escape = true) => AppendPath(TypeFormatters.ConvertToString(value, format), escape);
-
-        public void AppendPath(TimeSpan value, OpenAI.SerializationFormat format = OpenAI.SerializationFormat.Default, bool escape = true) => AppendPath(TypeFormatters.ConvertToString(value, format), escape);
-
-        public void AppendPath(Guid value, bool escape = true) => AppendPath(TypeFormatters.ConvertToString(value), escape);
-
-        public void AppendPath(long value, bool escape = true) => AppendPath(TypeFormatters.ConvertToString(value), escape);
-
-        public void AppendPathDelimited<T>(IEnumerable<T> value, string delimiter, OpenAI.SerializationFormat format = OpenAI.SerializationFormat.Default, bool escape = true)
+        public void AppendQueryDelimited<T>(string name, IEnumerable<T> values, string delimiter, bool escape)
         {
-            delimiter ??= ",";
-            IEnumerable<string> stringValues = value.Select(v => TypeFormatters.ConvertToString(v, format));
-            AppendPath(string.Join(delimiter, stringValues), escape);
-        }
-
-        public void AppendQuery(string name, string value, bool escape)
-        {
-            if (PathAndQuery.Length == _pathLength)
+            if (name == null)
             {
-                PathAndQuery.Append('?');
+                throw new ArgumentNullException(nameof(name));
             }
-            if (PathAndQuery.Length > _pathLength && PathAndQuery[PathAndQuery.Length - 1] != '?')
+
+            if (values == null)
             {
-                PathAndQuery.Append('&');
+                return;
             }
-            if (escape)
+
+            string combined = string.Join(delimiter, EncodeValues(values, escape));
+            if (combined.Length == 0)
             {
-                value = Uri.EscapeDataString(value);
+                return;
             }
-            PathAndQuery.Append(name);
-            PathAndQuery.Append('=');
-            PathAndQuery.Append(value);
-        }
 
-        public void AppendQuery(string name, bool value, bool escape = false) => AppendQuery(name, TypeFormatters.ConvertToString(value), escape);
-
-        public void AppendQuery(string name, float value, bool escape = true) => AppendQuery(name, TypeFormatters.ConvertToString(value), escape);
-
-        public void AppendQuery(string name, DateTimeOffset value, OpenAI.SerializationFormat format = OpenAI.SerializationFormat.Default, bool escape = true) => AppendQuery(name, TypeFormatters.ConvertToString(value, format), escape);
-
-        public void AppendQuery(string name, TimeSpan value, OpenAI.SerializationFormat format = OpenAI.SerializationFormat.Default, bool escape = true) => AppendQuery(name, TypeFormatters.ConvertToString(value, format), escape);
-
-        public void AppendQuery(string name, double value, bool escape = true) => AppendQuery(name, TypeFormatters.ConvertToString(value), escape);
-
-        public void AppendQuery(string name, decimal value, bool escape = true) => AppendQuery(name, TypeFormatters.ConvertToString(value), escape);
-
-        public void AppendQuery(string name, int value, bool escape = true) => AppendQuery(name, TypeFormatters.ConvertToString(value), escape);
-
-        public void AppendQuery(string name, long value, bool escape = true) => AppendQuery(name, TypeFormatters.ConvertToString(value), escape);
-
-        public void AppendQuery(string name, TimeSpan value, bool escape = true) => AppendQuery(name, TypeFormatters.ConvertToString(value), escape);
-
-        public void AppendQuery(string name, byte[] value, OpenAI.SerializationFormat format = OpenAI.SerializationFormat.Default, bool escape = true) => AppendQuery(name, TypeFormatters.ConvertToString(value, format), escape);
-
-        public void AppendQuery(string name, Guid value, bool escape = true) => AppendQuery(name, TypeFormatters.ConvertToString(value), escape);
-
-        public void AppendQueryDelimited<T>(string name, IEnumerable<T> value, string delimiter, OpenAI.SerializationFormat format = OpenAI.SerializationFormat.Default, bool escape = true)
-        {
-            delimiter ??= ",";
-            IEnumerable<string> stringValues = value.Select(v => TypeFormatters.ConvertToString(v, format));
-            AppendQuery(name, string.Join(delimiter, stringValues), escape);
+            string encodedName = escape ? Uri.EscapeDataString(name) : name;
+            _queryParts.Add($"{encodedName}={combined}");
         }
 
         public Uri ToUri()
         {
-            UriBuilder.Path = PathAndQuery.ToString(0, _pathLength);
-            if (PathAndQuery.Length > _pathLength)
+            UriBuilder builder = new UriBuilder(_baseUri);
+            builder.Path = CombinePaths(_baseUri.AbsolutePath, _pathBuilder.ToString());
+            builder.Query = _queryParts.Count > 0 ? string.Join("&", _queryParts) : string.Empty;
+            return builder.Uri;
+        }
+
+        private static string CombinePaths(string basePath, string relativePath)
+        {
+            if (string.IsNullOrEmpty(relativePath))
             {
-                UriBuilder.Query = PathAndQuery.ToString(_pathLength + 1, PathAndQuery.Length - _pathLength - 1);
+                return basePath;
             }
-            if (PathAndQuery.Length == _pathLength)
+
+            bool baseEndsWithSlash = basePath.EndsWith("/", StringComparison.Ordinal);
+            bool relStartsWithSlash = relativePath.StartsWith("/", StringComparison.Ordinal);
+
+            if (baseEndsWithSlash && relStartsWithSlash)
             {
-                UriBuilder.Query = "";
+                return basePath + relativePath.TrimStart('/');
             }
-            return UriBuilder.Uri;
+
+            if (!baseEndsWithSlash && !relStartsWithSlash)
+            {
+                return basePath + "/" + relativePath;
+            }
+
+            return basePath + relativePath;
+        }
+
+        private static IEnumerable<string> EncodeValues<T>(IEnumerable<T> values, bool escape)
+        {
+            foreach (T value in values)
+            {
+                if (value == null)
+                {
+                    continue;
+                }
+
+                string stringValue = value.ToString();
+                if (stringValue == null)
+                {
+                    continue;
+                }
+
+                yield return escape ? Uri.EscapeDataString(stringValue) : stringValue;
+            }
         }
     }
 }
