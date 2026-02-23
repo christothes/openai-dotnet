@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using OpenAI;
 
-namespace OpenAI.Internal
+namespace OpenAI.Responses.Internal
 {
     internal partial class OpenAIErrorResponse : IJsonModel<OpenAIErrorResponse>
     {
@@ -99,7 +99,7 @@ namespace OpenAI.Internal
             switch (format)
             {
                 case "J":
-                    return ModelReaderWriter.Write(this, options, OpenAIContext.Default);
+                    return ModelReaderWriter.Write(this, options, ResponsesModelContext.Default);
                 default:
                     throw new FormatException($"The model {nameof(OpenAIErrorResponse)} does not support writing '{options.Format}' format.");
             }

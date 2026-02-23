@@ -1,3 +1,4 @@
+#if OPENAI_RESPONSES
 using OpenAI.Responses;
 
 namespace OpenAI;
@@ -10,3 +11,4 @@ internal static class OpenAIContext
 {
     public static ResponsesModelContext Default => ResponsesModelContext.Default;
 }
+#endif

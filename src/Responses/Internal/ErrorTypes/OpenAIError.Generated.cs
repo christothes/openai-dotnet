@@ -5,7 +5,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace OpenAI.Internal
+namespace OpenAI.Responses.Internal
 {
     internal partial class OpenAIError
     {

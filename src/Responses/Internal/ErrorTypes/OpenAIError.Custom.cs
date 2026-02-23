@@ -1,17 +1,16 @@
-using Microsoft.TypeSpec.Generator.Customizations;
+#if OPENAI_RESPONSES
 using System;
 using System.ClientModel.Primitives;
 using System.Text;
 using System.Text.Json;
 
-namespace OpenAI.Internal;
+namespace OpenAI.Responses.Internal;
 
 // Custom:
 // - Renamed
 // - 'FromResponse' added for convenience with parent type
 // - 'ToExceptionMessage' added for encapsulated message formatting
 
-[CodeGenType("Error")]
 internal partial class OpenAIError
 {
     internal static OpenAIError TryCreateFromResponse(PipelineResponse response)
@@ -50,5 +49,5 @@ internal partial class OpenAIError
 // Custom:
 // - Renamed
 
-[CodeGenType("ErrorResponse")]
 internal partial class OpenAIErrorResponse { }
+#endif

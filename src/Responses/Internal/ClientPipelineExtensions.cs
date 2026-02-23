@@ -66,5 +66,5 @@ internal static partial class ClientPipelineExtensions
     }
 
     private static string TryCreateErrorMessageFromResponse(PipelineResponse response)
-        => Internal.OpenAIError.TryCreateFromResponse(response)?.ToExceptionMessage(response.Status);
+        => Responses.Internal.OpenAIError.TryCreateFromResponse(response)?.ToExceptionMessage(response.Status);
 }
