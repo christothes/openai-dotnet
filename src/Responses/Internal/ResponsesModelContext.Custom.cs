@@ -3,9 +3,8 @@
 #nullable disable
 
 using System.ClientModel.Primitives;
-using OpenAI.Responses;
 
-namespace OpenAI
+namespace OpenAI.Responses
 {
     [ModelReaderWriterBuildable(typeof(AutomaticCodeInterpreterToolContainerConfiguration))]
     [ModelReaderWriterBuildable(typeof(CodeInterpreterCallImageOutput))]
@@ -218,7 +217,7 @@ namespace OpenAI
     [ModelReaderWriterBuildable(typeof(WebSearchToolApproximateLocation))]
     [ModelReaderWriterBuildable(typeof(WebSearchToolFilters))]
     [ModelReaderWriterBuildable(typeof(WebSearchToolLocation))]
-    public partial class OpenAIContext
+    public partial class ResponsesModelContext
     {
     }
 }

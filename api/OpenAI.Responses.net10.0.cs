@@ -6,13 +6,6 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-namespace OpenAI {
-    [Experimental("OPENAI001")]
-    public class OpenAIContext : ModelReaderWriterContext {
-        public static OpenAIContext Default { get; }
-        protected override bool TryGetTypeBuilderCore(Type type, out ModelReaderWriterTypeBuilder builder);
-    }
-}
 namespace OpenAI.Responses {
     [Experimental("OPENAI001")]
     public class AutomaticCodeInterpreterToolContainerConfiguration : CodeInterpreterToolContainerConfiguration, IJsonModel<AutomaticCodeInterpreterToolContainerConfiguration>, IPersistableModel<AutomaticCodeInterpreterToolContainerConfiguration> {
@@ -1323,6 +1316,11 @@ namespace OpenAI.Responses {
         public static implicit operator ResponseServiceTier?(string value);
         public static bool operator !=(ResponseServiceTier left, ResponseServiceTier right);
         public override readonly string ToString();
+    }
+    [Experimental("OPENAI001")]
+    public class ResponsesModelContext : ModelReaderWriterContext {
+        public static ResponsesModelContext Default { get; }
+        protected override bool TryGetTypeBuilderCore(Type type, out ModelReaderWriterTypeBuilder builder);
     }
     [Experimental("OPENAI001")]
     public enum ResponseStatus {
