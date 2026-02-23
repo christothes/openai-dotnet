@@ -7,12 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 namespace OpenAI {
-    public class OpenAIClientOptions : ClientPipelineOptions {
-        public Uri Endpoint { get; set; }
-        public string OrganizationId { get; set; }
-        public string ProjectId { get; set; }
-        public string UserAgentApplicationId { get; set; }
-    }
     public class OpenAIContext : ModelReaderWriterContext {
         public static OpenAIContext Default { get; }
         protected override bool TryGetTypeBuilderCore(Type type, out ModelReaderWriterTypeBuilder builder);
@@ -1190,7 +1184,6 @@ namespace OpenAI.Responses {
         public string OrganizationId { get; set; }
         public string ProjectId { get; set; }
         public string UserAgentApplicationId { get; set; }
-        public static ResponsesClientOptions FromOpenAIClientOptions(OpenAIClientOptions options);
     }
     public readonly partial struct ResponseServiceTier : IEquatable<ResponseServiceTier> {
         public ResponseServiceTier(string value);

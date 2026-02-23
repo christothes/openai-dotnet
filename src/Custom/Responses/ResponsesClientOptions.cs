@@ -6,42 +6,6 @@ namespace OpenAI.Responses;
 /// <summary> The options to configure the <see cref="ResponsesClient"/>. </summary>
 public class ResponsesClientOptions : ClientPipelineOptions
 {
-    public static ResponsesClientOptions FromOpenAIClientOptions(OpenAIClientOptions options)
-    {
-        if (options is null)
-        {
-            return new ResponsesClientOptions();
-        }
-
-        var result = new ResponsesClientOptions
-        {
-            Endpoint = options.Endpoint,
-            OrganizationId = options.OrganizationId,
-            ProjectId = options.ProjectId,
-            UserAgentApplicationId = options.UserAgentApplicationId,
-        };
-
-        // Copy base ClientPipelineOptions properties so that any test-proxy
-        // transport or custom retry/logging policy configured by the caller
-        // (e.g. InstrumentClientOptions) is preserved.
-        if (options.Transport is not null)
-        {
-            result.Transport = options.Transport;
-        }
-
-        if (options.RetryPolicy is not null)
-        {
-            result.RetryPolicy = options.RetryPolicy;
-        }
-
-        if (options.NetworkTimeout is not null)
-        {
-            result.NetworkTimeout = options.NetworkTimeout;
-        }
-
-        return result;
-    }
-
     private Uri _endpoint;
     private string _organizationId;
     private string _projectId;

@@ -10,7 +10,7 @@ internal static class ResponsesClientHelpers
     private const string AuthorizationApiKeyPrefix = "Bearer";
     private const string OpenAIV1Endpoint = "https://api.openai.com/v1";
 
-    internal static class KnownHeaderNames
+    private static class KnownHeaderNames
     {
         public const string UserAgent = "User-Agent";
         public const string OpenAIOrganization = "OpenAI-Organization";

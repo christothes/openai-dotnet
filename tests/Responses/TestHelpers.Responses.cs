@@ -12,10 +12,17 @@ internal static partial class TestHelpers
         private class ResponsesScenario : TestScenario
         {
             public ResponsesScenario() : base("gpt-4o-mini") { }
+#if RESPONSES_ONLY
+            public override object CreateClient(string model, ApiKeyCredential credential, ResponsesClientOptions options)
+#pragma warning disable OPENAI003
+                => new ResponsesClient(model, credential, options);
+#pragma warning restore OPENAI003
+#else
             public override object CreateClient(string model, ApiKeyCredential credential, OpenAIClientOptions options)
 #pragma warning disable OPENAI003
-                => new ResponsesClient(model, credential, ResponsesClientOptions.FromOpenAIClientOptions(options));
+                => new ResponsesClient(model, credential, ResponsesClientOptionsFactory.FromOpenAIClientOptions(options));
 #pragma warning restore OPENAI003
+#endif
         }
     }
 }

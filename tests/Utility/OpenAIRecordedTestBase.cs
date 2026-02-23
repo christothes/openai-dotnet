@@ -1,6 +1,9 @@
 ﻿using Microsoft.ClientModel.TestFramework;
 using Microsoft.ClientModel.TestFramework.TestProxy.Admin;
 using NUnit.Framework;
+#if RESPONSES_ONLY
+using OpenAI.Responses;
+#endif
 
 namespace OpenAI.Tests.Utility
 {
@@ -27,6 +30,18 @@ namespace OpenAI.Tests.Utility
             JsonPathSanitizers.Add("$..encrypted_content");
         }
 
+#if RESPONSES_ONLY
+        internal T GetProxiedOpenAIClient<T>(string overrideModel = null, ResponsesClientOptions options = default) where T : class
+        {
+            options ??= new ResponsesClientOptions();
+
+            ResponsesClientOptions instrumentedOptions = InstrumentClientOptions(options);
+            T client = TestEnvironment.GetTestClient<T>(overrideModel, instrumentedOptions);
+            T proxiedClient = CreateProxyFromClient<T>(client, null);
+
+            return proxiedClient;
+        }
+#else
         internal T GetProxiedOpenAIClient<T>(string overrideModel = null, OpenAIClientOptions options = default) where T : class
         {
             options ??= new OpenAIClientOptions();
@@ -37,5 +52,6 @@ namespace OpenAI.Tests.Utility
 
             return proxiedClient;
         }
+#endif
     }
 }

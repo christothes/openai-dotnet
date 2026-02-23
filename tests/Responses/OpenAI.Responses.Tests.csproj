@@ -47,4 +47,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
+  <!-- Link shared test utilities from the main test project to avoid duplication -->
+  <ItemGroup>
+    <Compile Include="..\Utility\OpenAIRecordedTestBase.cs" Link="Utility\OpenAIRecordedTestBase.cs" />
+    <Compile Include="..\Utility\TestPipelinePolicy.cs" Link="Utility\TestPipelinePolicy.cs" />
+  </ItemGroup>
 </Project>

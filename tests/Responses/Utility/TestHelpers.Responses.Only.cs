@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using OpenAI.Responses;
 using System;
 using System.ClientModel;
 
@@ -17,7 +18,7 @@ internal static partial class TestHelpers
             ModelId = modelId;
         }
 
-        public virtual object CreateClient(string model, ApiKeyCredential credential, OpenAIClientOptions options)
+        public virtual object CreateClient(string model, ApiKeyCredential credential, ResponsesClientOptions options)
         {
             throw new NotImplementedException();
         }

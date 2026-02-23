@@ -59,7 +59,7 @@ public partial class ResponsesClient
     /// <param name="options"> The options to configure the client. </param>
     /// <exception cref="ArgumentNullException"> <paramref name="model"/> or <paramref name="credential"/> is null. </exception>
     /// <exception cref="ArgumentException"> <paramref name="model"/> is an empty string, and was expected to be non-empty. </exception>
-    public ResponsesClient(string model, ApiKeyCredential credential, ResponsesClientOptions options) : this(model, OpenAIClientHelpers.CreateApiKeyAuthenticationPolicy(credential), options)
+    public ResponsesClient(string model, ApiKeyCredential credential, ResponsesClientOptions options) : this(model, ResponsesClientHelpers.CreateApiKeyAuthenticationPolicy(credential), options)
     {
     }
 

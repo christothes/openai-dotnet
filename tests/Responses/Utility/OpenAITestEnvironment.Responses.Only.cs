@@ -114,14 +114,14 @@ public class OpenAITestEnvironment : TestEnvironment
         }
     }
 
-    public T GetTestClient<T>(string modelName = default, OpenAIClientOptions options = default)
+    public T GetTestClient<T>(string modelName = default, ResponsesClientOptions options = default)
     {
         options ??= new();
         var credential = ApiKeyCredential;
 
         object clientObject = typeof(T).Name switch
         {
-            nameof(ResponsesClient) => new ResponsesClient(modelName ?? "gpt-4o-mini", credential, ResponsesClientOptions.FromOpenAIClientOptions(options)),
+            nameof(ResponsesClient) => new ResponsesClient(modelName ?? "gpt-4o-mini", credential, options),
             _ => throw new NotImplementedException($"Unsupported client type: {typeof(T).Name}"),
         };
 

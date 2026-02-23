@@ -5648,7 +5648,6 @@ namespace OpenAI.Responses {
         public string OrganizationId { get; set; }
         public string ProjectId { get; set; }
         public string UserAgentApplicationId { get; set; }
-        public static ResponsesClientOptions FromOpenAIClientOptions(OpenAIClientOptions options);
     }
     public readonly partial struct ResponseServiceTier : IEquatable<ResponseServiceTier> {
         public ResponseServiceTier(string value);
