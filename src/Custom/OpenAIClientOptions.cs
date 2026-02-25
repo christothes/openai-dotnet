@@ -1,4 +1,6 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.TypeSpec.Generator.Customizations;
+using OpenAI.Responses;
 using System;
 using System.ClientModel.Primitives;
 
@@ -70,5 +72,53 @@ public partial class OpenAIClientOptions : ClientPipelineOptions
             AssertNotFrozen();
             _userAgentApplicationId = value;
         }
+    }
+
+    public OpenAIClientOptions()
+    {
+
+    }
+
+    /// <summary>
+    /// Internal constructor for binding from a configuration section.
+    /// Used by ClientSettings classes to bind nested "Options" section.
+    /// </summary>
+    internal OpenAIClientOptions(IConfigurationSection section)
+    {
+        if (Uri.TryCreate(section[nameof(Endpoint)], UriKind.Absolute, out Uri endpoint))
+        {
+            Endpoint = endpoint;
+        }
+
+        if (section[nameof(OrganizationId)] is string organizationId)
+        {
+            OrganizationId = organizationId;
+        }
+
+        if (section[nameof(ProjectId)] is string projectId)
+        {
+            ProjectId = projectId;
+        }
+
+        if (section[nameof(UserAgentApplicationId)] is string userAgentApplicationId)
+        {
+            UserAgentApplicationId = userAgentApplicationId;
+        }
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="ResponsesClientOptions"/> instance initialized with the same property values
+    /// as the specified <see cref="OpenAIClientOptions"/>.
+    /// </summary>
+    /// <returns> A new <see cref="ResponsesClientOptions"/> with the same property values. </returns>
+    internal ResponsesClientOptions ToResponsesClientOptionss()
+    {
+        return new ResponsesClientOptions
+        {
+            Endpoint = Endpoint,
+            OrganizationId = OrganizationId,
+            ProjectId = ProjectId,
+            UserAgentApplicationId = UserAgentApplicationId,
+        };
     }
 }

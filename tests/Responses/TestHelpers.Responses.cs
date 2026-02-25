@@ -15,12 +15,12 @@ internal static partial class TestHelpers
 #if RESPONSES_ONLY
             public override object CreateClient(string model, ApiKeyCredential credential, ResponsesClientOptions options)
 #pragma warning disable OPENAI003
-                => new ResponsesClient(model, credential, options);
+                => new ResponsesClient(credential, options);
 #pragma warning restore OPENAI003
 #else
             public override object CreateClient(string model, ApiKeyCredential credential, OpenAIClientOptions options)
 #pragma warning disable OPENAI003
-                => new ResponsesClient(model, credential, ResponsesClientOptionsFactory.FromOpenAIClientOptions(options));
+                => new ResponsesClient(credential, ResponsesClientOptionsFactory.FromOpenAIClientOptions(options));
 #pragma warning restore OPENAI003
 #endif
         }
