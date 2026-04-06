@@ -150,10 +150,10 @@ namespace OpenAI.Responses
 #pragma warning restore SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
             ImageGenerationCallStatus? status = default;
             ImageGenerationToolAction action = default;
-            ImageGenToolCallBackground background = default;
-            ImageGenToolCallOutputFormat? outputFormat = default;
-            ImageGenToolCallQuality? quality = default;
-            ImageGenToolCallSize? size = default;
+            ImageGenerationToolBackground background = default;
+            ImageGenerationToolOutputFileFormat? outputFormat = default;
+            ImageGenerationToolQuality? quality = default;
+            ImageGenerationToolSize? size = default;
             string revisedPrompt = default;
             BinaryData imageResultBytes = default;
             foreach (var prop in element.EnumerateObject())
@@ -180,7 +180,7 @@ namespace OpenAI.Responses
                 }
                 if (prop.NameEquals("background"u8))
                 {
-                    background = new ImageGenToolCallBackground(prop.Value.GetString());
+                    background = new ImageGenerationToolBackground(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("output_format"u8))
@@ -190,7 +190,7 @@ namespace OpenAI.Responses
                         outputFormat = null;
                         continue;
                     }
-                    outputFormat = new ImageGenToolCallOutputFormat(prop.Value.GetString());
+                    outputFormat = new ImageGenerationToolOutputFileFormat(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("quality"u8))
@@ -200,7 +200,7 @@ namespace OpenAI.Responses
                         quality = null;
                         continue;
                     }
-                    quality = new ImageGenToolCallQuality(prop.Value.GetString());
+                    quality = new ImageGenerationToolQuality(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("size"u8))
@@ -210,7 +210,7 @@ namespace OpenAI.Responses
                         size = null;
                         continue;
                     }
-                    size = new ImageGenToolCallSize(prop.Value.GetString());
+                    size = new ImageGenerationToolSize(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("revised_prompt"u8))

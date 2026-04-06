@@ -4850,14 +4850,14 @@ namespace OpenAI.Responses {
         public override readonly string ToString();
     }
     public class ImageGenerationCallResponseItem : ResponseItem, IJsonModel<ImageGenerationCallResponseItem>, IPersistableModel<ImageGenerationCallResponseItem> {
-        public ImageGenerationCallResponseItem(ImageGenerationToolAction action, ImageGenToolCallBackground background, BinaryData imageResultBytes);
+        public ImageGenerationCallResponseItem(ImageGenerationToolAction action, ImageGenerationToolBackground background, BinaryData imageResultBytes);
         public ImageGenerationToolAction Action { get; set; }
-        public ImageGenToolCallBackground Background { get; set; }
+        public ImageGenerationToolBackground Background { get; set; }
         public BinaryData ImageResultBytes { get; set; }
-        public ImageGenToolCallOutputFormat? OutputFormat { get; set; }
-        public ImageGenToolCallQuality? Quality { get; set; }
+        public ImageGenerationToolOutputFileFormat? OutputFormat { get; set; }
+        public ImageGenerationToolQuality? Quality { get; set; }
         public string RevisedPrompt { get; set; }
-        public ImageGenToolCallSize? Size { get; set; }
+        public ImageGenerationToolSize? Size { get; set; }
         public ImageGenerationCallStatus? Status { get; set; }
     }
     public enum ImageGenerationCallStatus {
@@ -4971,9 +4971,11 @@ namespace OpenAI.Responses {
     public readonly partial struct ImageGenerationToolQuality : IEquatable<ImageGenerationToolQuality> {
         public ImageGenerationToolQuality(string value);
         public static ImageGenerationToolQuality Auto { get; }
+        public static ImageGenerationToolQuality Hd { get; }
         public static ImageGenerationToolQuality High { get; }
         public static ImageGenerationToolQuality Low { get; }
         public static ImageGenerationToolQuality Medium { get; }
+        public static ImageGenerationToolQuality Standard { get; }
         public readonly bool Equals(ImageGenerationToolQuality other);
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override readonly bool Equals(object obj);
@@ -4988,7 +4990,11 @@ namespace OpenAI.Responses {
     public readonly partial struct ImageGenerationToolSize : IEquatable<ImageGenerationToolSize> {
         public static readonly ImageGenerationToolSize W1024xH1024;
         public static readonly ImageGenerationToolSize W1024xH1536;
+        public static readonly ImageGenerationToolSize W1024xH1792;
         public static readonly ImageGenerationToolSize W1536xH1024;
+        public static readonly ImageGenerationToolSize W1792xH1024;
+        public static readonly ImageGenerationToolSize W256xH256;
+        public static readonly ImageGenerationToolSize W512xH512;
         public ImageGenerationToolSize(int width, int height);
         public static ImageGenerationToolSize Auto { get; }
         public readonly bool Equals(ImageGenerationToolSize other);
@@ -4998,78 +5004,6 @@ namespace OpenAI.Responses {
         public override readonly int GetHashCode();
         public static bool operator ==(ImageGenerationToolSize left, ImageGenerationToolSize right);
         public static bool operator !=(ImageGenerationToolSize left, ImageGenerationToolSize right);
-        public override readonly string ToString();
-    }
-    public readonly partial struct ImageGenToolCallBackground : IEquatable<ImageGenToolCallBackground> {
-        public ImageGenToolCallBackground(string value);
-        public static ImageGenToolCallBackground Auto { get; }
-        public static ImageGenToolCallBackground Opaque { get; }
-        public static ImageGenToolCallBackground Transparent { get; }
-        public readonly bool Equals(ImageGenToolCallBackground other);
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override readonly bool Equals(object obj);
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override readonly int GetHashCode();
-        public static bool operator ==(ImageGenToolCallBackground left, ImageGenToolCallBackground right);
-        public static implicit operator ImageGenToolCallBackground(string value);
-        public static implicit operator ImageGenToolCallBackground?(string value);
-        public static bool operator !=(ImageGenToolCallBackground left, ImageGenToolCallBackground right);
-        public override readonly string ToString();
-    }
-    public readonly partial struct ImageGenToolCallOutputFormat : IEquatable<ImageGenToolCallOutputFormat> {
-        public ImageGenToolCallOutputFormat(string value);
-        public static ImageGenToolCallOutputFormat Jpeg { get; }
-        public static ImageGenToolCallOutputFormat Png { get; }
-        public static ImageGenToolCallOutputFormat Webp { get; }
-        public readonly bool Equals(ImageGenToolCallOutputFormat other);
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override readonly bool Equals(object obj);
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override readonly int GetHashCode();
-        public static bool operator ==(ImageGenToolCallOutputFormat left, ImageGenToolCallOutputFormat right);
-        public static implicit operator ImageGenToolCallOutputFormat(string value);
-        public static implicit operator ImageGenToolCallOutputFormat?(string value);
-        public static bool operator !=(ImageGenToolCallOutputFormat left, ImageGenToolCallOutputFormat right);
-        public override readonly string ToString();
-    }
-    public readonly partial struct ImageGenToolCallQuality : IEquatable<ImageGenToolCallQuality> {
-        public ImageGenToolCallQuality(string value);
-        public static ImageGenToolCallQuality Auto { get; }
-        public static ImageGenToolCallQuality Hd { get; }
-        public static ImageGenToolCallQuality High { get; }
-        public static ImageGenToolCallQuality Low { get; }
-        public static ImageGenToolCallQuality Medium { get; }
-        public static ImageGenToolCallQuality Standard { get; }
-        public readonly bool Equals(ImageGenToolCallQuality other);
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override readonly bool Equals(object obj);
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override readonly int GetHashCode();
-        public static bool operator ==(ImageGenToolCallQuality left, ImageGenToolCallQuality right);
-        public static implicit operator ImageGenToolCallQuality(string value);
-        public static implicit operator ImageGenToolCallQuality?(string value);
-        public static bool operator !=(ImageGenToolCallQuality left, ImageGenToolCallQuality right);
-        public override readonly string ToString();
-    }
-    public readonly partial struct ImageGenToolCallSize : IEquatable<ImageGenToolCallSize> {
-        public ImageGenToolCallSize(string value);
-        public static ImageGenToolCallSize Auto { get; }
-        public static ImageGenToolCallSize W1024x1024 { get; }
-        public static ImageGenToolCallSize W1024x1536 { get; }
-        public static ImageGenToolCallSize W1024x1792 { get; }
-        public static ImageGenToolCallSize W1536x1024 { get; }
-        public static ImageGenToolCallSize W1792x1024 { get; }
-        public static ImageGenToolCallSize W256x256 { get; }
-        public static ImageGenToolCallSize W512x512 { get; }
-        public readonly bool Equals(ImageGenToolCallSize other);
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override readonly bool Equals(object obj);
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override readonly int GetHashCode();
-        public static bool operator ==(ImageGenToolCallSize left, ImageGenToolCallSize right);
-        public static implicit operator ImageGenToolCallSize(string value);
-        public static implicit operator ImageGenToolCallSize?(string value);
-        public static bool operator !=(ImageGenToolCallSize left, ImageGenToolCallSize right);
         public override readonly string ToString();
     }
     public readonly partial struct IncludedResponseProperty : IEquatable<IncludedResponseProperty> {

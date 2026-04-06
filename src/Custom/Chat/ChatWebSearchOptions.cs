@@ -1,5 +1,5 @@
 using Microsoft.TypeSpec.Generator.Customizations;
-using OpenAI.Internal;
+using OpenAI.Responses;
 
 namespace OpenAI.Chat;
 
@@ -11,5 +11,5 @@ public partial class ChatWebSearchOptions
     internal InternalCreateChatCompletionRequestWebSearchOptionsUserLocation1 UserLocation { get; set; }
 
     [CodeGenMember("SearchContextSize")]
-    internal InternalWebSearchContextSize? SearchContextSize { get; set; }
+    internal WebSearchToolContextSize? SearchContextSize { get; set; }
 }

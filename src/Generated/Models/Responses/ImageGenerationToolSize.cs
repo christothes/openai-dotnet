@@ -12,10 +12,14 @@ namespace OpenAI.Responses
     public readonly partial struct ImageGenerationToolSize : IEquatable<ImageGenerationToolSize>
     {
         private readonly string _value;
+        private const string AutoValue = "auto";
         private const string _1024x1024Value = "1024x1024";
         private const string _1024x1536Value = "1024x1536";
         private const string _1536x1024Value = "1536x1024";
-        private const string AutoValue = "auto";
+        private const string _256x256Value = "256x256";
+        private const string _512x512Value = "512x512";
+        private const string _1792x1024Value = "1792x1024";
+        private const string _1024x1792Value = "1024x1792";
 
         public static ImageGenerationToolSize Auto { get; } = new ImageGenerationToolSize(AutoValue);
 
