@@ -59,28 +59,4 @@ public readonly partial struct ImageGenerationToolSize
     /// </summary>
     [CodeGenMember("_1536x1024")]
     public static readonly ImageGenerationToolSize W1536xH1024 = new(1536, 1024);
-
-    /// <summary>
-    /// A square image with 256 pixels of both width and height (DALL-E).
-    /// </summary>
-    [CodeGenMember("_256x256")]
-    public static readonly ImageGenerationToolSize W256xH256 = new(256, 256);
-
-    /// <summary>
-    /// A square image with 512 pixels of both width and height (DALL-E).
-    /// </summary>
-    [CodeGenMember("_512x512")]
-    public static readonly ImageGenerationToolSize W512xH512 = new(512, 512);
-
-    /// <summary>
-    /// An extra wide image, 1792 pixels wide by 1024 pixels high (DALL-E 3).
-    /// </summary>
-    [CodeGenMember("_1792x1024")]
-    public static readonly ImageGenerationToolSize W1792xH1024 = new(1792, 1024);
-
-    /// <summary>
-    /// An extra tall image, 1024 pixels wide by 1792 pixels high (DALL-E 3).
-    /// </summary>
-    [CodeGenMember("_1024x1792")]
-    public static readonly ImageGenerationToolSize W1024xH1792 = new(1024, 1792);
 }

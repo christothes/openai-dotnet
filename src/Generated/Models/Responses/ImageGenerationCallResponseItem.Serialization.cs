@@ -80,15 +80,15 @@ namespace OpenAI.Responses
                 writer.WritePropertyName("status"u8);
                 writer.WriteStringValue(Status.Value.ToSerialString());
             }
-            if (!Patch.Contains("$.action"u8))
+            if (Optional.IsDefined(Action) && !Patch.Contains("$.action"u8))
             {
                 writer.WritePropertyName("action"u8);
-                writer.WriteStringValue(Action.ToString());
+                writer.WriteStringValue(Action.Value.ToString());
             }
-            if (!Patch.Contains("$.background"u8))
+            if (Optional.IsDefined(Background) && !Patch.Contains("$.background"u8))
             {
                 writer.WritePropertyName("background"u8);
-                writer.WriteStringValue(Background.ToString());
+                writer.WriteStringValue(Background.Value.ToString());
             }
             if (Optional.IsDefined(OutputFormat) && !Patch.Contains("$.output_format"u8))
             {
@@ -149,8 +149,8 @@ namespace OpenAI.Responses
             JsonPatch patch = new JsonPatch(data is null ? ReadOnlyMemory<byte>.Empty : data.ToMemory());
 #pragma warning restore SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
             ImageGenerationCallStatus? status = default;
-            ImageGenerationToolAction action = default;
-            ImageGenerationToolBackground background = default;
+            ImageGenerationToolAction? action = default;
+            ImageGenerationToolBackground? background = default;
             ImageGenerationToolOutputFileFormat? outputFormat = default;
             ImageGenerationToolQuality? quality = default;
             ImageGenerationToolSize? size = default;
@@ -175,11 +175,19 @@ namespace OpenAI.Responses
                 }
                 if (prop.NameEquals("action"u8))
                 {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     action = new ImageGenerationToolAction(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("background"u8))
                 {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
                     background = new ImageGenerationToolBackground(prop.Value.GetString());
                     continue;
                 }

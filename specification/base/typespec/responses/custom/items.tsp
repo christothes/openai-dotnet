@@ -238,11 +238,11 @@ model ImageGenToolCallItemParam extends ItemParam {
 model ImageGenToolCallItemResource extends ItemResource {
   type: ItemType.image_generation_call;
   status: "in_progress" | "completed" | "generating" | "failed";
-  action: ImageGenerationToolAction;
-  background: ImageGenerationBackground = ImageGenerationBackground.auto;
-  output_format?: ImageGenerationOutputFormat | null = ImageGenerationOutputFormat.png;
-  quality?: ImageGenerationQuality | null = ImageGenerationQuality.auto;
-  size?: ImageGenerationSize | null = ImageGenerationSize.auto;
+  action?: ImageGenerationToolAction;
+  background?: ImageGenerationBackground;
+  output_format?: ImageGenerationOutputFormat | null;
+  quality?: ImageGenerationQuality | null;
+  size?: ImageGenerationSize | null;
   revised_prompt?: string;
   ...ImageGenToolCallItemBase;
 }

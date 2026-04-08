@@ -17,8 +17,6 @@ namespace OpenAI.Responses
         private const string LowValue = "low";
         private const string MediumValue = "medium";
         private const string HighValue = "high";
-        private const string StandardValue = "standard";
-        private const string HdValue = "hd";
 
         public ImageGenerationToolQuality(string value)
         {
@@ -34,10 +32,6 @@ namespace OpenAI.Responses
         public static ImageGenerationToolQuality Medium { get; } = new ImageGenerationToolQuality(MediumValue);
 
         public static ImageGenerationToolQuality High { get; } = new ImageGenerationToolQuality(HighValue);
-
-        public static ImageGenerationToolQuality Standard { get; } = new ImageGenerationToolQuality(StandardValue);
-
-        public static ImageGenerationToolQuality Hd { get; } = new ImageGenerationToolQuality(HdValue);
 
         public static bool operator ==(ImageGenerationToolQuality left, ImageGenerationToolQuality right) => left.Equals(right);
 
