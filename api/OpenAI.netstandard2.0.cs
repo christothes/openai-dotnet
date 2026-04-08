@@ -4850,9 +4850,9 @@ namespace OpenAI.Responses {
         public override readonly string ToString();
     }
     public class ImageGenerationCallResponseItem : ResponseItem, IJsonModel<ImageGenerationCallResponseItem>, IPersistableModel<ImageGenerationCallResponseItem> {
-        public ImageGenerationCallResponseItem(ImageGenerationToolAction action, ImageGenerationToolBackground background, BinaryData imageResultBytes);
-        public ImageGenerationToolAction Action { get; set; }
-        public ImageGenerationToolBackground Background { get; set; }
+        public ImageGenerationCallResponseItem(BinaryData imageResultBytes);
+        public ImageGenerationToolAction? Action { get; set; }
+        public ImageGenerationToolBackground? Background { get; set; }
         public BinaryData ImageResultBytes { get; set; }
         public ImageGenerationToolOutputFileFormat? OutputFormat { get; set; }
         public ImageGenerationToolQuality? Quality { get; set; }
@@ -4971,11 +4971,9 @@ namespace OpenAI.Responses {
     public readonly partial struct ImageGenerationToolQuality : IEquatable<ImageGenerationToolQuality> {
         public ImageGenerationToolQuality(string value);
         public static ImageGenerationToolQuality Auto { get; }
-        public static ImageGenerationToolQuality Hd { get; }
         public static ImageGenerationToolQuality High { get; }
         public static ImageGenerationToolQuality Low { get; }
         public static ImageGenerationToolQuality Medium { get; }
-        public static ImageGenerationToolQuality Standard { get; }
         public readonly bool Equals(ImageGenerationToolQuality other);
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override readonly bool Equals(object obj);
@@ -4990,11 +4988,7 @@ namespace OpenAI.Responses {
     public readonly partial struct ImageGenerationToolSize : IEquatable<ImageGenerationToolSize> {
         public static readonly ImageGenerationToolSize W1024xH1024;
         public static readonly ImageGenerationToolSize W1024xH1536;
-        public static readonly ImageGenerationToolSize W1024xH1792;
         public static readonly ImageGenerationToolSize W1536xH1024;
-        public static readonly ImageGenerationToolSize W1792xH1024;
-        public static readonly ImageGenerationToolSize W256xH256;
-        public static readonly ImageGenerationToolSize W512xH512;
         public ImageGenerationToolSize(int width, int height);
         public static ImageGenerationToolSize Auto { get; }
         public readonly bool Equals(ImageGenerationToolSize other);
