@@ -1952,6 +1952,23 @@ namespace OpenAI.Chat {
         Audio = 2
     }
     [Experimental("OPENAI001")]
+    public readonly partial struct ChatSearchContextSize : IEquatable<ChatSearchContextSize> {
+        public ChatSearchContextSize(string value);
+        public static ChatSearchContextSize High { get; }
+        public static ChatSearchContextSize Low { get; }
+        public static ChatSearchContextSize Medium { get; }
+        public readonly bool Equals(ChatSearchContextSize other);
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override readonly bool Equals(object obj);
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override readonly int GetHashCode();
+        public static bool operator ==(ChatSearchContextSize left, ChatSearchContextSize right);
+        public static implicit operator ChatSearchContextSize(string value);
+        public static implicit operator ChatSearchContextSize?(string value);
+        public static bool operator !=(ChatSearchContextSize left, ChatSearchContextSize right);
+        public override readonly string ToString();
+    }
+    [Experimental("OPENAI001")]
     public readonly partial struct ChatServiceTier : IEquatable<ChatServiceTier> {
         public ChatServiceTier(string value);
         public static ChatServiceTier Auto { get; }
@@ -2044,7 +2061,7 @@ namespace OpenAI.Chat {
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Experimental("SCME0001")]
         public ref JsonPatch Patch { get; }
-        public SearchContextSize? SearchContextSize { get; set; }
+        public ChatSearchContextSize? SearchContextSize { get; set; }
     }
     [Experimental("OPENAI001")]
     public class DeveloperChatMessage : ChatMessage, IJsonModel<DeveloperChatMessage>, IPersistableModel<DeveloperChatMessage> {
@@ -2090,23 +2107,6 @@ namespace OpenAI.Chat {
         [Experimental("OPENAI001")]
         public static StreamingChatOutputAudioUpdate StreamingChatOutputAudioUpdate(string id = null, DateTimeOffset? expiresAt = null, string transcriptUpdate = null, BinaryData audioBytesUpdate = null);
         public static StreamingChatToolCallUpdate StreamingChatToolCallUpdate(int index = 0, string toolCallId = null, ChatToolCallKind kind = ChatToolCallKind.Function, string functionName = null, BinaryData functionArgumentsUpdate = null);
-    }
-    [Experimental("OPENAI001")]
-    public readonly partial struct SearchContextSize : IEquatable<SearchContextSize> {
-        public SearchContextSize(string value);
-        public static SearchContextSize High { get; }
-        public static SearchContextSize Low { get; }
-        public static SearchContextSize Medium { get; }
-        public readonly bool Equals(SearchContextSize other);
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override readonly bool Equals(object obj);
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override readonly int GetHashCode();
-        public static bool operator ==(SearchContextSize left, SearchContextSize right);
-        public static implicit operator SearchContextSize(string value);
-        public static implicit operator SearchContextSize?(string value);
-        public static bool operator !=(SearchContextSize left, SearchContextSize right);
-        public override readonly string ToString();
     }
     public class StreamingChatCompletionUpdate : IJsonModel<StreamingChatCompletionUpdate>, IPersistableModel<StreamingChatCompletionUpdate> {
         public string CompletionId { get; }

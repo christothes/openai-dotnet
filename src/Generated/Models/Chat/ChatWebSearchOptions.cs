@@ -20,7 +20,7 @@ namespace OpenAI.Chat
         }
 
 #pragma warning disable SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
-        internal ChatWebSearchOptions(InternalCreateChatCompletionRequestWebSearchOptionsUserLocation1 userLocation, SearchContextSize? searchContextSize, in JsonPatch patch)
+        internal ChatWebSearchOptions(InternalCreateChatCompletionRequestWebSearchOptionsUserLocation1 userLocation, ChatSearchContextSize? searchContextSize, in JsonPatch patch)
         {
             UserLocation = userLocation;
             SearchContextSize = searchContextSize;
@@ -34,6 +34,6 @@ namespace OpenAI.Chat
         [Experimental("SCME0001")]
         public ref JsonPatch Patch => ref _patch;
 
-        public SearchContextSize? SearchContextSize { get; set; }
+        public ChatSearchContextSize? SearchContextSize { get; set; }
     }
 }
