@@ -978,3 +978,48 @@ model ChatCompletionMessageList {
   /** Indicates whether there are more chat messages available. */
   has_more: boolean;
 }
+
+// =====================================================================
+// Types moved from common/models.tsp — used exclusively by the chat
+// feature area.
+// =====================================================================
+
+@doc("""
+  Output types that you would like the model to generate.
+  Most models are capable of generating text, which is the default:
+  
+  `["text"]`
+  
+  The `gpt-4o-audio-preview` model can also be used to
+  [generate audio](/docs/guides/audio). To request that this model generate
+  both text and audio responses, you can use:
+  
+  `["text", "audio"]`
+  """)
+model ResponseModalities is ("text" | "audio")[];
+
+/** Approximate location parameters for the search. */
+model WebSearchLocation {
+  @doc("""
+    The two-letter
+    [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user,
+    e.g. `US`.
+    """)
+  country?: string;
+
+  @doc("""
+    Free text input for the region of the user, e.g. `California`.
+    """)
+  region?: string;
+
+  @doc("""
+    Free text input for the city of the user, e.g. `San Francisco`.
+    """)
+  city?: string;
+
+  @doc("""
+    The [IANA timezone](https://timeapi.io/documentation/iana-timezones)
+    of the user, e.g. `America/Los_Angeles`.
+    """)
+  timezone?: string;
+}

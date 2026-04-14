@@ -716,3 +716,17 @@ union CreateImageStreamingResponse {
   @terminalEvent
   `image_generation.completed`: ImageGenCompletedEvent,
 }
+
+// =====================================================================
+// Type moved from common/models.tsp — used exclusively by the images
+// feature area.
+// =====================================================================
+
+/** Control how much effort the model will exert to match the style and features, especially facial features, of input images. This parameter is only supported for `gpt-image-1`. Unsupported for `gpt-image-1-mini`. Supports `high` and `low`. Defaults to `low`. */
+#suppress "@azure-tools/typespec-azure-core/no-enum" "Auto-suppressed warnings non-applicable rules during import."
+enum InputFidelity {
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
+  high,
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
+  low,
+}

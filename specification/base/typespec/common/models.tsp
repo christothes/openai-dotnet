@@ -312,20 +312,6 @@ model ModelResponsePropertiesForResponse {
 }
 
 @doc("""
-  Output types that you would like the model to generate.
-  Most models are capable of generating text, which is the default:
-  
-  `["text"]`
-  
-  The `gpt-4o-audio-preview` model can also be used to
-  [generate audio](/docs/guides/audio). To request that this model generate
-  both text and audio responses, you can use:
-  
-  `["text", "audio"]`
-  """)
-model ResponseModalities is ("text" | "audio")[];
-
-@doc("""
   Not supported with latest reasoning models `o3` and `o4-mini`.
   
   Up to 4 sequences where the API will stop generating further tokens. The
@@ -344,32 +330,6 @@ union WebSearchContextSize {
   "low",
   "medium",
   "high",
-}
-
-/** Approximate location parameters for the search. */
-model WebSearchLocation {
-  @doc("""
-    The two-letter
-    [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user,
-    e.g. `US`.
-    """)
-  country?: string;
-
-  @doc("""
-    Free text input for the region of the user, e.g. `California`.
-    """)
-  region?: string;
-
-  @doc("""
-    Free text input for the city of the user, e.g. `San Francisco`.
-    """)
-  city?: string;
-
-  @doc("""
-    The [IANA timezone](https://timeapi.io/documentation/iana-timezones)
-    of the user, e.g. `America/Los_Angeles`.
-    """)
-  timezone?: string;
 }
 
 @doc("""
@@ -491,15 +451,6 @@ enum OrderEnum {
   asc,
   #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
   desc,
-}
-
-/** Control how much effort the model will exert to match the style and features, especially facial features, of input images. This parameter is only supported for `gpt-image-1`. Unsupported for `gpt-image-1-mini`. Supports `high` and `low`. Defaults to `low`. */
-#suppress "@azure-tools/typespec-azure-core/no-enum" "Auto-suppressed warnings non-applicable rules during import."
-enum InputFidelity {
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
-  high,
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
-  low,
 }
 
 /**Set of 16 key-value pairs that can be attached to an object. This can be
