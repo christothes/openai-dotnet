@@ -101,7 +101,7 @@ model CreateFineTuningJobRequest {
   seed?: int32 | null;
 
   method?: FineTuneMethod;
-  ...MetadataPropertyForRequest;
+  metadata?: Record<string>;
 }
 
 model ListPaginatedFineTuningJobsResponse {
@@ -232,7 +232,16 @@ model FineTuningJob {
   estimated_finish?: utcDateTime | null;
 
   method?: FineTuneMethod;
-  ...MetadataPropertyForResponse;
+  /**
+   * Set of 16 key-value pairs that can be attached to an object. This can be
+   * useful for storing additional information about the object in a structured
+   * format, and querying for objects via API or the dashboard.
+   *
+   * Keys are strings with a maximum length of 64 characters. Values are strings
+   * with a maximum length of 512 characters.
+   */
+  @extension("x-oaiTypeLabel", "map")
+  metadata: Record<string> | null;
 }
 
 // Tool customization (apply_discriminator): Convert to instantiation of discriminated type

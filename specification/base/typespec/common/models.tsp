@@ -23,21 +23,6 @@ model ErrorResponse {
   error: Error;
 }
 
-// Tool customization: Wrap for reuse
-@doc("""
-  The parameters the functions accepts, described as a JSON Schema object. See the [guide](/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format.
-  
-  Omitting `parameters` defines a function with an empty parameter list.
-  """)
-model FunctionParametersCommon {
-  /**
-   * The parameters the functions accepts, described as a JSON Schema object. See the [guide](/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format.
-   *
-   * Omitting `parameters` defines a function with an empty parameter list.
-   */
-  parameters?: unknown;
-}
-
 model FunctionObject {
   /** A description of what the function does, used by the model to choose when and how to call the function. */
   description?: string;
@@ -45,55 +30,17 @@ model FunctionObject {
   /** The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64. */
   name: string;
 
-  ...FunctionParametersCommon;
+  /**
+   * The parameters the functions accepts, described as a JSON Schema object. See the [guide](/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format.
+   *
+   * Omitting `parameters` defines a function with an empty parameter list.
+   */
+  parameters?: unknown;
 
   @doc("""
     Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Learn more about Structured Outputs in the [function calling guide](docs/guides/function-calling).
     """)
   strict?: boolean | null = false;
-}
-
-// Tool customization: Wrap for reuse
-/**
- * Set of 16 key-value pairs that can be attached to an object. This can be
- * useful for storing additional information about the object in a structured
- * format, and querying for objects via API or the dashboard.
- *
- * Keys are strings with a maximum length of 64 characters. Values are strings
- * with a maximum length of 512 characters.
- */
-model MetadataPropertyForRequest {
-  /**
-   * Set of 16 key-value pairs that can be attached to an object. This can be
-   * useful for storing additional information about the object in a structured
-   * format, and querying for objects via API or the dashboard.
-   *
-   * Keys are strings with a maximum length of 64 characters. Values are strings
-   * with a maximum length of 512 characters.
-   */
-  @extension("x-oaiTypeLabel", "map")
-  metadata?: Record<string>;
-}
-model MetadataPropertyForResponse {
-  /**
-   * Set of 16 key-value pairs that can be attached to an object. This can be
-   * useful for storing additional information about the object in a structured
-   * format, and querying for objects via API or the dashboard.
-   *
-   * Keys are strings with a maximum length of 64 characters. Values are strings
-   * with a maximum length of 512 characters.
-   */
-  @extension("x-oaiTypeLabel", "map")
-  metadata: Record<string> | null;
-}
-
-// Tool customization (apply_discriminator): establish a common, discriminated union
-/** Default response format. Used to generate text responses. */
-model ResponseFormatText extends ResponseFormat {
-  @doc("""
-    The type of response format being defined. Always `text`.
-    """)
-  type: "text";
 }
 
 // Tool customization (apply_discriminator): establish a common, discriminated union
@@ -109,12 +56,6 @@ model ResponseFormatJsonObject extends ResponseFormat {
     """)
   type: "json_object";
 }
-
-/**
- * The schema for the response format, described as a JSON Schema object.
- * Learn how to build JSON schemas [here](https://json-schema.org/).
- */
-model ResponseFormatJsonSchemaSchema is Record<unknown>;
 
 // Tool customization (apply_discriminator): establish a common, discriminated union
 /**
@@ -141,7 +82,7 @@ model ResponseFormatJsonSchema extends ResponseFormat {
      */
     name: string;
 
-    schema?: ResponseFormatJsonSchemaSchema;
+    schema?: Record<unknown>;
 
     @doc("""
       Whether to enable strict schema adherence when generating the output.
@@ -241,7 +182,7 @@ alias CreateModelResponseProperties = ModelResponsePropertiesForRequest;
 
 // Tool customization: Replace imprecise common spread source with split request/response models honoring optionality and nullability
 model ModelResponsePropertiesForRequest {
-  ...MetadataPropertyForRequest;
+  metadata?: Record<string>;
 
   @doc("""
     What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
@@ -276,7 +217,16 @@ model ModelResponsePropertiesForRequest {
   service_tier?: ServiceTier;
 }
 model ModelResponsePropertiesForResponse {
-  ...MetadataPropertyForResponse;
+  /**
+   * Set of 16 key-value pairs that can be attached to an object. This can be
+   * useful for storing additional information about the object in a structured
+   * format, and querying for objects via API or the dashboard.
+   *
+   * Keys are strings with a maximum length of 64 characters. Values are strings
+   * with a maximum length of 512 characters.
+   */
+  @extension("x-oaiTypeLabel", "map")
+  metadata: Record<string> | null;
 
   @doc("""
     What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.

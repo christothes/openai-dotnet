@@ -6,8 +6,6 @@ namespace OpenAI.Internal;
 [CodeGenType("ResponseFormatType")] internal readonly partial struct InternalResponseFormatType {}
 [CodeGenType("ResponseFormatJsonObject")] internal partial class InternalResponseFormatJsonObject { }
 [CodeGenType("ResponseFormatJsonSchema")] internal partial class InternalResponseFormatJsonSchema { }
-[CodeGenType("ResponseFormatJsonSchemaSchema")] internal partial class InternalResponseFormatJsonSchemaSchema { }
-[CodeGenType("ResponseFormatText")] internal partial class InternalResponseFormatText { }
 [CodeGenType("UnknownResponseFormat")] internal partial class InternalUnknownResponseFormat { }
 [CodeGenType("WebSearchLocation")] internal partial class InternalWebSearchLocation { }
 [CodeGenType("LogProbProperties")] internal partial class InternalLogProbProperties { }

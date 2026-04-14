@@ -88,17 +88,6 @@ namespace OpenAI.Evals;
 [CodeGenType("GetEvalRunOutputItemsRequestStatus")] internal readonly partial struct InternalGetEvalRunOutputItemsRequestStatus {}
 [CodeGenType("GetEvalRunsRequestStatus")] internal readonly partial struct InternalGetEvalRunsRequestStatus {}
 [CodeGenType("ListEvalsRequestOrderBy")] internal readonly partial struct InternalListEvalsRequestOrderBy {}
-[CodeGenType("MetadataPropertyForRequest")] internal partial class InternalMetadataPropertyForRequest
-{
-    public static implicit operator BinaryContent(InternalMetadataPropertyForRequest internalMetadataPropertyForRequest)
-    {
-        if (internalMetadataPropertyForRequest == null)
-        {
-            return null;
-        }
-        return BinaryContent.Create(internalMetadataPropertyForRequest, ModelSerializationExtensions.WireOptions);
-    }
-}
 [CodeGenType("UnknownEvalDataSourceConfigParams")] internal partial class InternalUnknownEvalDataSourceConfigParams {}
 [CodeGenType("UnknownEvalDataSourceConfigResource")] internal partial class InternalUnknownEvalDataSourceConfigResource {}
 [CodeGenType("UnknownEvalGraderParams")] internal partial class InternalUnknownEvalGraderParams {}

@@ -144,7 +144,7 @@ namespace OpenAI.Assistants
                 writer.WriteObjectValue(ToolResources, options);
             }
             // Plugin customization: remove options.Format != "W" check
-            if (_additionalBinaryDataProperties?.ContainsKey("metadata") != true)
+            if (Optional.IsCollectionDefined(Metadata) && _additionalBinaryDataProperties?.ContainsKey("metadata") != true)
             {
                 writer.WritePropertyName("metadata"u8);
                 writer.WriteStartObject();
@@ -306,7 +306,6 @@ namespace OpenAI.Assistants
                 {
                     if (prop.Value.ValueKind == JsonValueKind.Null)
                     {
-                        metadata = new ChangeTrackingDictionary<string, string>();
                         continue;
                     }
                     Dictionary<string, string> dictionary = new Dictionary<string, string>();
@@ -367,7 +366,7 @@ namespace OpenAI.Assistants
                 instructions,
                 tools,
                 toolResources,
-                metadata,
+                metadata ?? new ChangeTrackingDictionary<string, string>(),
                 temperature,
                 nucleusSamplingFactor,
                 responseFormat,

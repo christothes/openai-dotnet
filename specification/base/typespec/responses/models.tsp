@@ -974,7 +974,7 @@ model ResponseTextFormatConfigurationJsonSchema
    */
   name: string;
 
-  schema: ResponseFormatJsonSchemaSchema;
+  schema: Record<unknown>;
 
   @doc("""
     Whether to enable strict schema adherence when generating the output.

@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using OpenAI;
 
 namespace OpenAI.Evals
 {
@@ -11,20 +12,21 @@ namespace OpenAI.Evals
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        public InternalUpdateEvalRequest()
+        public InternalUpdateEvalRequest() : this(null, null, null)
         {
         }
 
-        internal InternalUpdateEvalRequest(string name, InternalMetadataPropertyForRequest metadata, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalUpdateEvalRequest(string name, IDictionary<string, string> metadata, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
+            // Plugin customization: ensure initialization of collections
             Name = name;
-            Metadata = metadata;
+            Metadata = metadata ?? new ChangeTrackingDictionary<string, string>();
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         public string Name { get; set; }
 
-        internal InternalMetadataPropertyForRequest Metadata { get; set; }
+        public IDictionary<string, string> Metadata { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

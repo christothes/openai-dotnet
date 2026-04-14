@@ -22,7 +22,10 @@ namespace OpenAI;
   """)
 union AssistantsApiResponseFormatOption {
   "auto",
-  ResponseFormatText,
+  @doc("""
+    The type of response format being defined. Always `text`.
+    """)
+  type: "text",
   ResponseFormatJsonObject,
   ResponseFormatJsonSchema,
 }
@@ -69,7 +72,7 @@ model CreateAssistantRequest {
     file_search?: ToolResourcesFileSearch;
   } | null;
 
-  ...MetadataPropertyForRequest;
+  metadata?: Record<string>;
 
   /** What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. */
   @minValue(0)
@@ -129,7 +132,7 @@ model ModifyAssistantRequest {
     file_search?: ToolResourcesFileSearchIdsOnly;
   } | null;
 
-  ...MetadataPropertyForRequest;
+  metadata?: Record<string>;
 
   /** What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. */
   @minValue(0)
@@ -280,7 +283,16 @@ model AssistantObject {
     file_search?: ToolResourcesFileSearchIdsOnly;
   } | null;
 
-  ...MetadataPropertyForResponse;
+  /**
+   * Set of 16 key-value pairs that can be attached to an object. This can be
+   * useful for storing additional information about the object in a structured
+   * format, and querying for objects via API or the dashboard.
+   *
+   * Keys are strings with a maximum length of 64 characters. Values are strings
+   * with a maximum length of 512 characters.
+   */
+  @extension("x-oaiTypeLabel", "map")
+  metadata?: Record<string> | null;
 
   /** What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. */
   @minValue(0)

@@ -74,7 +74,7 @@ model CreateEvalRequest {
   /** The name of the evaluation. */
   name?: string;
 
-  ...MetadataPropertyForRequest;
+  metadata?: Record<string>;
 
   // Tool customization: Use discriminated type
   /** The configuration for the data source used for the evaluation runs. Dictates the schema of the data used in the evaluation. */
@@ -118,7 +118,16 @@ model Eval {
   @encode("unixTimestamp", int32)
   created_at: utcDateTime;
 
-  ...MetadataPropertyForResponse;
+  /**
+   * Set of 16 key-value pairs that can be attached to an object. This can be
+   * useful for storing additional information about the object in a structured
+   * format, and querying for objects via API or the dashboard.
+   *
+   * Keys are strings with a maximum length of 64 characters. Values are strings
+   * with a maximum length of 512 characters.
+   */
+  @extension("x-oaiTypeLabel", "map")
+  metadata: Record<string> | null;
 }
 
 // Tool customization (apply_discriminator): Apply discriminated type
@@ -346,14 +355,14 @@ model EvalLogsDataSourceConfigParams extends EvalDataSourceConfigParams {
     """)
   type: EvalDataSourceConfigType.logs;
 
-  ...MetadataPropertyForRequest;
+  metadata?: Record<string>;
 }
 
 model CreateEvalRunRequest {
   /** The name of the run. */
   name?: string;
 
-  ...MetadataPropertyForRequest;
+  metadata?: Record<string>;
 
   // Tool customization: Use discriminated type
   /** Details about the run's data source. */
@@ -487,7 +496,7 @@ model EvalRunResponsesDataContentSource extends EvalRunDataContentSource {
     """)
   type: EvalRunDataContentSourceType.responses;
 
-  ...MetadataPropertyForRequest;
+  metadata?: Record<string>;
 
   /** The name of the model to find responses for. This is a query parameter used to select responses. */
   `model`?: string | null;
@@ -572,7 +581,16 @@ model EvalRun {
   /** Information about the run's data source. */
   data_source: EvalRunDataSourceResource;
 
-  ...MetadataPropertyForResponse;
+  /**
+   * Set of 16 key-value pairs that can be attached to an object. This can be
+   * useful for storing additional information about the object in a structured
+   * format, and querying for objects via API or the dashboard.
+   *
+   * Keys are strings with a maximum length of 64 characters. Values are strings
+   * with a maximum length of 512 characters.
+   */
+  @extension("x-oaiTypeLabel", "map")
+  metadata: Record<string> | null;
   error: EvalApiError;
 }
 
@@ -751,7 +769,16 @@ model EvalStoredCompletionsDataSourceConfigResource
     """)
   type: EvalDataSourceConfigType.stored_completions;
 
-  ...MetadataPropertyForResponse;
+  /**
+   * Set of 16 key-value pairs that can be attached to an object. This can be
+   * useful for storing additional information about the object in a structured
+   * format, and querying for objects via API or the dashboard.
+   *
+   * Keys are strings with a maximum length of 64 characters. Values are strings
+   * with a maximum length of 512 characters.
+   */
+  @extension("x-oaiTypeLabel", "map")
+  metadata: Record<string> | null;
 
   /**
    * The json schema for the run data source items.
@@ -769,7 +796,16 @@ model EvalRunStoredCompletionsDataContentSource
     """)
   type: EvalRunDataContentSourceType.stored_completions;
 
-  ...MetadataPropertyForResponse;
+  /**
+   * Set of 16 key-value pairs that can be attached to an object. This can be
+   * useful for storing additional information about the object in a structured
+   * format, and querying for objects via API or the dashboard.
+   *
+   * Keys are strings with a maximum length of 64 characters. Values are strings
+   * with a maximum length of 512 characters.
+   */
+  @extension("x-oaiTypeLabel", "map")
+  metadata: Record<string> | null;
 
   /** An optional model to filter by (e.g., 'gpt-4o'). */
   `model`?: string | null;
@@ -797,7 +833,16 @@ model EvalLogsDataSourceConfigResource extends EvalDataSourceConfigResource {
     """)
   type: EvalDataSourceConfigType.logs;
 
-  ...MetadataPropertyForResponse;
+  /**
+   * Set of 16 key-value pairs that can be attached to an object. This can be
+   * useful for storing additional information about the object in a structured
+   * format, and querying for objects via API or the dashboard.
+   *
+   * Keys are strings with a maximum length of 64 characters. Values are strings
+   * with a maximum length of 512 characters.
+   */
+  @extension("x-oaiTypeLabel", "map")
+  metadata: Record<string> | null;
 
   /**
    * The json schema for the run data source items.

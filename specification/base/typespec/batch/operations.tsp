@@ -40,7 +40,7 @@ interface Batches {
     completion_window: "24h",
 
     /** Optional custom metadata for the batch. */
-    ...MetadataPropertyForRequest,
+    metadata?: Record<string>,
   ): Batch | ErrorResponse;
 
   @get

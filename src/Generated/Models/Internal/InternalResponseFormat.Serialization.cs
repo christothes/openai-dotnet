@@ -103,8 +103,6 @@ namespace OpenAI.Internal
             {
                 switch (discriminator.GetString())
                 {
-                    case "text":
-                        return InternalResponseFormatText.DeserializeInternalResponseFormatText(element, data, options);
                     case "json_object":
                         return InternalResponseFormatJsonObject.DeserializeInternalResponseFormatJsonObject(element, data, options);
                     case "json_schema":

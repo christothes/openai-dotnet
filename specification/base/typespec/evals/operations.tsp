@@ -78,7 +78,7 @@ interface Evals {
     @path eval_id: string,
     @body body: {
       name?: string;
-      metadata?: MetadataPropertyForRequest;
+      metadata?: Record<string>;
     },
   ): Eval | EvalsErrorResponse;
 

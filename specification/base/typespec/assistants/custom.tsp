@@ -50,7 +50,7 @@ alias ToolResourcesFileSearchVectorStoreCreationHelper = {
   @extension("x-oaiExpandable", true)
   chunking_strategy?: ChunkingStrategyRequestParam;
 
-  ...MetadataPropertyForRequest;
+  metadata?: Record<string>;
 };
 
 union AssistantToolDefinitionType {

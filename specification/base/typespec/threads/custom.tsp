@@ -42,5 +42,5 @@ alias CreateThreadRequestToolResourcesFileSearchVectorStoreCreationHelper = {
   @maxItems(10000)
   file_ids?: string[];
 
-  ...MetadataPropertyForRequest;
+  metadata?: Record<string>;
 };

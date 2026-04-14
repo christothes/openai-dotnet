@@ -27,7 +27,10 @@ model DotNetChatResponseFormat {
 @access(Access.public)
 @usage(Usage.input | Usage.output)
 model DotNetChatResponseFormatText extends DotNetChatResponseFormat {
-  ...ResponseFormatText;
+  @doc("""
+    The type of response format being defined. Always `text`.
+    """)
+  type: "text";
 }
 
 @access(Access.public)
@@ -60,7 +63,10 @@ model DotNetAssistantResponseFormat {
 @access(Access.public)
 @usage(Usage.input | Usage.output)
 model DotNetAssistantResponseFormatText extends DotNetAssistantResponseFormat {
-  ...ResponseFormatText;
+  @doc("""
+    The type of response format being defined. Always `text`.
+    """)
+  type: "text";
 }
 
 @access(Access.public)

@@ -60,7 +60,7 @@ model CreateRunRequest {
   // Tool note: can't automatically apply to nullable: @maxItems(20)
   tools?: AssistantToolDefinition[] | null;
 
-  ...MetadataPropertyForRequest;
+  metadata?: Record<string>;
 
   /** What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. */
   @minValue(0)
@@ -100,7 +100,7 @@ model CreateRunRequest {
 }
 
 model ModifyRunRequest {
-  ...MetadataPropertyForRequest;
+  metadata?: Record<string>;
 }
 
 model CreateThreadAndRunRequest {
@@ -171,7 +171,7 @@ model CreateThreadAndRunRequest {
     file_search?: ToolResourcesFileSearchIdsOnly;
   } | null;
 
-  ...MetadataPropertyForRequest;
+  metadata?: Record<string>;
 
   /** What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. */
   @minValue(0)
@@ -528,7 +528,16 @@ model RunObject {
   @maxItems(20)
   tools: AssistantToolDefinition[] = #[];
 
-  ...MetadataPropertyForResponse;
+  /**
+   * Set of 16 key-value pairs that can be attached to an object. This can be
+   * useful for storing additional information about the object in a structured
+   * format, and querying for objects via API or the dashboard.
+   *
+   * Keys are strings with a maximum length of 64 characters. Values are strings
+   * with a maximum length of 512 characters.
+   */
+  @extension("x-oaiTypeLabel", "map")
+  metadata: Record<string> | null;
   usage: RunCompletionUsage | null;
 
   /** The sampling temperature used for this run. If not set, defaults to 1. */
@@ -622,7 +631,16 @@ model RunStepObject {
   @encode("unixTimestamp", int32)
   completed_at: utcDateTime | null;
 
-  ...MetadataPropertyForResponse;
+  /**
+   * Set of 16 key-value pairs that can be attached to an object. This can be
+   * useful for storing additional information about the object in a structured
+   * format, and querying for objects via API or the dashboard.
+   *
+   * Keys are strings with a maximum length of 64 characters. Values are strings
+   * with a maximum length of 512 characters.
+   */
+  @extension("x-oaiTypeLabel", "map")
+  metadata: Record<string> | null;
   usage: RunStepCompletionUsage | null;
 }
 
