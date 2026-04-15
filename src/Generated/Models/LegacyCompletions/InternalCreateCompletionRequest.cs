@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using OpenAI;
-using OpenAI.Chat;
 
 namespace OpenAI.LegacyCompletions
 {
@@ -20,7 +19,7 @@ namespace OpenAI.LegacyCompletions
             LogitBias = new ChangeTrackingDictionary<string, int>();
         }
 
-        internal InternalCreateCompletionRequest(InternalCreateCompletionRequestModel model, BinaryData prompt, int? bestOf, bool? echo, float? frequencyPenalty, IDictionary<string, int> logitBias, int? logprobs, int? maxTokens, int? n, float? presencePenalty, long? seed, BinaryData stop, bool? stream, InternalChatCompletionStreamOptions streamOptions, string suffix, float? temperature, float? topP, string user, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalCreateCompletionRequest(InternalCreateCompletionRequestModel model, BinaryData prompt, int? bestOf, bool? echo, float? frequencyPenalty, IDictionary<string, int> logitBias, int? logprobs, int? maxTokens, int? n, float? presencePenalty, long? seed, BinaryData stop, bool? stream, InternalLegacyChatCompletionStreamOptions streamOptions, string suffix, float? temperature, float? topP, string user, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Model = model;
@@ -70,7 +69,7 @@ namespace OpenAI.LegacyCompletions
 
         public bool? Stream { get; set; }
 
-        internal InternalChatCompletionStreamOptions StreamOptions { get; set; }
+        internal InternalLegacyChatCompletionStreamOptions StreamOptions { get; set; }
 
         public string Suffix { get; set; }
 

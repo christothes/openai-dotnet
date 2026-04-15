@@ -352,6 +352,7 @@ namespace OpenAI
     [ModelReaderWriterBuildable(typeof(InternalItemContentRefusal))]
     [ModelReaderWriterBuildable(typeof(InternalItemParam))]
     [ModelReaderWriterBuildable(typeof(InternalItemReferenceItemParam))]
+    [ModelReaderWriterBuildable(typeof(InternalLegacyChatCompletionStreamOptions))]
     [ModelReaderWriterBuildable(typeof(InternalListAssistantsResponse))]
     [ModelReaderWriterBuildable(typeof(InternalListBatchesResponse))]
     [ModelReaderWriterBuildable(typeof(InternalListFineTuningCheckpointPermissionResponse))]

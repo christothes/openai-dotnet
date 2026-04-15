@@ -7,7 +7,6 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using OpenAI;
-using OpenAI.Chat;
 
 namespace OpenAI.LegacyCompletions
 {
@@ -235,7 +234,7 @@ namespace OpenAI.LegacyCompletions
             long? seed = default;
             BinaryData stop = default;
             bool? stream = default;
-            InternalChatCompletionStreamOptions streamOptions = default;
+            InternalLegacyChatCompletionStreamOptions streamOptions = default;
             string suffix = default;
             float? temperature = default;
             float? topP = default;
@@ -379,7 +378,7 @@ namespace OpenAI.LegacyCompletions
                         streamOptions = null;
                         continue;
                     }
-                    streamOptions = InternalChatCompletionStreamOptions.DeserializeInternalChatCompletionStreamOptions(prop.Value, prop.Value.GetUtf8Bytes(), options);
+                    streamOptions = InternalLegacyChatCompletionStreamOptions.DeserializeInternalLegacyChatCompletionStreamOptions(prop.Value, options);
                     continue;
                 }
                 if (prop.NameEquals("suffix"u8))

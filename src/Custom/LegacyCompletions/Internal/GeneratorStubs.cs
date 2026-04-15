@@ -46,3 +46,6 @@ internal partial class InternalCompletionsCompletionUsageCompletionTokensDetails
 
  [CodeGenType("CompletionsCompletionUsagePromptTokensDetails")]
  internal partial class InternalCompletionsCompletionUsagePromptTokensDetails {}
+
+[CodeGenType("LegacyChatCompletionStreamOptions")]
+internal partial class InternalLegacyChatCompletionStreamOptions {}
