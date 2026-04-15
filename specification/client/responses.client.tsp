@@ -310,5 +310,4 @@ using TypeSpec.HttpClient.CSharp;
 @@dynamicModel(DotNetToolCallApprovalPolicy);
 @@dynamicModel(DotNetCodeInterpreterToolContainer);
 // client/models/common.models.tsp models
-@@dynamicModel(DotNetResponseReasoningEffortLevel);
 @@dynamicModel(DotNetResponseServiceTier);

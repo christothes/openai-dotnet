@@ -12,6 +12,23 @@ using Azure.ClientGenerator.Core;
 
 namespace OpenAI;
 
+@doc("""
+  **Reasoning models only**
+  
+  Constrains effort on reasoning for
+  [reasoning models](https://platform.openai.com/docs/guides/reasoning).
+  Currently supported values are `none`, `minimal`, `low`, `medium`, and `high`. Reducing
+  reasoning effort can result in faster responses and fewer tokens used
+  on reasoning in a response.
+  """)
+union AssistantsReasoningEffort {
+  "none",
+  "minimal",
+  "low",
+  "medium",
+  "high",
+}
+
 
 // Tool customization (apply_discriminator): establish a common, discriminated union
 @doc("""
@@ -137,7 +154,7 @@ model CreateAssistantRequest {
   @maxLength(256000)
   instructions?: string | null;
 
-  reasoning_effort?: ReasoningEffort | null = "medium";
+  reasoning_effort?: AssistantsReasoningEffort | null = "medium";
 
   // Tool customization: use common model base for tool definitions
   @doc("""
@@ -185,7 +202,7 @@ model ModifyAssistantRequest {
   /** ID of the model to use. You can use the [List models](/docs/api-reference/models/list) API to see all of your available models, or see our [Model overview](/docs/models) for descriptions of them. */
   `model`?: AssistantSupportedModels;
 
-  reasoning_effort?: ReasoningEffort | null = "medium";
+  reasoning_effort?: AssistantsReasoningEffort | null = "medium";
 
   /** The name of the assistant. The maximum length is 256 characters. */
   @maxLength(256)

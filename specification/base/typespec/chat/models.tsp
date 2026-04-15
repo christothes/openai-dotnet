@@ -11,6 +11,23 @@ using TypeSpec.OpenAPI;
 
 namespace OpenAI;
 
+@doc("""
+  **Reasoning models only**
+  
+  Constrains effort on reasoning for
+  [reasoning models](https://platform.openai.com/docs/guides/reasoning).
+  Currently supported values are `none`, `minimal`, `low`, `medium`, and `high`. Reducing
+  reasoning effort can result in faster responses and fewer tokens used
+  on reasoning in a response.
+  """)
+union ChatReasoningEffort {
+  "none",
+  "minimal",
+  "low",
+  "medium",
+  "high",
+}
+
 // Tool generated type. Extracts from CreateChatCompletionResponse.choices
 alias CreateChatCompletionResponseChoice = {
   @doc("""
@@ -173,7 +190,7 @@ model CreateChatCompletionRequest {
   `model`: ModelIdsShared;
 
   modalities?: ResponseModalities | null;
-  reasoning_effort?: ReasoningEffort | null = "medium";
+  reasoning_effort?: ChatReasoningEffort | null = "medium";
 
   /** An upper bound for the number of tokens that can be generated for a completion, including visible output tokens and [reasoning tokens](/docs/guides/reasoning). */
   max_completion_tokens?: int32 | null;

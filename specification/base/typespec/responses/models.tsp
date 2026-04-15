@@ -12,6 +12,23 @@ using TypeSpec.OpenAPI;
 
 namespace OpenAI;
 
+@doc("""
+  **Reasoning models only**
+  
+  Constrains effort on reasoning for
+  [reasoning models](https://platform.openai.com/docs/guides/reasoning).
+  Currently supported values are `none`, `minimal`, `low`, `medium`, and `high`. Reducing
+  reasoning effort can result in faster responses and fewer tokens used
+  on reasoning in a response.
+  """)
+union ResponsesReasoningEffort {
+  "none",
+  "minimal",
+  "low",
+  "medium",
+  "high",
+}
+
 // Tool generated type. Extracts from FileSearchToolCallItemBase.results
 alias FileSearchToolCallItemBaseResult = {
   /** The unique ID of the file. */
@@ -893,7 +910,7 @@ model Coordinate {
  * [reasoning models](https://platform.openai.com/docs/guides/reasoning).
  */
 model Reasoning {
-  effort?: ReasoningEffort | null = "medium";
+  effort?: ResponsesReasoningEffort | null = "medium";
 
   @doc("""
     A summary of the reasoning performed by the model. This can be

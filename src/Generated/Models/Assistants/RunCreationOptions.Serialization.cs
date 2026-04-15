@@ -7,7 +7,6 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using OpenAI;
-using OpenAI.Chat;
 
 namespace OpenAI.Assistants
 {
@@ -213,7 +212,7 @@ namespace OpenAI.Assistants
             }
             string assistantId = default;
             string modelOverride = default;
-            ChatReasoningEffortLevel? reasoningEffortLevel = default;
+            RunReasoningEffortLevel? reasoningEffortLevel = default;
             string instructionsOverride = default;
             string additionalInstructions = default;
             IList<MessageCreationOptions> internalMessages = default;
@@ -253,7 +252,7 @@ namespace OpenAI.Assistants
                         reasoningEffortLevel = null;
                         continue;
                     }
-                    reasoningEffortLevel = new ChatReasoningEffortLevel(prop.Value.GetString());
+                    reasoningEffortLevel = new RunReasoningEffortLevel(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("instructions"u8))

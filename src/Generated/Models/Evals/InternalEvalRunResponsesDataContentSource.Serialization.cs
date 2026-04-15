@@ -7,7 +7,6 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using OpenAI;
-using OpenAI.Chat;
 
 namespace OpenAI.Evals
 {
@@ -170,7 +169,7 @@ namespace OpenAI.Evals
             string instructionsSearch = default;
             int? createdAfter = default;
             int? createdBefore = default;
-            ChatReasoningEffortLevel? reasoningEffort = default;
+            EvalReasoningEffortLevel? reasoningEffort = default;
             float? temperature = default;
             float? topP = default;
             IList<string> users = default;
@@ -250,7 +249,7 @@ namespace OpenAI.Evals
                         reasoningEffort = null;
                         continue;
                     }
-                    reasoningEffort = new ChatReasoningEffortLevel(prop.Value.GetString());
+                    reasoningEffort = new EvalReasoningEffortLevel(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("temperature"u8))

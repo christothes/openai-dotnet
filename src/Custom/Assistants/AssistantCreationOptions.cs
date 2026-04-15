@@ -43,7 +43,7 @@ public partial class AssistantCreationOptions
 
     // CUSTOM: Made internal.
     [CodeGenMember("ReasoningEffort")]
-    internal ChatReasoningEffortLevel? ReasoningEffortLevel { get; set; }
+    internal AssistantReasoningEffortLevel? ReasoningEffortLevel { get; set; }
 
     internal BinaryContent ToBinaryContent() => BinaryContent.Create(this, ModelSerializationExtensions.WireOptions);
 }

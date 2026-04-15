@@ -136,7 +136,7 @@ public partial class RunCreationOptions
 
     // CUSTOM: Made internal.
     [CodeGenMember("ReasoningEffort")]
-    internal ChatReasoningEffortLevel? ReasoningEffortLevel { get; set; }
+    internal RunReasoningEffortLevel? ReasoningEffortLevel { get; set; }
 
     private void SerializeToolConstraint(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         => writer.WriteObjectValue(ToolConstraint, options);

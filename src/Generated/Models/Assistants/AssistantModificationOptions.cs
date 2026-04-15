@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using OpenAI;
-using OpenAI.Chat;
 
 namespace OpenAI.Assistants
 {
@@ -19,7 +18,7 @@ namespace OpenAI.Assistants
         {
         }
 
-        internal AssistantModificationOptions(string model, ChatReasoningEffortLevel? reasoningEffortLevel, string name, string description, string instructions, IList<ToolDefinition> defaultTools, ToolResources toolResources, IDictionary<string, string> metadata, float? temperature, float? nucleusSamplingFactor, AssistantResponseFormat responseFormat, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal AssistantModificationOptions(string model, AssistantReasoningEffortLevel? reasoningEffortLevel, string name, string description, string instructions, IList<ToolDefinition> defaultTools, ToolResources toolResources, IDictionary<string, string> metadata, float? temperature, float? nucleusSamplingFactor, AssistantResponseFormat responseFormat, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Model = model;

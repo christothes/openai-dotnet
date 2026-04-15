@@ -5,7 +5,6 @@
 using System;
 using System.Collections.Generic;
 using OpenAI;
-using OpenAI.Chat;
 
 namespace OpenAI.Evals
 {
@@ -15,7 +14,7 @@ namespace OpenAI.Evals
         {
         }
 
-        internal InternalEvalRunResponsesDataContentSource(InternalEvalRunDataContentSourceType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> metadata, string model, string instructionsSearch, int? createdAfter, int? createdBefore, ChatReasoningEffortLevel? reasoningEffort, float? temperature, float? topP, IList<string> users, IList<string> tools) : base(kind, additionalBinaryDataProperties)
+        internal InternalEvalRunResponsesDataContentSource(InternalEvalRunDataContentSourceType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, IDictionary<string, string> metadata, string model, string instructionsSearch, int? createdAfter, int? createdBefore, EvalReasoningEffortLevel? reasoningEffort, float? temperature, float? topP, IList<string> users, IList<string> tools) : base(kind, additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Metadata = metadata ?? new ChangeTrackingDictionary<string, string>();
@@ -40,7 +39,7 @@ namespace OpenAI.Evals
 
         public int? CreatedBefore { get; set; }
 
-        public ChatReasoningEffortLevel? ReasoningEffort { get; set; }
+        internal EvalReasoningEffortLevel? ReasoningEffort { get; set; }
 
         public float? Temperature { get; set; }
 

@@ -9,12 +9,6 @@ namespace OpenAI;
 
 // Here, we create scenario-specific copies of types for the .NET SDK.
 
-@access(Access.public)
-@usage(Usage.input | Usage.output)
-union DotNetResponseReasoningEffortLevel {
-  ReasoningEffort,
-}
-
 // ResponseFormat
 
 @access(Access.public)

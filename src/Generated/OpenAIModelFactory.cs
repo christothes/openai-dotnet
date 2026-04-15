@@ -64,7 +64,7 @@ namespace OpenAI
             return new CodeInterpreterToolResources(fileIds.ToList(), additionalBinaryDataProperties: null);
         }
 
-        public static AssistantCreationOptions AssistantCreationOptions(string model = default, string name = default, string description = default, string instructions = default, ChatReasoningEffortLevel? reasoningEffortLevel = default, IEnumerable<ToolDefinition> tools = default, ToolResources toolResources = default, IDictionary<string, string> metadata = default, float? temperature = default, float? nucleusSamplingFactor = default, AssistantResponseFormat responseFormat = default)
+        public static AssistantCreationOptions AssistantCreationOptions(string model = default, string name = default, string description = default, string instructions = default, AssistantReasoningEffortLevel? reasoningEffortLevel = default, IEnumerable<ToolDefinition> tools = default, ToolResources toolResources = default, IDictionary<string, string> metadata = default, float? temperature = default, float? nucleusSamplingFactor = default, AssistantResponseFormat responseFormat = default)
         {
             tools ??= new ChangeTrackingList<ToolDefinition>();
             metadata ??= new ChangeTrackingDictionary<string, string>();
@@ -100,7 +100,7 @@ namespace OpenAI
             return new VectorStoreCreationHelper(fileIds.ToList(), chunkingStrategy, metadata, additionalBinaryDataProperties: null);
         }
 
-        public static AssistantModificationOptions AssistantModificationOptions(string model = default, ChatReasoningEffortLevel? reasoningEffortLevel = default, string name = default, string description = default, string instructions = default, IEnumerable<ToolDefinition> defaultTools = default, ToolResources toolResources = default, IDictionary<string, string> metadata = default, float? temperature = default, float? nucleusSamplingFactor = default, AssistantResponseFormat responseFormat = default)
+        public static AssistantModificationOptions AssistantModificationOptions(string model = default, AssistantReasoningEffortLevel? reasoningEffortLevel = default, string name = default, string description = default, string instructions = default, IEnumerable<ToolDefinition> defaultTools = default, ToolResources toolResources = default, IDictionary<string, string> metadata = default, float? temperature = default, float? nucleusSamplingFactor = default, AssistantResponseFormat responseFormat = default)
         {
             defaultTools ??= new ChangeTrackingList<ToolDefinition>();
             metadata ??= new ChangeTrackingDictionary<string, string>();
@@ -836,7 +836,7 @@ namespace OpenAI
             return new RunTokenUsage(outputTokenCount, inputTokenCount, totalTokenCount, additionalBinaryDataProperties: null);
         }
 
-        public static RunCreationOptions RunCreationOptions(string assistantId = default, string modelOverride = default, ChatReasoningEffortLevel? reasoningEffortLevel = default, string instructionsOverride = default, string additionalInstructions = default, IEnumerable<MessageCreationOptions> internalMessages = default, IEnumerable<ToolDefinition> toolsOverride = default, IDictionary<string, string> metadata = default, float? temperature = default, float? nucleusSamplingFactor = default, bool? stream = default, int? maxInputTokenCount = default, int? maxOutputTokenCount = default, RunTruncationStrategy truncationStrategy = default, ToolConstraint toolConstraint = default, bool? allowParallelToolCalls = default, AssistantResponseFormat responseFormat = default)
+        public static RunCreationOptions RunCreationOptions(string assistantId = default, string modelOverride = default, RunReasoningEffortLevel? reasoningEffortLevel = default, string instructionsOverride = default, string additionalInstructions = default, IEnumerable<MessageCreationOptions> internalMessages = default, IEnumerable<ToolDefinition> toolsOverride = default, IDictionary<string, string> metadata = default, float? temperature = default, float? nucleusSamplingFactor = default, bool? stream = default, int? maxInputTokenCount = default, int? maxOutputTokenCount = default, RunTruncationStrategy truncationStrategy = default, ToolConstraint toolConstraint = default, bool? allowParallelToolCalls = default, AssistantResponseFormat responseFormat = default)
         {
             internalMessages ??= new ChangeTrackingList<MessageCreationOptions>();
             toolsOverride ??= new ChangeTrackingList<ToolDefinition>();

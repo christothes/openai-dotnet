@@ -7,7 +7,6 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using OpenAI;
-using OpenAI.Chat;
 
 namespace OpenAI.Assistants
 {
@@ -173,7 +172,7 @@ namespace OpenAI.Assistants
                 return null;
             }
             string model = default;
-            ChatReasoningEffortLevel? reasoningEffortLevel = default;
+            AssistantReasoningEffortLevel? reasoningEffortLevel = default;
             string name = default;
             string description = default;
             string instructions = default;
@@ -198,7 +197,7 @@ namespace OpenAI.Assistants
                         reasoningEffortLevel = null;
                         continue;
                     }
-                    reasoningEffortLevel = new ChatReasoningEffortLevel(prop.Value.GetString());
+                    reasoningEffortLevel = new AssistantReasoningEffortLevel(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("name"u8))

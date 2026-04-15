@@ -43,23 +43,6 @@ model FunctionObject {
   strict?: boolean | null = false;
 }
 
-@doc("""
-  **Reasoning models only**
-  
-  Constrains effort on reasoning for
-  [reasoning models](https://platform.openai.com/docs/guides/reasoning).
-  Currently supported values are `none`, `minimal`, `low`, `medium`, and `high`. Reducing
-  reasoning effort can result in faster responses and fewer tokens used
-  on reasoning in a response.
-  """)
-union ReasoningEffort {
-  "none",
-  "minimal",
-  "low",
-  "medium",
-  "high",
-}
-
 // Tool customization: Stub for separated type
 alias CreateModelResponseProperties = ModelResponsePropertiesForRequest;
 

@@ -13,6 +13,23 @@ using TypeSpec.OpenAPI;
 
 namespace OpenAI;
 
+@doc("""
+  **Reasoning models only**
+  
+  Constrains effort on reasoning for
+  [reasoning models](https://platform.openai.com/docs/guides/reasoning).
+  Currently supported values are `none`, `minimal`, `low`, `medium`, and `high`. Reducing
+  reasoning effort can result in faster responses and fewer tokens used
+  on reasoning in a response.
+  """)
+union EvalsReasoningEffort {
+  "none",
+  "minimal",
+  "low",
+  "medium",
+  "high",
+}
+
 // Tool generated type. Extracts from EvalRunFileContentDataContentSource.content
 alias EvalRunFileContentDataContentSourceContent = {
   item: Record<unknown>;
@@ -513,7 +530,7 @@ model EvalRunResponsesDataContentSource extends EvalRunDataContentSource {
   created_before?: int32 | null;
 
   /** Optional reasoning effort parameter. This is a query parameter used to select responses. */
-  reasoning_effort?: ReasoningEffort | null = "medium";
+  reasoning_effort?: EvalsReasoningEffort | null = "medium";
 
   /** Sampling temperature. This is a query parameter used to select responses. */
   temperature?: float32 | null;
