@@ -24,17 +24,6 @@ model ErrorResponse {
 }
 
 @doc("""
-  Not supported with latest reasoning models `o3` and `o4-mini`.
-  
-  Up to 4 sequences where the API will stop generating further tokens. The
-  returned text will not contain the stop sequence.
-  """)
-union StopConfiguration {
-  string,
-  string[],
-}
-
-@doc("""
   High level guidance for the amount of context window space to use for the
   search. One of `low`, `medium`, or `high`. `medium` is the default.
   """)

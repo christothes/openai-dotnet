@@ -311,7 +311,7 @@ model CreateChatCompletionRequest {
    */
   stream?: boolean | null = false;
 
-  stop?: StopConfiguration | null = null;
+  stop?: string | string[] | null = null;
 
   /**
    * Modify the likelihood of specified tokens appearing in the completion.
