@@ -70,7 +70,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
             completionIds.Add(completion.Id);
         }
 
-        await Task.Delay(DelayInMilliseconds); // Wait for completions to be stored
+        if (Mode != RecordedTestMode.Playback)
+        {
+            await Task.Delay(DelayInMilliseconds); // Wait for completions to be deleted
+        }
 
         // Test pagination with limit
         ChatCompletionCollectionOptions paginationOptions = new()
@@ -126,7 +129,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
             completionIds.Add(completion.Id);
         }
 
-        await Task.Delay(DelayInMilliseconds); // Wait for completions to be stored
+        if (Mode != RecordedTestMode.Playback)
+        {
+            await Task.Delay(DelayInMilliseconds); // Wait for completions to be deleted
+        }
 
         // Get first completion to use as afterId
         string afterId = null;
@@ -188,7 +194,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
             await Task.Delay(1000); // Ensure different timestamps
         }
 
-        await Task.Delay(DelayInMilliseconds); // Wait for completions to be stored
+        if (Mode != RecordedTestMode.Playback)
+        {
+            await Task.Delay(DelayInMilliseconds); // Wait for completions to be deleted
+        }
 
         // Test ascending order
         ChatCompletionCollectionOptions ascOptions = new()
@@ -271,7 +280,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
             options2);
         completionIds.Add(otherCompletion.Id);
 
-        await Task.Delay(DelayInMilliseconds); // Wait for completions to be stored
+        if (Mode != RecordedTestMode.Playback)
+        {
+            await Task.Delay(DelayInMilliseconds); // Wait for completions to be deleted
+        }
 
         // Filter by specific metadata
         ChatCompletionCollectionOptions filterOptions = new()
@@ -319,7 +331,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
             ["Model filter test: Say 'Hello'"],
             createOptions);
 
-        await Task.Delay(DelayInMilliseconds); // Wait for completions to be stored
+        if (Mode != RecordedTestMode.Playback)
+        {
+            await Task.Delay(DelayInMilliseconds); // Wait for completions to be deleted
+        }
 
         // Filter by the model used by the test client
         ChatCompletionCollectionOptions filterOptions = new()
@@ -362,7 +377,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
             ["Empty options test: Say 'Hello'"],
             createOptions);
 
-        await Task.Delay(DelayInMilliseconds); // Wait for completions to be stored
+        if (Mode != RecordedTestMode.Playback)
+        {
+            await Task.Delay(DelayInMilliseconds); // Wait for completions to be deleted
+        }
 
         // Test with default/empty options
         int count = 0;
@@ -384,7 +402,7 @@ public class ChatStoreTests : OpenAIRecordedTestBase
         catch { /* Ignore cleanup errors */ }
     }
 
-    [LiveOnly(Reason ="Temp while sorting out flakiness in playback")]
+    [LiveOnly(Reason = "Temp while sorting out flakiness in playback")]
     [RecordedTest]
     public async Task GetChatCompletionsWithCombinedFilters()
     {
@@ -406,7 +424,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
             ["Combined filters test: Say 'Combined test'"],
             createOptions);
 
-        await Task.Delay(DelayInMilliseconds); // Wait for completions to be stored
+        if (Mode != RecordedTestMode.Playback)
+        {
+            await Task.Delay(DelayInMilliseconds); // Wait for completions to be deleted
+        }
 
         // Test with combined filters
         ChatCompletionCollectionOptions combinedOptions = new()
@@ -462,7 +483,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
             Assert.That(deletionResult.Deleted, Is.True);
         });
 
-        await Task.Delay(DelayInMilliseconds);
+        if (Mode != RecordedTestMode.Playback)
+        {
+            await Task.Delay(DelayInMilliseconds); // Wait for completions to be deleted
+        }
 
         Assert.ThrowsAsync<ClientResultException>(async () =>
         {
@@ -487,7 +511,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
             [new UserChatMessage("Say `this is a test`.")],
             initialOptions);
 
-        await Task.Delay(DelayInMilliseconds); // Wait for completions to be stored
+        if (Mode != RecordedTestMode.Playback)
+        {
+            await Task.Delay(DelayInMilliseconds); // Wait for completions to be deleted
+        }
 
         var newMetadata = new Dictionary<string, string>
         {
@@ -497,7 +524,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
 
         ChatCompletion updated = await client.UpdateChatCompletionAsync(chatCompletion.Id, newMetadata);
 
-        await Task.Delay(DelayInMilliseconds); // Wait for completions to be updated
+        if (Mode != RecordedTestMode.Playback)
+        {
+            await Task.Delay(DelayInMilliseconds); // Wait for completions to be deleted
+        }
 
         Assert.That(updated, Is.Not.Null);
         Assert.That(updated.Id, Is.EqualTo(chatCompletion.Id));
@@ -505,7 +535,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
         ChatCompletionDeletionResult deletionResult = await client.DeleteChatCompletionAsync(chatCompletion.Id);
         Assert.That(deletionResult.Deleted, Is.True);
 
-        await Task.Delay(DelayInMilliseconds); // Wait for completions to be deleted
+        if (Mode != RecordedTestMode.Playback)
+        {
+            await Task.Delay(DelayInMilliseconds); // Wait for completions to be deleted
+        }
 
         Assert.ThrowsAsync<ClientResultException>(async () =>
         {
@@ -529,8 +562,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
             ["Enumeration test: Say 'Test enumeration'"],
             createOptions);
 
-        await Task.Delay(5000); // Wait for completion to be stored
-
+        if (Mode != RecordedTestMode.Playback)
+        {
+            await Task.Delay(5000); // Wait for completion to be stored
+        }
         // Test that we can enumerate multiple times
         ChatCompletionCollectionOptions collectionOptions = new()
         {
@@ -583,7 +618,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
             ["Large limit test: Say 'Testing large limits'"],
             createOptions);
 
-        await Task.Delay(DelayInMilliseconds); // Wait for completions to be stored
+        if (Mode != RecordedTestMode.Playback)
+        {
+            await Task.Delay(DelayInMilliseconds); // Wait for completions to be stored
+        }
 
         // Test with a large page size limit
         ChatCompletionCollectionOptions largeOptions = new()
@@ -624,7 +662,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
             ["Minimal limit test: Say 'Testing minimal limits'"],
             createOptions);
 
-        await Task.Delay(DelayInMilliseconds); // Wait for completions to be stored
+        if (Mode != RecordedTestMode.Playback)
+        {
+            await Task.Delay(DelayInMilliseconds); // Wait for completions to be stored
+        }
 
         // Test with minimal page size
         ChatCompletionCollectionOptions minimalOptions = new()
@@ -997,7 +1038,7 @@ public class ChatStoreTests : OpenAIRecordedTestBase
         catch { /* Ignore cleanup errors */ }
     }
 
-    public static async Task RetryUntilExists(
+    public async Task RetryUntilExists(
         Func<Task> action,
         int maxRetries = 5,
         int initialWaitMs = 750,
@@ -1018,7 +1059,10 @@ public class ChatStoreTests : OpenAIRecordedTestBase
             {
                 try
                 {
-                    await Task.Delay(waitDuration).AwaitWithCancellation(cancellationToken);
+                    if (Mode != RecordedTestMode.Playback)
+                    {
+                        await Task.Delay(waitDuration).AwaitWithCancellation(cancellationToken);
+                    }
                 }
                 catch (OperationCanceledException)
                 {

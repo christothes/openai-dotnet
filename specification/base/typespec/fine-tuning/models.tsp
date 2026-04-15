@@ -358,7 +358,7 @@ model FineTuneChatRequestInput {
   /** A list of tools the model may generate JSON inputs for. */
   tools?: ChatCompletionTool[];
 
-  parallel_tool_calls?: ParallelToolCalls = true;
+  parallel_tool_calls?: boolean = true;
 
   /** A list of functions the model may generate JSON inputs for. */
   #suppress "deprecated" "Warning unnecessary for spec description of deprecation"
@@ -400,7 +400,7 @@ model FineTunePreferenceRequestInput {
     /** A list of tools the model may generate JSON inputs for. */
     tools?: ChatCompletionTool[];
 
-    parallel_tool_calls?: ParallelToolCalls = true;
+    parallel_tool_calls?: boolean = true;
   };
 
   /** The preferred completion message for the output. */

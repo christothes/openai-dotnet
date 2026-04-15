@@ -21210,7 +21210,7 @@ components:
             tool_choice:
               $ref: "#/components/schemas/ChatCompletionToolChoiceOption"
             parallel_tool_calls:
-              $ref: "#/components/schemas/ParallelToolCalls"
+              $ref: "#/components/schemas/boolean"
             function_call:
               deprecated: true
               description: >
@@ -24017,7 +24017,7 @@ components:
             - $ref: "#/components/schemas/AssistantsApiToolChoiceOption"
             - nullable: true
         parallel_tool_calls:
-          $ref: "#/components/schemas/ParallelToolCalls"
+          $ref: "#/components/schemas/boolean"
         response_format:
           $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
           nullable: true
@@ -24249,7 +24249,7 @@ components:
             - $ref: "#/components/schemas/AssistantsApiToolChoiceOption"
             - nullable: true
         parallel_tool_calls:
-          $ref: "#/components/schemas/ParallelToolCalls"
+          $ref: "#/components/schemas/boolean"
         response_format:
           $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
           nullable: true
@@ -26661,7 +26661,7 @@ components:
           items:
             $ref: "#/components/schemas/ChatCompletionTool"
         parallel_tool_calls:
-          $ref: "#/components/schemas/ParallelToolCalls"
+          $ref: "#/components/schemas/boolean"
         functions:
           deprecated: true
           description: A list of functions the model may generate JSON inputs for.
@@ -26820,7 +26820,7 @@ components:
               items:
                 $ref: "#/components/schemas/ChatCompletionTool"
             parallel_tool_calls:
-              $ref: "#/components/schemas/ParallelToolCalls"
+              $ref: "#/components/schemas/boolean"
         preferred_output:
           type: array
           description: The preferred completion message for the output.
@@ -30709,7 +30709,7 @@ components:
         - role
         - content
         - status
-    ParallelToolCalls:
+    boolean:
       description: Whether to enable [parallel function
         calling](/docs/guides/function-calling#configuring-parallel-function-calling)
         during tool use.
@@ -39120,7 +39120,7 @@ components:
             - $ref: "#/components/schemas/AssistantsApiToolChoiceOption"
             - nullable: true
         parallel_tool_calls:
-          $ref: "#/components/schemas/ParallelToolCalls"
+          $ref: "#/components/schemas/boolean"
         response_format:
           $ref: "#/components/schemas/AssistantsApiResponseFormatOption"
           nullable: true

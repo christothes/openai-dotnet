@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using OpenAI;
-using OpenAI.Chat;
 
 namespace OpenAI.LegacyCompletions
 {
@@ -22,7 +21,7 @@ namespace OpenAI.LegacyCompletions
             Model = model;
         }
 
-        internal InternalCreateCompletionResponse(string id, IList<InternalCreateCompletionResponseChoice> choices, DateTimeOffset created, string model, string systemFingerprint, string @object, ChatTokenUsage usage, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalCreateCompletionResponse(string id, IList<InternalCreateCompletionResponseChoice> choices, DateTimeOffset created, string model, string systemFingerprint, string @object, InternalCompletionsCompletionUsage usage, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Id = id;
@@ -47,7 +46,7 @@ namespace OpenAI.LegacyCompletions
 
         public string Object { get; } = "text_completion";
 
-        public ChatTokenUsage Usage { get; }
+        internal InternalCompletionsCompletionUsage Usage { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

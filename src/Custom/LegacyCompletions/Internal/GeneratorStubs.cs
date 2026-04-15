@@ -37,3 +37,12 @@ internal partial class InternalCreateCompletionResponseChoiceLogprobs { }
 
 [CodeGenType("CreateCompletionResponseObject")]
 internal readonly partial struct InternalCreateCompletionResponseObject { }
+
+[CodeGenType("CompletionsCompletionUsage")]
+internal partial class InternalCompletionsCompletionUsage {}
+
+[CodeGenType("CompletionsCompletionUsageCompletionTokensDetails")]
+internal partial class InternalCompletionsCompletionUsageCompletionTokensDetails {}
+
+ [CodeGenType("CompletionsCompletionUsagePromptTokensDetails")]
+ internal partial class InternalCompletionsCompletionUsagePromptTokensDetails {}

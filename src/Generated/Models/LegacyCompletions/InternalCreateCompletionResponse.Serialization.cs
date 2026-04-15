@@ -8,7 +8,6 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using OpenAI;
-using OpenAI.Chat;
 
 namespace OpenAI.LegacyCompletions
 {
@@ -159,7 +158,7 @@ namespace OpenAI.LegacyCompletions
             string model = default;
             string systemFingerprint = default;
             string @object = default;
-            ChatTokenUsage usage = default;
+            InternalCompletionsCompletionUsage usage = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -204,7 +203,7 @@ namespace OpenAI.LegacyCompletions
                     {
                         continue;
                     }
-                    usage = ChatTokenUsage.DeserializeChatTokenUsage(prop.Value, prop.Value.GetUtf8Bytes(), options);
+                    usage = InternalCompletionsCompletionUsage.DeserializeInternalCompletionsCompletionUsage(prop.Value, options);
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check
