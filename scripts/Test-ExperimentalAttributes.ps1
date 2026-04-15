@@ -4,7 +4,7 @@
 
 .DESCRIPTION
     Uses assembly reflection to verify that all public methods and properties in stable classes
-    are either listed in the stable hash sets (from ExperimentalAttributeVisitor.cs) or decorated
+    are either listed in the stable sets (from api/ga-apis.yaml) or decorated
     with [Experimental]. This catches custom (hand-written) code that is not processed by the
     code generator's visitor.
 
@@ -36,7 +36,7 @@ $ErrorActionPreference = "Stop"
 
 $repoRootPath = Join-Path $PSScriptRoot ".." -Resolve
 $projectPath = Join-Path $repoRootPath "src" "OpenAI.csproj"
-$visitorPath = Join-Path $repoRootPath "codegen" "generator" "src" "Visitors" "ExperimentalAttributeVisitor.cs"
+$yamlPath = Join-Path $repoRootPath "api" "ga-apis.yaml"
 
 # Auto-detect target framework: pick the highest TFM that is compatible with the
 # current PowerShell/.NET runtime so that the assembly can be loaded for reflection.
@@ -68,33 +68,40 @@ Write-Host "  Target Framework: $TargetFramework" -ForegroundColor DarkGray
 Write-Host ""
 
 # ---------------------------------------------------------------------------
-# Step 1: Parse stable hash sets from ExperimentalAttributeVisitor.cs
+# Step 1: Parse stable sets from api/ga-apis.yaml
 # ---------------------------------------------------------------------------
 
-Write-Host "Parsing stable sets from ExperimentalAttributeVisitor.cs..." -ForegroundColor Cyan
+Write-Host "Parsing stable sets from api/ga-apis.yaml..." -ForegroundColor Cyan
 
-$visitorContent = Get-Content $visitorPath -Raw
-
-function Parse-StableSet {
-    param([string]$Content, [string]$SetName)
-
-    $result = @()
-    if ($Content -match "(?s)${SetName}\s*=\s*new\([^)]*\)\s*\{(.*?)\};") {
-        $block = $Matches[1]
-        foreach ($line in $block -split "`n") {
-            $trimmed = $line.Trim()
-            # Only match non-commented lines containing a quoted string
-            if ($trimmed -match '^"([^"]+)"') {
-                $result += $Matches[1]
-            }
-        }
-    }
-    return $result
+if (-not (Test-Path $yamlPath)) {
+    Write-Error "ga-apis.yaml not found at: $yamlPath"
+    exit 1
 }
 
-$stableClasses = Parse-StableSet $visitorContent '_stableClasses'
-$stableProperties = Parse-StableSet $visitorContent '_stableProperties'
-$stableMethods = Parse-StableSet $visitorContent '_stableMethods'
+$yamlLines = Get-Content $yamlPath
+
+$stableClasses = @()
+$stableProperties = @()
+$stableMethods = @()
+
+$currentSet = $null
+foreach ($line in $yamlLines) {
+    $trimmed = $line.Trim()
+    if ($trimmed.Length -eq 0 -or $trimmed.StartsWith('#')) { continue }
+
+    if ($trimmed -eq 'stableClasses:') { $currentSet = 'classes'; continue }
+    if ($trimmed -eq 'stableProperties:') { $currentSet = 'properties'; continue }
+    if ($trimmed -eq 'stableMethods:') { $currentSet = 'methods'; continue }
+
+    if ($trimmed.StartsWith('- ') -and $currentSet) {
+        $value = $trimmed.Substring(2).Trim()
+        switch ($currentSet) {
+            'classes'    { $stableClasses += $value }
+            'properties' { $stableProperties += $value }
+            'methods'    { $stableMethods += $value }
+        }
+    }
+}
 
 Write-Host "  Stable classes:    $($stableClasses.Count)" -ForegroundColor DarkGray
 Write-Host "  Stable properties: $($stableProperties.Count)" -ForegroundColor DarkGray
@@ -414,6 +421,6 @@ foreach ($v in $violations) {
 
 Write-Host ""
 Write-Host "To fix: add [Experimental(""OPENAI001"")] to these members in custom code," -ForegroundColor Red
-Write-Host "or add them to the stable sets in ExperimentalAttributeVisitor.cs." -ForegroundColor Red
+Write-Host "or add them to the stable sets in api/ga-apis.yaml." -ForegroundColor Red
 Write-Host ""
 exit 1
