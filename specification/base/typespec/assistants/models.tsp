@@ -63,6 +63,44 @@ model DotNetAssistantResponseFormatJsonObject
   ...ResponseFormatJsonObject;
 }
 
+// Tool customization (apply_discriminator): establish a common, discriminated union
+/**
+ * JSON Schema response format. Used to generate structured JSON responses.
+ * Learn more about [Structured Outputs](/docs/guides/structured-outputs).
+ */
+model ResponseFormatJsonSchema extends ResponseFormat {
+  @doc("""
+    The type of response format being defined. Always `json_schema`.
+    """)
+  type: "json_schema";
+
+  /** Structured Outputs configuration options, including a JSON Schema. */
+  json_schema: {
+    /**
+     * A description of what the response format is for, used by the model to
+     * determine how to respond in the format.
+     */
+    description?: string;
+
+    /**
+     * The name of the response format. Must be a-z, A-Z, 0-9, or contain
+     * underscores and dashes, with a maximum length of 64.
+     */
+    name: string;
+
+    schema?: Record<unknown>;
+
+    @doc("""
+      Whether to enable strict schema adherence when generating the output.
+      If set to true, the model will always follow the exact schema defined
+      in the `schema` field. Only a subset of JSON Schema is supported when
+      `strict` is `true`. To learn more, read the [Structured Outputs
+      guide](/docs/guides/structured-outputs).
+      """)
+    strict?: boolean | null = false;
+  };
+}
+
 @doc("""
   Specifies the format that the model must output. Compatible with [GPT-4o](/docs/models#gpt-4o), [GPT-4 Turbo](/docs/models#gpt-4-turbo-and-gpt-4), and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
   
