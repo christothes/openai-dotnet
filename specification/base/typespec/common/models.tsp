@@ -43,45 +43,6 @@ model FunctionObject {
   strict?: boolean | null = false;
 }
 
-// Tool customization: Stub for separated type
-alias CreateModelResponseProperties = ModelResponsePropertiesForRequest;
-
-// Tool customization: Replace imprecise common spread source with split request/response models honoring optionality and nullability
-model ModelResponsePropertiesForRequest {
-  metadata?: Record<string>;
-
-  @doc("""
-    What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
-    We generally recommend altering this or `top_p` but not both.
-    """)
-  @minValue(0)
-  @maxValue(2)
-  temperature?: float32 | null = 1;
-  
-  /** An integer between 0 and 20 specifying the number of most likely tokens to return at each token position, each with an associated log probability. */
-  top_logprobs?: int32 | null;
-
-  @doc("""
-    An alternative to sampling with temperature, called nucleus sampling,
-    where the model considers the results of the tokens with top_p probability
-    mass. So 0.1 means only the tokens comprising the top 10% probability mass
-    are considered.
-    
-    We generally recommend altering this or `temperature` but not both.
-    """)
-  @minValue(0)
-  @maxValue(1)
-  top_p?: float32 | null = 1;
-
-  /** A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. [Learn more](/docs/guides/safety-best-practices#end-user-ids). */
-  user?: string;
-
-  /**A stable identifier used to help detect users of your application that may be violating OpenAI's usage policies.
-  The IDs should be a string that uniquely identifies each user. We recommend hashing their username or email address, in order to avoid sending us any identifying information. [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).*/
-  safety_identifier?: string;
-
-  service_tier?: ServiceTier;
-}
 model ModelResponsePropertiesForResponse {
   /**
    * Set of 16 key-value pairs that can be attached to an object. This can be
