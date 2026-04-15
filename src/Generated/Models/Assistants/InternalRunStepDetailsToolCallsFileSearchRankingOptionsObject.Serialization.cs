@@ -114,14 +114,14 @@ namespace OpenAI.Assistants
             {
                 return null;
             }
-            FileSearchRanker ranker = default;
+            InternalRunStepFileSearchRanker ranker = default;
             float scoreThreshold = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("ranker"u8))
                 {
-                    ranker = new FileSearchRanker(prop.Value.GetString());
+                    ranker = new InternalRunStepFileSearchRanker(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("score_threshold"u8))

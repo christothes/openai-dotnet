@@ -11,20 +11,20 @@ namespace OpenAI.Assistants
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalRunStepDetailsToolCallsFileSearchRankingOptionsObject(FileSearchRanker ranker, float scoreThreshold)
+        internal InternalRunStepDetailsToolCallsFileSearchRankingOptionsObject(InternalRunStepFileSearchRanker ranker, float scoreThreshold)
         {
             Ranker = ranker;
             ScoreThreshold = scoreThreshold;
         }
 
-        internal InternalRunStepDetailsToolCallsFileSearchRankingOptionsObject(FileSearchRanker ranker, float scoreThreshold, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalRunStepDetailsToolCallsFileSearchRankingOptionsObject(InternalRunStepFileSearchRanker ranker, float scoreThreshold, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Ranker = ranker;
             ScoreThreshold = scoreThreshold;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        public FileSearchRanker Ranker { get; }
+        internal InternalRunStepFileSearchRanker Ranker { get; }
 
         public float ScoreThreshold { get; }
 

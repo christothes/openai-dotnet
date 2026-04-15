@@ -23,14 +23,6 @@ model ErrorResponse {
   error: Error;
 }
 
-@doc("""
-  The ranker to use for the file search. If not specified will use the `auto` ranker.
-  """)
-union FileSearchRanker {
-  "auto",
-  "default_2024_08_21",
-}
-
 union ModelIdsShared {
   string,
   "gpt-4.1",

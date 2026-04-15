@@ -305,6 +305,14 @@ model AssistantToolsFileSearch extends AssistantToolDefinition {
 }
 
 @doc("""
+  The ranker to use for the file search. If not specified will use the `auto` ranker.
+  """)
+union FileSearchRanker {
+  "auto",
+  "default_2024_08_21",
+}
+
+@doc("""
   The ranking options for the file search. If not specified, the file search tool will use the `auto` ranker and a score_threshold of 0.
   
   See the [file search tool documentation](/docs/assistants/tools/file-search#customizing-file-search-settings) for more information.

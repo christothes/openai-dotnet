@@ -356,9 +356,17 @@ model RunStepDetailsToolCallsFileSearchObject
   };
 }
 
+@doc("""
+  The ranker to use for the file search. If not specified will use the `auto` ranker.
+  """)
+union RunStepFileSearchRanker {
+  "auto",
+  "default_2024_08_21",
+}
+
 /** The ranking options for the file search. */
 model RunStepDetailsToolCallsFileSearchRankingOptionsObject {
-  ranker: FileSearchRanker;
+  ranker: RunStepFileSearchRanker;
 
   /** The score threshold for the file search. All values must be a floating point number between 0 and 1. */
   @minValue(0)

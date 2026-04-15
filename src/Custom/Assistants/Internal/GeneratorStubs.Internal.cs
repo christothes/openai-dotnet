@@ -369,3 +369,4 @@ internal readonly partial struct InternalIncludedRunStepProperty { }
 [CodeGenType("MessageContentType")] internal readonly partial struct InternalMessageContentType { }
 [CodeGenType("UnknownMessageContent")] internal partial class InternalUnknownMessageContent { }
 [CodeGenType("MessageContentTextObjectText1")] internal partial class InternalMessageContentTextObjectText1 { }
+[CodeGenType("RunStepFileSearchRanker")] internal readonly partial struct InternalRunStepFileSearchRanker {}
