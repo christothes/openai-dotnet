@@ -24,16 +24,6 @@ model ErrorResponse {
 }
 
 @doc("""
-  High level guidance for the amount of context window space to use for the
-  search. One of `low`, `medium`, or `high`. `medium` is the default.
-  """)
-union WebSearchContextSize {
-  "low",
-  "medium",
-  "high",
-}
-
-@doc("""
   The ranker to use for the file search. If not specified will use the `auto` ranker.
   """)
 union FileSearchRanker {

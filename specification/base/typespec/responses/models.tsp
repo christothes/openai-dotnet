@@ -710,6 +710,16 @@ model ComputerUsePreviewTool extends Tool {
   display_height: int32;
 }
 
+@doc("""
+  High level guidance for the amount of context window space to use for the
+  search. One of `low`, `medium`, or `high`. `medium` is the default.
+  """)
+union WebSearchContextSize {
+  "low",
+  "medium",
+  "high",
+}
+
 // Tool customization (apply_discriminator): Apply discriminated type base for tools
 /** This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search). */
 model WebSearchPreviewTool extends Tool {

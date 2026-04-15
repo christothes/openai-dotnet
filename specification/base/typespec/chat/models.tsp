@@ -148,7 +148,9 @@ alias ChatCompletionMessageListData = {
 
 union SearchContextSize {
   string,
-  WebSearchContextSize,
+  "low",
+  "medium",
+  "high"
 }
 
 @doc("""
