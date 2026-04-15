@@ -10,18 +10,18 @@ using System.Text.Json.Serialization;
 
 namespace OpenAI
 {
-    internal partial class InternalFunctionDefinition
+    internal partial class InternalChatFunctionDefinition
     {
         [Experimental("SCME0001")]
         private JsonPatch _patch;
 
-        public InternalFunctionDefinition(string name)
+        public InternalChatFunctionDefinition(string name)
         {
             Name = name;
         }
 
 #pragma warning disable SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
-        internal InternalFunctionDefinition(string description, string name, BinaryData parameters, bool? strict, in JsonPatch patch)
+        internal InternalChatFunctionDefinition(string description, string name, BinaryData parameters, bool? strict, in JsonPatch patch)
         {
             Description = description;
             Name = name;
@@ -38,7 +38,7 @@ namespace OpenAI
 
         public string Description { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; }
 
         public bool? Strict { get; set; }
     }

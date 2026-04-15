@@ -4,7 +4,7 @@ using System;
 namespace OpenAI.Assistants;
 
 [CodeGenType("AssistantToolsFunction")]
-[CodeGenSuppress(nameof(FunctionToolDefinition), typeof(InternalFunctionDefinition))]
+[CodeGenSuppress(nameof(FunctionToolDefinition), typeof(InternalAssistantsFunctionDefinition))]
 public partial class FunctionToolDefinition
 {
     // CUSTOM: the visibility of the underlying function object is hidden to simplify the structure of the tool.

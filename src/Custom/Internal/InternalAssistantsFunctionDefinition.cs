@@ -3,8 +3,8 @@ using System;
 
 namespace OpenAI;
 
-[CodeGenType("FunctionObject")]
-internal partial class InternalFunctionDefinition
+[CodeGenType("AssistantsFunctionObject")]
+internal partial class InternalAssistantsFunctionDefinition
 {
     /// <summary>
     /// The parameters to the function, formatting as a JSON Schema object.

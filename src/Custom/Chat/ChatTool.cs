@@ -17,10 +17,10 @@ public partial class ChatTool
 {
     // CUSTOM: Made internal.
     [CodeGenMember("Function")]
-    internal InternalFunctionDefinition Function { get; }
+    internal InternalChatFunctionDefinition Function { get; }
 
     // CUSTOM: Made internal.
-    internal ChatTool(InternalFunctionDefinition function)
+    internal ChatTool(InternalChatFunctionDefinition function)
     {
         Argument.AssertNotNull(function, nameof(function));
 

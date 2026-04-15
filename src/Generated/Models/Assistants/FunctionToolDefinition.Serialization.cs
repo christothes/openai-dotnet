@@ -88,7 +88,7 @@ namespace OpenAI.Assistants
             }
             InternalAssistantToolDefinitionType kind = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
-            InternalFunctionDefinition function = default;
+            InternalAssistantsFunctionDefinition function = default;
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
@@ -98,7 +98,7 @@ namespace OpenAI.Assistants
                 }
                 if (prop.NameEquals("function"u8))
                 {
-                    function = InternalFunctionDefinition.DeserializeInternalFunctionDefinition(prop.Value, prop.Value.GetUtf8Bytes(), options);
+                    function = InternalAssistantsFunctionDefinition.DeserializeInternalAssistantsFunctionDefinition(prop.Value, options);
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check
