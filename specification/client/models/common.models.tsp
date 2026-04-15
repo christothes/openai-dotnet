@@ -35,51 +35,7 @@ model DotNetChatResponseFormatText extends DotNetChatResponseFormat {
 
 @access(Access.public)
 @usage(Usage.input | Usage.output)
-model DotNetChatResponseFormatJsonObject extends DotNetChatResponseFormat {
-  ...ResponseFormatJsonObject;
-}
-
-@access(Access.public)
-@usage(Usage.input | Usage.output)
 model DotNetChatResponseFormatJsonSchema extends DotNetChatResponseFormat {
-  type: "json_schema";
-  json_schema: {
-    description?: string;
-    name: string;
-    schema?: unknown;
-    strict?: boolean | null = false;
-  };
-}
-
-// DotNetAssistantResponseFormat
-
-@access(Access.public)
-@usage(Usage.input | Usage.output)
-@discriminator("type")
-model DotNetAssistantResponseFormat {
-  ...ResponseFormat;
-}
-
-@access(Access.public)
-@usage(Usage.input | Usage.output)
-model DotNetAssistantResponseFormatText extends DotNetAssistantResponseFormat {
-  @doc("""
-    The type of response format being defined. Always `text`.
-    """)
-  type: "text";
-}
-
-@access(Access.public)
-@usage(Usage.input | Usage.output)
-model DotNetAssistantResponseFormatJsonObject
-  extends DotNetAssistantResponseFormat {
-  ...ResponseFormatJsonObject;
-}
-
-@access(Access.public)
-@usage(Usage.input | Usage.output)
-model DotNetAssistantResponseFormatJsonSchema
-  extends DotNetAssistantResponseFormat {
   type: "json_schema";
   json_schema: {
     description?: string;

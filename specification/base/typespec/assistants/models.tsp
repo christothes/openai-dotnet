@@ -8,8 +8,60 @@ import "./custom.tsp";
 
 using Http;
 using TypeSpec.OpenAPI;
+using Azure.ClientGenerator.Core;
 
 namespace OpenAI;
+
+
+// Tool customization (apply_discriminator): establish a common, discriminated union
+@doc("""
+  JSON object response format. An older method of generating JSON responses.
+  Using `json_schema` is recommended for models that support it. Note that the
+  model will not generate JSON without a system or user message instructing it
+  to do so.
+  """)
+model ResponseFormatJsonObject extends ResponseFormat {
+  @doc("""
+    The type of response format being defined. Always `json_object`.
+    """)
+  type: "json_object" ;
+}
+
+@access(Access.public)
+@usage(Usage.input | Usage.output)
+@discriminator("type")
+model DotNetAssistantResponseFormat {
+  ...ResponseFormat;
+}
+
+@access(Access.public)
+@usage(Usage.input | Usage.output)
+model DotNetAssistantResponseFormatText extends DotNetAssistantResponseFormat {
+  @doc("""
+    The type of response format being defined. Always `text`.
+    """)
+  type: "text";
+}
+
+@access(Access.public)
+@usage(Usage.input | Usage.output)
+model DotNetAssistantResponseFormatJsonSchema
+  extends DotNetAssistantResponseFormat {
+  type: "json_schema";
+  json_schema: {
+    description?: string;
+    name: string;
+    schema?: unknown;
+    strict?: boolean | null = false;
+  };
+}
+
+@access(Access.public)
+@usage(Usage.input | Usage.output)
+model DotNetAssistantResponseFormatJsonObject
+  extends DotNetAssistantResponseFormat {
+  ...ResponseFormatJsonObject;
+}
 
 @doc("""
   Specifies the format that the model must output. Compatible with [GPT-4o](/docs/models#gpt-4o), [GPT-4 Turbo](/docs/models#gpt-4-turbo-and-gpt-4), and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.

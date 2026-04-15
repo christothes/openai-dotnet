@@ -7,6 +7,13 @@ using TypeSpec.Http;
 
 namespace OpenAI;
 
+
+@access(Access.public)
+@usage(Usage.input | Usage.output)
+model DotNetChatResponseFormatJsonObject extends DotNetChatResponseFormat {
+  ...ResponseFormatJsonObject;
+}
+
 alias ChatCompletionCollectionOrderQueryParameter = {
   /**
    * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`

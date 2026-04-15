@@ -44,20 +44,6 @@ model FunctionObject {
 }
 
 // Tool customization (apply_discriminator): establish a common, discriminated union
-@doc("""
-  JSON object response format. An older method of generating JSON responses.
-  Using `json_schema` is recommended for models that support it. Note that the
-  model will not generate JSON without a system or user message instructing it
-  to do so.
-  """)
-model ResponseFormatJsonObject extends ResponseFormat {
-  @doc("""
-    The type of response format being defined. Always `json_object`.
-    """)
-  type: "json_object";
-}
-
-// Tool customization (apply_discriminator): establish a common, discriminated union
 /**
  * JSON Schema response format. Used to generate structured JSON responses.
  * Learn more about [Structured Outputs](/docs/guides/structured-outputs).
