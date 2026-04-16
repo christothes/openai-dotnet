@@ -181,6 +181,7 @@ public class OpenAITestEnvironment : TestEnvironment
         OrganizationId = options?.OrganizationId,
         ProjectId = options?.ProjectId,
         UserAgentApplicationId = options?.UserAgentApplicationId,
+        Transport = options?.Transport,
     };
 
     private static bool TryReadEnvFile(string filePath,
