@@ -3,18 +3,17 @@
 #nullable disable
 
 using System.ClientModel.Primitives;
-using OpenAI.Internal;
 
 namespace OpenAI.Chat
 {
     internal partial class InternalDotNetChatResponseFormatText : ChatResponseFormat
     {
-        public InternalDotNetChatResponseFormatText() : this(InternalResponseFormatType.Text, default)
+        public InternalDotNetChatResponseFormatText() : this(InternalDotNetChatResponseFormatType.Text, default)
         {
         }
 
 #pragma warning disable SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
-        internal InternalDotNetChatResponseFormatText(InternalResponseFormatType kind, in JsonPatch patch) : base(kind, patch)
+        internal InternalDotNetChatResponseFormatText(InternalDotNetChatResponseFormatType kind, in JsonPatch patch) : base(kind, patch)
         {
         }
 #pragma warning restore SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.

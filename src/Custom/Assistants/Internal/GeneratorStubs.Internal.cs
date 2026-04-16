@@ -378,3 +378,6 @@ internal readonly partial struct InternalIncludedRunStepProperty { }
 [CodeGenType("RunsErrorResponse")] internal partial class InternalRunsErrorResponse {}
 [CodeGenType("ThreadsError")] internal partial class InternalThreadsError {}
 [CodeGenType("ThreadsErrorResponse")] internal partial class InternalThreadsErrorResponse {}
+[CodeGenType("AssistantsResponseFormatType")] internal readonly partial struct InternalAssistantsResponseFormatType {}
+[CodeGenType("AssistantsResponseFormat")] internal partial class InternalAssistantsResponseFormat {}
+[CodeGenType("UnknownAssistantsResponseFormat")] internal partial class InternalUnknownAssistantsResponseFormat {}

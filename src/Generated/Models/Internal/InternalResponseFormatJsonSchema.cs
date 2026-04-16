@@ -2,24 +2,23 @@
 
 #nullable disable
 
-using System.ClientModel.Primitives;
+using System;
+using System.Collections.Generic;
+using OpenAI.Assistants;
 
 namespace OpenAI.Internal
 {
-    internal partial class InternalResponseFormatJsonSchema : InternalResponseFormat
+    internal partial class InternalResponseFormatJsonSchema : InternalAssistantsResponseFormat
     {
-        internal InternalResponseFormatJsonSchema(InternalResponseFormatJsonSchemaJsonSchema jsonSchema) : base(InternalResponseFormatType.JsonSchema)
+        internal InternalResponseFormatJsonSchema(InternalResponseFormatJsonSchemaJsonSchema jsonSchema) : base(InternalAssistantsResponseFormatType.JsonSchema)
         {
             JsonSchema = jsonSchema;
         }
 
-#pragma warning disable SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
-        internal InternalResponseFormatJsonSchema(InternalResponseFormatType kind, in JsonPatch patch, InternalResponseFormatJsonSchemaJsonSchema jsonSchema) : base(kind, patch)
+        internal InternalResponseFormatJsonSchema(InternalAssistantsResponseFormatType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties, InternalResponseFormatJsonSchemaJsonSchema jsonSchema) : base(kind, additionalBinaryDataProperties)
         {
             JsonSchema = jsonSchema;
-            Patch.SetPropagators(PropagateSet, PropagateGet);
         }
-#pragma warning restore SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
 
         internal InternalResponseFormatJsonSchemaJsonSchema JsonSchema { get; set; }
     }

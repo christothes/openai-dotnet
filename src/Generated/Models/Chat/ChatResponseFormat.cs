@@ -6,7 +6,6 @@ using System.ClientModel.Primitives;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
-using OpenAI.Internal;
 
 namespace OpenAI.Chat
 {
@@ -15,13 +14,13 @@ namespace OpenAI.Chat
         [Experimental("SCME0001")]
         private JsonPatch _patch;
 
-        private protected ChatResponseFormat(InternalResponseFormatType kind)
+        private protected ChatResponseFormat(InternalDotNetChatResponseFormatType kind)
         {
             Kind = kind;
         }
 
 #pragma warning disable SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
-        internal ChatResponseFormat(InternalResponseFormatType kind, in JsonPatch patch)
+        internal ChatResponseFormat(InternalDotNetChatResponseFormatType kind, in JsonPatch patch)
         {
             Kind = kind;
             _patch = patch;
@@ -33,6 +32,6 @@ namespace OpenAI.Chat
         [Experimental("SCME0001")]
         public ref JsonPatch Patch => ref _patch;
 
-        internal InternalResponseFormatType Kind { get; set; }
+        internal InternalDotNetChatResponseFormatType Kind { get; set; }
     }
 }

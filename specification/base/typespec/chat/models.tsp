@@ -260,6 +260,13 @@ union DotNetChatVoiceIds {
   "verse",
 }
 
+@access(Access.public)
+@usage(Usage.input | Usage.output)
+@discriminator("type")
+model DotNetChatResponseFormat {
+  type: "text" | "json_object" | "json_schema";
+}
+
 model CreateChatCompletionRequest {
   metadata?: Record<string>;
 
@@ -367,7 +374,7 @@ model CreateChatCompletionRequest {
     ensures the message the model generates is valid JSON. Using `json_schema`
     is preferred for models that support it.
     """)
-  response_format?: ResponseFormat;
+  response_format?: DotNetChatResponseFormat;
 
   @doc("""
     Parameters for audio output. Required when audio output is requested with

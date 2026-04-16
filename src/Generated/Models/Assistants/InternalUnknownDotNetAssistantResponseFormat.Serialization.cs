@@ -7,7 +7,6 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using OpenAI;
-using OpenAI.Internal;
 
 namespace OpenAI.Assistants
 {
@@ -86,13 +85,13 @@ namespace OpenAI.Assistants
             {
                 return null;
             }
-            InternalResponseFormatType kind = default;
+            InternalAssistantsResponseFormatType kind = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
                 {
-                    kind = new InternalResponseFormatType(prop.Value.GetString());
+                    kind = new InternalAssistantsResponseFormatType(prop.Value.GetString());
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check

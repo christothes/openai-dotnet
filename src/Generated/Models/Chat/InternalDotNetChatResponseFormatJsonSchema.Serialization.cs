@@ -7,13 +7,12 @@ using System.ClientModel.Primitives;
 using System.Text;
 using System.Text.Json;
 using OpenAI;
-using OpenAI.Internal;
 
 namespace OpenAI.Chat
 {
     internal partial class InternalDotNetChatResponseFormatJsonSchema : ChatResponseFormat, IJsonModel<InternalDotNetChatResponseFormatJsonSchema>
     {
-        internal InternalDotNetChatResponseFormatJsonSchema() : this(InternalResponseFormatType.JsonSchema, default, null)
+        internal InternalDotNetChatResponseFormatJsonSchema() : this(InternalDotNetChatResponseFormatType.JsonSchema, default, null)
         {
         }
 
@@ -103,7 +102,7 @@ namespace OpenAI.Chat
             {
                 return null;
             }
-            InternalResponseFormatType kind = default;
+            InternalDotNetChatResponseFormatType kind = default;
 #pragma warning disable SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
             JsonPatch patch = new JsonPatch(data is null ? ReadOnlyMemory<byte>.Empty : data.ToMemory());
 #pragma warning restore SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
@@ -112,7 +111,7 @@ namespace OpenAI.Chat
             {
                 if (prop.NameEquals("type"u8))
                 {
-                    kind = new InternalResponseFormatType(prop.Value.GetString());
+                    kind = new InternalDotNetChatResponseFormatType(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("json_schema"u8))

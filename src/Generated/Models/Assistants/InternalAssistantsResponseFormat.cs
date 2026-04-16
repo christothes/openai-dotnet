@@ -4,21 +4,19 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 namespace OpenAI.Assistants
 {
-    [Experimental("OPENAI001")]
-    public partial class AssistantResponseFormat
+    internal abstract partial class InternalAssistantsResponseFormat
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        private protected AssistantResponseFormat(InternalAssistantsResponseFormatType kind)
+        private protected InternalAssistantsResponseFormat(InternalAssistantsResponseFormatType kind)
         {
             Kind = kind;
         }
 
-        internal AssistantResponseFormat(InternalAssistantsResponseFormatType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalAssistantsResponseFormat(InternalAssistantsResponseFormatType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Kind = kind;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;

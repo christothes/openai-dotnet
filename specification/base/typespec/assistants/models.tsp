@@ -41,6 +41,11 @@ union AssistantsReasoningEffort {
   "high",
 }
 
+@discriminator("type")
+model AssistantsResponseFormat {
+  type: "text" | "json_object" | "json_schema";
+}
+
 
 // Tool customization (apply_discriminator): establish a common, discriminated union
 @doc("""
@@ -49,7 +54,7 @@ union AssistantsReasoningEffort {
   model will not generate JSON without a system or user message instructing it
   to do so.
   """)
-model ResponseFormatJsonObject extends ResponseFormat {
+model ResponseFormatJsonObject extends AssistantsResponseFormat {
   @doc("""
     The type of response format being defined. Always `json_object`.
     """)
@@ -60,7 +65,7 @@ model ResponseFormatJsonObject extends ResponseFormat {
 @usage(Usage.input | Usage.output)
 @discriminator("type")
 model DotNetAssistantResponseFormat {
-  ...ResponseFormat;
+  ...AssistantsResponseFormat;
 }
 
 @access(Access.public)
@@ -97,7 +102,7 @@ model DotNetAssistantResponseFormatJsonObject
  * JSON Schema response format. Used to generate structured JSON responses.
  * Learn more about [Structured Outputs](/docs/guides/structured-outputs).
  */
-model ResponseFormatJsonSchema extends ResponseFormat {
+model ResponseFormatJsonSchema extends AssistantsResponseFormat {
   @doc("""
     The type of response format being defined. Always `json_schema`.
     """)

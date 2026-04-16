@@ -8,13 +8,6 @@ namespace OpenAI;
 
 @access(Access.public)
 @usage(Usage.input | Usage.output)
-@discriminator("type")
-model DotNetChatResponseFormat {
-  ...ResponseFormat;
-}
-
-@access(Access.public)
-@usage(Usage.input | Usage.output)
 model DotNetChatResponseFormatText extends DotNetChatResponseFormat {
   @doc("""
     The type of response format being defined. Always `text`.

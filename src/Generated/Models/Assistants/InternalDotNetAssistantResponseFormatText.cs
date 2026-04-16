@@ -4,17 +4,16 @@
 
 using System;
 using System.Collections.Generic;
-using OpenAI.Internal;
 
 namespace OpenAI.Assistants
 {
     internal partial class InternalDotNetAssistantResponseFormatText : AssistantResponseFormat
     {
-        public InternalDotNetAssistantResponseFormatText() : this(InternalResponseFormatType.Text, null)
+        public InternalDotNetAssistantResponseFormatText() : this(InternalAssistantsResponseFormatType.Text, null)
         {
         }
 
-        internal InternalDotNetAssistantResponseFormatText(InternalResponseFormatType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(kind, additionalBinaryDataProperties)
+        internal InternalDotNetAssistantResponseFormatText(InternalAssistantsResponseFormatType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(kind, additionalBinaryDataProperties)
         {
         }
     }

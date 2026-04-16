@@ -2,14 +2,8 @@ import "@typespec/http";
 import "@typespec/openapi";
 
 using TypeSpec.Http;
-using TypeSpec.OpenAPI;
 
 namespace OpenAI;
-
-@discriminator("type")
-model ResponseFormat {
-  type: "text" | "json_object" | "json_schema";
-}
 
 alias AcceptJsonHeader = {
   @header accept: "application/json";

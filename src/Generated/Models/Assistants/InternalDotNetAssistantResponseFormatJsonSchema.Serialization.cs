@@ -7,13 +7,12 @@ using System.ClientModel.Primitives;
 using System.Collections.Generic;
 using System.Text.Json;
 using OpenAI;
-using OpenAI.Internal;
 
 namespace OpenAI.Assistants
 {
     internal partial class InternalDotNetAssistantResponseFormatJsonSchema : AssistantResponseFormat, IJsonModel<InternalDotNetAssistantResponseFormatJsonSchema>
     {
-        internal InternalDotNetAssistantResponseFormatJsonSchema() : this(InternalResponseFormatType.JsonSchema, null, null)
+        internal InternalDotNetAssistantResponseFormatJsonSchema() : this(InternalAssistantsResponseFormatType.JsonSchema, null, null)
         {
         }
 
@@ -91,14 +90,14 @@ namespace OpenAI.Assistants
             {
                 return null;
             }
-            InternalResponseFormatType kind = default;
+            InternalAssistantsResponseFormatType kind = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             InternalDotNetAssistantResponseFormatJsonSchemaJsonSchema jsonSchema = default;
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
                 {
-                    kind = new InternalResponseFormatType(prop.Value.GetString());
+                    kind = new InternalAssistantsResponseFormatType(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("json_schema"u8))

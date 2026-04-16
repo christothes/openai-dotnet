@@ -4,7 +4,7 @@ using System;
 namespace OpenAI.Chat;
 
 /// <summary>
-///     The format that the model should output.
+///     The format that the model should output.F
 ///     <list>
 ///         <item>
 ///             Call <see cref="CreateTextFormat()"/> to create a <see cref="ChatResponseFormat"/> requesting plain

@@ -4,17 +4,16 @@
 
 using System;
 using System.Collections.Generic;
-using OpenAI.Internal;
 
 namespace OpenAI.Assistants
 {
     internal partial class InternalDotNetAssistantResponseFormatJsonObject : AssistantResponseFormat
     {
-        public InternalDotNetAssistantResponseFormatJsonObject() : this(InternalResponseFormatType.JsonObject, null)
+        public InternalDotNetAssistantResponseFormatJsonObject() : this(InternalAssistantsResponseFormatType.JsonObject, null)
         {
         }
 
-        internal InternalDotNetAssistantResponseFormatJsonObject(InternalResponseFormatType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(kind, additionalBinaryDataProperties)
+        internal InternalDotNetAssistantResponseFormatJsonObject(InternalAssistantsResponseFormatType kind, IDictionary<string, BinaryData> additionalBinaryDataProperties) : base(kind, additionalBinaryDataProperties)
         {
         }
     }

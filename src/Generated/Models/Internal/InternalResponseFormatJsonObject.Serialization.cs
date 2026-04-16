@@ -4,15 +4,16 @@
 
 using System;
 using System.ClientModel.Primitives;
-using System.Text;
+using System.Collections.Generic;
 using System.Text.Json;
 using OpenAI;
+using OpenAI.Assistants;
 
 namespace OpenAI.Internal
 {
-    internal partial class InternalResponseFormatJsonObject : InternalResponseFormat, IJsonModel<InternalResponseFormatJsonObject>
+    internal partial class InternalResponseFormatJsonObject : InternalAssistantsResponseFormat, IJsonModel<InternalResponseFormatJsonObject>
     {
-        protected override InternalResponseFormat PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected override InternalAssistantsResponseFormat PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
             string format = options.Format == "W" ? ((IPersistableModel<InternalResponseFormatJsonObject>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
@@ -20,7 +21,7 @@ namespace OpenAI.Internal
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeInternalResponseFormatJsonObject(document.RootElement, data, options);
+                        return DeserializeInternalResponseFormatJsonObject(document.RootElement, options);
                     }
                 default:
                     throw new FormatException($"The model {nameof(InternalResponseFormatJsonObject)} does not support reading '{options.Format}' format.");
@@ -47,14 +48,6 @@ namespace OpenAI.Internal
 
         void IJsonModel<InternalResponseFormatJsonObject>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-#pragma warning disable SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
-            if (Patch.Contains("$"u8))
-            {
-                writer.WriteRawValue(Patch.GetJson("$"u8));
-                return;
-            }
-#pragma warning restore SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
-
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
             writer.WriteEndObject();
@@ -68,15 +61,11 @@ namespace OpenAI.Internal
                 throw new FormatException($"The model {nameof(InternalResponseFormatJsonObject)} does not support writing '{format}' format.");
             }
             base.JsonModelWriteCore(writer, options);
-#pragma warning disable SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
-
-            Patch.WriteTo(writer);
-#pragma warning restore SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
         }
 
         InternalResponseFormatJsonObject IJsonModel<InternalResponseFormatJsonObject>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => (InternalResponseFormatJsonObject)JsonModelCreateCore(ref reader, options);
 
-        protected override InternalResponseFormat JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected override InternalAssistantsResponseFormat JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
             string format = options.Format == "W" ? ((IPersistableModel<InternalResponseFormatJsonObject>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
@@ -84,29 +73,28 @@ namespace OpenAI.Internal
                 throw new FormatException($"The model {nameof(InternalResponseFormatJsonObject)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeInternalResponseFormatJsonObject(document.RootElement, null, options);
+            return DeserializeInternalResponseFormatJsonObject(document.RootElement, options);
         }
 
-        internal static InternalResponseFormatJsonObject DeserializeInternalResponseFormatJsonObject(JsonElement element, BinaryData data, ModelReaderWriterOptions options)
+        internal static InternalResponseFormatJsonObject DeserializeInternalResponseFormatJsonObject(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            InternalResponseFormatType kind = default;
-#pragma warning disable SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
-            JsonPatch patch = new JsonPatch(data is null ? ReadOnlyMemory<byte>.Empty : data.ToMemory());
-#pragma warning restore SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
+            InternalAssistantsResponseFormatType kind = default;
+            IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
                 {
-                    kind = new InternalResponseFormatType(prop.Value.GetString());
+                    kind = new InternalAssistantsResponseFormatType(prop.Value.GetString());
                     continue;
                 }
-                patch.Set([.. "$."u8, .. Encoding.UTF8.GetBytes(prop.Name)], prop.Value.GetUtf8Bytes());
+                // Plugin customization: remove options.Format != "W" check
+                additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
             }
-            return new InternalResponseFormatJsonObject(kind, patch);
+            return new InternalResponseFormatJsonObject(kind, additionalBinaryDataProperties);
         }
     }
 }

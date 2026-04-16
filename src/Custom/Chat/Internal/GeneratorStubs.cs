@@ -138,3 +138,4 @@ internal partial class InternalUnknownChatCompletionRequestMessageContentPart { 
 [CodeGenType("ChatModelIds")] internal readonly partial struct InternalChatModelIds { }
 [CodeGenType("ChatError")] internal partial class InternalChatError {}
 [CodeGenType("ChatErrorResponse")] internal partial class InternalChatErrorResponse {}
+[CodeGenType("DotNetChatResponseFormatType")] internal readonly partial struct InternalDotNetChatResponseFormatType {}

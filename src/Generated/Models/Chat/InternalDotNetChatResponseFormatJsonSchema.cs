@@ -3,19 +3,18 @@
 #nullable disable
 
 using System.ClientModel.Primitives;
-using OpenAI.Internal;
 
 namespace OpenAI.Chat
 {
     internal partial class InternalDotNetChatResponseFormatJsonSchema : ChatResponseFormat
     {
-        internal InternalDotNetChatResponseFormatJsonSchema(InternalDotNetChatResponseFormatJsonSchemaJsonSchema jsonSchema) : base(InternalResponseFormatType.JsonSchema)
+        internal InternalDotNetChatResponseFormatJsonSchema(InternalDotNetChatResponseFormatJsonSchemaJsonSchema jsonSchema) : base(InternalDotNetChatResponseFormatType.JsonSchema)
         {
             JsonSchema = jsonSchema;
         }
 
 #pragma warning disable SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
-        internal InternalDotNetChatResponseFormatJsonSchema(InternalResponseFormatType kind, in JsonPatch patch, InternalDotNetChatResponseFormatJsonSchemaJsonSchema jsonSchema) : base(kind, patch)
+        internal InternalDotNetChatResponseFormatJsonSchema(InternalDotNetChatResponseFormatType kind, in JsonPatch patch, InternalDotNetChatResponseFormatJsonSchemaJsonSchema jsonSchema) : base(kind, patch)
         {
             JsonSchema = jsonSchema;
             Patch.SetPropagators(PropagateSet, PropagateGet);
