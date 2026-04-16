@@ -1,8 +1,19 @@
 import "@typespec/openapi";
-import "../common/models.tsp";
 import "../specialized-types/models.tsp";
 using TypeSpec.OpenAPI;
 namespace OpenAI;
+
+model VectorStoresError {
+  code: string | null;
+  message: string;
+  param: string | null;
+  type: string;
+}
+
+@error
+model VectorStoresErrorResponse {
+  error: VectorStoresError;
+}
 
 /**Set of 16 key-value pairs that can be attached to an object. This can be
 useful for storing additional information about the object in a structured

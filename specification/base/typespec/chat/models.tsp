@@ -13,6 +13,18 @@ using TypeSpec.OpenAPI;
 
 namespace OpenAI;
 
+model ChatError {
+  code: string | null;
+  message: string;
+  param: string | null;
+  type: string;
+}
+
+@error
+model ChatErrorResponse {
+  error: ChatError;
+}
+
 @doc("""
   **Reasoning models only**
   

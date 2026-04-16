@@ -228,11 +228,11 @@ interface Evals {
 @error
 model EvalsErrorResponse {
   @statusCode statusCode: 400;
-  ...Error;
+  ...EvalApiError;
 }
 
 @error
 model EvalsErrorNotFoundResponse {
   @statusCode statusCode: 404;
-  ...Error;
+  ...EvalApiError;
 }

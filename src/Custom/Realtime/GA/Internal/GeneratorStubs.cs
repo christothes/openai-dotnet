@@ -5,6 +5,12 @@ namespace OpenAI.Realtime;
 [CodeGenType("RealtimeSessionCreateRequestGABaseTypeGA")]
 internal readonly partial struct InternalRealtimeSessionCreateRequestGABaseTypeGA { }
 
+[CodeGenType("RealtimeErrorGA")]
+internal partial class InternalRealtimeErrorGA { }
+
+[CodeGenType("RealtimeErrorResponseGA")]
+internal partial class InternalRealtimeErrorResponseGA { }
+
 [CodeGenType("UnknownRealtimeSessionCreateRequestGABaseGA")]
 internal partial class InternalUnknownRealtimeSessionCreateRequestGABaseGA { }
 

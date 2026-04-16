@@ -370,3 +370,11 @@ internal readonly partial struct InternalIncludedRunStepProperty { }
 [CodeGenType("UnknownMessageContent")] internal partial class InternalUnknownMessageContent { }
 [CodeGenType("MessageContentTextObjectText1")] internal partial class InternalMessageContentTextObjectText1 { }
 [CodeGenType("RunStepFileSearchRanker")] internal readonly partial struct InternalRunStepFileSearchRanker {}
+[CodeGenType("AssistantsError")] internal partial class InternalAssistantsError {}
+[CodeGenType("AssistantsErrorResponse")] internal partial class InternalAssistantsErrorResponse {}
+[CodeGenType("MessagesError")] internal partial class InternalMessagesError {}
+[CodeGenType("MessagesErrorResponse")] internal partial class InternalMessagesErrorResponse {}
+[CodeGenType("RunsError")] internal partial class InternalRunsError {}
+[CodeGenType("RunsErrorResponse")] internal partial class InternalRunsErrorResponse {}
+[CodeGenType("ThreadsError")] internal partial class InternalThreadsError {}
+[CodeGenType("ThreadsErrorResponse")] internal partial class InternalThreadsErrorResponse {}

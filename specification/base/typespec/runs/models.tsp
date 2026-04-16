@@ -14,6 +14,18 @@ using TypeSpec.OpenAPI;
 
 namespace OpenAI;
 
+model RunsError {
+  code: string | null;
+  message: string;
+  param: string | null;
+  type: string;
+}
+
+@error
+model RunsErrorResponse {
+  error: RunsError;
+}
+
 @doc("""
   **Reasoning models only**
   

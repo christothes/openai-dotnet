@@ -1,6 +1,5 @@
 import "@azure-tools/typespec-client-generator-core";
 import "@typespec/http";
-import "../common/models.tsp";
 import "../vector-stores/models.tsp";
 
 using Azure.ClientGenerator.Core;

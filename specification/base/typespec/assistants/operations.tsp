@@ -20,7 +20,7 @@ interface Assistants {
     ...AcceptJsonHeader,
     ...AssistantsBetaHeader,
     ...CommonPageQueryParameters,
-  ): ListAssistantsResponse | ErrorResponse;
+  ): ListAssistantsResponse | AssistantsErrorResponse;
 
   @post
   @operationId("createAssistant")
@@ -29,7 +29,7 @@ interface Assistants {
     ...AcceptJsonHeader,
     ...AssistantsBetaHeader,
     @body requestBody: CreateAssistantRequest,
-  ): AssistantObject | ErrorResponse;
+  ): AssistantObject | AssistantsErrorResponse;
 
   @route("{assistant_id}")
   @get
@@ -41,7 +41,7 @@ interface Assistants {
 
     /** The ID of the assistant to retrieve. */
     @path assistant_id: string,
-  ): AssistantObject | ErrorResponse;
+  ): AssistantObject | AssistantsErrorResponse;
 
   @route("{assistant_id}")
   @post
@@ -55,7 +55,7 @@ interface Assistants {
     @path assistant_id: string,
 
     @body requestBody: ModifyAssistantRequest,
-  ): AssistantObject | ErrorResponse;
+  ): AssistantObject | AssistantsErrorResponse;
 
   @route("{assistant_id}")
   @delete
@@ -67,5 +67,5 @@ interface Assistants {
 
     /** The ID of the assistant to delete. */
     @path assistant_id: string,
-  ): DeleteAssistantResponse | ErrorResponse;
+  ): DeleteAssistantResponse | AssistantsErrorResponse;
 }

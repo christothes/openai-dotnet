@@ -41,7 +41,7 @@ interface Batches {
 
     /** Optional custom metadata for the batch. */
     metadata?: Record<string>,
-  ): Batch | ErrorResponse;
+  ): Batch | BatchErrorResponse;
 
   @get
   @operationId("listBatches")
@@ -63,7 +63,7 @@ interface Batches {
      * default is 20.
      */
     @query limit?: int32 = 20,
-  ): ListBatchesResponse | ErrorResponse;
+  ): ListBatchesResponse | BatchErrorResponse;
 
   @route("{batch_id}")
   @get
@@ -75,7 +75,7 @@ interface Batches {
 
     /** The ID of the batch to retrieve. */
     @path batch_id: string,
-  ): Batch | ErrorResponse;
+  ): Batch | BatchErrorResponse;
 
   @route("{batch_id}/cancel")
   @post
@@ -87,5 +87,5 @@ interface Batches {
 
     /** The ID of the batch to cancel. */
     @path batch_id: string,
-  ): Batch | ErrorResponse;
+  ): Batch | BatchErrorResponse;
 }

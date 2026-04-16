@@ -305,6 +305,11 @@ namespace OpenAI
             return new DeleteContainerFileResponse(id, "container.file.deleted", true, additionalBinaryDataProperties: null);
         }
 
+        public static FineTuningError FineTuningError(string code = default, string message = default, string invalidParameter = default)
+        {
+            return new FineTuningError(code, message, invalidParameter, additionalBinaryDataProperties: null);
+        }
+
         public static HyperparametersForSupervised HyperparametersForSupervised(BinaryData batchSize = default, BinaryData learningRateMultiplier = default, BinaryData nEpochs = default)
         {
             return new HyperparametersForSupervised(batchSize, learningRateMultiplier, nEpochs, additionalBinaryDataProperties: null);
@@ -350,11 +355,6 @@ namespace OpenAI
         public static GraderMulti GraderMulti(string name = default, BinaryData graders = default, string calculateOutput = default)
         {
             return new GraderMulti(GraderType.Multi, additionalBinaryDataProperties: null, name, graders, calculateOutput);
-        }
-
-        public static FineTuningError FineTuningError(string code = default, string message = default, string invalidParameter = default)
-        {
-            return new FineTuningError(code, message, invalidParameter, additionalBinaryDataProperties: null);
         }
 
         public static FineTuningHyperparameters FineTuningHyperparameters(BinaryData batchSize = default, BinaryData learningRateMultiplier = default, BinaryData epochCount = default)

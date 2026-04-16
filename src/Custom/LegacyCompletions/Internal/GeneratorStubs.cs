@@ -49,3 +49,5 @@ internal partial class InternalCompletionsCompletionUsageCompletionTokensDetails
 
 [CodeGenType("LegacyChatCompletionStreamOptions")]
 internal partial class InternalLegacyChatCompletionStreamOptions {}
+[CodeGenType("CompletionsError")] internal partial class InternalCompletionsError {}
+[CodeGenType("CompletionsErrorResponse")] internal partial class InternalCompletionsErrorResponse {}

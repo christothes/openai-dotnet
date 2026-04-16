@@ -8,7 +8,7 @@ namespace OpenAI.Batch;
 internal readonly partial struct InternalBatchCompletionTimeframe { }
 
 [CodeGenType("BatchErrorsDatum")]
-internal partial class InternalBatchError { }
+internal partial class InternalBatchErrorDatum { }
 
 [CodeGenType("BatchErrors")]
 internal partial class InternalBatchErrors { }
@@ -51,3 +51,5 @@ internal partial class InternalListBatchesResponse { }
 
 [CodeGenType("ListBatchesResponseObject")]
 internal readonly partial struct InternalListBatchesResponseObject { }
+[CodeGenType("BatchError")] internal partial class InternalBatchError {}
+[CodeGenType("BatchErrorResponse")] internal partial class InternalBatchErrorResponse {}

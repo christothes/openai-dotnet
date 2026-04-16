@@ -12,6 +12,18 @@ using TypeSpec.OpenAPI;
 
 namespace OpenAI;
 
+model ThreadsError {
+  code: string | null;
+  message: string;
+  param: string | null;
+  type: string;
+}
+
+@error
+model ThreadsErrorResponse {
+  error: ThreadsError;
+}
+
 /**
  * Options to create a new thread. If no thread is provided when running a
  * request, an empty thread will be created.

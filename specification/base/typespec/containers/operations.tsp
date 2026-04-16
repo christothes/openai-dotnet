@@ -19,14 +19,14 @@ interface Containers {
     ...PageLimitQueryParameter,
     ...PageOrderQueryParameter,
     ...PageAfterQueryParameter,
-  ): ContainerListResource | ErrorResponse;
+  ): ContainerListResource | ContainersErrorResponse;
 
   @post
   @operationId("CreateContainer")
   createContainer(
     @body
     body: CreateContainerBody,
-  ): ContainerResource | ErrorResponse;
+  ): ContainerResource | ContainersErrorResponse;
 
   @get
   @route("{container_id}")
@@ -34,7 +34,7 @@ interface Containers {
   retrieveContainer(
     @path
     container_id: string,
-  ): ContainerResource | ErrorResponse;
+  ): ContainerResource | ContainersErrorResponse;
 
   @delete
   @route("{container_id}")
@@ -46,7 +46,7 @@ interface Containers {
     id: string;
     object: "container.deleted";
     deleted: true;
-  } | ErrorResponse;
+  } | ContainersErrorResponse;
 
   @post
   @route("{container_id}/files")
@@ -60,7 +60,7 @@ interface Containers {
 
     @multipartBody
     body: CreateContainerFileBody,
-  ): ContainerFileResource | ErrorResponse;
+  ): ContainerFileResource | ContainersErrorResponse;
 
   @get
   @route("{container_id}/files")
@@ -73,7 +73,7 @@ interface Containers {
     ...PageLimitQueryParameter,
     ...PageOrderQueryParameter,
     ...PageAfterQueryParameter,
-  ): ContainerFileListResource | ErrorResponse;
+  ): ContainerFileListResource | ContainersErrorResponse;
 
   @get
   @route("{container_id}/files/{file_id}")
@@ -84,7 +84,7 @@ interface Containers {
 
     @path
     file_id: string,
-  ): ContainerFileResource | ErrorResponse;
+  ): ContainerFileResource | ContainersErrorResponse;
 
   @delete
   @route("{container_id}/files/{file_id}")
@@ -99,7 +99,7 @@ interface Containers {
     id: string;
     object: "container.file.deleted";
     deleted: true;
-  } | ErrorResponse;
+  } | ContainersErrorResponse;
 
   @get
   @route("{container_id}/files/{file_id}/content")
@@ -112,5 +112,5 @@ interface Containers {
     file_id: string,
   ): {
     @encode("base64") @body file_content: bytes;
-  } | ErrorResponse;
+  } | ContainersErrorResponse;
 }

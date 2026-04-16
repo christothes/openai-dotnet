@@ -19,7 +19,7 @@ interface Threads {
     ...AcceptJsonHeader,
     ...AssistantsBetaHeader,
     @body requestBody: CreateThreadRequest,
-  ): ThreadObject | ErrorResponse;
+  ): ThreadObject | ThreadsErrorResponse;
 
   @route("{thread_id}")
   @get
@@ -32,7 +32,7 @@ interface Threads {
 
     /** The ID of the thread to retrieve. */
     @path thread_id: string,
-  ): ThreadObject | ErrorResponse;
+  ): ThreadObject | ThreadsErrorResponse;
 
   @route("{thread_id}")
   @post
@@ -47,7 +47,7 @@ interface Threads {
     @path thread_id: string,
 
     @body requestBody: ModifyThreadRequest,
-  ): ThreadObject | ErrorResponse;
+  ): ThreadObject | ThreadsErrorResponse;
 
   @route("{thread_id}")
   @delete
@@ -60,5 +60,5 @@ interface Threads {
 
     /** The ID of the thread to delete. */
     @path thread_id: string,
-  ): DeleteThreadResponse | ErrorResponse;
+  ): DeleteThreadResponse | ThreadsErrorResponse;
 }

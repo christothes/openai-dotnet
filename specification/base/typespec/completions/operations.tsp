@@ -18,5 +18,5 @@ interface Completions {
   createCompletion(
     @header accept: "application/json",
     @body requestBody: CreateCompletionRequest,
-  ): CreateCompletionResponse | ErrorResponse;
+  ): CreateCompletionResponse | CompletionsErrorResponse;
 }

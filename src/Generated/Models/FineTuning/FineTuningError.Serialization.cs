@@ -65,8 +65,15 @@ namespace OpenAI.FineTuning
             }
             if (_additionalBinaryDataProperties?.ContainsKey("code") != true)
             {
-                writer.WritePropertyName("code"u8);
-                writer.WriteStringValue(Code);
+                if (Optional.IsDefined(Code))
+                {
+                    writer.WritePropertyName("code"u8);
+                    writer.WriteStringValue(Code);
+                }
+                else
+                {
+                    writer.WriteNull("code"u8);
+                }
             }
             if (_additionalBinaryDataProperties?.ContainsKey("message") != true)
             {
@@ -134,6 +141,11 @@ namespace OpenAI.FineTuning
             {
                 if (prop.NameEquals("code"u8))
                 {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        code = null;
+                        continue;
+                    }
                     code = prop.Value.GetString();
                     continue;
                 }

@@ -1,6 +1,5 @@
 import "@typespec/http";
 import "@typespec/openapi";
-import "../common/models.tsp";
 import "./models.tsp";
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;
@@ -192,7 +191,7 @@ op listVectorStores(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -200,7 +199,7 @@ op listVectorStores(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Create a vector store. */
@@ -336,7 +335,7 @@ op createVectorStore(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -344,7 +343,7 @@ op createVectorStore(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Delete a vector store. */
@@ -469,7 +468,7 @@ op deleteVectorStore(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -477,7 +476,7 @@ op deleteVectorStore(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Retrieves a vector store. */
@@ -601,7 +600,7 @@ op getVectorStore(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -609,7 +608,7 @@ op getVectorStore(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Modifies a vector store. */
@@ -756,7 +755,7 @@ op modifyVectorStore(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -764,7 +763,7 @@ op modifyVectorStore(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Create a vector store file batch. */
@@ -923,7 +922,7 @@ op createVectorStoreFileBatch(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -931,7 +930,7 @@ op createVectorStoreFileBatch(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Retrieves a vector store file batch. */
@@ -1080,7 +1079,7 @@ op getVectorStoreFileBatch(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -1088,7 +1087,7 @@ op getVectorStoreFileBatch(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Cancel a vector store file batch. This attempts to cancel the processing of files in this batch as soon as possible. */
@@ -1238,7 +1237,7 @@ op cancelVectorStoreFileBatch(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -1246,7 +1245,7 @@ op cancelVectorStoreFileBatch(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Returns a list of vector store files in a batch. */
@@ -1437,7 +1436,7 @@ op listFilesInVectorStoreBatch(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -1445,7 +1444,7 @@ op listFilesInVectorStoreBatch(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Returns a list of vector store files. */
@@ -1623,7 +1622,7 @@ op listVectorStoreFiles(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -1631,7 +1630,7 @@ op listVectorStoreFiles(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Create a vector store file by attaching a [File](https://platform.openai.com/docs/api-reference/files) to a [vector store](https://platform.openai.com/docs/api-reference/vector-stores/object). */
@@ -1777,7 +1776,7 @@ op createVectorStoreFile(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -1785,7 +1784,7 @@ op createVectorStoreFile(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Delete a vector store file. This will remove the file from the vector store but the file itself will not be deleted. To delete the file, use the [delete file](https://platform.openai.com/docs/api-reference/files/delete) endpoint. */
@@ -1926,7 +1925,7 @@ op deleteVectorStoreFile(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -1934,7 +1933,7 @@ op deleteVectorStoreFile(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Retrieves a vector store file. */
@@ -2077,7 +2076,7 @@ op getVectorStoreFile(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -2085,7 +2084,7 @@ op getVectorStoreFile(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Update attributes on a vector store file. */
@@ -2254,7 +2253,7 @@ op updateVectorStoreFileAttributes(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -2262,7 +2261,7 @@ op updateVectorStoreFileAttributes(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Retrieve the parsed contents of a vector store file. */
@@ -2408,7 +2407,7 @@ op retrieveVectorStoreFileContent(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -2416,7 +2415,7 @@ op retrieveVectorStoreFileContent(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };
 
 /** Search a vector store for relevant chunks based on a query and file attributes filter. */
@@ -2595,7 +2594,7 @@ op searchVectorStore(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -2603,5 +2602,5 @@ op searchVectorStore(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: VectorStoresErrorResponse;
 };

@@ -16,17 +16,17 @@ namespace OpenAI.Batch
         {
         }
 
-        internal InternalBatchErrors(InternalBatchErrorsObject? @object, IList<InternalBatchError> data, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalBatchErrors(InternalBatchErrorsObject? @object, IList<InternalBatchErrorDatum> data, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             // Plugin customization: ensure initialization of collections
             Object = @object;
-            Data = data ?? new ChangeTrackingList<InternalBatchError>();
+            Data = data ?? new ChangeTrackingList<InternalBatchErrorDatum>();
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         internal InternalBatchErrorsObject? Object { get; }
 
-        internal IList<InternalBatchError> Data { get; }
+        internal IList<InternalBatchErrorDatum> Data { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

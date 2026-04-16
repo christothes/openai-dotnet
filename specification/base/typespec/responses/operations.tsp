@@ -109,7 +109,7 @@ interface Responses {
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: ResponseErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -117,7 +117,7 @@ interface Responses {
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: ResponseErrorResponse;
 };
 
   @post
@@ -135,7 +135,7 @@ interface Responses {
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: ResponseErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -143,6 +143,6 @@ interface Responses {
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: ResponseErrorResponse;
 };
 }

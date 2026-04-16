@@ -1,6 +1,5 @@
 import "@typespec/openapi";
 import "../responses/models.tsp";
-import "../common/models.tsp";
 using TypeSpec.OpenAPI;
 namespace OpenAI;
 

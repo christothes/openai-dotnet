@@ -8,10 +8,20 @@ import "../common";
 import "../graders";
 import "./custom.tsp";
 
-using Http;
 using TypeSpec.OpenAPI;
 
 namespace OpenAI;
+
+model FineTuningError {
+  code: string | null;
+  message: string;
+  param: string | null;
+}
+
+@error
+model FineTuningErrorResponse {
+  error: FineTuningError;
+}
 
 model CreateFineTuningJobRequest {
   /**
@@ -143,18 +153,7 @@ model FineTuningJob {
   @doc("""
     For fine-tuning jobs that have `failed`, this will contain more information on the cause of the failure.
     """)
-  error: {
-    /** A machine-readable error code. */
-    code: string;
-
-    /** A human-readable error message. */
-    message: string;
-
-    @doc("""
-      The parameter that was invalid, usually `training_file` or `validation_file`. This field will be null if the failure was not parameter-specific.
-      """)
-    param: string | null;
-  } | null;
+  error: FineTuningError;
 
   /** The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running. */
   fine_tuned_model: string | null;

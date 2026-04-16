@@ -10,6 +10,18 @@ using TypeSpec.OpenAPI;
 
 namespace OpenAI;
 
+model RealtimeError_GA {
+  code: string | null;
+  message: string;
+  param: string | null;
+  type: string;
+}
+
+@error
+model RealtimeErrorResponse_GA {
+  error: RealtimeError_GA;
+}
+
 /**
  * The anchor point from which client secret expiration is calculated.
  */

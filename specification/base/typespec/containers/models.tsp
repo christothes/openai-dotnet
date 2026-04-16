@@ -8,6 +8,18 @@ using TypeSpec.OpenAPI;
 
 namespace OpenAI;
 
+model ContainersError {
+  code: string | null;
+  message: string;
+  param: string | null;
+  type: string;
+}
+
+@error
+model ContainersErrorResponse {
+  error: ContainersError;
+}
+
 model ContainerFileListResource {
   /** The type of object returned, must be 'list'. */
   object: "list";

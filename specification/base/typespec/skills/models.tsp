@@ -5,6 +5,18 @@ using TypeSpec.OpenAPI;
 using TypeSpec.Http;
 namespace OpenAI;
 
+model SkillsError {
+  code: string | null;
+  message: string;
+  param: string | null;
+  type: string;
+}
+
+@error
+model SkillsErrorResponse {
+  error: SkillsError;
+}
+
 #suppress "@azure-tools/typespec-azure-core/no-enum" "Auto-suppressed warnings non-applicable rules during import."
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
 enum SkillsOrderEnum {

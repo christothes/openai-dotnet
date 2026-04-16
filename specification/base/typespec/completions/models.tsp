@@ -10,6 +10,18 @@ using TypeSpec.OpenAPI;
 
 namespace OpenAI;
 
+model CompletionsError {
+  code: string | null;
+  message: string;
+  param: string | null;
+  type: string;
+}
+
+@error
+model CompletionsErrorResponse {
+  error: CompletionsError;
+}
+
 // Tool generated type. Extracts from CreateCompletionResponse.choices
 alias CreateCompletionResponseChoice = {
   @doc("""

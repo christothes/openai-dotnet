@@ -5,24 +5,24 @@
 using System;
 using System.Collections.Generic;
 
-namespace OpenAI.Internal
+namespace OpenAI.VectorStores
 {
-    internal partial class OpenAIErrorResponse
+    internal partial class InternalVectorStoresErrorResponse
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal OpenAIErrorResponse(OpenAIError error)
+        internal InternalVectorStoresErrorResponse(InternalVectorStoresError error)
         {
             Error = error;
         }
 
-        internal OpenAIErrorResponse(OpenAIError error, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalVectorStoresErrorResponse(InternalVectorStoresError error, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Error = error;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        internal OpenAIError Error { get; }
+        internal InternalVectorStoresError Error { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {

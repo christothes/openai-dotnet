@@ -29,7 +29,7 @@ interface FineTuning {
 
     /** The ID of the project to get permissions for. */
     @query project_id?: string,
-  ): ListFineTuningCheckpointPermissionResponse | ErrorResponse;
+  ): ListFineTuningCheckpointPermissionResponse | FineTuningErrorResponse;
 
   @post
   @route("checkpoints/{fine_tuned_model_checkpoint}/permissions")
@@ -43,7 +43,7 @@ interface FineTuning {
     @path fine_tuned_model_checkpoint: string,
 
     ...CreateFineTuningCheckpointPermissionRequest,
-  ): ListFineTuningCheckpointPermissionResponse | ErrorResponse;
+  ): ListFineTuningCheckpointPermissionResponse | FineTuningErrorResponse;
 
   @delete
   @route("checkpoints/{fine_tuned_model_checkpoint}/permissions/{permission_id}")
@@ -58,7 +58,7 @@ interface FineTuning {
 
     /** The ID of the permission to delete. */
     @path permission_id: string,
-  ): DeleteFineTuningCheckpointPermissionResponse | ErrorResponse;
+  ): DeleteFineTuningCheckpointPermissionResponse | FineTuningErrorResponse;
 
   @route("jobs")
   @post
@@ -73,7 +73,7 @@ interface FineTuning {
   createFineTuningJob(
     @header accept: "application/json",
     @body requestBody: CreateFineTuningJobRequest,
-  ): FineTuningJob | ErrorResponse;
+  ): FineTuningJob | FineTuningErrorResponse;
 
   @route("jobs")
   @get
@@ -87,7 +87,7 @@ interface FineTuning {
 
     /** Number of fine-tuning jobs to retrieve. */
     @query limit?: int32 = 20,
-  ): ListPaginatedFineTuningJobsResponse | ErrorResponse;
+  ): ListPaginatedFineTuningJobsResponse | FineTuningErrorResponse;
 
   @route("jobs/{fine_tuning_job_id}")
   @get
@@ -102,7 +102,7 @@ interface FineTuning {
 
     /** The ID of the fine-tuning job. */
     @path fine_tuning_job_id: string,
-  ): FineTuningJob | ErrorResponse;
+  ): FineTuningJob | FineTuningErrorResponse;
 
   @route("jobs/{fine_tuning_job_id}/cancel")
   @post
@@ -113,7 +113,7 @@ interface FineTuning {
 
     /** The ID of the fine-tuning job to cancel. */
     @path fine_tuning_job_id: string,
-  ): FineTuningJob | ErrorResponse;
+  ): FineTuningJob | FineTuningErrorResponse;
 
   @route("jobs/{fine_tuning_job_id}/checkpoints")
   @get
@@ -130,7 +130,7 @@ interface FineTuning {
 
     /** Number of checkpoints to retrieve. */
     @query limit?: int32 = 10,
-  ): ListFineTuningJobCheckpointsResponse | ErrorResponse;
+  ): ListFineTuningJobCheckpointsResponse | FineTuningErrorResponse;
 
   @route("jobs/{fine_tuning_job_id}/events")
   @get
@@ -147,7 +147,7 @@ interface FineTuning {
 
     /** Number of events to retrieve. */
     @query limit?: int32 = 20,
-  ): ListFineTuningJobEventsResponse | ErrorResponse;
+  ): ListFineTuningJobEventsResponse | FineTuningErrorResponse;
 
   @post
   @route("jobs/{fine_tuning_job_id}/pause")
@@ -158,7 +158,7 @@ interface FineTuning {
   pauseFineTuningJob(
     /** The ID of the fine-tuning job to pause. */
     @path fine_tuning_job_id: string,
-  ): FineTuningJob | ErrorResponse;
+  ): FineTuningJob | FineTuningErrorResponse;
 
   @post
   @route("jobs/{fine_tuning_job_id}/resume")
@@ -169,5 +169,5 @@ interface FineTuning {
   resumeFineTuningJob(
     /** The ID of the fine-tuning job to resume. */
     @path fine_tuning_job_id: string,
-  ): FineTuningJob | ErrorResponse;
+  ): FineTuningJob | FineTuningErrorResponse;
 }

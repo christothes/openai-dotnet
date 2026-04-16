@@ -12,6 +12,18 @@ using Azure.ClientGenerator.Core;
 
 namespace OpenAI;
 
+model AssistantsError {
+  code: string | null;
+  message: string;
+  param: string | null;
+  type: string;
+}
+
+@error
+model AssistantsErrorResponse {
+  error: AssistantsError;
+}
+
 @doc("""
   **Reasoning models only**
   

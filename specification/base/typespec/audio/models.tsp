@@ -1,4 +1,3 @@
-import "../common/models.tsp";
 import "@azure-tools/typespec-client-generator-core";
 import "@typespec/openapi";
 import "@typespec/http";
@@ -12,6 +11,18 @@ using TypeSpec.SSE;
 using Azure.ClientGenerator.Core;
 
 namespace OpenAI;
+
+model AudioError {
+  code: string | null;
+  message: string;
+  param: string | null;
+  type: string;
+}
+
+@error
+model AudioErrorResponse {
+  error: AudioError;
+}
 
 @access(Access.public)
 @usage(Usage.input | Usage.output)

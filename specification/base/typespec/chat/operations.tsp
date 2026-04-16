@@ -22,7 +22,7 @@ interface Chat {
     ...PageOrderQueryParameter,
     @query metadata?: Record<string>,
     @query `model`?: string,
-  ): ChatCompletionList | ErrorResponse;
+  ): ChatCompletionList | ChatErrorResponse;
 
   @post
   @operationId("createChatCompletion")
@@ -30,7 +30,7 @@ interface Chat {
   createChatCompletion(
     @header accept: "application/json",
     @body requestBody: CreateChatCompletionRequest,
-  ): CreateChatCompletionResponse | SseResponseOf<CreateChatCompletionStreamResponse> | ErrorResponse;
+  ): CreateChatCompletionResponse | SseResponseOf<CreateChatCompletionStreamResponse> | ChatErrorResponse;
 
   @get
   @route("{completion_id}")
@@ -41,7 +41,7 @@ interface Chat {
   getChatCompletion(
     /** The ID of the stored chat completion to retrieve. */
     @path completion_id: string,
-  ): CreateChatCompletionResponse | ErrorResponse;
+  ): CreateChatCompletionResponse | ChatErrorResponse;
 
   @post
   @route("{completion_id}")
@@ -63,7 +63,7 @@ interface Chat {
     */
     @extension("x-oaiTypeLabel", "map")
     metadata: Record<string>;
-  ): CreateChatCompletionResponse | ErrorResponse;
+  ): CreateChatCompletionResponse | ChatErrorResponse;
 
   @delete
   @route("{completion_id}")
@@ -72,7 +72,7 @@ interface Chat {
   deleteChatCompletion(
     /** The ID of the stored chat completion to delete. */
     @path completion_id: string,
-  ): ChatCompletionDeleted | ErrorResponse;
+  ): ChatCompletionDeleted | ChatErrorResponse;
 
   @get
   @route("{completion_id}/messages")
@@ -86,5 +86,5 @@ interface Chat {
     ...PageAfterQueryParameter,
     ...PageLimitQueryParameter,
     ...PageOrderQueryParameter,
-  ): ChatCompletionMessageList | ErrorResponse;
+  ): ChatCompletionMessageList | ChatErrorResponse;
 }

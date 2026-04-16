@@ -24,3 +24,5 @@ namespace OpenAI.Audio;
 [CodeGenType("UnknownDotNetCreateSpeechStreamingResponse")] internal partial class InternalUnknownDotNetCreateSpeechStreamingResponse { }
 [CodeGenType("TranscriptTextDeltaEventLogprobs")] internal partial class InternalTranscriptTextDeltaEventLogprobs { }
 [CodeGenType("TranscriptTextDoneEventLogprobs")] internal partial class InternalTranscriptTextDoneEventLogprobs { }
+[CodeGenType("AudioError")] internal partial class InternalAudioError {}
+[CodeGenType("AudioErrorResponse")] internal partial class InternalAudioErrorResponse {}

@@ -12,6 +12,18 @@ using TypeSpec.OpenAPI;
 
 namespace OpenAI;
 
+model MessagesError {
+  code: string | null;
+  message: string;
+  param: string | null;
+  type: string;
+}
+
+@error
+model MessagesErrorResponse {
+  error: MessagesError;
+}
+
 // Tool generated type. Extracts from CreateMessageRequest.attachments
 alias CreateMessageRequestAttachment = {
   /** The ID of the file to attach to the message. */

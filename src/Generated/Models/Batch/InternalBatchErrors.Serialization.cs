@@ -68,7 +68,7 @@ namespace OpenAI.Batch
             {
                 writer.WritePropertyName("data"u8);
                 writer.WriteStartArray();
-                foreach (InternalBatchError item in Data)
+                foreach (InternalBatchErrorDatum item in Data)
                 {
                     writer.WriteObjectValue(item, options);
                 }
@@ -116,7 +116,7 @@ namespace OpenAI.Batch
                 return null;
             }
             InternalBatchErrorsObject? @object = default;
-            IList<InternalBatchError> data = default;
+            IList<InternalBatchErrorDatum> data = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -135,10 +135,10 @@ namespace OpenAI.Batch
                     {
                         continue;
                     }
-                    List<InternalBatchError> array = new List<InternalBatchError>();
+                    List<InternalBatchErrorDatum> array = new List<InternalBatchErrorDatum>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        array.Add(InternalBatchError.DeserializeInternalBatchError(item, options));
+                        array.Add(InternalBatchErrorDatum.DeserializeInternalBatchErrorDatum(item, options));
                     }
                     data = array;
                     continue;
@@ -146,7 +146,7 @@ namespace OpenAI.Batch
                 // Plugin customization: remove options.Format != "W" check
                 additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
             }
-            return new InternalBatchErrors(@object, data ?? new ChangeTrackingList<InternalBatchError>(), additionalBinaryDataProperties);
+            return new InternalBatchErrors(@object, data ?? new ChangeTrackingList<InternalBatchErrorDatum>(), additionalBinaryDataProperties);
         }
     }
 }

@@ -1589,7 +1589,7 @@ op listVoiceConsents(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: AudioErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -1597,7 +1597,7 @@ op listVoiceConsents(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: AudioErrorResponse;
 };
 
 /**Upload a consent recording that authorizes creation of a custom voice.
@@ -1646,7 +1646,7 @@ op createVoiceConsent(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: AudioErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -1654,7 +1654,7 @@ op createVoiceConsent(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: AudioErrorResponse;
 };
 
 /**Delete a consent recording that was uploaded for creating custom voices.
@@ -1696,7 +1696,7 @@ op deleteVoiceConsent(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: AudioErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -1704,7 +1704,7 @@ op deleteVoiceConsent(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: AudioErrorResponse;
 };
 
 /**Retrieve consent recording metadata used for creating custom voices.
@@ -1745,7 +1745,7 @@ op getVoiceConsent(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: AudioErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -1753,7 +1753,7 @@ op getVoiceConsent(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: AudioErrorResponse;
 };
 
 /**Update consent recording metadata used for creating custom voices. This endpoint updates metadata only and does not replace the underlying audio.
@@ -1803,7 +1803,7 @@ op updateVoiceConsent(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: AudioErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -1811,7 +1811,7 @@ op updateVoiceConsent(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: AudioErrorResponse;
 };
 
 /**Create a custom voice you can use for audio output (for example, in Text-to-Speech and the Realtime API). This requires an audio sample and a previously uploaded consent recording.
@@ -1860,7 +1860,7 @@ op createVoice(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: AudioErrorResponse;
 } | {
   @maxValue(599)
   @minValue(500)
@@ -1868,5 +1868,5 @@ op createVoice(
   statusCode: int32;
 
   @body
-  body: ErrorResponse;
+  body: AudioErrorResponse;
 };

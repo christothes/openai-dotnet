@@ -12,6 +12,10 @@ namespace OpenAI.Batch
 {
     internal partial class InternalBatchError : IJsonModel<InternalBatchError>
     {
+        internal InternalBatchError()
+        {
+        }
+
         protected virtual InternalBatchError PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
             string format = options.Format == "W" ? ((IPersistableModel<InternalBatchError>)this).GetFormatFromOptions(options) : options.Format;
@@ -59,25 +63,39 @@ namespace OpenAI.Batch
             {
                 throw new FormatException($"The model {nameof(InternalBatchError)} does not support writing '{format}' format.");
             }
-            if (Optional.IsDefined(Code) && _additionalBinaryDataProperties?.ContainsKey("code") != true)
+            if (_additionalBinaryDataProperties?.ContainsKey("code") != true)
             {
-                writer.WritePropertyName("code"u8);
-                writer.WriteStringValue(Code);
+                if (Optional.IsDefined(Code))
+                {
+                    writer.WritePropertyName("code"u8);
+                    writer.WriteStringValue(Code);
+                }
+                else
+                {
+                    writer.WriteNull("code"u8);
+                }
             }
-            if (Optional.IsDefined(Message) && _additionalBinaryDataProperties?.ContainsKey("message") != true)
+            if (_additionalBinaryDataProperties?.ContainsKey("message") != true)
             {
                 writer.WritePropertyName("message"u8);
                 writer.WriteStringValue(Message);
             }
-            if (Optional.IsDefined(Param) && _additionalBinaryDataProperties?.ContainsKey("param") != true)
+            if (_additionalBinaryDataProperties?.ContainsKey("param") != true)
             {
-                writer.WritePropertyName("param"u8);
-                writer.WriteStringValue(Param);
+                if (Optional.IsDefined(Param))
+                {
+                    writer.WritePropertyName("param"u8);
+                    writer.WriteStringValue(Param);
+                }
+                else
+                {
+                    writer.WriteNull("param"u8);
+                }
             }
-            if (Optional.IsDefined(Line) && _additionalBinaryDataProperties?.ContainsKey("line") != true)
+            if (_additionalBinaryDataProperties?.ContainsKey("type") != true)
             {
-                writer.WritePropertyName("line"u8);
-                writer.WriteNumberValue(Line.Value);
+                writer.WritePropertyName("type"u8);
+                writer.WriteStringValue(Kind);
             }
             // Plugin customization: remove options.Format != "W" check
             if (_additionalBinaryDataProperties != null)
@@ -123,12 +141,17 @@ namespace OpenAI.Batch
             string code = default;
             string message = default;
             string @param = default;
-            int? line = default;
+            string kind = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("code"u8))
                 {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        code = null;
+                        continue;
+                    }
                     code = prop.Value.GetString();
                     continue;
                 }
@@ -147,20 +170,15 @@ namespace OpenAI.Batch
                     @param = prop.Value.GetString();
                     continue;
                 }
-                if (prop.NameEquals("line"u8))
+                if (prop.NameEquals("type"u8))
                 {
-                    if (prop.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        line = null;
-                        continue;
-                    }
-                    line = prop.Value.GetInt32();
+                    kind = prop.Value.GetString();
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check
                 additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
             }
-            return new InternalBatchError(code, message, @param, line, additionalBinaryDataProperties);
+            return new InternalBatchError(code, message, @param, kind, additionalBinaryDataProperties);
         }
     }
 }

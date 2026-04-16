@@ -23,7 +23,7 @@ interface Messages {
     @path thread_id: string,
 
     @body requestBody: CreateMessageRequest,
-  ): MessageObject | ErrorResponse;
+  ): MessageObject | MessagesErrorResponse;
 
   @get
   @operationId("listMessages")
@@ -38,7 +38,7 @@ interface Messages {
     @path thread_id: string,
 
     ...CommonPageQueryParameters,
-  ): ListMessagesResponse | ErrorResponse;
+  ): ListMessagesResponse | MessagesErrorResponse;
 
   @route("{message_id}")
   @get
@@ -54,7 +54,7 @@ interface Messages {
 
     /** The ID of the message to retrieve. */
     @path message_id: string,
-  ): MessageObject | ErrorResponse;
+  ): MessageObject | MessagesErrorResponse;
 
   @route("{message_id}")
   @post
@@ -72,7 +72,7 @@ interface Messages {
     @path message_id: string,
 
     @body requestBody: ModifyMessageRequest,
-  ): MessageObject | ErrorResponse;
+  ): MessageObject | MessagesErrorResponse;
 
   @route("{message_id}")
   @delete
@@ -88,5 +88,5 @@ interface Messages {
 
     /** The ID of the message to delete. */
     @path message_id: string,
-  ): DeleteMessageResponse | ErrorResponse;
+  ): DeleteMessageResponse | MessagesErrorResponse;
 }

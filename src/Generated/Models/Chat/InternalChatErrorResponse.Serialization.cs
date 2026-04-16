@@ -8,48 +8,48 @@ using System.Collections.Generic;
 using System.Text.Json;
 using OpenAI;
 
-namespace OpenAI.Internal
+namespace OpenAI.Chat
 {
-    internal partial class OpenAIErrorResponse : IJsonModel<OpenAIErrorResponse>
+    internal partial class InternalChatErrorResponse : IJsonModel<InternalChatErrorResponse>
     {
-        internal OpenAIErrorResponse()
+        internal InternalChatErrorResponse()
         {
         }
 
-        protected virtual OpenAIErrorResponse PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual InternalChatErrorResponse PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<OpenAIErrorResponse>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<InternalChatErrorResponse>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data, ModelSerializationExtensions.JsonDocumentOptions))
                     {
-                        return DeserializeOpenAIErrorResponse(document.RootElement, options);
+                        return DeserializeInternalChatErrorResponse(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(OpenAIErrorResponse)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(InternalChatErrorResponse)} does not support reading '{options.Format}' format.");
             }
         }
 
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<OpenAIErrorResponse>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<InternalChatErrorResponse>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options, OpenAIContext.Default);
                 default:
-                    throw new FormatException($"The model {nameof(OpenAIErrorResponse)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(InternalChatErrorResponse)} does not support writing '{options.Format}' format.");
             }
         }
 
-        BinaryData IPersistableModel<OpenAIErrorResponse>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<InternalChatErrorResponse>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
-        OpenAIErrorResponse IPersistableModel<OpenAIErrorResponse>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        InternalChatErrorResponse IPersistableModel<InternalChatErrorResponse>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
-        string IPersistableModel<OpenAIErrorResponse>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<InternalChatErrorResponse>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
-        void IJsonModel<OpenAIErrorResponse>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<InternalChatErrorResponse>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -58,10 +58,10 @@ namespace OpenAI.Internal
 
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<OpenAIErrorResponse>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<InternalChatErrorResponse>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(OpenAIErrorResponse)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(InternalChatErrorResponse)} does not support writing '{format}' format.");
             }
             if (_additionalBinaryDataProperties?.ContainsKey("error") != true)
             {
@@ -90,38 +90,38 @@ namespace OpenAI.Internal
             }
         }
 
-        OpenAIErrorResponse IJsonModel<OpenAIErrorResponse>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        InternalChatErrorResponse IJsonModel<InternalChatErrorResponse>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
-        protected virtual OpenAIErrorResponse JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual InternalChatErrorResponse JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<OpenAIErrorResponse>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<InternalChatErrorResponse>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(OpenAIErrorResponse)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(InternalChatErrorResponse)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeOpenAIErrorResponse(document.RootElement, options);
+            return DeserializeInternalChatErrorResponse(document.RootElement, options);
         }
 
-        internal static OpenAIErrorResponse DeserializeOpenAIErrorResponse(JsonElement element, ModelReaderWriterOptions options)
+        internal static InternalChatErrorResponse DeserializeInternalChatErrorResponse(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
                 return null;
             }
-            OpenAIError error = default;
+            InternalChatError error = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("error"u8))
                 {
-                    error = OpenAIError.DeserializeOpenAIError(prop.Value, options);
+                    error = InternalChatError.DeserializeInternalChatError(prop.Value, options);
                     continue;
                 }
                 // Plugin customization: remove options.Format != "W" check
                 additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
             }
-            return new OpenAIErrorResponse(error, additionalBinaryDataProperties);
+            return new InternalChatErrorResponse(error, additionalBinaryDataProperties);
         }
     }
 }

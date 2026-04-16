@@ -20,7 +20,7 @@ interface Runs {
     ...AcceptJsonOrEventStreamHeader,
     ...AssistantsBetaHeader,
     @body requestBody: CreateThreadAndRunRequest,
-  ): RunObject | ErrorResponse;
+  ): RunObject | RunsErrorResponse;
 
   @route("{thread_id}/runs")
   @post
@@ -36,7 +36,7 @@ interface Runs {
 
     ...IncludedRunStepPropertyParameter,
     @body requestBody: CreateRunRequest,
-  ): RunObject | ErrorResponse;
+  ): RunObject | RunsErrorResponse;
 
   @route("{thread_id}/runs")
   @get
@@ -52,7 +52,7 @@ interface Runs {
     @path thread_id: string,
 
     ...CommonPageQueryParameters,
-  ): ListRunsResponse | ErrorResponse;
+  ): ListRunsResponse | RunsErrorResponse;
 
   @route("{thread_id}/runs/{run_id}")
   @get
@@ -68,7 +68,7 @@ interface Runs {
 
     /** The ID of the run to retrieve. */
     @path run_id: string,
-  ): RunObject | ErrorResponse;
+  ): RunObject | RunsErrorResponse;
 
   @route("{thread_id}/runs/{run_id}")
   @post
@@ -86,7 +86,7 @@ interface Runs {
     @path run_id: string,
 
     @body requestBody: ModifyRunRequest,
-  ): RunObject | ErrorResponse;
+  ): RunObject | RunsErrorResponse;
 
   @route("{thread_id}/runs/{run_id}/cancel")
   @post
@@ -102,7 +102,7 @@ interface Runs {
 
     /** The ID of the run to cancel. */
     @path run_id: string,
-  ): RunObject | ErrorResponse;
+  ): RunObject | RunsErrorResponse;
 
   @route("{thread_id}/runs/{run_id}/submit_tool_outputs")
   @post
@@ -124,7 +124,7 @@ interface Runs {
     @path run_id: string,
 
     @body requestBody: SubmitToolOutputsRunRequest,
-  ): RunObject | ErrorResponse;
+  ): RunObject | RunsErrorResponse;
 
   @route("{thread_id}/runs/{run_id}/steps")
   @get
@@ -144,7 +144,7 @@ interface Runs {
 
     ...CommonPageQueryParameters,
     ...IncludedRunStepPropertyParameter,
-  ): ListRunStepsResponse | ErrorResponse;
+  ): ListRunStepsResponse | RunsErrorResponse;
 
   @route("{thread_id}/runs/{run_id}/steps/{step_id}")
   @get
@@ -165,7 +165,7 @@ interface Runs {
     @path step_id: string,
 
     ...IncludedRunStepPropertyParameter,
-  ): RunStepObject | ErrorResponse;
+  ): RunStepObject | RunsErrorResponse;
 }
 
 alias IncludedRunStepPropertyParameter = {

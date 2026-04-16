@@ -1,6 +1,5 @@
 import "@typespec/openapi";
 import "@typespec/http";
-import "../common/models.tsp";
 import "@typespec/events";
 import "@typespec/sse";
 using TypeSpec.OpenAPI;

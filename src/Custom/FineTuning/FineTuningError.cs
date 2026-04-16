@@ -2,7 +2,7 @@ using Microsoft.TypeSpec.Generator.Customizations;
 
 namespace OpenAI.FineTuning;
 
-[CodeGenType("FineTuningJobError1")]
+[CodeGenType("FineTuningError")]
 public partial class FineTuningError
 {
     [CodeGenMember("Param")]

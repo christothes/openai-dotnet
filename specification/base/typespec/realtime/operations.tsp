@@ -29,7 +29,7 @@ interface Realtime {
     statusCode: int32;
 
     @body
-    body: Error;
+    body: RealtimeErrorResponse_GA;
   } | {
     @maxValue(599)
     @minValue(500)
@@ -37,6 +37,6 @@ interface Realtime {
     statusCode: int32;
 
     @body
-    body: Error;
+    body: RealtimeErrorResponse_GA;
   };
 }

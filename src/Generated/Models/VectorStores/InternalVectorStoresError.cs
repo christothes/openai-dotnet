@@ -5,13 +5,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace OpenAI.Internal
+namespace OpenAI.VectorStores
 {
-    internal partial class OpenAIError
+    internal partial class InternalVectorStoresError
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal OpenAIError(string code, string message, string @param, string kind)
+        internal InternalVectorStoresError(string code, string message, string @param, string kind)
         {
             Code = code;
             Message = message;
@@ -19,7 +19,7 @@ namespace OpenAI.Internal
             Kind = kind;
         }
 
-        internal OpenAIError(string code, string message, string @param, string kind, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalVectorStoresError(string code, string message, string @param, string kind, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Code = code;
             Message = message;

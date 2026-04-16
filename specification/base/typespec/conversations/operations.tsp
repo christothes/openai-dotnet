@@ -1,6 +1,5 @@
 import "@typespec/http";
 import "@typespec/openapi";
-import "../common/models.tsp";
 import "./models.tsp";
 using TypeSpec.Http;
 using TypeSpec.OpenAPI;

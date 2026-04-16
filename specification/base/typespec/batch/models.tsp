@@ -10,6 +10,18 @@ using TypeSpec.OpenAPI;
 
 namespace OpenAI;
 
+model BatchError {
+  code: string | null;
+  message: string;
+  param: string | null;
+  type: string;
+}
+
+@error
+model BatchErrorResponse {
+  error: BatchError;
+}
+
 // Tool generated type. Extracts from Batch.errors.data
 alias BatchErrorsData = {
   /** An error code identifying the error type. */

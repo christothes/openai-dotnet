@@ -11,16 +11,20 @@ namespace OpenAI.Batch
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalBatchError()
-        {
-        }
-
-        internal InternalBatchError(string code, string message, string @param, int? line, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal InternalBatchError(string code, string message, string @param, string kind)
         {
             Code = code;
             Message = message;
             Param = @param;
-            Line = line;
+            Kind = kind;
+        }
+
+        internal InternalBatchError(string code, string message, string @param, string kind, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        {
+            Code = code;
+            Message = message;
+            Param = @param;
+            Kind = kind;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
@@ -30,7 +34,7 @@ namespace OpenAI.Batch
 
         public string Param { get; }
 
-        public int? Line { get; }
+        public string Kind { get; }
 
         internal IDictionary<string, BinaryData> SerializedAdditionalRawData
         {
