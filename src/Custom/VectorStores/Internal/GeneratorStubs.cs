@@ -45,3 +45,4 @@ namespace OpenAI.VectorStores;
 [CodeGenType("VectorStoreSearchResultItem")] internal partial class InternalVectorStoreSearchResultItem {}
 [CodeGenType("VectorStoreSearchResultContentObject")] internal partial class InternalVectorStoreSearchResultContentObject {}
 [CodeGenType("Metadata")] internal partial class InternalMetadata { }
+[CodeGenType("VectorStoresOrderEnum")] internal readonly partial struct InternalVectorStoresOrderEnum {}

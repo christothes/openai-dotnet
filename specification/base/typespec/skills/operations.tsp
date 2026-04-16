@@ -110,7 +110,7 @@ op ListSkills(
   /** Sort order of results by timestamp. Use `asc` for ascending order or `desc` for descending order. */
   #suppress "@azure-tools/typespec-azure-core/no-query-explode" "Auto-suppressed warnings non-applicable rules during import."
   @query(#{ explode: true })
-  order?: OrderEnum,
+  order?: SkillsOrderEnum,
 
   /** Identifier for the last item from the previous pagination request */
   #suppress "@azure-tools/typespec-azure-core/no-query-explode" "Auto-suppressed warnings non-applicable rules during import."
@@ -981,7 +981,7 @@ op ListSkillVersions(
   /** Sort order of results by version number. */
   #suppress "@azure-tools/typespec-azure-core/no-query-explode" "Auto-suppressed warnings non-applicable rules during import."
   @query(#{ explode: true })
-  order?: OrderEnum,
+  order?: SkillsOrderEnum,
 
   /** The skill version ID to start after. */
   #suppress "@azure-tools/typespec-azure-core/no-query-explode" "Auto-suppressed warnings non-applicable rules during import."

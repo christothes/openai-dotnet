@@ -4,6 +4,16 @@ import "@typespec/http";
 using TypeSpec.OpenAPI;
 using TypeSpec.Http;
 namespace OpenAI;
+
+#suppress "@azure-tools/typespec-azure-core/no-enum" "Auto-suppressed warnings non-applicable rules during import."
+#suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
+enum SkillsOrderEnum {
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
+  asc,
+  #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
+  desc,
+}
+
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
 model SkillReferenceParam extends ContainerSkill {
   /** References a skill created with the /v1/skills endpoint. */
