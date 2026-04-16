@@ -23,21 +23,6 @@ model ErrorResponse {
   error: Error;
 }
 
-union VoiceIdsShared {
-  string,
-  "alloy",
-  "ash",
-  "ballad",
-  "coral",
-  "echo",
-  "fable",
-  "onyx",
-  "nova",
-  "sage",
-  "shimmer",
-  "verse",
-}
-
 @doc("""
   Specifies the latency tier to use for processing the request. This parameter is relevant for customers subscribed to the scale tier service:
     - If set to 'auto', and the Project is Scale tier enabled, the system

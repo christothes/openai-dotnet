@@ -5,7 +5,9 @@
 
 import "../common";
 import "./custom.tsp";
+import "@azure-tools/typespec-client-generator-core";
 
+using Azure.ClientGenerator.Core;
 using Http;
 using TypeSpec.OpenAPI;
 
@@ -229,6 +231,23 @@ union ChatModelIds {
   "gpt-3.5-turbo-16k-0613",
 }
 
+@access(Access.public)
+@usage(Usage.input | Usage.output)
+union DotNetChatVoiceIds {
+  string,
+  "alloy",
+  "ash",
+  "ballad",
+  "coral",
+  "echo",
+  "fable",
+  "onyx",
+  "nova",
+  "sage",
+  "shimmer",
+  "verse",
+}
+
 model CreateChatCompletionRequest {
   metadata?: Record<string>;
 
@@ -347,7 +366,7 @@ model CreateChatCompletionRequest {
       The voice the model uses to respond. Supported voices are
       `alloy`, `ash`, `ballad`, `coral`, `echo`, `fable`, `nova`, `onyx`, `sage`, and `shimmer`.
       """)
-    voice: VoiceIdsShared;
+    voice: DotNetChatVoiceIds;
 
     @doc("""
       Specifies the output audio format. Must be one of `wav`, `mp3`, `flac`,

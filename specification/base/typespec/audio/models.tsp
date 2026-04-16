@@ -1,13 +1,34 @@
-import "@typespec/openapi";
 import "../common/models.tsp";
+import "@azure-tools/typespec-client-generator-core";
+import "@typespec/openapi";
 import "@typespec/http";
 import "@typespec/events";
 import "@typespec/sse";
+
 using TypeSpec.OpenAPI;
 using TypeSpec.Http;
 using TypeSpec.Events;
 using TypeSpec.SSE;
+using Azure.ClientGenerator.Core;
+
 namespace OpenAI;
+
+@access(Access.public)
+@usage(Usage.input | Usage.output)
+union DotNetAudioVoiceIds {
+  string,
+  "alloy",
+  "ash",
+  "ballad",
+  "coral",
+  "echo",
+  "fable",
+  "onyx",
+  "nova",
+  "sage",
+  "shimmer",
+  "verse",
+}
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
 model CreateSpeechRequest {
   /** One of the available [TTS models](https://platform.openai.com/docs/models#tts): `tts-1`, `tts-1-hd`, `gpt-4o-mini-tts`, or `gpt-4o-mini-tts-2025-12-15`. */
@@ -30,7 +51,7 @@ model CreateSpeechRequest {
   instructions?: string;
 
   /** The voice to use when generating the audio. Supported built-in voices are `alloy`, `ash`, `ballad`, `coral`, `echo`, `fable`, `onyx`, `nova`, `sage`, `shimmer`, `verse`, `marin`, and `cedar`. Previews of the voices are available in the [Text to speech guide](https://platform.openai.com/docs/guides/text-to-speech#voice-options). */
-  voice: VoiceIdsShared;
+  voice: DotNetAudioVoiceIds;
 
   /** The format to audio in. Supported formats are `mp3`, `opus`, `aac`, `flac`, `wav`, and `pcm`. */
   #suppress "@azure-tools/typespec-azure-core/casing-style" "Auto-suppressed warnings non-applicable rules during import."

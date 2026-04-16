@@ -39,24 +39,6 @@ model DotNetChatResponseFormatJsonSchema extends DotNetChatResponseFormat {
   };
 }
 
-// LogProbProperties
-
-
-
-// VoiceIdsShared
-
-@access(Access.public)
-@usage(Usage.input | Usage.output)
-union DotNetAudioVoiceIds {
-  VoiceIdsShared,
-}
-
-@access(Access.public)
-@usage(Usage.input | Usage.output)
-union DotNetChatVoiceIds {
-  VoiceIdsShared,
-}
-
 // CollectionQueryParameters
 
 alias DotNetCollectionLimitQueryParameter = {
