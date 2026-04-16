@@ -17,7 +17,6 @@ Quick reference for all paths involved in spec ingestion.
 | Base spec entry point | `specification/base/typespec/main.tsp` |
 | Area base spec | `specification/base/typespec/{area}/` |
 | Common shared types | `specification/base/typespec/common/` |
-| Common models | `specification/base/typespec/common/models.tsp` |
 | Common custom types | `specification/base/typespec/common/custom.tsp` |
 | SDK entrypoint | `specification/base/entrypoints/sdk.dotnet/main.tsp` |
 | Client customizations | `specification/client/{area}.client.tsp` |
