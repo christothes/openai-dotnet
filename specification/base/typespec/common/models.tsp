@@ -23,24 +23,6 @@ model ErrorResponse {
   error: Error;
 }
 
-@doc("""
-  Specifies the latency tier to use for processing the request. This parameter is relevant for customers subscribed to the scale tier service:
-    - If set to 'auto', and the Project is Scale tier enabled, the system
-      will utilize scale tier credits until they are exhausted.
-    - If set to 'auto', and the Project is not Scale tier enabled, the request will be processed using the default service tier with a lower uptime SLA and no latency guarantee.
-    - If set to 'default', the request will be processed using the default service tier with a lower uptime SLA and no latency guarantee.
-    - If set to 'flex', the request will be processed with the Flex Processing service tier. [Learn more](/docs/guides/flex-processing).
-    - When not set, the default behavior is 'auto'.
-  
-    When this parameter is set, the response body will include the `service_tier` utilized.
-  """)
-union ServiceTier {
-  "auto",
-  "default",
-  "flex",
-  "scale",
-}
-
 #suppress "@azure-tools/typespec-azure-core/no-enum" "Auto-suppressed warnings non-applicable rules during import."
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
 enum OrderEnum {

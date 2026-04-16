@@ -55,6 +55,24 @@ alias CodeInterpreterFileOutputFile = {
   file_id: string;
 };
 
+@doc("""
+  Specifies the latency tier to use for processing the request. This parameter is relevant for customers subscribed to the scale tier service:
+    - If set to 'auto', and the Project is Scale tier enabled, the system
+      will utilize scale tier credits until they are exhausted.
+    - If set to 'auto', and the Project is not Scale tier enabled, the request will be processed using the default service tier with a lower uptime SLA and no latency guarantee.
+    - If set to 'default', the request will be processed using the default service tier with a lower uptime SLA and no latency guarantee.
+    - If set to 'flex', the request will be processed with the Flex Processing service tier. [Learn more](/docs/guides/flex-processing).
+    - When not set, the default behavior is 'auto'.
+  
+    When this parameter is set, the response body will include the `service_tier` utilized.
+  """)
+union DotNetResponseServiceTier {
+  "auto",
+  "default",
+  "flex",
+  "scale",
+}
+
 model CreateResponse {
   metadata?: Record<string>;
 
@@ -88,7 +106,7 @@ model CreateResponse {
   The IDs should be a string that uniquely identifies each user. We recommend hashing their username or email address, in order to avoid sending us any identifying information. [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).*/
   safety_identifier?: string;
 
-  service_tier?: ServiceTier;
+  service_tier?: DotNetResponseServiceTier | null = "auto";
   
   ...ResponseProperties;
 
@@ -208,7 +226,7 @@ model Response {
   The IDs should be a string that uniquely identifies each user. We recommend hashing their username or email address, in order to avoid sending us any identifying information. [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#safety-identifiers).*/
   safety_identifier?: string;
 
-  service_tier?: ServiceTier;
+  service_tier?: DotNetResponseServiceTier;
   ...ResponseProperties;
 
   /** Unique identifier for this Response. */

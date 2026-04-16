@@ -66,11 +66,3 @@ alias DotNetCollectionBeforeQueryParameter = {
    */
   @query beforeId?: string;
 };
-
-union DotNetChatServiceTier {
-   ServiceTier
-}
-
-union DotNetResponseServiceTier {
-  ServiceTier
-}
