@@ -5,6 +5,24 @@ using Azure.ClientGenerator.Core;
 
 namespace OpenAI;
 
+/** A log probability object. */
+model LogProbProperties {
+  /** The token that was used to generate the log probability. */
+  token: string;
+
+  /** The log probability of the token. */
+  logprob: float32;
+
+  /** The bytes that were used to generate the log probability. */
+  bytes: int32[];
+}
+
+@access(Access.public)
+@usage(Usage.output)
+model DotNetAudioLogProbsProperties {
+  ...LogProbProperties;
+}
+
 @access(Access.public)
 @usage(Usage.output)
 model DotNetCombinedJsonTranscriptionResponse {

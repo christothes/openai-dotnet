@@ -35,6 +35,19 @@ using TypeSpec.HttpClient.CSharp;
 
 // ------------ Custom Types ------------
 
+@access(Access.public)
+@usage(Usage.output)
+model DotNetRealtimeLogProbsProperties {
+  /** The token that was used to generate the log probability. */
+  token: string;
+
+  /** The log probability of the token. */
+  logprob: float32;
+
+  /** The bytes that were used to generate the log probability. */
+  bytes: int32[];
+}
+
 // Different definitions have been converged into a single definition for simplicity.
 @@alternateType(RealtimeServerEventError_GA.error, DotNetRealtimeError_GA);
 @@alternateType(RealtimeServerEventConversationItemInputAudioTranscriptionFailed_GA.error, DotNetRealtimeError_GA);

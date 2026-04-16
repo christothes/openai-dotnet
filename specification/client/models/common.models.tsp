@@ -41,17 +41,7 @@ model DotNetChatResponseFormatJsonSchema extends DotNetChatResponseFormat {
 
 // LogProbProperties
 
-@access(Access.public)
-@usage(Usage.output)
-model DotNetAudioLogProbsProperties {
-  ...LogProbProperties;
-}
 
-@access(Access.public)
-@usage(Usage.output)
-model DotNetRealtimeLogProbsProperties {
-  ...LogProbProperties;
-}
 
 // VoiceIdsShared
 
