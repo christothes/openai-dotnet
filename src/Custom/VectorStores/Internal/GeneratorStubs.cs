@@ -25,6 +25,10 @@ namespace OpenAI.VectorStores;
 [CodeGenType("DotNetCombinedOtherChunkingStrategyParam")] internal partial class InternalDotNetCombinedOtherChunkingStrategyParam { }
 [CodeGenType("UnknownChunkingStrategyResponse")] internal partial class InternalUnknownChunkingStrategyResponseParam { }
 [CodeGenType("VectorStoreFileAttributes")] internal partial class InternalVectorStoreFileAttributes { }
+[CodeGenType("VectorStoreComparisonFilter")] internal partial class InternalVectorStoreComparisonFilter { }
+[CodeGenType("VectorStoreComparisonFilterType")] internal readonly partial struct InternalVectorStoreComparisonFilterType {}
+[CodeGenType("VectorStoreCompoundFilter")] internal partial class InternalVectorStoreCompoundFilter { }
+[CodeGenType("VectorStoreCompoundFilterType")] internal readonly partial struct InternalVectorStoreCompoundFilterType {}
 [CodeGenType("VectorStoreSearchRequestRankingOptionsRanker")] internal readonly partial struct InternalVectorStoreSearchRequestRankingOptionsRanker {}
 [CodeGenType("UpdateVectorStoreFileAttributesRequest")] internal partial class InternalUpdateVectorStoreFileAttributesRequest
 {

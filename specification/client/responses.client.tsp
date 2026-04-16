@@ -298,9 +298,8 @@ using TypeSpec.HttpClient.CSharp;
 @@dynamicModel(ResponsesDeveloperMessageItemResource);
 @@dynamicModel(ResponsesAssistantMessageItemResource);
 @@dynamicModel(ImplicitUserMessage);
-// base/typespec/specialized-types/models.tsp models
-@@dynamicModel(ComparisonFilter);
-@@dynamicModel(CompoundFilter);
+@@dynamicModel(ResponsesComparisonFilter);
+@@dynamicModel(ResponsesCompoundFilter);
 // client/models/responses.models.tsp models
 @@dynamicModel(DotNetItemReferenceItemResource);
 @@dynamicModel(DotNetResponseItemCollectionOrder);
