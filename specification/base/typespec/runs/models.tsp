@@ -4,7 +4,6 @@
  */
 
 import "../assistants";
-import "../common";
 import "../messages";
 import "../threads";
 import "./custom.tsp";
@@ -864,4 +863,10 @@ model RunStepDeltaStepDetailsToolCallsFunctionObject
       """)
     output?: string | null;
   };
+}
+
+union RunCollectionOrder {
+  string,
+  Ascending: "asc",
+  Descending: "desc",
 }

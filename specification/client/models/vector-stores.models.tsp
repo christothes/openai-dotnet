@@ -57,7 +57,11 @@ model VectorStoreCollectionOptions {
    */
   @query pageSizeLimit?: int32 = 20;
 
-  ...PageOrderQueryParameter;
+  /**
+   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
+   * for descending order.
+   */
+  @query order?: VectorStoreCollectionOrder;
 }
 
 alias VectorStoreFileCollectionOrderQueryParameter = {
@@ -69,6 +73,12 @@ alias VectorStoreFileCollectionOrderQueryParameter = {
 };
 
 union VectorStoreFileCollectionOrder {
+  string,
+  Ascending: "asc",
+  Descending: "desc",
+}
+
+union VectorStoreCollectionOrder {
   string,
   Ascending: "asc",
   Descending: "desc",

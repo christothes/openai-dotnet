@@ -3,7 +3,6 @@
  * Edits made directly to this file will be lost.
  */
 
-import "../common";
 import "../messages";
 import "./custom.tsp";
 

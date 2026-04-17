@@ -3,7 +3,6 @@
  * Edits made directly to this file will be lost.
  */
 
-import "../common";
 import "./custom.tsp";
 
 using Http;
@@ -537,4 +536,18 @@ union AssistantSupportedModels {
   "gpt-3.5-turbo-1106",
   "gpt-3.5-turbo-0125",
   "gpt-3.5-turbo-16k-0613",
+}
+
+alias AssistantCollectionOrderQueryParameter = {
+  /**
+   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
+   * for descending order.
+   */
+  @query order?: AssistantCollectionOrder;
+};
+
+union AssistantCollectionOrder {
+  string,
+  Ascending: "asc",
+  Descending: "desc",
 }

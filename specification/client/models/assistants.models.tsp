@@ -6,20 +6,6 @@ using TypeSpec.Http;
 
 namespace OpenAI;
 
-alias AssistantCollectionOrderQueryParameter = {
-  /**
-   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
-   * for descending order.
-   */
-  @query order?: AssistantCollectionOrder;
-};
-
-union AssistantCollectionOrder {
-  string,
-  Ascending: "asc",
-  Descending: "desc",
-}
-
 @access(Access.public)
 @usage(Usage.input)
 model AssistantCollectionOptions {
@@ -127,11 +113,7 @@ alias RunCollectionOrderQueryParameter = {
   @query order?: RunCollectionOrder;
 };
 
-union RunCollectionOrder {
-  string,
-  Ascending: "asc",
-  Descending: "desc",
-}
+
 
 @access(Access.public)
 @usage(Usage.input)

@@ -43,8 +43,8 @@ namespace OpenAI.FineTuning;
 [CodeGenSuppress("ResumeFineTuningJobAsync", typeof(string), typeof(CancellationToken))]
 [CodeGenSuppress("RetrieveFineTuningJob", typeof(string), typeof(CancellationToken))]
 [CodeGenSuppress("RetrieveFineTuningJobAsync", typeof(string), typeof(CancellationToken))]
-[CodeGenSuppress("GetFineTuningCheckpointPermissions", typeof(string), typeof(string), typeof(int?), typeof(VectorStoreCollectionOrder?), typeof(string), typeof(CancellationToken))]
-[CodeGenSuppress("GetFineTuningCheckpointPermissionsAsync", typeof(string), typeof(string), typeof(int?), typeof(VectorStoreCollectionOrder?), typeof(string), typeof(CancellationToken))]
+[CodeGenSuppress("GetFineTuningCheckpointPermissions", typeof(string), typeof(string), typeof(int?), typeof(InternalFineTuningCheckpointCollectionOrder?), typeof(string), typeof(CancellationToken))]
+[CodeGenSuppress("GetFineTuningCheckpointPermissionsAsync", typeof(string), typeof(string), typeof(int?), typeof(InternalFineTuningCheckpointCollectionOrder?), typeof(string), typeof(CancellationToken))]
 
 public partial class FineTuningClient
 {

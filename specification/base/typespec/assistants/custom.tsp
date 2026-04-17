@@ -1,10 +1,6 @@
-import "@azure-tools/typespec-client-generator-core";
-import "@typespec/http";
 import "../vector-stores/models.tsp";
 
-using Azure.ClientGenerator.Core;
 using TypeSpec.OpenAPI;
-using TypeSpec.Http;
 
 namespace OpenAI;
 

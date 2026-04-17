@@ -13,8 +13,8 @@ namespace OpenAI.VectorStores
     public readonly partial struct VectorStoreCollectionOrder : IEquatable<VectorStoreCollectionOrder>
     {
         private readonly string _value;
-        private const string AscValue = "asc";
-        private const string DescValue = "desc";
+        private const string AscendingValue = "asc";
+        private const string DescendingValue = "desc";
 
         public VectorStoreCollectionOrder(string value)
         {
@@ -22,6 +22,10 @@ namespace OpenAI.VectorStores
 
             _value = value;
         }
+
+        public static VectorStoreCollectionOrder Ascending { get; } = new VectorStoreCollectionOrder(AscendingValue);
+
+        public static VectorStoreCollectionOrder Descending { get; } = new VectorStoreCollectionOrder(DescendingValue);
 
         public static bool operator ==(VectorStoreCollectionOrder left, VectorStoreCollectionOrder right) => left.Equals(right);
 

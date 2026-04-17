@@ -381,3 +381,5 @@ internal readonly partial struct InternalIncludedRunStepProperty { }
 [CodeGenType("AssistantsResponseFormatType")] internal readonly partial struct InternalAssistantsResponseFormatType {}
 [CodeGenType("AssistantsResponseFormat")] internal partial class InternalAssistantsResponseFormat {}
 [CodeGenType("UnknownAssistantsResponseFormat")] internal partial class InternalUnknownAssistantsResponseFormat {}
+[CodeGenType("CreateRunRequestAccept")] internal readonly partial struct InternalCreateRunRequestAccept {}
+[CodeGenType("SubmitToolOutputsToRunRequestAccept")] internal readonly partial struct InternalSubmitToolOutputsToRunRequestAccept {}

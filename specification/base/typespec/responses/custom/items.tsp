@@ -1,5 +1,4 @@
 import "@typespec/openapi";
-import "../../common";
 import "../models.tsp";
 import "./items.messages.tsp";
 

@@ -3,10 +3,9 @@
  * Edits made directly to this file will be lost.
  */
 
-import "../common";
+import "@typespec/openapi";
 import "./models_GA.tsp";
 
-using Http;
 using TypeSpec.OpenAPI;
 
 namespace OpenAI;

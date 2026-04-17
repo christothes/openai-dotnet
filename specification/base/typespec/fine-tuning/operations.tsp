@@ -1,7 +1,6 @@
 import "@typespec/http";
 import "@typespec/openapi";
 
-import "../common";
 import "./models.tsp";
 
 using TypeSpec.Http;
@@ -23,9 +22,22 @@ interface FineTuning {
     /** The ID of the fine-tuned model checkpoint to get permissions for. */
     @path fine_tuned_model_checkpoint: string,
 
-    ...PageAfterQueryParameter,
-    ...PageLimitQueryParameter,
-    ...PageOrderQueryParameter,
+    /**
+   * A cursor for use in pagination. `after` is an object ID that defines your place in the list.
+   * For instance, if you make a list request and receive 100 objects, ending with obj_foo, your
+   * subsequent call can include after=obj_foo in order to fetch the next page of the list.
+   */
+  @query @continuationToken after?: string,
+    /**
+   * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the
+   * default is 20.
+   */
+  @query limit?: int32 = 20,
+    /**
+   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
+   * for descending order.
+   */
+  @query order?: FineTuningCheckpointCollectionOrder,
 
     /** The ID of the project to get permissions for. */
     @query project_id?: string,

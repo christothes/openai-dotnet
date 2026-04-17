@@ -3,8 +3,6 @@
  * Edits made directly to this file will be lost.
  */
 
-import "../common";
-
 using Http;
 using TypeSpec.OpenAPI;
 

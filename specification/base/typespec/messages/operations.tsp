@@ -1,7 +1,6 @@
 import "@typespec/http";
 import "@typespec/openapi";
 
-import "../common";
 import "./models.tsp";
 
 using TypeSpec.Http;
@@ -16,8 +15,8 @@ interface Messages {
   @tag("Assistants")
   @summary("Create a message.")
   createMessage(
-    ...AcceptJsonHeader,
-    ...AssistantsBetaHeader,
+    @header accept: "application/json",
+    @header("OpenAI-Beta") openAIBeta: "assistants=v2",
 
     /** The ID of the [thread](/docs/api-reference/threads) to create a message for. */
     @path thread_id: string,
@@ -31,13 +30,34 @@ interface Messages {
   @summary("Returns a list of messages for a given thread.")
   @list
   listMessages(
-    ...AcceptJsonHeader,
-    ...AssistantsBetaHeader,
+    @header accept: "application/json",
+    @header("OpenAI-Beta") openAIBeta: "assistants=v2",
 
     /** The ID of the [thread](/docs/api-reference/threads) the messages belong to. */
     @path thread_id: string,
 
-    ...CommonPageQueryParameters,
+    /**
+   * A limit on the number of objects to be returned. Limit can range between 1 and 100, and the
+   * default is 20.
+   */
+  @query limit?: int32 = 20,
+  /**
+   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
+   * for descending order.
+   */
+  @query order?: AssistantCollectionOrder,
+  /**
+   * A cursor for use in pagination. `after` is an object ID that defines your place in the list.
+   * For instance, if you make a list request and receive 100 objects, ending with obj_foo, your
+   * subsequent call can include after=obj_foo in order to fetch the next page of the list.
+   */
+  @query @continuationToken after?: string,
+  /**
+   * A cursor for use in pagination. `before` is an object ID that defines your place in the list.
+   * For instance, if you make a list request and receive 100 objects, ending with obj_foo, your
+   * subsequent call can include before=obj_foo in order to fetch the previous page of the list.
+   */
+  @query before?: string,
   ): ListMessagesResponse | MessagesErrorResponse;
 
   @route("{message_id}")
@@ -46,8 +66,8 @@ interface Messages {
   @tag("Assistants")
   @summary("Retrieve a message.")
   getMessage(
-    ...AcceptJsonHeader,
-    ...AssistantsBetaHeader,
+    @header accept: "application/json",
+    @header("OpenAI-Beta") openAIBeta: "assistants=v2",
 
     /** The ID of the [thread](/docs/api-reference/threads) to which this message belongs. */
     @path thread_id: string,
@@ -62,8 +82,8 @@ interface Messages {
   @tag("Assistants")
   @summary("Modifies a message.")
   modifyMessage(
-    ...AcceptJsonHeader,
-    ...AssistantsBetaHeader,
+    @header accept: "application/json",
+    @header("OpenAI-Beta") openAIBeta: "assistants=v2",
 
     /** The ID of the thread to which this message belongs. */
     @path thread_id: string,
@@ -80,8 +100,8 @@ interface Messages {
   @tag("Assistants")
   @summary("Deletes a message.")
   deleteMessage(
-    ...AcceptJsonHeader,
-    ...AssistantsBetaHeader,
+    @header accept: "application/json",
+    @header("OpenAI-Beta") openAIBeta: "assistants=v2",
 
     /** The ID of the thread to which this message belongs. */
     @path thread_id: string,

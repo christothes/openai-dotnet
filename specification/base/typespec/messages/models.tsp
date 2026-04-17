@@ -4,7 +4,6 @@
  */
 
 import "../assistants";
-import "../common";
 import "./custom.tsp";
 
 using Http;

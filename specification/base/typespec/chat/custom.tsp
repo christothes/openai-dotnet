@@ -1,5 +1,3 @@
-import "../common";
-
 using TypeSpec.OpenAPI;
 
 namespace OpenAI;

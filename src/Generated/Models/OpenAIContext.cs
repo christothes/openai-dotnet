@@ -340,6 +340,7 @@ namespace OpenAI
     [ModelReaderWriterBuildable(typeof(InternalFileSearchToolCallItemParam))]
     [ModelReaderWriterBuildable(typeof(InternalFileUploadOptions))]
     [ModelReaderWriterBuildable(typeof(InternalFineTuneReinforcementMethod))]
+    [ModelReaderWriterBuildable(typeof(InternalFineTuningCheckpointCollectionOptions))]
     [ModelReaderWriterBuildable(typeof(InternalFineTuningCheckpointPermission))]
     [ModelReaderWriterBuildable(typeof(InternalFineTuningErrorResponse))]
     [ModelReaderWriterBuildable(typeof(InternalFineTuningJob))]

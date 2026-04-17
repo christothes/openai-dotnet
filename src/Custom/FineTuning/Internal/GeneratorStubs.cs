@@ -92,3 +92,5 @@ internal readonly partial struct InternalFineTuneChatCompletionRequestAssistantM
 [CodeGenType("ListFineTuningCheckpointPermissionResponseObject")] internal readonly partial struct InternalListFineTuningCheckpointPermissionResponseObject {}
 [CodeGenType("DeleteFineTuningCheckpointPermissionResponseObject")] internal readonly partial struct InternalDeleteFineTuningCheckpointPermissionResponseObject {}
 [CodeGenType("FineTuningErrorResponse")] internal partial class InternalFineTuningErrorResponse {}
+[CodeGenType("FineTuningCheckpointCollectionOrder")] internal readonly partial struct InternalFineTuningCheckpointCollectionOrder {}
+[CodeGenType("FineTuningCheckpointCollectionOptions")] internal partial class InternalFineTuningCheckpointCollectionOptions {}

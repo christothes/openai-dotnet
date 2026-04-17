@@ -3,7 +3,8 @@
  * Edits made directly to this file will be lost.
  */
 
-import "../common";
+import "@typespec/http";
+import "@typespec/openapi";
 import "./models_GA.tsp";
 
 using Http;

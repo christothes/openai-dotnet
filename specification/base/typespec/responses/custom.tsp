@@ -1,5 +1,4 @@
 import "@typespec/openapi";
-import "../common";
 import "./custom/items.tsp";
 
 namespace OpenAI;

@@ -4,7 +4,6 @@
  */
 
 import "../chat";
-import "../common";
 import "../responses";
 import "./custom.tsp";
 
