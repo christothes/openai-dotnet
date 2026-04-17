@@ -154,7 +154,7 @@ model FineTuningJob {
   @doc("""
     For fine-tuning jobs that have `failed`, this will contain more information on the cause of the failure.
     """)
-  error: FineTuningError;
+  error?: FineTuningError;
 
   /** The name of the fine-tuned model that is being created. The value will be null if the fine-tuning job is still running. */
   fine_tuned_model: string | null;

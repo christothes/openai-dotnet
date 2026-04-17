@@ -13,12 +13,11 @@ namespace OpenAI.FineTuning
     {
         private protected IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal InternalFineTuningJob(string jobId, DateTimeOffset createdAt, FineTuningError error, string fineTunedModel, DateTimeOffset? finishedAt, FineTuningHyperparameters hyperparameters, string baseModel, string organizationId, IEnumerable<string> resultFileIds, FineTuningStatus status, int? billableTrainedTokenCount, string trainingFileId, string validationFileId, int seed, IDictionary<string, string> metadata)
+        internal InternalFineTuningJob(string jobId, DateTimeOffset createdAt, string fineTunedModel, DateTimeOffset? finishedAt, FineTuningHyperparameters hyperparameters, string baseModel, string organizationId, IEnumerable<string> resultFileIds, FineTuningStatus status, int? billableTrainedTokenCount, string trainingFileId, string validationFileId, int seed, IDictionary<string, string> metadata)
         {
             // Plugin customization: ensure initialization of collections
             JobId = jobId;
             CreatedAt = createdAt;
-            Error = error;
             FineTunedModel = fineTunedModel;
             FinishedAt = finishedAt;
             Hyperparameters = hyperparameters;
