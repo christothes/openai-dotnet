@@ -112,31 +112,8 @@ Write-Host ""
 # Step 2: Publish the project to a temp directory so all deps are co-located
 # ---------------------------------------------------------------------------
 
-$publishDir = Join-Path ([System.IO.Path]::GetTempPath()) "openai-experimental-validation-$([System.IO.Path]::GetRandomFileName())"
-
-Write-Host "Publishing project ($TargetFramework)..." -ForegroundColor Cyan
-
-& dotnet publish $projectPath -c $Configuration -f $TargetFramework -o $publishDir --nologo -v quiet 2>&1 | Out-Null
-
-if ($LASTEXITCODE -ne 0) {
-    & dotnet publish $projectPath -c $Configuration -f $TargetFramework -o $publishDir --nologo
-    Write-Error "Build/publish failed with exit code $LASTEXITCODE"
-    exit 1
-}
-
-$dllPath = Join-Path $publishDir "OpenAI.dll"
-if (-not (Test-Path $dllPath)) {
-    Write-Error "Expected assembly not found at: $dllPath"
-    exit 1
-}
-
-Write-Host ""
-
-# ---------------------------------------------------------------------------
-# Step 3: Compile and run the reflection-based validator
-# ---------------------------------------------------------------------------
-
-Write-Host "Loading assembly and validating..." -ForegroundColor Cyan
+$publishDir = $null
+$violations = @()
 
 $validatorCode = @'
 using System;
@@ -361,34 +338,56 @@ public class ExperimentalAttributeValidator
 '@
 
 try {
-    Add-Type -TypeDefinition $validatorCode -WarningAction SilentlyContinue
-}
-catch {
-    Write-Error "Failed to compile validator: $_"
-    if (Test-Path $publishDir) {
-        Remove-Item -Path $publishDir -Recurse -Force -ErrorAction SilentlyContinue
+    $publishDir = Join-Path ([System.IO.Path]::GetTempPath()) "openai-experimental-validation-$([System.IO.Path]::GetRandomFileName())"
+
+    Write-Host "Publishing project ($TargetFramework)..." -ForegroundColor Cyan
+
+    & dotnet publish $projectPath -c $Configuration -f $TargetFramework -o $publishDir --nologo -v quiet 2>&1 | Out-Null
+
+    if ($LASTEXITCODE -ne 0) {
+        & dotnet publish $projectPath -c $Configuration -f $TargetFramework -o $publishDir --nologo
+        throw "Build/publish failed with exit code $LASTEXITCODE"
     }
-    exit 1
-}
 
-# ---------------------------------------------------------------------------
-# Step 4: Run validation
-# ---------------------------------------------------------------------------
+    $dllPath = Join-Path $publishDir "OpenAI.dll"
+    if (-not (Test-Path $dllPath)) {
+        throw "Expected assembly not found at: $dllPath"
+    }
 
-try {
+    Write-Host ""
+
+    # ---------------------------------------------------------------------------
+    # Step 3: Compile and run the reflection-based validator
+    # ---------------------------------------------------------------------------
+
+    Write-Host "Loading assembly and validating..." -ForegroundColor Cyan
+
+    $validatorType = [AppDomain]::CurrentDomain.GetAssemblies() |
+        ForEach-Object { $_.GetType('ExperimentalAttributeValidator', $false, $false) } |
+        Where-Object { $null -ne $_ } |
+        Select-Object -First 1
+
+    if ($null -eq $validatorType) {
+        Add-Type -TypeDefinition $validatorCode -WarningAction SilentlyContinue
+    }
+
+    # ---------------------------------------------------------------------------
+    # Step 4: Run validation
+    # ---------------------------------------------------------------------------
+
     $violations = [ExperimentalAttributeValidator]::Validate(
-        $dllPath,
-        [string[]]$stableClasses,
-        [string[]]$stableProperties,
-        [string[]]$stableMethods
-    )
+            $dllPath,
+            [string[]]$stableClasses,
+            [string[]]$stableProperties,
+            [string[]]$stableMethods
+        )
 }
 catch {
-    Write-Error "Validation failed: $_"
+    Write-Error $_
     exit 1
 }
 finally {
-    if (Test-Path $publishDir) {
+    if ($publishDir -and (Test-Path $publishDir)) {
         Remove-Item -Path $publishDir -Recurse -Force -ErrorAction SilentlyContinue
     }
 }
