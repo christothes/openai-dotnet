@@ -332,7 +332,7 @@ try {
         $validationScript = Join-Path $repoRootPath "scripts" "Test-ExperimentalAttributes.ps1"
         Write-Host "Running experimental attribute validation..." -ForegroundColor Cyan
         Write-Host ""
-        & $validationScript
+        & pwsh -NoProfile -File $validationScript
         if ($LASTEXITCODE -ne 0) {
             throw "Experimental attribute validation failed with exit code $LASTEXITCODE"
         }

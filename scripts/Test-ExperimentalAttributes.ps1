@@ -264,75 +264,87 @@ public class ExperimentalAttributeValidator
         var basePath = Path.GetDirectoryName(Path.GetFullPath(dllPath));
 
         var ctx = new ValidatorLoadContext(basePath);
-        Assembly assembly;
+        Assembly assembly = null;
+        Type[] types = Array.Empty<Type>();
         try
         {
-            assembly = ctx.LoadFromAssemblyPath(Path.GetFullPath(dllPath));
-        }
-        catch (Exception ex)
-        {
-            return new[] { "ERROR|Assembly load failed|" + ex.Message + "|" };
-        }
-
-        var bindingFlags = BindingFlags.Public | BindingFlags.Instance |
-                           BindingFlags.Static | BindingFlags.DeclaredOnly;
-
-        Type[] types;
-        try
-        {
-            types = assembly.GetExportedTypes();
-        }
-        catch (ReflectionTypeLoadException ex)
-        {
-            types = ex.Types.Where(t => t != null).ToArray();
-        }
-
-        foreach (var type in types)
-        {
-            string fullName = type.Namespace + "." + type.Name;
-            if (!stableClassSet.Contains(fullName))
-                continue;
-
-            string typeName = type.Name;
-
-            // Validate properties
             try
             {
-                foreach (var prop in type.GetProperties(bindingFlags))
-                {
-                    string lookupName = typeName + "." + prop.Name;
-                    if (!stablePropSet.Contains(lookupName) && !HasExperimentalAttribute(prop))
-                    {
-                        violations.Add("PROPERTY|" + fullName + "|" + prop.Name + "|" + lookupName);
-                    }
-                }
+                assembly = ctx.LoadFromAssemblyPath(Path.GetFullPath(dllPath));
             }
-            catch { /* skip types whose properties can't be reflected */ }
+            catch (Exception ex)
+            {
+                return new[] { "ERROR|Assembly load failed|" + ex.Message + "|" };
+            }
 
-            // Validate methods (skip property/event accessors)
+            var bindingFlags = BindingFlags.Public | BindingFlags.Instance |
+                               BindingFlags.Static | BindingFlags.DeclaredOnly;
+
             try
             {
-                foreach (var method in type.GetMethods(bindingFlags))
-                {
-                    if (method.IsSpecialName &&
-                        (method.Name.StartsWith("get_") || method.Name.StartsWith("set_") ||
-                         method.Name.StartsWith("add_") || method.Name.StartsWith("remove_")))
-                        continue;
+                types = assembly.GetExportedTypes();
+            }
+            catch (ReflectionTypeLoadException ex)
+            {
+                types = ex.Types.Where(t => t != null).ToArray();
+            }
 
-                    string lookupName = GetMethodLookupName(method, typeName);
-                    if (!stableMethodSet.Contains(lookupName) && !HasExperimentalAttribute(method))
+            foreach (var type in types)
+            {
+                string fullName = type.Namespace + "." + type.Name;
+                if (!stableClassSet.Contains(fullName))
+                    continue;
+
+                string typeName = type.Name;
+
+                // Validate properties
+                try
+                {
+                    foreach (var prop in type.GetProperties(bindingFlags))
                     {
-                        var paramDesc = string.Join(", ",
-                            method.GetParameters().Select(p => GetFriendlyTypeName(p.ParameterType)));
-                        violations.Add("METHOD|" + fullName + "|" +
-                            method.Name + "(" + paramDesc + ")|" + lookupName);
+                        string lookupName = typeName + "." + prop.Name;
+                        if (!stablePropSet.Contains(lookupName) && !HasExperimentalAttribute(prop))
+                        {
+                            violations.Add("PROPERTY|" + fullName + "|" + prop.Name + "|" + lookupName);
+                        }
                     }
                 }
-            }
-            catch { /* skip types whose methods can't be reflected */ }
-        }
+                catch { /* skip types whose properties can't be reflected */ }
 
-        return violations.ToArray();
+                // Validate methods (skip property/event accessors)
+                try
+                {
+                    foreach (var method in type.GetMethods(bindingFlags))
+                    {
+                        if (method.IsSpecialName &&
+                            (method.Name.StartsWith("get_") || method.Name.StartsWith("set_") ||
+                             method.Name.StartsWith("add_") || method.Name.StartsWith("remove_")))
+                            continue;
+
+                        string lookupName = GetMethodLookupName(method, typeName);
+                        if (!stableMethodSet.Contains(lookupName) && !HasExperimentalAttribute(method))
+                        {
+                            var paramDesc = string.Join(", ",
+                                method.GetParameters().Select(p => GetFriendlyTypeName(p.ParameterType)));
+                            violations.Add("METHOD|" + fullName + "|" +
+                                method.Name + "(" + paramDesc + ")|" + lookupName);
+                        }
+                    }
+                }
+                catch { /* skip types whose methods can't be reflected */ }
+            }
+
+            return violations.ToArray();
+        }
+        finally
+        {
+            types = Array.Empty<Type>();
+            assembly = null;
+            ctx.Unload();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+        }
     }
 }
 '@
