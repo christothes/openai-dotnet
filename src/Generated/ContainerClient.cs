@@ -23,24 +23,24 @@ namespace OpenAI.Containers
 
         public ClientPipeline Pipeline { get; }
 
-        public virtual CollectionResult GetContainers(int? limit, string order, string after, RequestOptions options)
+        public virtual CollectionResult GetContainers(string afterId, int? pageSizeLimit, string order, RequestOptions options)
         {
-            return new ContainerClientGetContainersCollectionResult(this, limit, order, after, options);
+            return new ContainerClientGetContainersCollectionResult(this, afterId, pageSizeLimit, order, options);
         }
 
-        public virtual AsyncCollectionResult GetContainersAsync(int? limit, string order, string after, RequestOptions options)
+        public virtual AsyncCollectionResult GetContainersAsync(string afterId, int? pageSizeLimit, string order, RequestOptions options)
         {
-            return new ContainerClientGetContainersAsyncCollectionResult(this, limit, order, after, options);
+            return new ContainerClientGetContainersAsyncCollectionResult(this, afterId, pageSizeLimit, order, options);
         }
 
         public virtual CollectionResult<ContainerResource> GetContainers(ContainerCollectionOptions options = default, CancellationToken cancellationToken = default)
         {
-            return new ContainerClientGetContainersCollectionResultOfT(this, options?.PageSizeLimit, options?.Order?.ToString(), options?.AfterId, cancellationToken.ToRequestOptions());
+            return new ContainerClientGetContainersCollectionResultOfT(this, options?.AfterId, options?.PageSizeLimit, options?.Order?.ToString(), cancellationToken.ToRequestOptions());
         }
 
         public virtual AsyncCollectionResult<ContainerResource> GetContainersAsync(ContainerCollectionOptions options = default, CancellationToken cancellationToken = default)
         {
-            return new ContainerClientGetContainersAsyncCollectionResultOfT(this, options?.PageSizeLimit, options?.Order?.ToString(), options?.AfterId, cancellationToken.ToRequestOptions());
+            return new ContainerClientGetContainersAsyncCollectionResultOfT(this, options?.AfterId, options?.PageSizeLimit, options?.Order?.ToString(), cancellationToken.ToRequestOptions());
         }
 
         public virtual ClientResult CreateContainer(BinaryContent content, RequestOptions options = null)
@@ -157,29 +157,29 @@ namespace OpenAI.Containers
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
-        public virtual CollectionResult GetContainerFiles(string containerId, int? limit, string order, string after, RequestOptions options)
+        public virtual CollectionResult GetContainerFiles(string containerId, string afterId, int? pageSizeLimit, string order, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(containerId, nameof(containerId));
 
             return new ContainerClientGetContainerFilesCollectionResult(
                 this,
                 containerId,
-                limit,
+                afterId,
+                pageSizeLimit,
                 order,
-                after,
                 options);
         }
 
-        public virtual AsyncCollectionResult GetContainerFilesAsync(string containerId, int? limit, string order, string after, RequestOptions options)
+        public virtual AsyncCollectionResult GetContainerFilesAsync(string containerId, string afterId, int? pageSizeLimit, string order, RequestOptions options)
         {
             Argument.AssertNotNullOrEmpty(containerId, nameof(containerId));
 
             return new ContainerClientGetContainerFilesAsyncCollectionResult(
                 this,
                 containerId,
-                limit,
+                afterId,
+                pageSizeLimit,
                 order,
-                after,
                 options);
         }
 
@@ -190,9 +190,9 @@ namespace OpenAI.Containers
             return new ContainerClientGetContainerFilesCollectionResultOfT(
                 this,
                 containerId,
+                options?.AfterId,
                 options?.PageSizeLimit,
                 options?.Order?.ToString(),
-                options?.AfterId,
                 cancellationToken.ToRequestOptions());
         }
 
@@ -203,9 +203,9 @@ namespace OpenAI.Containers
             return new ContainerClientGetContainerFilesAsyncCollectionResultOfT(
                 this,
                 containerId,
+                options?.AfterId,
                 options?.PageSizeLimit,
                 options?.Order?.ToString(),
-                options?.AfterId,
                 cancellationToken.ToRequestOptions());
         }
 

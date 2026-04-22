@@ -30,16 +30,8 @@ model AssistantCollectionOptions {
    */
   @query pageSizeLimit?: int32 = 20;
 
-  ...AssistantCollectionOrderQueryParameter;
+  @query order?: AssistantCollectionOrder;
 }
-
-alias MessageCollectionOrderQueryParameter = {
-  /**
-   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
-   * for descending order.
-   */
-  @query order?: MessageCollectionOrder;
-};
 
 union MessageCollectionOrder {
   string,
@@ -73,7 +65,7 @@ model MessageCollectionOptions {
    */
   @query pageSizeLimit?: int32 = 20;
 
-  ...MessageCollectionOrderQueryParameter;
+  @query order?: MessageCollectionOrder;
 }
 
 @access(Access.public)
@@ -102,18 +94,12 @@ model RunCollectionOptions {
    */
   @query pageSizeLimit?: int32 = 20;
 
-  ...RunCollectionOrderQueryParameter;
-}
-
-alias RunCollectionOrderQueryParameter = {
   /**
    * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
    * for descending order.
    */
   @query order?: RunCollectionOrder;
-};
-
-
+}
 
 @access(Access.public)
 @usage(Usage.input)
@@ -141,16 +127,12 @@ model RunStepCollectionOptions {
    */
   @query pageSizeLimit?: int32 = 20;
 
-  ...RunStepCollectionOrderQueryParameter;
-}
-
-alias RunStepCollectionOrderQueryParameter = {
   /**
    * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
    * for descending order.
    */
   @query order?: RunStepCollectionOrder;
-};
+}
 
 union RunStepCollectionOrder {
   string,

@@ -64,26 +64,6 @@ model VectorStoreCollectionOptions {
   @query order?: VectorStoreCollectionOrder;
 }
 
-alias VectorStoreFileCollectionOrderQueryParameter = {
-  /**
-   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
-   * for descending order.
-   */
-  @query order?: VectorStoreFileCollectionOrder;
-};
-
-union VectorStoreFileCollectionOrder {
-  string,
-  Ascending: "asc",
-  Descending: "desc",
-}
-
-union VectorStoreCollectionOrder {
-  string,
-  Ascending: "asc",
-  Descending: "desc",
-}
-
 @access(Access.public)
 @usage(Usage.input)
 model VectorStoreFileCollectionOptions {
@@ -107,7 +87,11 @@ model VectorStoreFileCollectionOptions {
    */
   @query pageSizeLimit?: int32 = 20;
 
-  ...VectorStoreFileCollectionOrderQueryParameter;
+  /**
+   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
+   * for descending order.
+   */
+  @query order?: VectorStoreFileCollectionOrder;
   @query filter?: ListVectorStoreFilesFilter;
 }
 

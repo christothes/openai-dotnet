@@ -538,14 +538,6 @@ union AssistantSupportedModels {
   "gpt-3.5-turbo-16k-0613",
 }
 
-alias AssistantCollectionOrderQueryParameter = {
-  /**
-   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
-   * for descending order.
-   */
-  @query order?: AssistantCollectionOrder;
-};
-
 union AssistantCollectionOrder {
   string,
   Ascending: "asc",

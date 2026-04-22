@@ -170,7 +170,7 @@ op listVectorStores(
   /** Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order. */
   #suppress "@azure-tools/typespec-azure-core/no-query-explode" "Auto-suppressed warnings non-applicable rules during import."
   @query(#{ explode: true })
-  order?: VectorStoresOrderEnum = VectorStoresOrderEnum.desc,
+  order?: VectorStoreCollectionOrder = VectorStoreCollectionOrder.Descending,
 
   /** A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list. */
   #suppress "@azure-tools/typespec-azure-core/no-query-explode" "Auto-suppressed warnings non-applicable rules during import."
@@ -1410,7 +1410,7 @@ op listFilesInVectorStoreBatch(
   /** Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order. */
   #suppress "@azure-tools/typespec-azure-core/no-query-explode" "Auto-suppressed warnings non-applicable rules during import."
   @query(#{ explode: true })
-  order?: VectorStoresOrderEnum = VectorStoresOrderEnum.desc,
+  order?: VectorStoreFileCollectionOrder = VectorStoreFileCollectionOrder.Descending,
 
   /** A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list. */
   #suppress "@azure-tools/typespec-azure-core/no-query-explode" "Auto-suppressed warnings non-applicable rules during import."
@@ -1596,7 +1596,7 @@ op listVectorStoreFiles(
   /** Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order. */
   #suppress "@azure-tools/typespec-azure-core/no-query-explode" "Auto-suppressed warnings non-applicable rules during import."
   @query(#{ explode: true })
-  order?: VectorStoresOrderEnum = VectorStoresOrderEnum.desc,
+  order?: VectorStoreFileCollectionOrder = VectorStoreFileCollectionOrder.Descending,
 
   /** A cursor for use in pagination. `after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with obj_foo, your subsequent call can include after=obj_foo in order to fetch the next page of the list. */
   #suppress "@azure-tools/typespec-azure-core/no-query-explode" "Auto-suppressed warnings non-applicable rules during import."

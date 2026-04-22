@@ -6,14 +6,6 @@ using TypeSpec.Http;
 
 namespace OpenAI;
 
-alias ConversationItemCollectionOrderQueryParameter = {
-   /**
-    * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
-    * for descending order.
-    */
-   @query order?: ConversationItemCollectionOrder;
-};
-
 union ConversationItemCollectionOrder {
    string,
    Ascending: "asc",
@@ -36,5 +28,9 @@ model ConversationItemCollectionOptions {
     */
    @query pageSizeLimit?: int32 = 20;
 
-   ...ConversationItemCollectionOrderQueryParameter;
+   /**
+    * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
+    * for descending order.
+    */
+   @query order?: ConversationItemCollectionOrder;
 }

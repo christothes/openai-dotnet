@@ -3213,14 +3213,6 @@ alias SseResponseOfResponseStreamEvent = {
   @body responseBody: ResponseStreamEvent;
 };
 
-alias DotNetResponseItemCollectionOrderQueryParameter = {
-  /**
-   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
-   * for descending order.
-   */
-  @query order?: DotNetResponseItemCollectionOrder;
-};
-
 union DotNetResponseItemCollectionOrder {
   string,
   Ascending: "asc",
@@ -3252,5 +3244,10 @@ model DotNetResponseItemCollectionOptions {
    */
   @query pageSizeLimit?: int32 = 20;
 
-  ...DotNetResponseItemCollectionOrderQueryParameter;
+  /**
+   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
+   * for descending order.
+   */
+  @query order?: DotNetResponseItemCollectionOrder;
+
 }

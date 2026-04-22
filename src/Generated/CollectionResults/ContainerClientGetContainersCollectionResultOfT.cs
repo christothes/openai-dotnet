@@ -12,23 +12,23 @@ namespace OpenAI.Containers
     internal partial class ContainerClientGetContainersCollectionResultOfT : CollectionResult<ContainerResource>
     {
         private readonly ContainerClient _client;
-        private readonly int? _limit;
+        private readonly string _afterId;
+        private readonly int? _pageSizeLimit;
         private readonly string _order;
-        private readonly string _after;
         private readonly RequestOptions _options;
 
-        public ContainerClientGetContainersCollectionResultOfT(ContainerClient client, int? limit, string order, string after, RequestOptions options)
+        public ContainerClientGetContainersCollectionResultOfT(ContainerClient client, string afterId, int? pageSizeLimit, string order, RequestOptions options)
         {
             _client = client;
-            _limit = limit;
+            _afterId = afterId;
+            _pageSizeLimit = pageSizeLimit;
             _order = order;
-            _after = after;
             _options = options;
         }
 
         public override IEnumerable<ClientResult> GetRawPages()
         {
-            PipelineMessage message = _client.CreateGetContainersRequest(_limit, _order, _after, _options);
+            PipelineMessage message = _client.CreateGetContainersRequest(_afterId, _pageSizeLimit, _order, _options);
             string nextToken = null;
             while (true)
             {
@@ -43,7 +43,7 @@ namespace OpenAI.Containers
                 {
                     yield break;
                 }
-                message = _client.CreateGetContainersRequest(_limit, _order, nextToken, _options);
+                message = _client.CreateGetContainersRequest(nextToken, _pageSizeLimit, _order, _options);
             }
         }
 

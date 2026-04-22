@@ -1280,14 +1280,6 @@ alias SseResponseOfCreateChatCompletionStreamResponse = {
   @body responseBody: CreateChatCompletionStreamResponse;
 };
 
-alias ChatCompletionMessageCollectionOrderQueryParameter = {
-  /**
-   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
-   * for descending order.
-   */
-  @query order?: ChatCompletionMessageCollectionOrder;
-};
-
 union ChatCompletionMessageCollectionOrder {
   string,
   Ascending: "asc",
@@ -1310,5 +1302,9 @@ model ChatCompletionMessageCollectionOptions {
    */
   @query pageSizeLimit?: int32 = 20;
 
-  ...ChatCompletionMessageCollectionOrderQueryParameter;
+  /**
+   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
+   * for descending order.
+   */
+  @query order?: ChatCompletionMessageCollectionOrder;
 }

@@ -143,26 +143,6 @@ model CreateContainerFileBody {
   file?: HttpPart<bytes>;
 }
 
-#suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
-@discriminator("type")
-model ContainerSkill {
-  type: ContainerSkillType;
-}
-
-union ContainerSkillType {
-  string,
-  "skill_reference",
-  "inline",
-}
-
-alias ContainerCollectionOrderQueryParameter = {
-  /**
-   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
-   * for descending order.
-   */
-  @query order?: ContainerCollectionOrder;
-};
-
 union ContainerCollectionOrder {
   string,
   Ascending: "asc",
@@ -185,16 +165,12 @@ model ContainerCollectionOptions {
    */
   @query pageSizeLimit?: int32 = 20;
 
-  ...ContainerCollectionOrderQueryParameter;
-}
-
-alias ContainerFileCollectionOrderQueryParameter = {
   /**
    * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
    * for descending order.
    */
   @query order?: ContainerCollectionOrder;
-};
+}
 
 union ContainerFileCollectionOrder {
   string,
@@ -218,5 +194,9 @@ model ContainerFileCollectionOptions {
    */
   @query pageSizeLimit?: int32 = 20;
 
-  ...ContainerFileCollectionOrderQueryParameter;
+  /**
+   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
+   * for descending order.
+   */
+  @query order?: ContainerFileCollectionOrder;
 }

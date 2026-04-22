@@ -6,14 +6,6 @@ using TypeSpec.Http;
 
 namespace OpenAI;
 
-alias VideoCollectionOrderQueryParameter = {
-   /**
-    * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
-    * for descending order.
-    */
-   @query order?: VideoCollectionOrder;
-};
-
 union VideoCollectionOrder {
    string,
    Ascending: "asc",
@@ -36,5 +28,9 @@ model VideoCollectionOptions {
     */
    @query pageSizeLimit?: int32 = 20;
 
-   ...VideoCollectionOrderQueryParameter;
+   /**
+    * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
+    * for descending order.
+    */
+   @query order?: VideoCollectionOrder;
 }

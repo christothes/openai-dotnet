@@ -539,14 +539,6 @@ model ListFineTuningCheckpointPermissionResponse {
   has_more: boolean;
 }
 
-alias FineTuningCheckpointCollectionOrderQueryParameter = {
-  /**
-   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
-   * for descending order.
-   */
-  @query order?: FineTuningCheckpointCollectionOrder;
-};
-
 union FineTuningCheckpointCollectionOrder {
   string,
   Ascending: "asc",
@@ -569,5 +561,9 @@ model FineTuningCheckpointCollectionOptions {
    */
   @query pageSizeLimit?: int32 = 20;
 
-  ...FineTuningCheckpointCollectionOrderQueryParameter;
+  /**
+   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
+   * for descending order.
+   */
+  @query order?: FineTuningCheckpointCollectionOrder;
 }

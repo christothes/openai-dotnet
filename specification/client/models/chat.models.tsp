@@ -33,14 +33,6 @@ model DotNetChatResponseFormatJsonObject extends DotNetChatResponseFormat {
   ...ResponseFormatJsonObject;
 }
 
-alias ChatCompletionCollectionOrderQueryParameter = {
-  /**
-   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
-   * for descending order.
-   */
-  @query order?: ChatCompletionCollectionOrder;
-};
-
 union ChatCompletionCollectionOrder {
   string,
   Ascending: "asc",
@@ -63,7 +55,11 @@ model ChatCompletionCollectionOptions {
    */
   @query pageSizeLimit?: int32 = 20;
 
-  ...ChatCompletionCollectionOrderQueryParameter;
+  /**
+   * Sort order by the `created_at` timestamp of the objects. `asc` for ascending order and`desc`
+   * for descending order.
+   */
+  @query order?: ChatCompletionCollectionOrder;
   @query metadata?: Record<string>;
   @query `model`?: string;
 }

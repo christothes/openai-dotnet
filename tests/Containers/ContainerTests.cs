@@ -147,7 +147,7 @@ public class ContainerTests : OpenAIRecordedTestBase
         // Test GetContainerFilesAsync method
         ContainerFileCollectionOptions options = new()
         {
-            Order = ContainerCollectionOrder.Descending,
+            Order = ContainerFileCollectionOrder.Descending,
             PageSizeLimit = 10
         };
 
@@ -399,13 +399,13 @@ public class ContainerTests : OpenAIRecordedTestBase
         // Test different ordering options for files
         var ascendingOptions = new ContainerFileCollectionOptions()
         {
-            Order = ContainerCollectionOrder.Ascending,
+            Order = ContainerFileCollectionOrder.Ascending,
             PageSizeLimit = 5
         };
 
         var descendingOptions = new ContainerFileCollectionOptions()
         {
-            Order = ContainerCollectionOrder.Descending,
+            Order = ContainerFileCollectionOrder.Descending,
             PageSizeLimit = 5
         };
 

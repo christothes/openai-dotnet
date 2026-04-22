@@ -2228,13 +2228,13 @@ namespace OpenAI.Containers {
         public virtual Task<ClientResult> GetContainerFileAsync(string containerId, string fileId, RequestOptions options);
         public virtual Task<ClientResult<ContainerFileResource>> GetContainerFileAsync(string containerId, string fileId, CancellationToken cancellationToken = default);
         public virtual CollectionResult<ContainerFileResource> GetContainerFiles(string containerId, ContainerFileCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual CollectionResult GetContainerFiles(string containerId, int? limit, string order, string after, RequestOptions options);
+        public virtual CollectionResult GetContainerFiles(string containerId, string afterId, int? pageSizeLimit, string order, RequestOptions options);
         public virtual AsyncCollectionResult<ContainerFileResource> GetContainerFilesAsync(string containerId, ContainerFileCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual AsyncCollectionResult GetContainerFilesAsync(string containerId, int? limit, string order, string after, RequestOptions options);
+        public virtual AsyncCollectionResult GetContainerFilesAsync(string containerId, string afterId, int? pageSizeLimit, string order, RequestOptions options);
         public virtual CollectionResult<ContainerResource> GetContainers(ContainerCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual CollectionResult GetContainers(int? limit, string order, string after, RequestOptions options);
+        public virtual CollectionResult GetContainers(string afterId, int? pageSizeLimit, string order, RequestOptions options);
         public virtual AsyncCollectionResult<ContainerResource> GetContainersAsync(ContainerCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual AsyncCollectionResult GetContainersAsync(int? limit, string order, string after, RequestOptions options);
+        public virtual AsyncCollectionResult GetContainersAsync(string afterId, int? pageSizeLimit, string order, RequestOptions options);
     }
     [Experimental("SCME0002")]
     public sealed class ContainerClientSettings : ClientSettings {
@@ -2266,8 +2266,24 @@ namespace OpenAI.Containers {
     [Experimental("OPENAI001")]
     public class ContainerFileCollectionOptions : IJsonModel<ContainerFileCollectionOptions>, IPersistableModel<ContainerFileCollectionOptions> {
         public string AfterId { get; set; }
-        public ContainerCollectionOrder? Order { get; set; }
+        public ContainerFileCollectionOrder? Order { get; set; }
         public int? PageSizeLimit { get; set; }
+    }
+    [Experimental("OPENAI001")]
+    public readonly partial struct ContainerFileCollectionOrder : IEquatable<ContainerFileCollectionOrder> {
+        public ContainerFileCollectionOrder(string value);
+        public static ContainerFileCollectionOrder Ascending { get; }
+        public static ContainerFileCollectionOrder Descending { get; }
+        public readonly bool Equals(ContainerFileCollectionOrder other);
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override readonly bool Equals(object obj);
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override readonly int GetHashCode();
+        public static bool operator ==(ContainerFileCollectionOrder left, ContainerFileCollectionOrder right);
+        public static implicit operator ContainerFileCollectionOrder(string value);
+        public static implicit operator ContainerFileCollectionOrder?(string value);
+        public static bool operator !=(ContainerFileCollectionOrder left, ContainerFileCollectionOrder right);
+        public override readonly string ToString();
     }
     [Experimental("OPENAI001")]
     public class ContainerFileResource : IJsonModel<ContainerFileResource>, IPersistableModel<ContainerFileResource> {

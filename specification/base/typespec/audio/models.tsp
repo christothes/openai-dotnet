@@ -24,8 +24,6 @@ model AudioErrorResponse {
   error: AudioError;
 }
 
-@access(Access.public)
-@usage(Usage.input | Usage.output)
 union DotNetAudioVoiceIds {
   string,
   "alloy",

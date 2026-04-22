@@ -17,13 +17,28 @@ model SkillsErrorResponse {
   error: SkillsError;
 }
 
-#suppress "@azure-tools/typespec-azure-core/no-enum" "Auto-suppressed warnings non-applicable rules during import."
+union SkillCollectionOrder {
+  string,
+  Ascending: "asc",
+  Descending: "desc",
+}
+
+union SkillVersionCollectionOrder {
+  string,
+  Ascending: "asc",
+  Descending: "desc",
+}
+
+union ContainerSkillType {
+  string,
+  "skill_reference",
+  "inline",
+}
+
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
-enum SkillsOrderEnum {
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
-  asc,
-  #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."
-  desc,
+@discriminator("type")
+model ContainerSkill {
+  type: ContainerSkillType;
 }
 
 #suppress "@azure-tools/typespec-azure-core/documentation-required" "Auto-suppressed warnings non-applicable rules during import."

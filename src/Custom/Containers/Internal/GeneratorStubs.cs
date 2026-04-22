@@ -7,4 +7,3 @@ namespace OpenAI.Containers;
 [CodeGenType("ContainerResourceExpiresAfterAnchor")] internal partial struct InternalContainerResourceExpiresAfterAnchor { }
 [CodeGenType("ContainersError")] internal partial class InternalContainersError {}
 [CodeGenType("ContainersErrorResponse")] internal partial class InternalContainersErrorResponse {}
-[CodeGenType("ContainerFileCollectionOrder")] internal readonly partial struct InternalContainerFileCollectionOrder {}

@@ -1312,7 +1312,7 @@ namespace OpenAI
             return new ContainerCollectionOptions(afterId, pageSizeLimit, order, additionalBinaryDataProperties: null);
         }
 
-        public static ContainerFileCollectionOptions ContainerFileCollectionOptions(string afterId = default, int? pageSizeLimit = default, ContainerCollectionOrder? order = default)
+        public static ContainerFileCollectionOptions ContainerFileCollectionOptions(string afterId = default, int? pageSizeLimit = default, ContainerFileCollectionOrder? order = default)
         {
             return new ContainerFileCollectionOptions(afterId, pageSizeLimit, order, additionalBinaryDataProperties: null);
         }
