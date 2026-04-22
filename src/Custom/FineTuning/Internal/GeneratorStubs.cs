@@ -94,3 +94,4 @@ internal readonly partial struct InternalFineTuneChatCompletionRequestAssistantM
 [CodeGenType("FineTuningErrorResponse")] internal partial class InternalFineTuningErrorResponse {}
 [CodeGenType("FineTuningCheckpointCollectionOrder")] internal readonly partial struct InternalFineTuningCheckpointCollectionOrder {}
 [CodeGenType("FineTuningCheckpointCollectionOptions")] internal partial class InternalFineTuningCheckpointCollectionOptions {}
+[CodeGenType("FineTuneChatRequestInputMessageWeight")] internal readonly partial struct InternalFineTuneChatRequestInputMessageWeight {}

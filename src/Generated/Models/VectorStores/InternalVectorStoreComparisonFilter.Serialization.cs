@@ -126,7 +126,7 @@ namespace OpenAI.VectorStores
             {
                 return null;
             }
-            InternalVectorStoreComparisonFilterType kind = default;
+            InternalVectorStoreSearchRequestFiltersType kind = default;
             string key = default;
             BinaryData value = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
@@ -134,7 +134,7 @@ namespace OpenAI.VectorStores
             {
                 if (prop.NameEquals("type"u8))
                 {
-                    kind = new InternalVectorStoreComparisonFilterType(prop.Value.GetString());
+                    kind = new InternalVectorStoreSearchRequestFiltersType(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("key"u8))

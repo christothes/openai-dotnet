@@ -139,3 +139,4 @@ internal partial class InternalUnknownChatCompletionRequestMessageContentPart { 
 [CodeGenType("ChatError")] internal partial class InternalChatError {}
 [CodeGenType("ChatErrorResponse")] internal partial class InternalChatErrorResponse {}
 [CodeGenType("DotNetChatResponseFormatType")] internal readonly partial struct InternalDotNetChatResponseFormatType {}
+[CodeGenType("CreateChatCompletionRequestToolChoiceFunction")] internal partial class InternalCreateChatCompletionRequestToolChoiceFunction {}

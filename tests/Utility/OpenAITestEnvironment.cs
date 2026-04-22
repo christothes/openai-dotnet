@@ -154,8 +154,6 @@ public class OpenAITestEnvironment : TestEnvironment
             nameof(ModerationClient) => new ModerationClient(modelName ?? TestModel.Moderations, credential, options),
             nameof(VectorStoreClient) => new VectorStoreClient(credential, options),
             nameof(OpenAIClient) => new OpenAIClient(credential, options),
-            nameof(RealtimeClient) => new RealtimeClient(credential, CreateRealtimeClientOptions(options)),
-            nameof(ResponsesClient) => new ResponsesClient(credential, CreateResponsesClientOptions(options)),
             nameof(SkillClient) => new SkillClient(credential, options),
             _ => throw new NotImplementedException($"Unsupported client type: {typeof(T).Name}"),
         };
@@ -163,26 +161,21 @@ public class OpenAITestEnvironment : TestEnvironment
         return (T)clientObject;
     }
 
+    public RealtimeClient GetTestRealtimeClient(RealtimeClientOptions options = default)
+    {
+        options ??= new();
+        return new RealtimeClient(ApiKeyCredential, options);
+    }
+
+    public ResponsesClient GetTestResponsesClient(ResponsesClientOptions options = default)
+    {
+        options ??= new();
+        return new ResponsesClient(ApiKeyCredential, options);
+    }
+
     public override Dictionary<string, string> ParseEnvironmentFile() =>  EnvironmentFile;
 
     public override Task WaitForEnvironmentAsync() => Task.CompletedTask;
-
-    private static RealtimeClientOptions CreateRealtimeClientOptions(OpenAIClientOptions options) => new()
-    {
-        Endpoint = options?.Endpoint,
-        OrganizationId = options?.OrganizationId,
-        ProjectId = options?.ProjectId,
-        UserAgentApplicationId = options?.UserAgentApplicationId,
-    };
-
-    private static ResponsesClientOptions CreateResponsesClientOptions(OpenAIClientOptions options) => new()
-    {
-        Endpoint = options?.Endpoint,
-        OrganizationId = options?.OrganizationId,
-        ProjectId = options?.ProjectId,
-        UserAgentApplicationId = options?.UserAgentApplicationId,
-        Transport = options?.Transport,
-    };
 
     private static bool TryReadEnvFile(string filePath,
                                        Dictionary<string, string> environment)

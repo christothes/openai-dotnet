@@ -147,10 +147,10 @@ namespace OpenAI.Images
             string kind = default;
             BinaryData b64Json = default;
             DateTimeOffset createdAt = default;
-            InternalImageGenPartialImageEventSize size = default;
-            InternalImageGenPartialImageEventQuality quality = default;
-            InternalImageGenPartialImageEventBackground background = default;
-            InternalImageGenPartialImageEventOutputFormat outputFormat = default;
+            InternalCreateImageSize size = default;
+            InternalCreateImageQuality quality = default;
+            InternalCreateImageBackground background = default;
+            InternalCreateImageOutputFormat outputFormat = default;
             int partialImageIndex = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -172,22 +172,22 @@ namespace OpenAI.Images
                 }
                 if (prop.NameEquals("size"u8))
                 {
-                    size = new InternalImageGenPartialImageEventSize(prop.Value.GetString());
+                    size = new InternalCreateImageSize(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("quality"u8))
                 {
-                    quality = new InternalImageGenPartialImageEventQuality(prop.Value.GetString());
+                    quality = new InternalCreateImageQuality(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("background"u8))
                 {
-                    background = new InternalImageGenPartialImageEventBackground(prop.Value.GetString());
+                    background = new InternalCreateImageBackground(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("output_format"u8))
                 {
-                    outputFormat = new InternalImageGenPartialImageEventOutputFormat(prop.Value.GetString());
+                    outputFormat = new InternalCreateImageOutputFormat(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("partial_image_index"u8))

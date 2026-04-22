@@ -14,13 +14,13 @@ namespace OpenAI.Chat
         [Experimental("SCME0001")]
         private JsonPatch _patch;
 
-        internal InternalChatCompletionNamedToolChoice(InternalChatCompletionNamedToolChoiceFunction function)
+        internal InternalChatCompletionNamedToolChoice(InternalCreateChatCompletionRequestToolChoiceFunction function)
         {
             Function = function;
         }
 
 #pragma warning disable SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
-        internal InternalChatCompletionNamedToolChoice(string kind, InternalChatCompletionNamedToolChoiceFunction function, in JsonPatch patch)
+        internal InternalChatCompletionNamedToolChoice(string kind, InternalCreateChatCompletionRequestToolChoiceFunction function, in JsonPatch patch)
         {
             Kind = kind;
             Function = function;
@@ -36,6 +36,6 @@ namespace OpenAI.Chat
 
         internal string Kind { get; } = "function";
 
-        internal InternalChatCompletionNamedToolChoiceFunction Function { get; }
+        internal InternalCreateChatCompletionRequestToolChoiceFunction Function { get; }
     }
 }

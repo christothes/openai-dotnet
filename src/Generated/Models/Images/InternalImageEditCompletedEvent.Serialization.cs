@@ -147,10 +147,10 @@ namespace OpenAI.Images
             string kind = default;
             BinaryData b64Json = default;
             DateTimeOffset createdAt = default;
-            InternalImageEditCompletedEventSize size = default;
-            InternalImageEditCompletedEventQuality quality = default;
-            InternalImageEditCompletedEventBackground background = default;
-            InternalImageEditCompletedEventOutputFormat outputFormat = default;
+            InternalCreateImageEditSize1 size = default;
+            InternalCreateImageEditQuality1 quality = default;
+            InternalCreateImageEditBackground1 background = default;
+            InternalCreateImageEditOutputFormat1 outputFormat = default;
             InternalImagesUsage usage = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -172,22 +172,22 @@ namespace OpenAI.Images
                 }
                 if (prop.NameEquals("size"u8))
                 {
-                    size = new InternalImageEditCompletedEventSize(prop.Value.GetString());
+                    size = new InternalCreateImageEditSize1(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("quality"u8))
                 {
-                    quality = new InternalImageEditCompletedEventQuality(prop.Value.GetString());
+                    quality = new InternalCreateImageEditQuality1(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("background"u8))
                 {
-                    background = new InternalImageEditCompletedEventBackground(prop.Value.GetString());
+                    background = new InternalCreateImageEditBackground1(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("output_format"u8))
                 {
-                    outputFormat = new InternalImageEditCompletedEventOutputFormat(prop.Value.GetString());
+                    outputFormat = new InternalCreateImageEditOutputFormat1(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("usage"u8))

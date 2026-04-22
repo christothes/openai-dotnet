@@ -966,6 +966,11 @@ namespace OpenAI
                 additionalBinaryDataProperties: null);
         }
 
+        public static SpeechTokenUsage SpeechTokenUsage(int inputTokenCount = default, int outputTokenCount = default, int totalTokenCount = default)
+        {
+            return new SpeechTokenUsage(inputTokenCount, outputTokenCount, totalTokenCount, additionalBinaryDataProperties: null);
+        }
+
         public static AudioTranscriptionInputTokenUsageDetails AudioTranscriptionInputTokenUsageDetails(int? textTokenCount = default, int? audioTokenCount = default)
         {
             return new AudioTranscriptionInputTokenUsageDetails(textTokenCount, audioTokenCount, additionalBinaryDataProperties: null);
@@ -1285,11 +1290,6 @@ namespace OpenAI
         public static FileFromStoreRemovalResult FileFromStoreRemovalResult(string fileId = default, bool removed = default)
         {
             return new FileFromStoreRemovalResult(fileId, removed, "vector_store.file.deleted", additionalBinaryDataProperties: null);
-        }
-
-        public static SpeechTokenUsage SpeechTokenUsage(int inputTokenCount = default, int outputTokenCount = default, int totalTokenCount = default)
-        {
-            return new SpeechTokenUsage(inputTokenCount, outputTokenCount, totalTokenCount, additionalBinaryDataProperties: null);
         }
 
         public static ChatCompletionMessageCollectionOptions ChatCompletionMessageCollectionOptions(string afterId = default, int? pageSizeLimit = default, ChatCompletionMessageCollectionOrder? order = default)

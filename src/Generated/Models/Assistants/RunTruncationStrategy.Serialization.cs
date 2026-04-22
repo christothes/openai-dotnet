@@ -114,14 +114,14 @@ namespace OpenAI.Assistants
             {
                 return null;
             }
-            InternalTruncationObjectType kind = default;
+            InternalCreateThreadAndRunRequestTruncationStrategyType kind = default;
             int? lastMessages = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
                 {
-                    kind = new InternalTruncationObjectType(prop.Value.GetString());
+                    kind = new InternalCreateThreadAndRunRequestTruncationStrategyType(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("last_messages"u8))

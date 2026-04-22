@@ -19,7 +19,10 @@ param(
     [switch]$Force,
 
     [Parameter(Mandatory = $false)]
-    [switch]$Clean
+    [switch]$Clean,
+
+    [Parameter(Mandatory = $false)]
+    [switch]$SkipExperimentalValidation
 )
 
 function Invoke-ScriptWithLogging {
@@ -317,6 +320,23 @@ try {
 
     Set-Location $specificationFolderPath
     Invoke-ScriptWithLogging { npx tsp compile . --stats --trace @typespec/http-client-csharp }
+
+    Write-ElapsedTime "tsp compile complete"
+
+    # Validate that all public APIs in stable classes have correct [Experimental] decoration.
+    # This catches custom code that bypasses the code generator's ExperimentalAttributeVisitor.
+    if ($SkipExperimentalValidation) {
+        Write-Host "Skipping experimental attribute validation (-SkipExperimentalValidation)." -ForegroundColor Yellow
+    }
+    else {
+        $validationScript = Join-Path $repoRootPath "scripts" "Test-ExperimentalAttributes.ps1"
+        Write-Host "Running experimental attribute validation..." -ForegroundColor Cyan
+        Write-Host ""
+        & pwsh -NoProfile -File $validationScript
+        if ($LASTEXITCODE -ne 0) {
+            throw "Experimental attribute validation failed with exit code $LASTEXITCODE"
+        }
+    }
 }
 finally {
     Pop-Location

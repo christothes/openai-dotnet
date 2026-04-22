@@ -106,3 +106,4 @@ namespace OpenAI.Responses;
 [CodeGenType("UnknownWebSearchActionSearchSourceBase")] internal partial class InternalUnknownWebSearchActionSearchSourceBase { }
 [CodeGenType("ApplyPatchOperationType")] internal readonly partial struct InternalApplyPatchOperationType { }
 [CodeGenType("UnknownApplyPatchOperation")] internal partial class InternalUnknownApplyPatchOperation { }
+[CodeGenType("CreateResponseReasoningGenerateSummary")] internal readonly partial struct InternalCreateResponseReasoningGenerateSummary {}

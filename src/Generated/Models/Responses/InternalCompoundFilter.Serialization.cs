@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using OpenAI;
+using OpenAI.Assistants;
 
 namespace OpenAI.Responses
 {
@@ -137,7 +138,7 @@ namespace OpenAI.Responses
             {
                 return null;
             }
-            InternalCompoundFilterType kind = default;
+            InternalFileSearchToolFiltersType1 kind = default;
             IList<BinaryData> filters = default;
 #pragma warning disable SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
             JsonPatch patch = new JsonPatch(data is null ? ReadOnlyMemory<byte>.Empty : data.ToMemory());
@@ -146,7 +147,7 @@ namespace OpenAI.Responses
             {
                 if (prop.NameEquals("type"u8))
                 {
-                    kind = new InternalCompoundFilterType(prop.Value.GetString());
+                    kind = new InternalFileSearchToolFiltersType1(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("filters"u8))

@@ -7,6 +7,7 @@ using System.ClientModel.Primitives;
 using System.Text;
 using System.Text.Json;
 using OpenAI;
+using OpenAI.Assistants;
 
 namespace OpenAI.Responses
 {
@@ -118,7 +119,7 @@ namespace OpenAI.Responses
             {
                 return null;
             }
-            InternalComparisonFilterType kind = default;
+            InternalFileSearchToolFiltersType kind = default;
             string key = default;
             BinaryData value = default;
 #pragma warning disable SCME0001 // Type is for evaluation purposes only and is subject to change or removal in future updates.
@@ -128,7 +129,7 @@ namespace OpenAI.Responses
             {
                 if (prop.NameEquals("type"u8))
                 {
-                    kind = new InternalComparisonFilterType(prop.Value.GetString());
+                    kind = new InternalFileSearchToolFiltersType(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("key"u8))

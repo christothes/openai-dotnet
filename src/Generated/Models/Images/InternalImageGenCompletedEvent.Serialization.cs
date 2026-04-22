@@ -147,10 +147,10 @@ namespace OpenAI.Images
             string kind = default;
             BinaryData b64Json = default;
             DateTimeOffset createdAt = default;
-            InternalImageGenCompletedEventSize size = default;
-            InternalImageGenCompletedEventQuality quality = default;
-            InternalImageGenCompletedEventBackground background = default;
-            InternalImageGenCompletedEventOutputFormat outputFormat = default;
+            InternalCreateImageSize1 size = default;
+            InternalCreateImageQuality1 quality = default;
+            InternalCreateImageBackground1 background = default;
+            InternalCreateImageOutputFormat1 outputFormat = default;
             InternalImagesUsage usage = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
@@ -172,22 +172,22 @@ namespace OpenAI.Images
                 }
                 if (prop.NameEquals("size"u8))
                 {
-                    size = new InternalImageGenCompletedEventSize(prop.Value.GetString());
+                    size = new InternalCreateImageSize1(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("quality"u8))
                 {
-                    quality = new InternalImageGenCompletedEventQuality(prop.Value.GetString());
+                    quality = new InternalCreateImageQuality1(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("background"u8))
                 {
-                    background = new InternalImageGenCompletedEventBackground(prop.Value.GetString());
+                    background = new InternalCreateImageBackground1(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("output_format"u8))
                 {
-                    outputFormat = new InternalImageGenCompletedEventOutputFormat(prop.Value.GetString());
+                    outputFormat = new InternalCreateImageOutputFormat1(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("usage"u8))

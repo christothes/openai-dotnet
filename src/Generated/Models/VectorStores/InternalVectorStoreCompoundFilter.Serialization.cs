@@ -131,14 +131,14 @@ namespace OpenAI.VectorStores
             {
                 return null;
             }
-            InternalVectorStoreCompoundFilterType kind = default;
+            InternalVectorStoreSearchRequestFiltersType1 kind = default;
             IList<BinaryData> filters = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("type"u8))
                 {
-                    kind = new InternalVectorStoreCompoundFilterType(prop.Value.GetString());
+                    kind = new InternalVectorStoreSearchRequestFiltersType1(prop.Value.GetString());
                     continue;
                 }
                 if (prop.NameEquals("filters"u8))

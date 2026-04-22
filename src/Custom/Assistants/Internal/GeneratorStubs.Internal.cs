@@ -170,12 +170,6 @@ internal partial class InternalRunStepDetailsToolCallsFileSearchObject { }
 [CodeGenType("RunStepDetailsToolCallsFunctionObject")]
 internal partial class InternalRunStepDetailsToolCallsFunctionObject { }
 
-[CodeGenType("TruncationObjectType")]
-internal readonly partial struct InternalTruncationObjectType { }
-
-[CodeGenType("AssistantsNamedToolChoiceType")]
-internal readonly partial struct InternalAssistantsNamedToolChoiceType { }
-
 [CodeGenType("RunStepDeltaStepDetailsToolCallsCodeObject")]
 internal partial class InternalRunStepDeltaStepDetailsToolCallsCodeObject { }
 
@@ -222,9 +216,6 @@ internal partial class InternalRunStepDeltaStepDetails { }
 
 [CodeGenType("RunStepDeltaStepDetailsToolCallsFunctionObjectFunction")]
 internal partial class InternalRunStepDeltaStepDetailsToolCallsFunctionObjectFunction { }
-
-[CodeGenType("AssistantsNamedToolChoiceFunction")]
-internal partial class InternalAssistantsNamedToolChoiceFunction { }
 
 [CodeGenType("AssistantObjectObject")]
 internal readonly partial struct InternalAssistantObjectObject { }
@@ -383,3 +374,8 @@ internal readonly partial struct InternalIncludedRunStepProperty { }
 [CodeGenType("UnknownAssistantsResponseFormat")] internal partial class InternalUnknownAssistantsResponseFormat {}
 [CodeGenType("CreateRunRequestAccept")] internal readonly partial struct InternalCreateRunRequestAccept {}
 [CodeGenType("SubmitToolOutputsToRunRequestAccept")] internal readonly partial struct InternalSubmitToolOutputsToRunRequestAccept {}
+[CodeGenType("CreateThreadAndRunRequestTruncationStrategyType")] internal readonly partial struct InternalCreateThreadAndRunRequestTruncationStrategyType {}
+[CodeGenType("CreateThreadAndRunRequestToolChoiceType")] internal readonly partial struct InternalCreateThreadAndRunRequestToolChoiceType {}
+[CodeGenType("CreateThreadAndRunRequestToolChoiceFunction")] internal partial class InternalCreateThreadAndRunRequestToolChoiceFunction {}
+[CodeGenType("FileSearchToolFiltersType")] internal readonly partial struct InternalFileSearchToolFiltersType {}
+[CodeGenType("FileSearchToolFiltersType1")] internal readonly partial struct InternalFileSearchToolFiltersType1 {}
