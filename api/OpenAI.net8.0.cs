@@ -2228,13 +2228,13 @@ namespace OpenAI.Containers {
         public virtual Task<ClientResult> GetContainerFileAsync(string containerId, string fileId, RequestOptions options);
         public virtual Task<ClientResult<ContainerFileResource>> GetContainerFileAsync(string containerId, string fileId, CancellationToken cancellationToken = default);
         public virtual CollectionResult<ContainerFileResource> GetContainerFiles(string containerId, ContainerFileCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual CollectionResult GetContainerFiles(string containerId, string afterId, int? pageSizeLimit, string order, RequestOptions options);
+        public virtual CollectionResult GetContainerFiles(string containerId, int? limit, string order, string after, RequestOptions options);
         public virtual AsyncCollectionResult<ContainerFileResource> GetContainerFilesAsync(string containerId, ContainerFileCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual AsyncCollectionResult GetContainerFilesAsync(string containerId, string afterId, int? pageSizeLimit, string order, RequestOptions options);
+        public virtual AsyncCollectionResult GetContainerFilesAsync(string containerId, int? limit, string order, string after, RequestOptions options);
         public virtual CollectionResult<ContainerResource> GetContainers(ContainerCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual CollectionResult GetContainers(string afterId, int? pageSizeLimit, string order, RequestOptions options);
+        public virtual CollectionResult GetContainers(int? limit, string order, string after, RequestOptions options);
         public virtual AsyncCollectionResult<ContainerResource> GetContainersAsync(ContainerCollectionOptions options = null, CancellationToken cancellationToken = default);
-        public virtual AsyncCollectionResult GetContainersAsync(string afterId, int? pageSizeLimit, string order, RequestOptions options);
+        public virtual AsyncCollectionResult GetContainersAsync(int? limit, string order, string after, RequestOptions options);
     }
     [Experimental("SCME0002")]
     public sealed class ContainerClientSettings : ClientSettings {

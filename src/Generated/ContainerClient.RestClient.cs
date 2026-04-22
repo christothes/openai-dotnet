@@ -15,22 +15,22 @@ namespace OpenAI.Containers
         private static PipelineMessageClassifier PipelineMessageClassifier200 => _pipelineMessageClassifier200 ??= PipelineMessageClassifier.Create(stackalloc ushort[] { 200 });
 
         // Plugin customization: make PipelineMessage creation methods virtual
-        internal virtual PipelineMessage CreateGetContainersRequest(string afterId, int? pageSizeLimit, string order, RequestOptions options)
+        internal virtual PipelineMessage CreateGetContainersRequest(int? limit, string order, string after, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/containers", false);
-            if (afterId != null)
+            if (limit != null)
             {
-                uri.AppendQuery("afterId", afterId, true);
-            }
-            if (pageSizeLimit != null)
-            {
-                uri.AppendQuery("pageSizeLimit", TypeFormatters.ConvertToString(pageSizeLimit), true);
+                uri.AppendQuery("limit", TypeFormatters.ConvertToString(limit), true);
             }
             if (order != null)
             {
                 uri.AppendQuery("order", order, true);
+            }
+            if (after != null)
+            {
+                uri.AppendQuery("after", after, true);
             }
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
@@ -100,24 +100,24 @@ namespace OpenAI.Containers
         }
 
         // Plugin customization: make PipelineMessage creation methods virtual
-        internal virtual PipelineMessage CreateGetContainerFilesRequest(string containerId, string afterId, int? pageSizeLimit, string order, RequestOptions options)
+        internal virtual PipelineMessage CreateGetContainerFilesRequest(string containerId, int? limit, string order, string after, RequestOptions options)
         {
             ClientUriBuilder uri = new ClientUriBuilder();
             uri.Reset(_endpoint);
             uri.AppendPath("/containers/", false);
             uri.AppendPath(containerId, true);
             uri.AppendPath("/files", false);
-            if (afterId != null)
+            if (limit != null)
             {
-                uri.AppendQuery("afterId", afterId, true);
-            }
-            if (pageSizeLimit != null)
-            {
-                uri.AppendQuery("pageSizeLimit", TypeFormatters.ConvertToString(pageSizeLimit), true);
+                uri.AppendQuery("limit", TypeFormatters.ConvertToString(limit), true);
             }
             if (order != null)
             {
                 uri.AppendQuery("order", order, true);
+            }
+            if (after != null)
+            {
+                uri.AppendQuery("after", after, true);
             }
             PipelineMessage message = Pipeline.CreateMessage(uri.ToUri(), "GET", PipelineMessageClassifier200);
             PipelineRequest request = message.Request;
